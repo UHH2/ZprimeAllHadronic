@@ -91,14 +91,15 @@ bool PreselectionModule::process(Event & event) {
     // 1. run all modules; here: only jet cleaning.
     jetcleaner->process(event);
     
-    uhh2::Event::TriggerIndex ti_HT=event.get_trigger_index("HLT_PFHT900");
-    uhh2::Event::TriggerIndex ti_AK8=event.get_trigger_index("HLT_AK8PFJet360TrimMod_Mass30");
+    uhh2::Event::TriggerIndex ti_HT=event.get_trigger_index("HLT_PFHT900*");
+    uhh2::Event::TriggerIndex ti_AK8=event.get_trigger_index("HLT_AK8PFJet360TrimMod_Mass30*");
     bool HT_trigger = event.passes_trigger(ti_HT);
     bool AK8_trigger = event.passes_trigger(ti_AK8);
     bool HT_cut = getHT50(event)>950.0;
-    bool AK8_cut = ;
+    bool AK8_cut = getMaxTopJetPt(event)>400.0 && getMaxTopJetMass(event)>35.0;
     bool preselection = ((HT_trigger && HT_cut) || (AK8_trigger && AK8_cut));
 
+    bool 
     // 2. test selections and fill histograms
     
     h_nocuts->fill(event);

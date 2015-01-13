@@ -9,7 +9,7 @@
    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="./" PostFix="" TargetLumi="1" >
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
         <InputData Lumi="1" NEventsMax="100" Type="MC" Version="BpJ_TW_800" Cacheable="False">
-            <In FileName="/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_Zp_TTJets_M1000W10_20x25_20_Ntuple.root" Lumi="0.0"/> 
+	    <In FileName="/nfs/dust/cms/user/usaiem/gc-output/PHYS14v0/signals/MC_Zp_TTJets_M1000W10_20x25_0_Ntuple.root" Lumi="0.0"/> 
 <!--            <In FileName="/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M800_20x25_15_Ntuple.root" Lumi="0.0"/> 
             <In FileName="/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M800_20x25_16_Ntuple.root" Lumi="0.0"/>--> 
             <InputTree Name="AnalysisTree" /> 
@@ -30,8 +30,12 @@
             <Item Name="MuonCollection" Value="slimmedMuons" /> 
             <Item Name="TauCollection" Value="slimmedTaus" />
             <Item Name="JetCollection" Value="slimmedJets" />
+	    <Item Name="JetAK8Collection" Value="slimmedJetsAK8" />
             <Item Name="METName" Value="slimmedMETs" />
-	    <Item Name="TopJetCollection" Value="slimmedMETs" />
+	    <Item Name="TopJetCollection" Value="patJetsCMSTopTagCHSPacked" />
+	    <Item Name="TopJetHEPCollection" Value="patJetsHEPTopTagCHSPacked" />
+	    <Item Name="TopJetCA8Collection" Value="patJetsCA8CHSprunedPacked" />
+	    <Item Name="TopJetCA15Collection" Value="patJetsCA15CHSFilteredPacked" />
             
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
             
