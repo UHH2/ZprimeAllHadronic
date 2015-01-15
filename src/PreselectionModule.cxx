@@ -99,7 +99,8 @@ bool PreselectionModule::process(Event & event) {
     bool AK8_cut = getMaxTopJetPt(event)>400.0 && getMaxTopJetMass(event)>35.0;
     bool preselection = ((HT_trigger && HT_cut) || (AK8_trigger && AK8_cut));
 
-    bool 
+    bool CMScut = ;
+    bool HEPcut = ;
     // 2. test selections and fill histograms
     
     h_nocuts->fill(event);
