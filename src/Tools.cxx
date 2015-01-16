@@ -98,6 +98,44 @@ float getMaxCSV(TopJet t)
   return *max_element(std::begin(csv), std::end(csv)); 
 }
 
+float TopJetNsub(TopJet t)
+{
+  return t.tau3()/t.tau2();
+}
+
+float getMmin(TopJet topjet)
+{
+  nsubjets=topjet.numberOfDaughters();
+  if(nsubjets>=3) {
+
+        std::vector<Particle> subjets = topjet.subjets();
+        sort(subjets.begin(), subjets.end(), HigherPt());
+
+        double m01 = 0;
+        if( (subjets[0].v4()+subjets[1].v4()).isTimelike())
+            m01=(subjets[0].v4()+subjets[1].v4()).M();
+        double m02 = 0;
+        if( (subjets[0].v4()+subjets[2].v4()).isTimelike() )
+            m02=(subjets[0].v4()+subjets[2].v4()).M();
+        double m12 = 0;
+        if( (subjets[1].v4()+subjets[2].v4()).isTimelike() )
+            m12 = (subjets[1].v4()+subjets[2].v4()).M();
+
+        //minimum pairwise mass
+        mmin = std::min(m01,std::min(m02,m12));
+    }
+    return mmin;
+}
+
+float deltaY(TopJet j1,TopJet j2)
+{
+  return fabs(j1.v4().Rapidity()-j2.v4().Rapidity());
+}
+float deltaPhi(TopJet j1,TopJet j2)
+{
+  return fabs(j1.phi()-j2.phi());
+}
+
 // int subJetBTag(TopJet topjet, E_BtagType type, TString mode, TString filename){
 // 
 //   //Modes:
