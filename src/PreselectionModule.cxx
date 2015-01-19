@@ -4,6 +4,7 @@
 #include "UHH2/core/include/AnalysisModule.h"
 #include "UHH2/core/include/Event.h"
 #include "UHH2/common/include/CleaningModules.h"
+#include "UHH2/common/include/JetCorrections.h"
 #include "UHH2/common/include/ElectronHists.h"
 #include "UHH2/Zp2TopVLQAllHad/include/Zp2TopVLQAllHadSelections.h"
 #include "UHH2/Zp2TopVLQAllHad/include/Zp2TopVLQAllHadHists.h"
@@ -26,6 +27,7 @@ public:
 private:
     
     std::unique_ptr<JetCleaner> jetcleaner;
+    std::unique_ptr<JetCorrector> jetcorrector;
    
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
@@ -56,6 +58,7 @@ PreselectionModule::PreselectionModule(Context & ctx){
     
     // 1. setup other modules. Here, only the jet cleaner
     jetcleaner.reset(new JetCleaner(30.0, 2.4));
+    jetcorrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
     
     // 2. set up selections:
     njet_sel.reset(new NJetSelection(2));
@@ -90,6 +93,7 @@ bool PreselectionModule::process(Event & event) {
 
     // 1. run all modules; here: only jet cleaning.
     jetcleaner->process(event);
+    jetcorrector->process(event);
     
     uhh2::Event::TriggerIndex ti_HT=event.get_trigger_index("HLT_PFHT900*");
     uhh2::Event::TriggerIndex ti_AK8=event.get_trigger_index("HLT_AK8PFJet360TrimMod_Mass30*");
@@ -99,8 +103,8 @@ bool PreselectionModule::process(Event & event) {
     bool AK8_cut = getMaxTopJetPt(event)>400.0 && getMaxTopJetMass(event)>35.0;
     bool preselection = ((HT_trigger && HT_cut) || (AK8_trigger && AK8_cut));
 
-    bool CMScut = ;
-    bool HEPcut = ;
+    // bool CMScut = ;
+    // bool HEPcut = ;
     // 2. test selections and fill histograms
     
     h_nocuts->fill(event);

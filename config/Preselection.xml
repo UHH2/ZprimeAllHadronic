@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd">
+<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"
+[
+<!ENTITY QCDHT1000ToInf SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/QCDHT1000ToInf">
+<!ENTITY QCDHT1000ToInfExt SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/QCDHT1000ToInfExt">
+<!ENTITY QCDHT500To1000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/QCDHT500To1000">
+<!ENTITY QCDHT500To1000Ext SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/QCDHT500To1000Ext">
+<!ENTITY TTbar SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/TTbar">
+<!ENTITY TTbar50ns SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/TTbar50ns">
+<!ENTITY Z1000W10 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z1000W10">
+<!ENTITY Z1000W100 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z1000W100">
+<!ENTITY Z2000W20 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z2000W20">
+<!ENTITY Z2000W200 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z2000W200">
+<!ENTITY Z3000W30 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z3000W30">
+<!ENTITY Z3000W300 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z3000W300">
+]
+>
 
 <!-- OutputLevel controls which messages are printed; set to VERBOSE or DEBUG for more verbosity, to WARNING or ERROR for less -->
 <JobConfiguration JobName="ExampleCycleJob" OutputLevel="INFO">
@@ -8,20 +23,85 @@
 
    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="./" PostFix="" TargetLumi="1" >
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
-        <InputData Lumi="1" NEventsMax="100" Type="MC" Version="BpJ_TW_800" Cacheable="False">
-	    <In FileName="/nfs/dust/cms/user/usaiem/gc-output/PHYS14v0/signals/MC_Zp_TTJets_M1000W10_20x25_0_Ntuple.root" Lumi="0.0"/> 
-<!--            <In FileName="/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M800_20x25_15_Ntuple.root" Lumi="0.0"/> 
-            <In FileName="/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M800_20x25_16_Ntuple.root" Lumi="0.0"/>--> 
-            <InputTree Name="AnalysisTree" /> 
-            <!-- uncomment to write tree of selected events, i.e. of those events for which the AnalysisModule::process method  returns true
-                If no OutputTree is given, no events will be written. Please do use "AnalysisTree" as Name. -->
-             <OutputTree Name="AnalysisTree" /> 
-        </InputData>
-        
-<!--        <InputData Lumi="1" NEventsMax="100" Type="MC" Version="BpJ_TW_1200" Cacheable="False">
-            <In FileName="/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M1200_20x25_19_Ntuple.root" Lumi="0.0"/> 
-            <InputTree Name="AnalysisTree" /> 
-        </InputData>-->
+
+
+
+<!--    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="QCDHT1000ToInf" Cacheable="False">
+        &QCDHT1000ToInf;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="QCDHT1000ToInfExt" Cacheable="False">
+        &QCDHT1000ToInfExt;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="QCDHT500To1000" Cacheable="False">
+        &QCDHT500To1000;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="QCDHT500To1000Ext" Cacheable="False">
+        &QCDHT500To1000Ext;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
+        &TTbar;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar50ns" Cacheable="False">
+        &TTbar50ns;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z1000W10" Cacheable="False">
+        &Z1000W10;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z1000W100" Cacheable="False">
+        &Z1000W100;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z2000W20" Cacheable="False">
+        &Z2000W20;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z2000W200" Cacheable="False">
+        &Z2000W200;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z3000W30" Cacheable="False">
+        &Z3000W30;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> -->
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z3000W300" Cacheable="False">
+        &Z3000W300;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
+
+
+
+
+
             
         <UserConfig>
             <!-- define which collections to read from the input. Only specify what you need to save I/O time -->

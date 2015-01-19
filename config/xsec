@@ -1,0 +1,69 @@
+500to1000
+
+"generator_parameters": [
+[],
+         {
+          "submission_details": {
+             "author_email": "clemens.lange@cern.ch",
+             "submission_date": "2014-10-08-10-10",
+             "author_username": "clange",
+             "author_name": "Clemens Lange"
+            },
+          "match_efficiency_error": 0.004075,
+          "match_efficiency": 0.2103,
+          "filter_efficiency": 1.0,
+          "version": 1,
+          "cross_section": 26740.0,
+          "filter_efficiency_error": 0.0
+         }],
+
+500to1000ext1
+
+       "generator_parameters": [         {
+          "submission_details": {
+             "author_email": "clemens.lange@cern.ch",
+             "submission_date": "2014-10-27-12-38",
+             "author_username": "clange",
+             "author_name": "Clemens Lange"
+            },
+          "match_efficiency_error": 0.004075,
+          "match_efficiency": 0.2103,
+          "filter_efficiency": 1.0,
+          "version": 0,
+          "cross_section": 26740.0,
+          "filter_efficiency_error": 0.0
+         }],
+
+1000toInf
+
+       "generator_parameters": [         {
+          "submission_details": {
+             "author_email": "clemens.lange@cern.ch",
+             "submission_date": "2014-10-08-10-02",
+             "author_username": "clange",
+             "author_name": "Clemens Lange"
+            },
+          "match_efficiency_error": 0.004245,
+          "match_efficiency": 0.2358,
+          "filter_efficiency": 1.0,
+          "version": 0,
+          "cross_section": 769.7,
+          "filter_efficiency_error": 0.0
+         }],
+
+1000toInfext1
+
+       "generator_parameters": [         {
+          "submission_details": {
+             "author_email": "tom.cornelis@cern.ch",
+             "submission_date": "2014-10-19-13-25",
+             "author_username": "tomc",
+             "author_name": "Tom Gustaaf M Cornelis"
+            },
+          "match_efficiency_error": 0.004245,
+          "match_efficiency": 0.2358,
+          "filter_efficiency": 1.0,
+          "version": 0,
+          "cross_section": 769.7,
+          "filter_efficiency_error": 0.0
+         }],

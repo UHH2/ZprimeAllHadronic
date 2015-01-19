@@ -2,6 +2,8 @@
 #include "UHH2/core/include/Event.h"
 
 #include "TH1F.h"
+#include "TH2F.h"
+#include "TH3F.h"
 #include <iostream>
 
 using namespace std;
@@ -118,9 +120,9 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
   hist("N_jets")->Fill(event.jets->size(),weight);
   hist("N_topjets")->Fill(event.topjets->size(),weight);
   //mass1 mass2 mass1+2 AK8 CA8 CA15 CMS HEP
-  if (event.jetsAK8->size()>0) if (event.jetsAK8->at(0).v4().isTimeLike()) hist("m1AK8")->Fill(event.jetsAK8->at(0).v4().M(),weight);
-  if (event.jetsAK8->size()>1) if (event.jetsAK8->at(1).v4().isTimeLike()) hist("m2AK8")->Fill(event.jetsAK8->at(1).v4().M(),weight);
-  if (event.jetsAK8->size()>1) if ((event.jetsAK8->at(0).v4()+event.jetsAK8->at(1).v4()).isTimeLike()) hist("m12AK8")->Fill((event.jetsAK8->at(0).v4()+event.jetsAK8->at(1).v4()).M(),weight);
+  if (event.jetsAK8->size()>0) if (event.jetsAK8->at(0).v4().isTimelike()) hist("m1AK8")->Fill(event.jetsAK8->at(0).v4().M(),weight);
+  if (event.jetsAK8->size()>1) if (event.jetsAK8->at(1).v4().isTimelike()) hist("m2AK8")->Fill(event.jetsAK8->at(1).v4().M(),weight);
+  if (event.jetsAK8->size()>1) if ((event.jetsAK8->at(0).v4()+event.jetsAK8->at(1).v4()).isTimelike()) hist("m12AK8")->Fill((event.jetsAK8->at(0).v4()+event.jetsAK8->at(1).v4()).M(),weight);
   
   if (event.topjetsCA8->size()>0) hist("m1CA8")->Fill(TopJetMass(event.topjetsCA8->at(0)),weight);
   if (event.topjetsCA8->size()>1) hist("m2CA8")->Fill(TopJetMass(event.topjetsCA8->at(1)),weight);
@@ -143,29 +145,29 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
   if (event.jetsAK8->size()>1) hist("pT2AK8")->Fill(event.jetsAK8->at(1).pt(),weight);
   if (event.jetsAK8->size()>1) hist("pT12AK8")->Fill(event.jetsAK8->at(0).pt()+event.jetsAK8->at(1).pt(),weight);
   
-  if (event.topjetsCA8->size()>0) hist("pT1CA8")->Fill(TopJetPt(events.topjetsCA8->at(0)),weight);
-  if (event.topjetsCA8->size()>1) hist("pT2CA8")->Fill(TopJetPt(events.topjetsCA8->at(1)),weight);
-  if (event.topjetsCA8->size()>1) hist("pT12CA8")->Fill(TopJetPt(events.topjetsCA8->at(0))+TopJetPt(events.topjetsCA8->at(1)),weight);
+  if (event.topjetsCA8->size()>0) hist("pT1CA8")->Fill(TopJetPt(event.topjetsCA8->at(0)),weight);
+  if (event.topjetsCA8->size()>1) hist("pT2CA8")->Fill(TopJetPt(event.topjetsCA8->at(1)),weight);
+  if (event.topjetsCA8->size()>1) hist("pT12CA8")->Fill(TopJetPt(event.topjetsCA8->at(0))+TopJetPt(event.topjetsCA8->at(1)),weight);
   
-  if (event.topjetsCA15->size()>0) hist("pT1CA15")->Fill(TopJetPt(events.topjetsCA15->at(0)),weight);
-  if (event.topjetsCA15->size()>1) hist("pT2CA15")->Fill(TopJetPt(events.topjetsCA15->at(1)),weight);
-  if (event.topjetsCA15->size()>1) hist("pT12CA15")->Fill(TopJetPt(events.topjetsCA15->at(0))+TopJetPt(events.topjetsCA15->at(1)),weight);
+  if (event.topjetsCA15->size()>0) hist("pT1CA15")->Fill(TopJetPt(event.topjetsCA15->at(0)),weight);
+  if (event.topjetsCA15->size()>1) hist("pT2CA15")->Fill(TopJetPt(event.topjetsCA15->at(1)),weight);
+  if (event.topjetsCA15->size()>1) hist("pT12CA15")->Fill(TopJetPt(event.topjetsCA15->at(0))+TopJetPt(event.topjetsCA15->at(1)),weight);
   
-  if (event.topjets->size()>0) hist("pT1CMS")->Fill(TopJetPt(events.topjets->at(0)),weight);
-  if (event.topjets->size()>1) hist("pT2CMS")->Fill(TopJetPt(events.topjets->at(1)),weight);
-  if (event.topjets->size()>1) hist("pT12CMS")->Fill(TopJetPt(events.topjets->at(0))+TopJetPt(events.topjets->at(1)),weight);
+  if (event.topjets->size()>0) hist("pT1CMS")->Fill(TopJetPt(event.topjets->at(0)),weight);
+  if (event.topjets->size()>1) hist("pT2CMS")->Fill(TopJetPt(event.topjets->at(1)),weight);
+  if (event.topjets->size()>1) hist("pT12CMS")->Fill(TopJetPt(event.topjets->at(0))+TopJetPt(event.topjets->at(1)),weight);
   
-  if (event.topjetsHEP->size()>0) hist("pT1HEP")->Fill(TopJetPt(events.topjetsHEP->at(0)),weight);
-  if (event.topjetsHEP->size()>1) hist("pT2HEP")->Fill(TopJetPt(events.topjetsHEP->at(1)),weight);
-  if (event.topjetsHEP->size()>1) hist("pT12HEP")->Fill(TopJetPt(events.topjetsHEP->at(0))+TopJetPt(events.topjetsHEP->at(1)),weight);
+  if (event.topjetsHEP->size()>0) hist("pT1HEP")->Fill(TopJetPt(event.topjetsHEP->at(0)),weight);
+  if (event.topjetsHEP->size()>1) hist("pT2HEP")->Fill(TopJetPt(event.topjetsHEP->at(1)),weight);
+  if (event.topjetsHEP->size()>1) hist("pT12HEP")->Fill(TopJetPt(event.topjetsHEP->at(0))+TopJetPt(event.topjetsHEP->at(1)),weight);
   
   //HT50
   hist("HT")->Fill(getHT50(event),weight);
   //deltaPhi(1,2)->Fill(,weight); deltaY(1,2)->Fill(,weight); eta1 eta2
-  if (event.topjets->size()>1) hist("deltaPhi")->Fill(deltaPhi(events.topjets->at(0),events.topjets->at(1)),weight);
-  if (event.topjets->size()>1) hist("deltaY")->Fill(deltaY(events.topjets->at(0),events.topjets->at(1)),weight);
-  if (event.topjets->size()>0) hist("eta_1")->Fill(events.topjets->at(0).eta(),weight);
-  if (event.topjets->size()>1) hist("eta_2")->Fill(events.topjets->at(1).eta(),weight);
+  if (event.topjets->size()>1) hist("deltaPhi")->Fill(deltaPhi(event.topjets->at(0),event.topjets->at(1)),weight);
+  if (event.topjets->size()>1) hist("deltaY")->Fill(deltaY(event.topjets->at(0),event.topjets->at(1)),weight);
+  if (event.topjets->size()>0) hist("eta_1")->Fill(event.topjets->at(0).eta(),weight);
+  if (event.topjets->size()>1) hist("eta_2")->Fill(event.topjets->at(1).eta(),weight);
   //nsub1 nsub2
   if (event.topjets->size()>0) hist("nsub_1")->Fill(TopJetNsub(event.topjets->at(0)),weight);
   if (event.topjets->size()>1) hist("nsub_2")->Fill(TopJetNsub(event.topjets->at(1)),weight);
