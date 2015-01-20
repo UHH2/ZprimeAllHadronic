@@ -146,6 +146,11 @@ float deltaPhi(Particle j1,Particle j2)
     return deltaphi;
 }
 
+bool TopTag(TopJet t)
+{
+  
+}
+
 int subJetBTag(TopJet topjet, E_BtagType type, TString mode, TString filename){
 
   //Modes:

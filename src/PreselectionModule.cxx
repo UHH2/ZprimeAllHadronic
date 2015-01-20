@@ -31,10 +31,10 @@ private:
    
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
-    std::unique_ptr<Selection> njet_sel, bsel;
+    // std::unique_ptr<Selection> njet_sel, bsel;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-    std::unique_ptr<Hists> h_nocuts, h_njet, h_bsel, h_ele;
+    std::unique_ptr<Hists> h_nocuts, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection;
 };
 
 
@@ -43,11 +43,11 @@ PreselectionModule::PreselectionModule(Context & ctx){
     // other modules like cleaners (1), selections (2) and Hist classes (3).
     // But you can do more and e.g. access the configuration, as shown below.
     
-    cout << "Hello World from PreselectionModule!" << endl;
+    // cout << "Hello World from PreselectionModule!" << endl;
     
     // If needed, access the configuration of the module here, e.g.:
-    string testvalue = ctx.get("TestKey", "<not set>");
-    cout << "TestKey in the configuration was: " << testvalue << endl;
+    // string testvalue = ctx.get("TestKey", "<not set>");
+    // cout << "TestKey in the configuration was: " << testvalue << endl;
     
     // If running in SFrame, the keys "dataset_version", "dataset_type" and "dataset_lumi"
     // are set to the according values in the xml file. For CMSSW, these are
@@ -61,14 +61,22 @@ PreselectionModule::PreselectionModule(Context & ctx){
     jetcorrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
     
     // 2. set up selections:
-    njet_sel.reset(new NJetSelection(2));
-    bsel.reset(new NBTagSelection(1));
+    // njet_sel.reset(new NJetSelection(2));
+    // bsel.reset(new NBTagSelection(1));
 
     // 3. Set up Hists classes:
     h_nocuts.reset(new Zp2TopVLQAllHadHists(ctx, "NoCuts"));
-    h_njet.reset(new Zp2TopVLQAllHadHists(ctx, "Njet"));
-    h_bsel.reset(new Zp2TopVLQAllHadHists(ctx, "Bsel"));
-    h_ele.reset(new ElectronHists(ctx, "ele_nocuts"));
+    h_preselection.reset(new Zp2TopVLQAllHadHists(ctx, "Preselection"));
+    h_trigger.reset(new Zp2TopVLQAllHadHists(ctx, "Trigger"));
+    h_alttrigger.reset(new Zp2TopVLQAllHadHists(ctx, "altTrigger"));
+    h_HTtrieffnum.reset(new Zp2TopVLQAllHadHists(ctx, "HTtrieffnum"));
+    h_AK8trieffnum.reset(new Zp2TopVLQAllHadHists(ctx, "AK8trieffnum"));
+    h_trieffden.reset(new Zp2TopVLQAllHadHists(ctx, "trieffden"));
+    h_selection.reset(new Zp2TopVLQAllHadHists(ctx, "Selection"));
+
+    // h_njet.reset(new Zp2TopVLQAllHadHists(ctx, "Njet"));
+    // h_bsel.reset(new Zp2TopVLQAllHadHists(ctx, "Bsel"));
+    // h_ele.reset(new ElectronHists(ctx, "ele_nocuts"));
 }
 
 
@@ -83,7 +91,7 @@ bool PreselectionModule::process(Event & event) {
     // returns true, the event is kept; if it returns false, the event
     // is thrown away.
     
-    cout << "PreselectionModule: Starting to process event (runid, eventid) = (" << event.run << ", " << event.event << "); weight = " << event.weight << endl;
+    //cout << "PreselectionModule: Starting to process event (runid, eventid) = (" << event.run << ", " << event.event << "); weight = " << event.weight << endl;
 
     //print all trigger names    
     //for (unsigned int i=0; i<event.get_current_triggernames().size();i++)
@@ -101,23 +109,40 @@ bool PreselectionModule::process(Event & event) {
     bool AK8_trigger = event.passes_trigger(ti_AK8);
     bool HT_cut = getHT50(event)>950.0;
     bool AK8_cut = getMaxTopJetPt(event)>400.0 && getMaxTopJetMass(event)>35.0;
-    bool preselection = ((HT_trigger && HT_cut) || (AK8_trigger && AK8_cut));
+    bool DiTopjet_condition = false;
+    if (event.topjets->size()>1)
+    {
+        if ((TopJetPt(event.topjets->at(0))>400) && (TopJetPt(event.topjets->at(1))>400))
+        {
+            DiTopjet_condition=true;
+        }
+    }
+    bool preselection = (((HT_trigger && HT_cut) || (AK8_trigger && AK8_cut)) && (DiTopjet_condition));
+    bool trigger_selection = ((HT_trigger && HT_cut) || (AK8_trigger && AK8_cut));
+    bool alt_trigger_selection = ((AK8_trigger && AK8_cut) && (!(HT_trigger && HT_cut)));
+    bool selection = TopTag()
+    int nbtag = 0;
+    bool eff_selection =
 
     // bool CMScut = ;
     // bool HEPcut = ;
     // 2. test selections and fill histograms
     
     h_nocuts->fill(event);
+    if (preselection)
+    {
+        h_preselection->fill(event);
+    }
     
-    bool njet_selection = njet_sel->passes(event);
-    if(njet_selection){
-        h_njet->fill(event);
-    }
-    bool bjet_selection = bsel->passes(event);
-    if(bjet_selection){
-        h_bsel->fill(event);
-    }
-    h_ele->fill(event);
+    // bool njet_selection = njet_sel->passes(event);
+    // if(njet_selection){
+    //     h_njet->fill(event);
+    // }
+    // bool bjet_selection = bsel->passes(event);
+    // if(bjet_selection){
+    //     h_bsel->fill(event);
+    // }
+    // h_ele->fill(event);
     
     // 3. decide whether or not to keep the current event in the output:
     return preselection;//njet_selection && bjet_selection;

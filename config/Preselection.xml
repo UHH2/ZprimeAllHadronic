@@ -21,8 +21,8 @@
     <Library Name="libSUHH2Zp2TopVLQAllHad"/>
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="./" PostFix="" TargetLumi="1" >
-   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14/" PostFix="" TargetLumi="1" > -->
+   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14/" PostFix="" TargetLumi="1" > 
 
 
 
@@ -48,21 +48,21 @@
         &QCDHT500To1000Ext;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
-    </InputData>
+    </InputData> -->
 
-    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
+<!--      <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
         &TTbar;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
-    </InputData>
+    </InputData> -->
 
-    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar50ns" Cacheable="False">
+<!--     <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar50ns" Cacheable="False">
         &TTbar50ns;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
-    </InputData>
+    </InputData> -->
 
-    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z1000W10" Cacheable="False">
+    <!-- <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z1000W10" Cacheable="False">
         &Z1000W10;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
@@ -90,13 +90,29 @@
         &Z3000W30;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
-    </InputData> -->
+    </InputData> 
 
     <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z3000W300" Cacheable="False">
         &Z3000W300;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
+    </InputData> -->
+
+
+     <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z1000W10special" Cacheable="False">
+        &Z1000W10;
+        <InputTree Name="AnalysisTree" /> 
     </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z2000W20special" Cacheable="False">
+        &Z2000W20;
+        <InputTree Name="AnalysisTree" /> 
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z3000W30special" Cacheable="False">
+        &Z3000W30;
+        <InputTree Name="AnalysisTree" /> 
+    </InputData> 
 
 
 
