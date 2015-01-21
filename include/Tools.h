@@ -15,6 +15,7 @@ float getMaxTopJetMass(const Event & event);
 float TopJetMass(TopJet topjet);
 float TopJetPt(TopJet topjet);
 float ZprimeMass(TopJet t1, TopJet t2);
+float ZprimeMass2(TopJet t1, TopJet t2);
 float TopJetNsub(TopJet t);
 float getMaxCSV(TopJet t);
 float getMmin(TopJet topjet);

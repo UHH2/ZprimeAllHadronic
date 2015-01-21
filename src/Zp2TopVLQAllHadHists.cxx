@@ -126,19 +126,20 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
   
   if (event.topjetsCA8->size()>0) hist("m1CA8")->Fill(TopJetMass(event.topjetsCA8->at(0)),weight);
   if (event.topjetsCA8->size()>1) hist("m2CA8")->Fill(TopJetMass(event.topjetsCA8->at(1)),weight);
-  if (event.topjetsCA8->size()>1) hist("m12CA8")->Fill(ZprimeMass(event.topjetsCA8->at(0),event.topjetsCA8->at(1)),weight);
+  if (event.topjetsCA8->size()>1) hist("m12CA8")->Fill(ZprimeMass2(event.topjetsCA8->at(0),event.topjetsCA8->at(1)),weight);
   
   if (event.topjetsCA15->size()>0) hist("m1CA15")->Fill(TopJetMass(event.topjetsCA15->at(0)),weight);
   if (event.topjetsCA15->size()>1) hist("m2CA15")->Fill(TopJetMass(event.topjetsCA15->at(1)),weight);
-  if (event.topjetsCA15->size()>1) hist("m12CA15")->Fill(ZprimeMass(event.topjetsCA15->at(0),event.topjetsCA15->at(1)),weight);
+  if (event.topjetsCA15->size()>1) hist("m12CA15")->Fill(ZprimeMass2(event.topjetsCA15->at(0),event.topjetsCA15->at(1)),weight);
   
   if (event.topjets->size()>0) hist("m1CMS")->Fill(TopJetMass(event.topjets->at(0)),weight);
   if (event.topjets->size()>1) hist("m2CMS")->Fill(TopJetMass(event.topjets->at(1)),weight);
-  if (event.topjets->size()>1) hist("m12CMS")->Fill(ZprimeMass(event.topjets->at(0),event.topjets->at(1)),weight);
+  if (event.topjets->size()>1) hist("m12CMS")->Fill(ZprimeMass2(event.topjets->at(0),event.topjets->at(1)),weight);
   
   if (event.topjetsHEP->size()>0) hist("m1HEP")->Fill(TopJetMass(event.topjetsHEP->at(0)),weight);
   if (event.topjetsHEP->size()>1) hist("m2HEP")->Fill(TopJetMass(event.topjetsHEP->at(1)),weight);
-  if (event.topjetsHEP->size()>1) hist("m12HEP")->Fill(ZprimeMass(event.topjetsHEP->at(0),event.topjetsHEP->at(1)),weight);
+   if (event.topjetsHEP->size()>1) hist("m12HEP")->Fill(ZprimeMass2(event.topjetsHEP->at(0),event.topjetsHEP->at(1)),weight);
+  //if (event.topjets->size()>1) hist("m12HEP")->Fill(ZprimeMass22(event.topjets->at(0),event.topjets->at(1)),weight);
   
   //pt1 pt2 pt1+2 AK8 CA8 CA15 CMS HEP
   if (event.jetsAK8->size()>0) hist("pT1AK8")->Fill(event.jetsAK8->at(0).pt(),weight);
@@ -216,3 +217,31 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
 }
 
 Zp2TopVLQAllHadHists::~Zp2TopVLQAllHadHists(){}
+
+MistagAndShapeHists::MistagAndShapeHists(Context & ctx, const string & dirname): Hists(ctx, dirname){
+
+  //mistag matrix 2d 3d
+  double csv_bins[] = {-100.0,0.0,0.244,0.679,10.0};
+  double mistag_pt_bins[] = {150.0,200.0,220.0,240.0,260.0,280.0,300.0,320.0,340.0,360.0,380.0,400.0,450.0,500.0,600.0,800.0,2000.0};
+  // double nsub_bins[] = {0.0,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.2};
+  book<TH2F>( "mistag2D", ";pT;CSV", sizeof(mistag_pt_bins)/sizeof(double)-1,mistag_pt_bins, sizeof(csv_bins)/sizeof(double)-1, csv_bins);
+  // book<TH3F>( "mistag3D", ";pT;CSV;nsub", sizeof(mistag_pt_bins)/sizeof(double)-1,mistag_pt_bins, sizeof(csv_bins)/sizeof(double)-1, csv_bins,sizeof(nsub_bins)/sizeof(double)-1, nsub_bins);
+
+}
+
+void MistagAndShapeHists::fill(const Event & event){
+  // fill the histograms. Please note the comments in the header file:
+  // 'hist' is used here a lot for simplicity, but it will be rather
+  // slow when you have many histograms; therefore, better
+  // use histogram pointers as members as in 'UHH2/common/include/ElectronHists.h'
+  
+  // Don't forget to always use the weight when filling.
+  double weight = event.weight;
+  
+  //mistag matrix 2d 3d
+  //hist( "mistag2D")->Fill(,weight);
+  //hist( "mistag3D")->Fill(,weight);
+
+}
+
+MistagAndShapeHists::~MistagAndShapeHists(){}

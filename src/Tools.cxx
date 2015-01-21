@@ -65,6 +65,21 @@ float ZprimeMass(TopJet t1, TopJet t2)
   }
 }
 
+float ZprimeMass2(TopJet t1, TopJet t2)
+{
+  LorentzVector allsubjets(0,0,0,0);
+  allsubjets += t1.v4();
+  allsubjets += t2.v4();
+  if(!allsubjets.isTimelike())
+  {
+    return 0.0;
+  }
+  else
+  {
+    return allsubjets.M();
+  }
+}
+
 float TopJetPt(TopJet topjet)
 {
   LorentzVector allsubjets(0,0,0,0);

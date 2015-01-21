@@ -18,3 +18,12 @@ public:
     virtual void fill(const uhh2::Event & ev) override;
     virtual ~Zp2TopVLQAllHadHists();
 };
+
+class MistagAndShapeHists: public uhh2::Hists {
+public:
+    // use the same constructor arguments as Hists for forwarding:
+    MistagAndShapeHists(uhh2::Context & ctx, const std::string & dirname);
+
+    virtual void fill(const uhh2::Event & ev) override;
+    virtual ~MistagAndShapeHists();
+};
