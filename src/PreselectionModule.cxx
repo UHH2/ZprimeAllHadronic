@@ -34,7 +34,7 @@ private:
     // std::unique_ptr<Selection> njet_sel, bsel;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-    std::unique_ptr<Hists> h_nocuts, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection;
+    std::unique_ptr<Hists> h_nocuts, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection0,h_selection1,h_selection2;
 };
 
 
@@ -72,7 +72,9 @@ PreselectionModule::PreselectionModule(Context & ctx){
     h_HTtrieffnum.reset(new Zp2TopVLQAllHadHists(ctx, "HTtrieffnum"));
     h_AK8trieffnum.reset(new Zp2TopVLQAllHadHists(ctx, "AK8trieffnum"));
     h_trieffden.reset(new Zp2TopVLQAllHadHists(ctx, "trieffden"));
-    h_selection.reset(new Zp2TopVLQAllHadHists(ctx, "Selection"));
+    h_selection0.reset(new Zp2TopVLQAllHadHists(ctx, "Selection0"));
+    h_selection1.reset(new Zp2TopVLQAllHadHists(ctx, "Selection1"));
+    h_selection2.reset(new Zp2TopVLQAllHadHists(ctx, "Selection2"));
 
     // h_njet.reset(new Zp2TopVLQAllHadHists(ctx, "Njet"));
     // h_bsel.reset(new Zp2TopVLQAllHadHists(ctx, "Bsel"));
@@ -120,12 +122,35 @@ bool PreselectionModule::process(Event & event) {
     bool preselection = (((HT_trigger && HT_cut) || (AK8_trigger && AK8_cut)) && (DiTopjet_condition));
     bool trigger_selection = ((HT_trigger && HT_cut) || (AK8_trigger && AK8_cut));
     bool alt_trigger_selection = ((AK8_trigger && AK8_cut) && (!(HT_trigger && HT_cut)));
-    bool selection = TopTag()
+    bool selection = false;
+    if (DiTopjet_condition)
+        {
+            if (TopTag(event.topjets->at(0))&&
+                TopTag(event.topjets->at(1))&&
+                (fabs(deltaPhi(event.topjets->at(0),event.topjets->at(1)))>2.1)&&
+                (fabs(deltaY(event.topjets->at(0),event.topjets->at(1)))<1.0)
+                    ) {selection=true;}
+        }
     int nbtag = 0;
-    bool eff_selection =
+    if (event.topjets->size()>0)
+    {
+        if (getMaxCSV(event.topjets->at(0))>0.814)
+        {
+            nbtag++;
+        }
+    }
+    if (event.topjets->size()>1)
+    {
+        if (getMaxCSV(event.topjets->at(1))>0.814)
+        {
+            nbtag++;
+        }
+    } 
+    bool eff_selection = selection && (nbtag>0);
 
     // bool CMScut = ;
     // bool HEPcut = ;
+
     // 2. test selections and fill histograms
     
     h_nocuts->fill(event);
@@ -134,6 +159,40 @@ bool PreselectionModule::process(Event & event) {
         h_preselection->fill(event);
     }
     
+    if (trigger_selection)
+    {
+        h_trigger->fill(event);
+    }
+    if (alt_trigger_selection)
+    {
+        h_alttrigger->fill(event);
+    }
+    
+    if (eff_selection)
+    {
+        h_trieffden->fill(event);
+        if (HT_trigger)
+        {
+            h_HTtrieffnum->fill(event);
+        }
+        if (AK8_trigger)
+        {
+            h_AK8trieffnum->fill(event);
+        }
+    }
+    if (preselection && selection && (nbtag==0))
+    {
+        h_selection0->fill(event);    
+    }
+    if (preselection && selection && (nbtag==1))
+    {
+        h_selection1->fill(event);    
+    }
+    if (preselection && selection && (nbtag==2))
+    {
+        h_selection2->fill(event);    
+    }
+
     // bool njet_selection = njet_sel->passes(event);
     // if(njet_selection){
     //     h_njet->fill(event);

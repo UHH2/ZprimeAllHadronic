@@ -7,7 +7,7 @@
 #include "TRandom3.h"
 
 using namespace uhh2;
-bool TopTag(TopJet t);
+bool TopTag(TopJet topjet);
 float getHT50(const Event & event);
 float getHTAK8(const Event & event);
 float getMaxTopJetPt(const Event & event);

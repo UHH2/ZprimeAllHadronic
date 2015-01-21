@@ -146,9 +146,63 @@ float deltaPhi(Particle j1,Particle j2)
     return deltaphi;
 }
 
-bool TopTag(TopJet t)
+bool TopTag(TopJet topjet)
 {
-  
+
+    int nsubjets=topjet.numberOfDaughters();
+    float mmin=0;
+    float mjet=0;
+
+    LorentzVector allsubjets(0,0,0,0);
+
+    for(int j=0; j<topjet.numberOfDaughters(); ++j) {
+        allsubjets += topjet.subjets()[j].v4();
+    }
+    if(!allsubjets.isTimelike()) {
+        mjet=0;
+        mmin=0;
+//  mminLower=50;
+//   mjetLower=140;
+//   mjetUpper=250;
+        return false;
+    }
+
+    mjet = allsubjets.M();
+
+    if(nsubjets>=3) {
+
+        std::vector<Particle> subjets = topjet.subjets();
+        sort(subjets.begin(), subjets.end(), HigherPt());
+
+        double m01 = 0;
+        if( (subjets[0].v4()+subjets[1].v4()).isTimelike())
+            m01=(subjets[0].v4()+subjets[1].v4()).M();
+        double m02 = 0;
+        if( (subjets[0].v4()+subjets[2].v4()).isTimelike() )
+            m02=(subjets[0].v4()+subjets[2].v4()).M();
+        double m12 = 0;
+        if( (subjets[1].v4()+subjets[2].v4()).isTimelike() )
+            m12 = (subjets[1].v4()+subjets[2].v4()).M();
+
+        //minimum pairwise mass
+        mmin = std::min(m01,std::min(m02,m12));
+    }
+
+    //at least 3 sub-jets
+    if(nsubjets<3) return false;
+    //minimum pairwise mass > 50 GeV/c^2
+    double mminLower=50;
+    if(mmin<mminLower) return false;
+    //jet mass between 140 and 250 GeV/c^2
+    float mjetUpper=250;
+    float mjetLower=140;
+    if(mjet<mjetLower || mjet>mjetUpper) return false;
+
+    return true;
+
+
+
+
 }
 
 int subJetBTag(TopJet topjet, E_BtagType type, TString mode, TString filename){
