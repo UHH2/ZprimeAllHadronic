@@ -2,21 +2,16 @@
 
 float deltaR(Particle p1, Particle p2)
 {
-  double deltaeta = p1.eta() - p2.eta();
-  double dphi = deltaPhi(p1,p2);
+  auto deltaeta = p1.eta() - p2.eta();
+  auto dphi = deltaPhi(p1,p2);
   return sqrt(deltaeta * deltaeta + dphi * dphi);
 }
 
 float getHT50(const Event & event)
 {
   float ht=0.0;
-  for(unsigned int i=0; i<event.jets->size(); ++i)
-  {
-    if (event.jets->at(i).pt()>=50.0)
-    {
-      ht+=event.jets->at(i).pt();
-    }
-  }
+  for(auto jet : *event.jets)
+    if (jet.pt()>=50.0) ht+=jet.pt();
   return ht;
 }
 
@@ -30,39 +25,24 @@ float getHTAK8(const Event & event)
 float TopJetMass(TopJet topjet)
 {
   LorentzVector allsubjets(0,0,0,0);
-  for(int j=0; j<topjet.numberOfDaughters(); ++j)
-  {
-    allsubjets += topjet.subjets()[j].v4();
-  }
-  if(!allsubjets.isTimelike())
-  {
-    return 0.0;
-  }
-  else
-  {
-    return allsubjets.M();
-  }
+  for(auto subjet : topjet.subjets()) allsubjets += subjet.v4();
+  if(!allsubjets.isTimelike()) return 0.0;
+  else return allsubjets.M();
+}
+
+float TopJetMass2(TopJet topjet)
+{
+  if (topjet.v4().isTimelike()) return topjet.v4().M();
+  else return 0.0;
 }
 
 float ZprimeMass(TopJet t1, TopJet t2)
 {
   LorentzVector allsubjets(0,0,0,0);
-  for(int j=0; j<t1.numberOfDaughters(); ++j)
-  {
-    allsubjets += t1.subjets()[j].v4();
-  }
-  for(int j=0; j<t2.numberOfDaughters(); ++j)
-  {
-    allsubjets += t2.subjets()[j].v4();
-  }
-  if(!allsubjets.isTimelike())
-  {
-    return 0.0;
-  }
-  else
-  {
-    return allsubjets.M();
-  }
+  for(auto subjet : t1.subjets()) allsubjets += subjet.v4();
+  for(auto subjet : t2.subjets()) allsubjets += subjet.v4();
+  if(!allsubjets.isTimelike()) return 0.0;
+  else return allsubjets.M();
 }
 
 float ZprimeMass2(TopJet t1, TopJet t2)
@@ -70,34 +50,27 @@ float ZprimeMass2(TopJet t1, TopJet t2)
   LorentzVector allsubjets(0,0,0,0);
   allsubjets += t1.v4();
   allsubjets += t2.v4();
-  if(!allsubjets.isTimelike())
-  {
-    return 0.0;
-  }
-  else
-  {
-    return allsubjets.M();
-  }
+  if(!allsubjets.isTimelike()) return 0.0;
+  else return allsubjets.M();
 }
 
 float TopJetPt(TopJet topjet)
 {
   LorentzVector allsubjets(0,0,0,0);
-  for(int j=0; j<topjet.numberOfDaughters(); ++j)
-  {
-    allsubjets += topjet.subjets()[j].v4();
-  }
+  for(auto subjet : topjet.subjets()) allsubjets += subjet.v4();
   return allsubjets.Pt();
+}
+
+float TopJetPt2(TopJet topjet)
+{
+  return topjet.pt();
 }
 
 float getMaxTopJetMass(const Event & event)
 {
   if  (event.topjetsCA8->size()==0) return 0.0;
   std::vector<float> valuelist;
-    for(unsigned int i=0; i<event.topjetsCA8->size(); ++i)
-    {
-      valuelist.push_back( TopJetMass(event.topjetsCA8->at(i)) );
-    }
+  for(auto topjet : *event.topjetsCA8) valuelist.push_back(TopJetMass(topjet));
   return *std::max_element(valuelist.begin(),valuelist.end());
 }
 
@@ -105,18 +78,13 @@ float getMaxTopJetPt(const Event & event)
 {
   if  (event.topjetsCA8->size()==0) return 0.0;
   std::vector<float> valuelist;
-    for(unsigned int i=0; i<event.topjetsCA8->size(); ++i)
-    {
-      valuelist.push_back( TopJetPt(event.topjetsCA8->at(i)) );
-    }
+  for(auto topjet : *event.topjetsCA8) valuelist.push_back( TopJetPt(topjet) );
   return *std::max_element(valuelist.begin(),valuelist.end());
 }
 
 float getMaxCSV(TopJet t)
 {
-  std::vector<float> csv = t.btagsub_combinedSecondaryVertex();
-//   cout<<csv[0]<<" "<<csv[1]<<" "<<csv[2]<<endl;
-//   cout<<*max_element(std::begin(csv), std::end(csv))<<endl;
+  auto csv = t.btagsub_combinedSecondaryVertex();
   return *max_element(std::begin(csv), std::end(csv)); 
 }
 
@@ -127,7 +95,7 @@ float TopJetNsub(TopJet t)
 
 float getMmin(TopJet topjet)
 {
-  int nsubjets=topjet.numberOfDaughters();
+  auto nsubjets=topjet.numberOfDaughters();
   float mmin=0;
   if(nsubjets>=3) {
 
@@ -156,68 +124,57 @@ float deltaY(TopJet j1,TopJet j2)
 }
 float deltaPhi(Particle j1,Particle j2)
 {
-      double deltaphi = fabs(j1.phi() - j2.phi());
+    auto deltaphi = fabs(j1.phi() - j2.phi());
     if(deltaphi > M_PI) deltaphi = 2* M_PI - deltaphi;
-    return deltaphi;
+    return fabs(deltaphi);
 }
 
 bool TopTag(TopJet topjet)
 {
+  //number of subjets requirement
+  if(topjet.numberOfDaughters()<3) return false;
+  //mass requirement
+  auto mjet = TopJetMass(topjet);
+  if(mjet<140 || mjet>250) return false;
+  //minimum pairwise mass requirement
+  if (getMmin(topjet)<50) return false;
 
-    int nsubjets=topjet.numberOfDaughters();
-    float mmin=0;
-    float mjet=0;
+  return true;
+}
 
-    LorentzVector allsubjets(0,0,0,0);
+bool AntiTopTag(TopJet topjet)
+{
+  //number of subjets requirement
+  if(topjet.numberOfDaughters()<3) return false;
+  //mass requirement
+  auto mjet = TopJetMass(topjet);
+  if(mjet<140 || mjet>250) return false;
+  //minimum pairwise mass requirement
+  if (getMmin(topjet)>50) return false;
 
-    for(int j=0; j<topjet.numberOfDaughters(); ++j) {
-        allsubjets += topjet.subjets()[j].v4();
+  return true;
+}
+
+bool isGoodZprimeCandidate(TopJet t1, TopJet t2)
+{
+  return (TopJetPt(t1)>400) && 
+  (TopJetPt(t2)>400) &&
+  (TopTag(t1))&&
+  (TopTag(t1))&&
+  (deltaPhi(t1,t2)>2.1)&&
+  (deltaY(t1,t2)<1.0);
+}
+
+bool isDiTopjetEvent(const Event & event)
+{
+  if (event.topjets->size()>1)
+  {
+    if ((TopJetPt(event.topjets->at(0))>400) && (TopJetPt(event.topjets->at(1))>400))
+    {
+      return true;
     }
-    if(!allsubjets.isTimelike()) {
-        mjet=0;
-        mmin=0;
-//  mminLower=50;
-//   mjetLower=140;
-//   mjetUpper=250;
-        return false;
-    }
-
-    mjet = allsubjets.M();
-
-    if(nsubjets>=3) {
-
-        std::vector<Particle> subjets = topjet.subjets();
-        sort(subjets.begin(), subjets.end(), HigherPt());
-
-        double m01 = 0;
-        if( (subjets[0].v4()+subjets[1].v4()).isTimelike())
-            m01=(subjets[0].v4()+subjets[1].v4()).M();
-        double m02 = 0;
-        if( (subjets[0].v4()+subjets[2].v4()).isTimelike() )
-            m02=(subjets[0].v4()+subjets[2].v4()).M();
-        double m12 = 0;
-        if( (subjets[1].v4()+subjets[2].v4()).isTimelike() )
-            m12 = (subjets[1].v4()+subjets[2].v4()).M();
-
-        //minimum pairwise mass
-        mmin = std::min(m01,std::min(m02,m12));
-    }
-
-    //at least 3 sub-jets
-    if(nsubjets<3) return false;
-    //minimum pairwise mass > 50 GeV/c^2
-    double mminLower=50;
-    if(mmin<mminLower) return false;
-    //jet mass between 140 and 250 GeV/c^2
-    float mjetUpper=250;
-    float mjetLower=140;
-    if(mjet<mjetLower || mjet>mjetUpper) return false;
-
-    return true;
-
-
-
-
+  }
+  return false;
 }
 
 int subJetBTag(TopJet topjet, E_BtagType type, TString mode, TString filename){

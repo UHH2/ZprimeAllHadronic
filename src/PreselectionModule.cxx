@@ -114,14 +114,7 @@ bool PreselectionModule::process(Event & event) {
     bool AK8_trigger = event.passes_trigger(ti_AK8);
     bool HT_cut = getHT50(event)>950.0;
     bool AK8_cut = getMaxTopJetPt(event)>400.0 && getMaxTopJetMass(event)>35.0;
-    bool DiTopjet_condition = false;
-    if (event.topjets->size()>1)
-    {
-        if ((TopJetPt(event.topjets->at(0))>400) && (TopJetPt(event.topjets->at(1))>400))
-        {
-            DiTopjet_condition=true;
-        }
-    }
+    bool DiTopjet_condition = isDiTopjetEvent(event);
     bool preselection = (((HT_trigger && HT_cut) || (AK8_trigger && AK8_cut)) && (DiTopjet_condition));
     bool trigger_selection = ((HT_trigger && HT_cut) || (AK8_trigger && AK8_cut));
     bool alt_trigger_selection = ((AK8_trigger && AK8_cut) && (!(HT_trigger && HT_cut)));

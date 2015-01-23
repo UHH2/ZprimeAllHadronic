@@ -24,14 +24,14 @@ public:
 
 private:
     
-    std::unique_ptr<JetCleaner> jetcleaner;
+    //std::unique_ptr<JetCleaner> jetcleaner;
    
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
-    std::unique_ptr<Selection> njet_sel, bsel;
+    //std::unique_ptr<Selection> njet_sel, bsel;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-    std::unique_ptr<Hists> h_nocuts, h_njet, h_bsel, h_ele;
+    std::unique_ptr<Hists> h_nocuts;//, h_njet, h_bsel, h_ele;
 };
 
 
@@ -40,31 +40,31 @@ Zp2TopVLQAllHadModule::Zp2TopVLQAllHadModule(Context & ctx){
     // other modules like cleaners (1), selections (2) and Hist classes (3).
     // But you can do more and e.g. access the configuration, as shown below.
     
-    cout << "Hello World from Zp2TopVLQAllHadModule!" << endl;
+    //cout << "Hello World from Zp2TopVLQAllHadModule!" << endl;
     
     // If needed, access the configuration of the module here, e.g.:
-    string testvalue = ctx.get("TestKey", "<not set>");
-    cout << "TestKey in the configuration was: " << testvalue << endl;
+    //string testvalue = ctx.get("TestKey", "<not set>");
+    //cout << "TestKey in the configuration was: " << testvalue << endl;
     
     // If running in SFrame, the keys "dataset_version", "dataset_type" and "dataset_lumi"
     // are set to the according values in the xml file. For CMSSW, these are
     // not set automatically, but can be set in the python config file.
-    for(auto & kv : ctx.get_all()){
-        cout << " " << kv.first << " = " << kv.second << endl;
-    }
+    //for(auto & kv : ctx.get_all()){
+    //    cout << " " << kv.first << " = " << kv.second << endl;
+    //}
     
     // 1. setup other modules. Here, only the jet cleaner
-    jetcleaner.reset(new JetCleaner(30.0, 2.4));
+    //jetcleaner.reset(new JetCleaner(30.0, 2.4));
     
     // 2. set up selections:
-    njet_sel.reset(new NJetSelection(2));
-    bsel.reset(new NBTagSelection(1));
+    //njet_sel.reset(new NJetSelection(2));
+    //bsel.reset(new NBTagSelection(1));
 
     // 3. Set up Hists classes:
     h_nocuts.reset(new Zp2TopVLQAllHadHists(ctx, "NoCuts"));
-    h_njet.reset(new Zp2TopVLQAllHadHists(ctx, "Njet"));
-    h_bsel.reset(new Zp2TopVLQAllHadHists(ctx, "Bsel"));
-    h_ele.reset(new ElectronHists(ctx, "ele_nocuts"));
+    //h_njet.reset(new Zp2TopVLQAllHadHists(ctx, "Njet"));
+    //h_bsel.reset(new Zp2TopVLQAllHadHists(ctx, "Bsel"));
+    //h_ele.reset(new ElectronHists(ctx, "ele_nocuts"));
 }
 
 
@@ -79,27 +79,27 @@ bool Zp2TopVLQAllHadModule::process(Event & event) {
     // returns true, the event is kept; if it returns false, the event
     // is thrown away.
     
-    cout << "Zp2TopVLQAllHadModule: Starting to process event (runid, eventid) = (" << event.run << ", " << event.event << "); weight = " << event.weight << endl;
+    //cout << "Zp2TopVLQAllHadModule: Starting to process event (runid, eventid) = (" << event.run << ", " << event.event << "); weight = " << event.weight << endl;
     
     // 1. run all modules; here: only jet cleaning.
-    jetcleaner->process(event);
+    //jetcleaner->process(event);
     
     // 2. test selections and fill histograms
     
     h_nocuts->fill(event);
     
-    bool njet_selection = njet_sel->passes(event);
-    if(njet_selection){
-        h_njet->fill(event);
-    }
-    bool bjet_selection = bsel->passes(event);
-    if(bjet_selection){
-        h_bsel->fill(event);
-    }
-    h_ele->fill(event);
+    // bool njet_selection = njet_sel->passes(event);
+    // if(njet_selection){
+    //     h_njet->fill(event);
+    // }
+    // bool bjet_selection = bsel->passes(event);
+    // if(bjet_selection){
+    //     h_bsel->fill(event);
+    // }
+    // h_ele->fill(event);
     
     // 3. decide whether or not to keep the current event in the output:
-    return njet_selection && bjet_selection;
+    return true;//njet_selection && bjet_selection;
 }
 
 // as we want to run the ExampleCycleNew directly with AnalysisModuleRunner,

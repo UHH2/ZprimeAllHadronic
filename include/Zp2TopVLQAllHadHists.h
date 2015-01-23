@@ -27,3 +27,12 @@ public:
     virtual void fill(const uhh2::Event & ev) override;
     virtual ~MistagAndShapeHists();
 };
+
+class BackgroundHists: public uhh2::Hists {
+public:
+    // use the same constructor arguments as Hists for forwarding:
+    BackgroundHists(uhh2::Context & ctx, const std::string & dirname);
+
+    virtual void fill(const uhh2::Event & ev) override;
+    virtual ~BackgroundHists();
+};

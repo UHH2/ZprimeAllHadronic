@@ -4,6 +4,7 @@
 #include "TH1F.h"
 #include "TH2F.h"
 #include "TH3F.h"
+#include "TRandom3.h"
 #include <iostream>
 
 using namespace std;
@@ -19,65 +20,65 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
 //   book<TH1F>("eta_jet4", "#eta^{jet 4}", 40, -2.5, 2.5);
 
   //n
-  book<TH1F>("Nevts", "Nevts", 1, 0, 1);
+  book<TH1F>("Nevts", ";Nevts;Events", 1, 0, 1);
   //njet ntopjet
-  book<TH1F>("N_jets", "N_{jets}", 20, 0, 20);
-  book<TH1F>("N_topjets", "N_{topjets}", 10, 0, 10);
+  book<TH1F>("N_jets", ";N_{jets};Events", 20, 0, 20);
+  book<TH1F>("N_topjets", ";N_{topjets};Events", 10, 0, 10);
   //mass1 mass2 mass1+2 AK8 CA8 CA15 CMS HEP
-  book<TH1F>("m1AK8", "m_{1,AK8}", 200, 0, 2000);
-  book<TH1F>("m2AK8", "m_{2,AK8}", 200, 0, 2000);
-  book<TH1F>("m12AK8", "m_{1,AK8}+m_{2,AK8}", 200, 0, 6000);
+  book<TH1F>("m1AK8", ";m_{1,AK8};Events", 200, 0, 2000);
+  book<TH1F>("m2AK8", ";m_{2,AK8};Events", 200, 0, 2000);
+  book<TH1F>("m12AK8", ";m_{12,AK8};Events", 200, 0, 6000);
   
-  book<TH1F>("m1CA8", "m_{1,CA8}", 200, 0, 2000);
-  book<TH1F>("m2CA8", "m_{2,CA8}", 200, 0, 2000);
-  book<TH1F>("m12CA8", "m_{1,CA8}+m_{2,CA8}", 200, 0, 6000);
+  book<TH1F>("m1CA8", ";m_{1,CA8};Events", 200, 0, 2000);
+  book<TH1F>("m2CA8", ";m_{2,CA8};Events", 200, 0, 2000);
+  book<TH1F>("m12CA8", ";m_{12,CA8};Events", 200, 0, 6000);
   
-  book<TH1F>("m1CA15", "m_{1,CA15}", 200, 0, 2000);
-  book<TH1F>("m2CA15", "m_{2,CA15}", 200, 0, 2000);
-  book<TH1F>("m12CA15", "m_{1,CA15}+m_{2,CA15}", 200, 0, 6000);
+  book<TH1F>("m1CA15", ";m_{1,CA15};Events", 200, 0, 2000);
+  book<TH1F>("m2CA15", ";m_{2,CA15};Events", 200, 0, 2000);
+  book<TH1F>("m12CA15", ";m_{12,CA15};Events", 200, 0, 6000);
   
-  book<TH1F>("m1CMS", "m_{1,CMS}", 200, 0, 2000);
-  book<TH1F>("m2CMS", "m_{2,CMS}", 200, 0, 2000);
-  book<TH1F>("m12CMS", "m_{1,CMS}+m_{2,CMS}", 200, 0, 6000);
+  book<TH1F>("m1CMS", ";m_{1,CMS};Events", 200, 0, 2000);
+  book<TH1F>("m2CMS", ";m_{2,CMS};Events", 200, 0, 2000);
+  book<TH1F>("m12CMS", ";m_{12,CMS};Events", 200, 0, 6000);
   
-  book<TH1F>("m1HEP", "m_{1,HEP}", 200, 0, 2000);
-  book<TH1F>("m2HEP", "m_{2,HEP}", 200, 0, 2000);
-  book<TH1F>("m12HEP", "m_{1,HEP}+m_{2,HEP}", 200, 0, 6000);
+  book<TH1F>("m1HEP", ";m_{1,HEP};Events", 200, 0, 2000);
+  book<TH1F>("m2HEP", ";m_{2,HEP};Events", 200, 0, 2000);
+  book<TH1F>("m12HEP", ";m_{12,HEP};Events", 200, 0, 6000);
   
   //pt1 pt2 pt1+2 AK8 CA8 CA15 CMS HEP
-  book<TH1F>("pT1AK8", "pT_{1,AK8}", 200, 0, 2000);
-  book<TH1F>("pT2AK8", "pT_{2,AK8}", 200, 0, 2000);
-  book<TH1F>("pT12AK8", "pT_{1,AK8}+pT_{2,AK8}", 200, 0, 6000);
+  book<TH1F>("pT1AK8", ";pT_{1,AK8};Events", 200, 0, 2000);
+  book<TH1F>("pT2AK8", ";pT_{2,AK8};Events", 200, 0, 2000);
+  book<TH1F>("pT12AK8", ";pT_{1,AK8}+pT_{2,AK8};Events", 200, 0, 6000);
   
-  book<TH1F>("pT1CA8", "pT_{1,CA8}", 200, 0, 2000);
-  book<TH1F>("pT2CA8", "pT_{2,CA8}", 200, 0, 2000);
-  book<TH1F>("pT12CA8", "pT_{1,CA8}+pT_{2,CA8}", 200, 0, 6000);
+  book<TH1F>("pT1CA8", ";pT_{1,CA8};Events", 200, 0, 2000);
+  book<TH1F>("pT2CA8", ";pT_{2,CA8};Events", 200, 0, 2000);
+  book<TH1F>("pT12CA8", ";pT_{1,CA8}+pT_{2,CA8};Events", 200, 0, 6000);
   
-  book<TH1F>("pT1CA15", "pT_{1,CA15}", 200, 0, 2000);
-  book<TH1F>("pT2CA15", "pT_{2,CA15}", 200, 0, 2000);
-  book<TH1F>("pT12CA15", "pT_{1,CA15}+pT_{2,CA15}", 200, 0, 6000);
+  book<TH1F>("pT1CA15", ";pT_{1,CA15};Events", 200, 0, 2000);
+  book<TH1F>("pT2CA15", ";pT_{2,CA15};Events", 200, 0, 2000);
+  book<TH1F>("pT12CA15", ";pT_{1,CA15}+pT_{2,CA15};Events", 200, 0, 6000);
   
-  book<TH1F>("pT1CMS", "pT_{1,CMS}", 200, 0, 2000);
-  book<TH1F>("pT2CMS", "pT_{2,CMS}", 200, 0, 2000);
-  book<TH1F>("pT12CMS", "pT_{1,CMS}+pT_{2,CMS}", 200, 0, 6000);
+  book<TH1F>("pT1CMS", ";pT_{1,CMS};Events", 200, 0, 2000);
+  book<TH1F>("pT2CMS", ";pT_{2,CMS};Events", 200, 0, 2000);
+  book<TH1F>("pT12CMS", ";pT_{1,CMS}+pT_{2,CMS};Events", 200, 0, 6000);
   
-  book<TH1F>("pT1HEP", "pT_{1,HEP}", 200, 0, 2000);
-  book<TH1F>("pT2HEP", "pT_{2,HEP}", 200, 0, 2000);
-  book<TH1F>("pT12HEP", "pT_{1,HEP}+pT_{2,HEP}", 200, 0, 6000);
+  book<TH1F>("pT1HEP", ";pT_{1,HEP};Events", 200, 0, 2000);
+  book<TH1F>("pT2HEP", ";pT_{2,HEP};Events", 200, 0, 2000);
+  book<TH1F>("pT12HEP", ";pT_{1,HEP}+pT_{2,HEP};Events", 200, 0, 6000);
   
   //HT50
-  book<TH1F>("HT", "HT_{50}", 200, 0, 10000);
+  book<TH1F>("HT", ";HT_{50};Events", 200, 0, 10000);
   //deltaPhi(1,2) deltaY(1,2) eta1 eta2
-  book<TH1F>("deltaPhi", "#Delta(#phi)", 100, -4, 4);
-  book<TH1F>("deltaY", "#Delta(y)", 100, -4, 4);
-  book<TH1F>("eta_1", "#eta_{1}", 100, -4, 4);
-  book<TH1F>("eta_2", "#eta_{2}", 100, -4, 4);
+  book<TH1F>("deltaPhi", ";#Delta(#phi);Events", 100, -4, 4);
+  book<TH1F>("deltaY", ";#Delta(y);Events", 100, -4, 4);
+  book<TH1F>("eta_1", ";#eta_{1};Events", 100, -4, 4);
+  book<TH1F>("eta_2", ";#eta_{2};Events", 100, -4, 4);
   //nsub1 nsub2
-  book<TH1F>("nsub_1", "#tau_{3}/#tau_{2} 1", 100, 0, 1.1);
-  book<TH1F>("nsub_2", "#tau_{3}/#tau_{2} 2", 100, 0, 1.1);
+  book<TH1F>("nsub_1", ";#tau_{3}/#tau_{2} 1;Events", 100, 0, 1.1);
+  book<TH1F>("nsub_2", ";#tau_{3}/#tau_{2} 2;Events", 100, 0, 1.1);
   //maxcsv1 maxcsv2
-  book<TH1F>("csv_1", "CSV_{1}", 100, 0, 1.1);
-  book<TH1F>("csv_2", "CSV_{2}", 100, 0, 1.1);
+  book<TH1F>("csv_1", ";CSV_{1};Events", 100, 0, 1.1);
+  book<TH1F>("csv_2", ";CSV_{2};Events", 100, 0, 1.1);
   //mistag matrix 2d 3d
   // double csv_bins[] = {-100.0,0.0,0.244,0.679,10.0};
   // double mistag_pt_bins[] = {150.0,200.0,220.0,240.0,260.0,280.0,300.0,320.0,340.0,360.0,380.0,400.0,450.0,500.0,600.0,800.0,2000.0};
@@ -85,10 +86,10 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
   // book<TH2F>( "mistag2D", ";pT;CSV", sizeof(mistag_pt_bins)/sizeof(double)-1,mistag_pt_bins, sizeof(csv_bins)/sizeof(double)-1, csv_bins);
   // book<TH3F>( "mistag3D", ";pT;CSV;nsub", sizeof(mistag_pt_bins)/sizeof(double)-1,mistag_pt_bins, sizeof(csv_bins)/sizeof(double)-1, csv_bins,sizeof(nsub_bins)/sizeof(double)-1, nsub_bins);
   //mmin ndau
-  book<TH1F>("mmin1", "Minimum pairwise mass 1", 200, 0, 100);
-  book<TH1F>("ndau1", "Number of daughters 1", 6, 0, 6);
-  book<TH1F>("mmin2", "Minimum pairwise mass 2", 200, 0, 100);
-  book<TH1F>("ndau2", "Number of daughters 2", 6, 0, 6);
+  book<TH1F>("mmin1", ";Minimum pairwise mass 1;Events", 200, 0, 100);
+  book<TH1F>("ndau1", ";Number of daughters 1;Events", 6, 0, 6);
+  book<TH1F>("mmin2", ";Minimum pairwise mass 2;Events", 200, 0, 100);
+  book<TH1F>("ndau2", ";Number of daughters 2;Events", 6, 0, 6);
   
   // leptons
 //   book<TH1F>("N_mu", "N^{#mu}", 10, 0, 10);
@@ -97,7 +98,7 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
 //   book<TH1F>("reliso_mu", "#mu rel. Iso", 40, 0, 0.5);
 
   // primary vertices
-  book<TH1F>("N_pv", "N^{PV}", 50, 0, 50);
+  book<TH1F>("N_pv", ";N^{PV};Events", 50, 0, 50);
 }
 
 
@@ -175,9 +176,6 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
   //maxcsv1 maxcsv2
   if (event.topjets->size()>0) hist("csv_1")->Fill(getMaxCSV(event.topjets->at(0)),weight);
   if (event.topjets->size()>1) hist("csv_2")->Fill(getMaxCSV(event.topjets->at(1)),weight);
-  //mistag matrix 2d 3d
-  //hist( "mistag2D")->Fill(,weight);
-  //hist( "mistag3D")->Fill(,weight);
   //mmin ndau
   if (event.topjets->size()>0) hist("mmin1")->Fill(getMmin(event.topjets->at(0)),weight);
   if (event.topjets->size()>0) hist("ndau1")->Fill(event.topjets->at(0).numberOfDaughters(),weight);
@@ -220,28 +218,67 @@ Zp2TopVLQAllHadHists::~Zp2TopVLQAllHadHists(){}
 
 MistagAndShapeHists::MistagAndShapeHists(Context & ctx, const string & dirname): Hists(ctx, dirname){
 
+  //mass shape
+  book<TH1F>("mass_shape",";m;Events",200,0.0,400.0);
   //mistag matrix 2d 3d
-  double csv_bins[] = {-100.0,0.0,0.244,0.679,10.0};
+  //double csv_bins[] = {-100.0,0.0,0.244,0.679,10.0};
+  double csv_bins[] = {-11.0,0.0,0.423,0.814,1.1};//0.941
   double mistag_pt_bins[] = {150.0,200.0,220.0,240.0,260.0,280.0,300.0,320.0,340.0,360.0,380.0,400.0,450.0,500.0,600.0,800.0,2000.0};
   // double nsub_bins[] = {0.0,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.2};
-  book<TH2F>( "mistag2D", ";pT;CSV", sizeof(mistag_pt_bins)/sizeof(double)-1,mistag_pt_bins, sizeof(csv_bins)/sizeof(double)-1, csv_bins);
+  book<TH2F>( "mistag2D_num", ";pT;CSV", sizeof(mistag_pt_bins)/sizeof(double)-1,mistag_pt_bins, sizeof(csv_bins)/sizeof(double)-1, csv_bins);
+  book<TH2F>( "mistag2D_den", ";pT;CSV", sizeof(mistag_pt_bins)/sizeof(double)-1,mistag_pt_bins, sizeof(csv_bins)/sizeof(double)-1, csv_bins);
   // book<TH3F>( "mistag3D", ";pT;CSV;nsub", sizeof(mistag_pt_bins)/sizeof(double)-1,mistag_pt_bins, sizeof(csv_bins)/sizeof(double)-1, csv_bins,sizeof(nsub_bins)/sizeof(double)-1, nsub_bins);
 
 }
 
 void MistagAndShapeHists::fill(const Event & event){
-  // fill the histograms. Please note the comments in the header file:
-  // 'hist' is used here a lot for simplicity, but it will be rather
-  // slow when you have many histograms; therefore, better
-  // use histogram pointers as members as in 'UHH2/common/include/ElectronHists.h'
-  
-  // Don't forget to always use the weight when filling.
+
   double weight = event.weight;
   
-  //mistag matrix 2d 3d
-  //hist( "mistag2D")->Fill(,weight);
-  //hist( "mistag3D")->Fill(,weight);
+  if (event.topjets->size()<2) return;
 
+  //mass shape
+  unsigned int tag_index=0,probe_index=0;
+  TRandom3 rand(abs(static_cast<int>(sin(event.topjets->at(1).subjets().at(0).eta()*1000000)*100000)));
+  if (rand.Uniform(1.)<=0.5) probe_index=1;
+  else tag_index=1;  
+  if ( TopTag(event.topjets->at(tag_index)) && TopTag(event.topjets->at(probe_index)) )// or use full z' candidate???
+    hist("mass_shape")->Fill(TopJetMass(event.topjets->at(probe_index)));
+
+  //mistag matrix 2d 3d
+  unsigned int antitag_index=0; probe_index=0;
+  rand.SetSeed(abs(static_cast<int>(sin(event.topjets->at(1).subjets().at(0).eta()*1000000)*100000)));
+  if (rand.Uniform(1.)<=0.5) probe_index=1;
+  else antitag_index=1;
+  auto probeJet=event.topjets->at(probe_index);
+  auto antitagJet=event.topjets->at(antitag_index);
+  auto maxcsv = getMaxCSV(probeJet);
+  auto pt = TopJetPt(probeJet);
+  if (AntiTopTag(antitagJet))
+  {
+    ((TH2F*)hist("mistag2D_den"))->Fill(pt,maxcsv,weight);
+    if (TopTag(probeJet)) ((TH2F*)hist("mistag2D_num"))->Fill(pt,maxcsv,weight);
+  }
 }
 
 MistagAndShapeHists::~MistagAndShapeHists(){}
+
+BackgroundHists::BackgroundHists(Context & ctx, const string & dirname): Hists(ctx, dirname){
+
+  
+
+}
+
+void BackgroundHists::fill(const Event & event){
+
+  double weight = event.weight;
+  unsigned int tag_index=0,mistag_index=0;
+  TRandom3 rand(abs(static_cast<int>(sin(event.topjets->at(1).subjets().at(0).eta()*1000000)*100000)));
+  if (rand.Uniform(1.)<=0.5) mistag_index=1;
+  else tag_index=1;
+  auto tagJet=event.topjets->at(tag_index);
+  auto mistagJet=event.topjets->at(mistag_index);
+  auto maxcsv=getMaxCSV(mistagJet);
+}
+
+BackgroundHists::~BackgroundHists(){}

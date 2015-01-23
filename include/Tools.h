@@ -8,12 +8,15 @@
 
 using namespace uhh2;
 bool TopTag(TopJet topjet);
+bool AntiTopTag(TopJet topjet);
 float getHT50(const Event & event);
 float getHTAK8(const Event & event);
 float getMaxTopJetPt(const Event & event);
 float getMaxTopJetMass(const Event & event);
 float TopJetMass(TopJet topjet);
 float TopJetPt(TopJet topjet);
+float TopJetMass2(TopJet topjet);
+float TopJetPt2(TopJet topjet);
 float ZprimeMass(TopJet t1, TopJet t2);
 float ZprimeMass2(TopJet t1, TopJet t2);
 float TopJetNsub(TopJet t);
@@ -22,6 +25,8 @@ float getMmin(TopJet topjet);
 float deltaY(TopJet j1,TopJet j2);
 float deltaPhi(Particle j1,Particle j2);
 float deltaR(Particle p1, Particle p2);
+bool isGoodZprimeCandidate(TopJet t1, TopJet t2);
+bool isDiTopjetEvent(const Event & event);
 struct HigherPt {
     bool operator() (const Particle& j1, const Particle& j2) const {
         return j1.pt() > j2.pt();
