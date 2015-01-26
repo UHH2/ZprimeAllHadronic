@@ -1,4 +1,4 @@
-from ROOT import TFile,TCanvas,gROOT,gStyle,TLegend,TGraphAsymmErrors,THStack,kRed,kYellow,kGray
+from ROOT import TFile,TCanvas,gROOT,gStyle,TLegend,TGraphAsymmErrors,THStack,TIter,kRed,kYellow,kGray,kBlack
 from os import system
 from sys import argv
 from os import mkdir
@@ -68,7 +68,7 @@ def hadd(path_base,name_base,inputlist,outputname):
   system(command_list)
   return path_base+outputname+'.root'
 
-def doeff(filename, histoname_den, histoname_num, triggername, outfile,rebin=1):
+def doeff(filename, histoname_den, histoname_num, histoname_out, outfile,rebin=1):
   numerator=filename.Get(histoname_num)
   denominator=filename.Get(histoname_den)
   if not rebin==1:
@@ -79,16 +79,38 @@ def doeff(filename, histoname_den, histoname_num, triggername, outfile,rebin=1):
   error_bars=TGraphAsymmErrors()
   error_bars.Divide(numerator,denominator,"cl=0.683 b(1,1) mode")
   outfile.cd()
-  error_bars.Write(triggername)
+  error_bars.Write(histoname_out)
   return n_num/n_den
 
-def make_plot(name, ttbar_file, qcd_file, signal_files, histo):
+def slice_and_save(sample,histo,outfile):
+  outfile.cd()
+  histo_stack=THStack(histo,'x','Stack_'+histo.GetName(),'')
+  histo_1d=histo_stack.GetHists()
+  histo_stack.Write(histo_stack.GetName()+'_'+sample)
+  nextinlist=TIter(histo_1d)
+  obj=nextinlist()
+  while obj:
+    obj.Write(obj.GetName()+'_'+sample)
+    obj=nextinlist()
+  histo.Write(histo.GetName()+'_'+sample)
+
+def domistag(infile,outfile,mistag_den,mistag_num,outname):
+  den_histo=infile.Get(mistag_den).Clone('Denominator')
+  num_histo=infile.Get(mistag_num).Clone('Numerator')
+  mistag_histo=num_histo.Clone('Mistag')
+  mistag_histo.Divide(num_histo,den_histo,1,1,'B')
+  slice_and_save(outname,mistag_histo,outfile)
+  slice_and_save(outname,num_histo,outfile)
+  slice_and_save(outname,den_histo,outfile)
+
+
+def make_plot(name, ttbar_file, qcd_file, signal_files, histo, histo_qcd='',rebin=1,minx=0,maxx=0):
   c=TCanvas(name,'',600,600)
   c.SetLeftMargin(0.15)#
   c.SetRightMargin(0.05)#
-  c.SetBottomMargin(0.10)
-  c.SetTopMargin(0.15)
-  legend=TLegend(0.0,0.85,0.99,0.99)
+  c.SetBottomMargin(0.1)
+  c.SetTopMargin(0.25)
+  legend=TLegend(0.0,0.75,0.99,1.04)
   legend.SetHeader('')
   #legend.SetTextSize(0.03)
   legend.SetBorderSize(0)
@@ -100,7 +122,12 @@ def make_plot(name, ttbar_file, qcd_file, signal_files, histo):
   legend.SetFillStyle(0)
   stack=THStack(name+'_stack','')
   ttbar_histo=ttbar_file.Get(histo)
-  qcd_histo=qcd_file.Get(histo)
+  ttbar_histo.Rebin(rebin)
+  if histo_qcd=='':
+    qcd_histo=qcd_file.Get(histo)
+  else:
+    qcd_histo=qcd_file.Get(histo_qcd)
+  qcd_histo.Rebin(rebin)
   signal_histos=[]
   colors=[28,9,8]
   for i in range(len(signal_files)):
@@ -108,6 +135,7 @@ def make_plot(name, ttbar_file, qcd_file, signal_files, histo):
     signal_histos[i].SetLineWidth(3)
     signal_histos[i].SetLineStyle(1)
     signal_histos[i].SetLineColor(colors[i])
+    signal_histos[i].Rebin(rebin)
   ttbar_histo.SetFillColor(kRed)
   qcd_histo.SetFillColor(kYellow)
   ttbar_histo.SetLineColor(kRed)
@@ -115,7 +143,7 @@ def make_plot(name, ttbar_file, qcd_file, signal_files, histo):
   ttbar_histo.SetMarkerColor(kRed)
   qcd_histo.SetMarkerColor(kYellow)
   legend.AddEntry(ttbar_histo,'t#bar{t}','f')
-  legend.AddEntry(qcd_histo,'QCD MC','f')
+  legend.AddEntry(qcd_histo,'QCD from background estimate','f')
   legend.AddEntry(signal_histos[0],"Z' 1 TeV 1pb",'l')
   legend.AddEntry(signal_histos[1],"Z' 2 TeV 1pb",'l')
   legend.AddEntry(signal_histos[2] ,"Z' 3 TeV 1pb",'l')
@@ -128,12 +156,25 @@ def make_plot(name, ttbar_file, qcd_file, signal_files, histo):
   stack.GetXaxis().SetRangeUser(0,4000)
   err.SetFillStyle(3145)
   err.SetFillColor(kGray)
+  errors.SetLineColor(kBlack)
+  errors.SetFillStyle(0)
+  errors.Draw('samehist')
   err.Draw('2')
   #summc.Draw('samehist')
   #stack.SetMinimum(0.1)
   stack.SetMaximum(stack.GetMaximum()*1.2)
   stack.GetXaxis().SetTitle("m_{t#bar{t}}")
   stack.GetYaxis().SetTitle('Events')
+  charsize=0.05
+  stack.GetYaxis().SetLabelSize(charsize)
+  stack.GetYaxis().SetTitleSize(charsize)
+  stack.GetYaxis().SetTitleOffset(1.6)
+  stack.GetXaxis().SetLabelSize(charsize)
+  stack.GetXaxis().SetTitleSize(charsize)
+  stack.GetXaxis().SetTitleOffset(0.95)
+  stack.SetMinimum(0.001)
+  if maxx!=0 and minx!=0:
+    stack.GetXaxis().SetRangeUser(minx,maxx)
   signal_histos[0].Draw('samehist')
   signal_histos[1].Draw('samehist')
   signal_histos[2].Draw('samehist')

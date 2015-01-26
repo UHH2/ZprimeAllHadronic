@@ -135,7 +135,7 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
   
   if (event.topjets->size()>0) hist("m1CMS")->Fill(TopJetMass(event.topjets->at(0)),weight);
   if (event.topjets->size()>1) hist("m2CMS")->Fill(TopJetMass(event.topjets->at(1)),weight);
-  if (event.topjets->size()>1) hist("m12CMS")->Fill(ZprimeMass2(event.topjets->at(0),event.topjets->at(1)),weight);
+  if (event.topjets->size()>1) hist("m12CMS")->Fill(ZprimeMass(event.topjets->at(0),event.topjets->at(1)),weight);
   
   if (event.topjetsHEP->size()>0) hist("m1HEP")->Fill(TopJetMass(event.topjetsHEP->at(0)),weight);
   if (event.topjetsHEP->size()>1) hist("m2HEP")->Fill(TopJetMass(event.topjetsHEP->at(1)),weight);
@@ -223,7 +223,8 @@ MistagAndShapeHists::MistagAndShapeHists(Context & ctx, const string & dirname):
   //mistag matrix 2d 3d
   //double csv_bins[] = {-100.0,0.0,0.244,0.679,10.0};
   double csv_bins[] = {-11.0,0.0,0.423,0.814,1.1};//0.941
-  double mistag_pt_bins[] = {150.0,200.0,220.0,240.0,260.0,280.0,300.0,320.0,340.0,360.0,380.0,400.0,450.0,500.0,600.0,800.0,2000.0};
+  //double mistag_pt_bins[] = {150.0,200.0,220.0,240.0,260.0,280.0,300.0,320.0,340.0,360.0,380.0,400.0,450.0,500.0,600.0,800.0,2000.0};
+  double mistag_pt_bins[] = {400.0,450.0,500.0,600.0,800.0,1000.0,2000.0};
   // double nsub_bins[] = {0.0,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.2};
   book<TH2F>( "mistag2D_num", ";pT;CSV", sizeof(mistag_pt_bins)/sizeof(double)-1,mistag_pt_bins, sizeof(csv_bins)/sizeof(double)-1, csv_bins);
   book<TH2F>( "mistag2D_den", ";pT;CSV", sizeof(mistag_pt_bins)/sizeof(double)-1,mistag_pt_bins, sizeof(csv_bins)/sizeof(double)-1, csv_bins);
@@ -264,9 +265,13 @@ void MistagAndShapeHists::fill(const Event & event){
 MistagAndShapeHists::~MistagAndShapeHists(){}
 
 BackgroundHists::BackgroundHists(Context & ctx, const string & dirname): Hists(ctx, dirname){
+  f.reset(new TFile("/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/python/mistag.root"));
+  // mass_shape.reset(std::move((TH1F*)f->Get("mass_shape")));
+  // mistag.reset(std::move((TH2F*)f->Get("Mistag_CMSTT")));
+  mass_shape.reset((TH1F*)f->Get("mass_shape"));
+  mistag.reset((TH2F*)f->Get("Mistag_CMSTT"));
 
-  
-
+  book<TH1F>("m12CMS", ";m_{12,CMS};Events", 200, 0, 6000);
 }
 
 void BackgroundHists::fill(const Event & event){
@@ -278,7 +283,25 @@ void BackgroundHists::fill(const Event & event){
   else tag_index=1;
   auto tagJet=event.topjets->at(tag_index);
   auto mistagJet=event.topjets->at(mistag_index);
-  auto maxcsv=getMaxCSV(mistagJet);
+  if(TopTag(tagJet))
+  {
+    auto maxcsv=getMaxCSV(mistagJet);
+    auto mistag_bin = mistag->FindFixBin(mistagJet.pt(),maxcsv);
+    auto mistag_value = mistag->GetBinContent(mistag_bin);
+    gRandom->SetSeed(abs(static_cast<int>(sin(event.topjets->at(1).subjets().at(0).eta()*1000000)*100000)));
+    auto RandomMass = mass_shape->GetRandom();
+    TLorentzVector TagVector(0,0,0,0), MistagVector(0,0,0,0);
+    LorentzVector TagSumOfSubjets(0,0,0,0), MistagSumOfSubjets(0,0,0,0);
+    for(auto subjet : tagJet.subjets()) TagSumOfSubjets+=subjet.v4();
+    for(auto subjet : mistagJet.subjets()) MistagSumOfSubjets+=subjet.v4();
+    TagVector.SetPtEtaPhiE(TagSumOfSubjets.Pt(),TagSumOfSubjets.Eta(),TagSumOfSubjets.Phi(),TagSumOfSubjets.E());
+    MistagVector.SetPtEtaPhiM(MistagSumOfSubjets.Pt(),MistagSumOfSubjets.Eta(),MistagSumOfSubjets.Phi(),RandomMass);
+    auto mtt = ( TagVector + MistagVector ).M();
+    hist("m12CMS")->Fill(mtt,weight*mistag_value);
+  }
 }
 
-BackgroundHists::~BackgroundHists(){}
+BackgroundHists::~BackgroundHists(){
+  //f->Close();
+  //delete mistag;delete mass_shape;
+}

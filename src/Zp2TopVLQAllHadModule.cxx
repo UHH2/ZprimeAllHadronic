@@ -31,7 +31,7 @@ private:
     //std::unique_ptr<Selection> njet_sel, bsel;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-    std::unique_ptr<Hists> h_nocuts;//, h_njet, h_bsel, h_ele;
+    std::unique_ptr<Hists> h_nocuts, h_mistag, h_background,h_selection,h_selection0,h_selection1,h_selection2,h_background0,h_background1,h_background2;//, h_njet, h_bsel, h_ele;
 };
 
 
@@ -62,6 +62,15 @@ Zp2TopVLQAllHadModule::Zp2TopVLQAllHadModule(Context & ctx){
 
     // 3. Set up Hists classes:
     h_nocuts.reset(new Zp2TopVLQAllHadHists(ctx, "NoCuts"));
+    h_selection.reset(new Zp2TopVLQAllHadHists(ctx, "Selection"));
+    h_selection0.reset(new Zp2TopVLQAllHadHists(ctx, "Selection0"));
+    h_selection1.reset(new Zp2TopVLQAllHadHists(ctx, "Selection1"));
+    h_selection2.reset(new Zp2TopVLQAllHadHists(ctx, "Selection2"));
+    h_mistag.reset(new MistagAndShapeHists(ctx, "Mistag"));
+    h_background.reset(new BackgroundHists(ctx, "Background"));
+    h_background0.reset(new BackgroundHists(ctx, "Background0"));
+    h_background1.reset(new BackgroundHists(ctx, "Background1"));
+    h_background2.reset(new BackgroundHists(ctx, "Background2"));
     //h_njet.reset(new Zp2TopVLQAllHadHists(ctx, "Njet"));
     //h_bsel.reset(new Zp2TopVLQAllHadHists(ctx, "Bsel"));
     //h_ele.reset(new ElectronHists(ctx, "ele_nocuts"));
@@ -86,7 +95,35 @@ bool Zp2TopVLQAllHadModule::process(Event & event) {
     
     // 2. test selections and fill histograms
     
+    int nbtag = 0;
+    if (event.topjets->size()>0)
+    {
+        if (getMaxCSV(event.topjets->at(0))>0.814)
+        {
+            nbtag++;
+        }
+    }
+    if (event.topjets->size()>1)
+    {
+        if (getMaxCSV(event.topjets->at(1))>0.814)
+        {
+            nbtag++;
+        }
+    } 
+
     h_nocuts->fill(event);
+    if (TopTag(event.topjets->at(0))&&TopTag(event.topjets->at(1)))
+    {
+        h_selection->fill(event);
+        if (nbtag==0) h_selection0->fill(event);
+        if (nbtag==1) h_selection1->fill(event);
+        if (nbtag==2) h_selection2->fill(event);
+    }
+    h_mistag->fill(event);
+    h_background->fill(event);
+    if (nbtag==0) h_background0->fill(event);
+    if (nbtag==1) h_background1->fill(event);
+    if (nbtag==2) h_background2->fill(event);
     
     // bool njet_selection = njet_sel->passes(event);
     // if(njet_selection){

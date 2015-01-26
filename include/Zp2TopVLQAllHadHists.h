@@ -35,4 +35,11 @@ public:
 
     virtual void fill(const uhh2::Event & ev) override;
     virtual ~BackgroundHists();
+private:
+    std::unique_ptr<TFile> f;
+    std::unique_ptr<TH2F> mistag;
+    std::unique_ptr<TH1F> mass_shape;
+    // TFile * f;
+    // TH2F * mistag;
+    // TH1F * mass_shape;
 };
