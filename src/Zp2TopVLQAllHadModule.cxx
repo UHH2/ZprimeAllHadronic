@@ -7,6 +7,7 @@
 #include "UHH2/common/include/ElectronHists.h"
 #include "UHH2/Zp2TopVLQAllHad/include/Zp2TopVLQAllHadSelections.h"
 #include "UHH2/Zp2TopVLQAllHad/include/Zp2TopVLQAllHadHists.h"
+#include "UHH2/common/include/JetCorrections.h"
 
 using namespace std;
 using namespace uhh2;
@@ -25,7 +26,7 @@ public:
 private:
     
     //std::unique_ptr<JetCleaner> jetcleaner;
-   
+    std::unique_ptr<SubJetCorrector> subjetcorrector;
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
     //std::unique_ptr<Selection> njet_sel, bsel;
@@ -55,7 +56,7 @@ Zp2TopVLQAllHadModule::Zp2TopVLQAllHadModule(Context & ctx){
     
     // 1. setup other modules. Here, only the jet cleaner
     //jetcleaner.reset(new JetCleaner(30.0, 2.4));
-    
+    subjetcorrector.reset(new SubJetCorrector(JERFiles::PHYS14_L123_MC));
     // 2. set up selections:
     //njet_sel.reset(new NJetSelection(2));
     //bsel.reset(new NBTagSelection(1));
@@ -92,7 +93,7 @@ bool Zp2TopVLQAllHadModule::process(Event & event) {
     
     // 1. run all modules; here: only jet cleaning.
     //jetcleaner->process(event);
-    
+    subjetcorrector->process(event);
     // 2. test selections and fill histograms
     
     int nbtag = 0;

@@ -4,18 +4,28 @@ from sys import argv
 from os import mkdir
 from os.path import exists
 
-def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE',xtitle='',maxx=0):
+def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE',xtitle='',ytitle='',minx=0,maxx=0,rebin=1):
   c=TCanvas(name,'',600,600)
+  # c.SetLeftMargin(0.15)#
+  # c.SetRightMargin(0.05)#
+  # # c.SetTopMargin(0.05)#
+  # c.SetBottomMargin(0.10)
+  # # if not useOutfile:
+  # # legend=TLegend(0.7,0.7,0.95,0.95)
+  # # else:
+  # c.SetTopMargin(0.15)
+  # legend=TLegend(0.0,0.85,0.99,0.99)
+  # #legend=TLegend(0.35,0.2,0.85,0.5)
+
+
+
   c.SetLeftMargin(0.15)#
   c.SetRightMargin(0.05)#
-  # c.SetTopMargin(0.05)#
-  c.SetBottomMargin(0.10)
-  # if not useOutfile:
-  # legend=TLegend(0.7,0.7,0.95,0.95)
-  # else:
-  c.SetTopMargin(0.15)
-  legend=TLegend(0.0,0.85,0.99,0.99)
-  #legend=TLegend(0.35,0.2,0.85,0.5)
+  c.SetBottomMargin(0.11)
+  c.SetTopMargin(0.25)
+  legend=TLegend(0.0,0.76,0.99,1.04)
+
+
   legend.SetHeader('')
   #legend.SetTextSize(0.03)
   legend.SetBorderSize(0)
@@ -39,19 +49,30 @@ def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE'
     histo_list[-1].SetLineColor(i+1)
     histo_list[-1].SetTitle('')
     legend.AddEntry(histo_list[-1],legend_list[i],'l')
+    if rebin!=0:
+      histo_list[-1].Rebin(rebin)
     maxy=max(maxy,histo_list[-1].GetMaximum()*1.05)
   for i in range(len(name_list)):
     if i==0:
       if not histo_list[-1].ClassName()=='TGraphAsymmErrors':
         histo_list[i].SetMaximum(maxy)
+        histo_list[i].SetMinimum(0.0001)
       else:
         histo_list[i].SetMaximum(1.05)
-        histo_list[i].SetMinimum(0.0)
+        histo_list[i].SetMinimum(0.0001)
       histo_list[i].Draw(drawoption)
+      charsize=0.05
+      histo_list[i].GetYaxis().SetLabelSize(charsize)
+      histo_list[i].GetYaxis().SetTitleSize(charsize)
+      histo_list[i].GetYaxis().SetTitleOffset(1.6)
+      histo_list[i].GetXaxis().SetLabelSize(charsize)
+      histo_list[i].GetXaxis().SetTitleSize(charsize)
+      histo_list[i].GetXaxis().SetTitleOffset(0.95)
       # if useOutfile:
       histo_list[i].GetXaxis().SetTitle(xtitle)
-      if not maxx==0:
-        histo_list[i].GetXaxis().SetRangeUser(0,maxx)
+      histo_list[i].GetYaxis().SetTitle(ytitle)
+      if maxx!=0 and minx!=0:
+        histo_list[i].GetXaxis().SetRangeUser(minx,maxx)
       #   histo_list[i].GetYaxis().SetTitle('Efficiency')
     else:
       histo_list[i].Draw(drawoption+'SAME')

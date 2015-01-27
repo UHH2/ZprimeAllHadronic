@@ -8,7 +8,8 @@ from utils import compare,hadd,doeff,make_plot
 gROOT.SetBatch()
 
 #setup
-path='/nfs/dust/cms/user/usaiem/phys14-3/'
+path='/nfs/dust/cms/user/usaiem/phys14-4/'
+path2='/nfs/dust/cms/user/usaiem/phys14-3/'
 root='.root'
 filename_base='uhh2.AnalysisModuleRunner.MC.'
 signal_names=['Z1000W10','Z1000W100','Z2000W20','Z2000W200','Z3000W30','Z3000W300']
@@ -26,6 +27,8 @@ ttbar50ns_file=TFile(path+filename_base+ttbar50ns_name+root,'READ')
 signal_files=[]
 for i in signal_names:
 	signal_files.append(TFile(path+filename_base+i+root,'READ'))
+signal_files.append(TFile(path2+filename_base+signal_names[2]+root,'READ'))
+signal_files.append(TFile(path2+filename_base+signal_names[4]+root,'READ'))
 
 
 # #'NoCuts/' 'Preselection/	'
@@ -48,19 +51,24 @@ for i in signal_names:
 # 	compare(i+'_Pre_btag',[ttbar_file,qcd_file],['Preselection/'+i,'Preselection/'+i],['t#bar{t}','QCD'],True,'hE',i,maxx)
 # 	compare(i+'_NoCut_Zbtag',[signal_files[0],signal_files[2],signal_files[4]],['NoCuts/'+i,'NoCuts/'+i,'NoCuts/'+i],["Z' 1TeV","Z' 2TeV","Z' 3TeV"],True,'hE',i,maxx)
 # 	compare(i+'_Pre_Zbtag',[signal_files[0],signal_files[2],signal_files[4]],['Preselection/'+i,'Preselection/'+i,'Preselection/'+i],["Z' 1TeV","Z' 2TeV","Z' 3TeV"],True,'hE',i,maxx)
-# #jet
-# for i in ['m1','m2','m12','pT1','pT2']:
-# 	maxx=0
-# 	if 'm1' in i or 'm2' in i:
-# 		maxx=600
-# 	if 'm12' in i:
-# 		maxx=3000
-# 	if 'pT' in i:
-# 		maxx=1400
-# 	compare(i+'_NoCut_jet',[signal_files[2],signal_files[2],signal_files[2],signal_files[2]],['NoCuts/'+i+'CA8','NoCuts/'+i+'CA15','NoCuts/'+i+'CMS','NoCuts/'+i+'HEP'],['CA8 pruned','CA15 filtered','CMSTT','HEPTT'],True,'hE',i,maxx)
-# 	compare(i+'_Pre_jet',[signal_files[2],signal_files[2],signal_files[2],signal_files[2]],['Preselection/'+i+'CA8','Preselection/'+i+'CA15','Preselection/'+i+'CMS','Preselection/'+i+'HEP'],['CA8 pruned','CA15 filtered','CMSTT','HEPTT'],True,'hE',i,maxx)
-# 	compare(i+'_NoCut_jetqcd',[qcd_file,qcd_file,qcd_file,qcd_file],['NoCuts/'+i+'CA8','NoCuts/'+i+'CA15','NoCuts/'+i+'CMS','NoCuts/'+i+'HEP'],['CA8 pruned','CA15 filtered','CMSTT','HEPTT'],True,'hE',i,maxx)
-# 	compare(i+'_Pre_jetqcd',[qcd_file,qcd_file,qcd_file,qcd_file],['Preselection/'+i+'CA8','Preselection/'+i+'CA15','Preselection/'+i+'CMS','Preselection/'+i+'HEP'],['CA8 pruned','CA15 filtered','CMSTT','HEPTT'],True,'hE',i,maxx)
+#jet
+for i in ['m1','m2','m12','pT1','pT2']:
+	maxx=0
+	if 'm1' in i or 'm2' in i:
+		maxx=600
+	if 'm12' in i:
+		maxx=3000
+	if 'pT' in i:
+		maxx=1400
+	compare(i+'_NoCut_jet',[signal_files[2],signal_files[2],signal_files[2],signal_files[2]],['NoCuts/'+i+'CA8','NoCuts/'+i+'CA15','NoCuts/'+i+'CMS','NoCuts/'+i+'HEP'],['CA8 pruned','CA15 filtered','CMSTT','HEPTT'],True,'histo',i,'Fraction of events',0.001,maxx,1)
+	# compare(i+'_Pre_jet',[signal_files[2],signal_files[2],signal_files[2],signal_files[2]],['Preselection/'+i+'CA8','Preselection/'+i+'CA15','Preselection/'+i+'CMS','Preselection/'+i+'HEP'],['CA8 pruned','CA15 filtered','CMSTT','HEPTT'],True,'hE',i,maxx)
+	compare(i+'_NoCut_jetqcd',[qcd_file,qcd_file,qcd_file,qcd_file],['NoCuts/'+i+'CA8','NoCuts/'+i+'CA15','NoCuts/'+i+'CMS','NoCuts/'+i+'HEP'],['CA8 pruned','CA15 filtered','CMSTT','HEPTT'],True,'histo',i,'Fraction of events',0.001,maxx,1)
+
+	compare(i+'_NoCut_JEC',[signal_files[2],signal_files[6]],['NoCuts/'+i+'CMS','NoCuts/'+i+'CMS'],['CMSTT subjets corrected with AK4 JEC','CMSTT subjets uncorrected'],True,'histo',i,'Fraction of events',0.001,maxx,1)
+	maxx=4000
+	compare(i+'_NoCut_jet3',[signal_files[4],signal_files[4],signal_files[4],signal_files[4]],['NoCuts/'+i+'CA8','NoCuts/'+i+'CA15','NoCuts/'+i+'CMS','NoCuts/'+i+'HEP'],['CA8 pruned','CA15 filtered','CMSTT','HEPTT'],True,'histo',i,'Fraction of events',1000,maxx,1)
+	compare(i+'_NoCut_JEC3',[signal_files[4],signal_files[7]],['NoCuts/'+i+'CMS','NoCuts/'+i+'CMS'],['CMSTT subjets corrected with AK4 JEC','CMSTT subjets uncorrected'],True,'histo',i,'Fraction of events',1000,maxx,1)
+	# compare(i+'_Pre_jetqcd',[qcd_file,qcd_file,qcd_file,qcd_file],['Preselection/'+i+'CA8','Preselection/'+i+'CA15','Preselection/'+i+'CMS','Preselection/'+i+'HEP'],['CA8 pruned','CA15 filtered','CMSTT','HEPTT'],True,'hE',i,maxx)
 # #trigger
 # doeff(signal_files[0], 'trieffden/HT','HTtrieffnum/HT', 'HTTrigger_1TeV', outfile,2)
 # doeff(ttbar_file, 'trieffden/HT','HTtrieffnum/HT', 'HTTrigger_ttbar', outfile,2)

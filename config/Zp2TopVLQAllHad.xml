@@ -7,7 +7,7 @@
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-3/" PostFix="" TargetLumi="20000" > -->
-   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="10" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-3/" PostFix="" TargetLumi="20000" > 
+   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="10" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-4/" PostFix="" TargetLumi="20000" > 
 
 
 
@@ -73,7 +73,6 @@
     <InputData Lumi="30393.9875930521" NEventsMax="-1" Type="MC" Version="TTbar50ns" Cacheable="False">
         <In FileName="/nfs/dust/cms/user/usaiem/phys14/uhh2.AnalysisModuleRunner.MC.TTbar50ns.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
     </InputData>
 
 

@@ -127,11 +127,11 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
   
   if (event.topjetsCA8->size()>0) hist("m1CA8")->Fill(TopJetMass(event.topjetsCA8->at(0)),weight);
   if (event.topjetsCA8->size()>1) hist("m2CA8")->Fill(TopJetMass(event.topjetsCA8->at(1)),weight);
-  if (event.topjetsCA8->size()>1) hist("m12CA8")->Fill(ZprimeMass2(event.topjetsCA8->at(0),event.topjetsCA8->at(1)),weight);
+  if (event.topjetsCA8->size()>1) hist("m12CA8")->Fill(ZprimeMass(event.topjetsCA8->at(0),event.topjetsCA8->at(1)),weight);
   
   if (event.topjetsCA15->size()>0) hist("m1CA15")->Fill(TopJetMass(event.topjetsCA15->at(0)),weight);
   if (event.topjetsCA15->size()>1) hist("m2CA15")->Fill(TopJetMass(event.topjetsCA15->at(1)),weight);
-  if (event.topjetsCA15->size()>1) hist("m12CA15")->Fill(ZprimeMass2(event.topjetsCA15->at(0),event.topjetsCA15->at(1)),weight);
+  if (event.topjetsCA15->size()>1) hist("m12CA15")->Fill(ZprimeMass(event.topjetsCA15->at(0),event.topjetsCA15->at(1)),weight);
   
   if (event.topjets->size()>0) hist("m1CMS")->Fill(TopJetMass(event.topjets->at(0)),weight);
   if (event.topjets->size()>1) hist("m2CMS")->Fill(TopJetMass(event.topjets->at(1)),weight);
@@ -139,7 +139,7 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
   
   if (event.topjetsHEP->size()>0) hist("m1HEP")->Fill(TopJetMass(event.topjetsHEP->at(0)),weight);
   if (event.topjetsHEP->size()>1) hist("m2HEP")->Fill(TopJetMass(event.topjetsHEP->at(1)),weight);
-   if (event.topjetsHEP->size()>1) hist("m12HEP")->Fill(ZprimeMass2(event.topjetsHEP->at(0),event.topjetsHEP->at(1)),weight);
+  if (event.topjetsHEP->size()>1) hist("m12HEP")->Fill(ZprimeMass(event.topjetsHEP->at(0),event.topjetsHEP->at(1)),weight);
   //if (event.topjets->size()>1) hist("m12HEP")->Fill(ZprimeMass22(event.topjets->at(0),event.topjets->at(1)),weight);
   
   //pt1 pt2 pt1+2 AK8 CA8 CA15 CMS HEP
