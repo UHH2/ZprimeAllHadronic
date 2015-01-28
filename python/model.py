@@ -1,0 +1,18 @@
+def get_model():
+    model = build_model_from_rootfile('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/python/theta.root')
+    model.fill_histogram_zerobins()
+    model.set_signal_processes('zp*')
+    model.add_lognormal_uncertainty('ttbar_rate', 0.15, 'ttbar')
+    model.add_lognormal_uncertainty('qcd_rate', 0.15, 'qcd')
+    model.add_lognormal_uncertainty('signal1000_rate', 0.15, 'zp1000')
+    model.add_lognormal_uncertainty('signal2000_rate', 0.15, 'zp2000')
+    model.add_lognormal_uncertainty('signal3000_rate', 0.15, 'zp3000')
+    for p in model.processes:
+        if p == 'qcd': continue
+        model.add_lognormal_uncertainty('lumi', 0.026, p)
+    return model
+model = get_model()
+model_summary(model)
+plot_exp, plot_obs = asymptotic_cls_limits(model,use_data=False)
+plot_exp.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/python/limits.txt')
+report.write_html('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/python/htmlout_limit')

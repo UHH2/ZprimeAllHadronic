@@ -177,6 +177,56 @@ bool isDiTopjetEvent(const Event & event)
   return false;
 }
 
+int match2GenTopJet(GenTopJet gen, const Event & event)
+{
+  float deltar=0.8;
+  int index=-1;
+  for (unsigned int i=0;i<event.topjets->size();i++)
+  {
+    float current_deltar=deltaR(gen,event.topjets->at(i));
+    if (current_deltar<deltar)
+    {
+      deltar=current_deltar;
+      index=i;
+    }
+  }
+  return index;
+}
+float TopJetMass(GenTopJet topjet)
+{
+  LorentzVector allsubjets(0,0,0,0);
+  for(auto subjet : topjet.subjets()) allsubjets += subjet.v4();
+  if(!allsubjets.isTimelike()) return 0.0;
+  else return allsubjets.M();
+}
+float TopJetPt(GenTopJet topjet)
+{
+  LorentzVector allsubjets(0,0,0,0);
+  for(auto subjet : topjet.subjets()) allsubjets += subjet.v4();
+  return allsubjets.Pt();
+}
+float ZprimeMass(GenTopJet t1, GenTopJet t2)
+{
+  LorentzVector allsubjets(0,0,0,0);
+  for(auto subjet : t1.subjets()) allsubjets += subjet.v4();
+  for(auto subjet : t2.subjets()) allsubjets += subjet.v4();
+  if(!allsubjets.isTimelike()) return 0.0;
+  else return allsubjets.M();
+}
+
+float TopJetEta(TopJet topjet)
+{
+  LorentzVector allsubjets(0,0,0,0);
+  for(auto subjet : topjet.subjets()) allsubjets += subjet.v4();
+  return allsubjets.Eta();
+}
+float TopJetEta(GenTopJet topjet)
+{
+  LorentzVector allsubjets(0,0,0,0);
+  for(auto subjet : topjet.subjets()) allsubjets += subjet.v4();
+  return allsubjets.Eta();
+}
+
 int subJetBTag(TopJet topjet, E_BtagType type, TString mode, TString filename){
 
   //Modes:

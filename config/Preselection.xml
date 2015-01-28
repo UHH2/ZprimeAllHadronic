@@ -13,6 +13,7 @@
 <!ENTITY Z2000W200 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z2000W200">
 <!ENTITY Z3000W30 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z3000W30">
 <!ENTITY Z3000W300 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z3000W300">
+<!ENTITY newzp SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/newzp">
 ]
 >
 
@@ -21,8 +22,8 @@
     <Library Name="libSUHH2Zp2TopVLQAllHad"/>
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
-   <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-2/" PostFix="" TargetLumi="1" > -->
-   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-2/" PostFix="" TargetLumi="20000" > 
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14/" PostFix="" TargetLumi="1" >
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-3/" PostFix="" TargetLumi="20000" >  -->
 
 
 
@@ -63,10 +64,16 @@
         <OutputTree Name="AnalysisTree" /> 
     </InputData> -->
 
-    <InputData Lumi="211296" NEventsMax="-1" Type="MC" Version="Z2000W20" Cacheable="False">
+    <!-- <InputData Lumi="211296" NEventsMax="-1" Type="MC" Version="Z2000W20" Cacheable="False">
         &Z2000W20;
         <InputTree Name="AnalysisTree" /> 
-        <!-- <OutputTree Name="AnalysisTree" /> --> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> -->
+
+        <InputData Lumi="211296" NEventsMax="-1" Type="MC" Version="newzp" Cacheable="False">
+        &newzp;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
     </InputData>
 <!-- 
     <InputData Lumi="246089" NEventsMax="-1" Type="MC" Version="Z2000W200" Cacheable="False">
@@ -120,6 +127,7 @@
 	    <Item Name="TopJetHEPCollection" Value="patJetsHEPTopTagCHSPacked" />
 	    <Item Name="TopJetCA8Collection" Value="patJetsCA8CHSprunedPacked" />
 	    <Item Name="TopJetCA15Collection" Value="patJetsCA15CHSFilteredPacked" />
+        <Item Name="GenTopJetCollection" Value="caTopTagGen" />
             
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
             

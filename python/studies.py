@@ -83,4 +83,13 @@ make_plot('Selection0', ttbar_file, qcd_file, [signal_files[0],signal_files[2],s
 make_plot('Selection1', ttbar_file, qcd_file, [signal_files[0],signal_files[2],signal_files[4]], 'Selection1/m12CMS','Background1/m12CMS',3,500,4000)
 make_plot('Selection2', ttbar_file, qcd_file, [signal_files[0],signal_files[2],signal_files[4]], 'Selection2/m12CMS','Background2/m12CMS',3,500,4000)
 
+thetafile=TFile('theta.root','RECREATE')
+thetafile.cd()
+for i in ['0','1','2']:
+	ttbar_file.Get('Selection'+i+'/m12CMS').Write('allhad'+i+'btag__ttbar')
+	qcd_file.Get('Background'+i+'/m12CMS').Write('allhad'+i+'btag__qcd')
+	signal_files[0].Get('Selection'+i+'/m12CMS').Write('allhad'+i+'btag__zp1000')
+	signal_files[2].Get('Selection'+i+'/m12CMS').Write('allhad'+i+'btag__zp2000')
+	signal_files[4].Get('Selection'+i+'/m12CMS').Write('allhad'+i+'btag__zp3000')
+thetafile.Close()
 outfile.Close()

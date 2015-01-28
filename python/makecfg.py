@@ -1,5 +1,6 @@
 from sys import argv
 from subprocess import check_output
+#run with python makecfg.py /nfs/dust/cms/user/usaiem/gc-output/PHYS14v0/signals4/ newzp selector
 selector=''
 if len(argv)>3:
 	selector=argv[3]

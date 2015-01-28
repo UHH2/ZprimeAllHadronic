@@ -27,6 +27,12 @@ float deltaPhi(Particle j1,Particle j2);
 float deltaR(Particle p1, Particle p2);
 bool isGoodZprimeCandidate(TopJet t1, TopJet t2);
 bool isDiTopjetEvent(const Event & event);
+int match2GenTopJet(GenTopJet gen, const Event & event);
+float TopJetMass(GenTopJet topjet);
+float TopJetPt(GenTopJet topjet);
+float ZprimeMass(GenTopJet t1, GenTopJet t2);
+float TopJetEta(TopJet topjet);
+float TopJetEta(GenTopJet topjet);
 struct HigherPt {
     bool operator() (const Particle& j1, const Particle& j2) const {
         return j1.pt() > j2.pt();

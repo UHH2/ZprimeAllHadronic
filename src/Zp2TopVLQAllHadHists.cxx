@@ -5,6 +5,8 @@
 #include "TH2F.h"
 #include "TH3F.h"
 #include "TRandom3.h"
+#include "TProfile.h"
+#include "TProfile2D.h"
 #include <iostream>
 
 using namespace std;
@@ -91,6 +93,35 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
   book<TH1F>("mmin2", ";Minimum pairwise mass 2;Events", 200, 0, 100);
   book<TH1F>("ndau2", ";Number of daughters 2;Events", 6, 0, 6);
   
+  //pt/pt vs pt
+  book<TProfile>("ptratioVSpt", ";p_{T,gen};p_{T,reco}/p_{T,gen}", 150, 0, 1500);
+  //pt/pt vs eta
+  book<TProfile>("ptratioVSeta", ";#eta_{gen};p_{T,reco}/p_{T,gen}", 150, -4, 4);
+  //pt/pt vs pt,eta
+  book<TProfile2D>("ptratioVSpteta", ";p_{T,gen};#eta_{gen};p_{T,reco}/p_{T,gen}", 15, 0, 1500, 15, -4, 4);
+  //m/m vs pt
+  book<TProfile>("mratioVSpt", ";p_{T,gen};m_{reco}/m_{gen}", 150, 0, 1500);
+  //m/m vs eta
+  book<TProfile>("mratioVSeta", ";#eta_{gen};m_{reco}/m_{gen}", 150, -4, 4);
+  //m/m vs pt,eta
+  book<TProfile2D>("mratioVSpteta", ";p_{T,gen};#eta_{gen};m_{reco}/m_{gen}", 15, 0, 1500, 15, -4, 4);
+  //mz/mz vs pt
+  book<TProfile>("mZratioVSpt", ";p_{T,gen};m_{Z',reco}/m_{Z',gen}", 150, 0, 1500);
+  //mz/mz vs eta
+  book<TProfile>("mZratioVSeta", ";#eta_{gen};m_{Z',reco}/m_{Z',gen}", 150, -4, 4);
+  //mz/mz vs pt,eta
+  book<TProfile2D>("mZratioVSpteta", ";p_{T,gen};#eta_{gen};m_{Z',reco}/m_{Z',gen}", 15, 0, 1500, 15, -4, 4);
+  //mz/mz vs pt,pt
+  book<TProfile2D>("mZratioVSptpt", ";p_{T1,gen};p_{T2,gen};m_{Z',reco}/m_{Z',gen}", 15, 0, 1500, 15, 0, 1500);
+  book<TProfile2D>("mZratioVSetaeta", ";#eta_{1,gen};#eta_{2,gen};m_{Z',reco}/m_{Z',gen}",  15, -4, 4, 15, -4, 4);
+  //eta/eta vs pt
+  book<TProfile>("etaratioVSpt", ";p_{T,gen};#eta_{reco}/#eta_{gen}", 150, 0, 1500);
+  //eta/eta vs eta
+  book<TProfile>("etaratioVSeta", ";#eta_{gen};#eta_{reco}/#eta_{gen}", 150, -4, 4);
+  //eta/eta vs pt,eta
+  book<TProfile2D>("etaratioVSpteta", ";p_{T,gen};#eta_{gen};#eta_{reco}/#eta_{gen}", 15, 0, 1500, 15, -4, 4);
+
+
   // leptons
 //   book<TH1F>("N_mu", "N^{#mu}", 10, 0, 10);
 //   book<TH1F>("pt_mu", "p_{T}^{#mu} [GeV/c]", 40, 0, 200);
@@ -182,7 +213,78 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
   if (event.topjets->size()>1) hist("mmin2")->Fill(getMmin(event.topjets->at(0)),weight);
   if (event.topjets->size()>1) hist("ndau2")->Fill(event.topjets->at(1).numberOfDaughters(),weight);
   
+
+  std::vector<GenTopJet> arr;
+  if (event.gentopjets->size()>0) arr.push_back(event.gentopjets->at(0));
+  if (event.gentopjets->size()>1) arr.push_back(event.gentopjets->at(1));
+  for(auto gen : *event.gentopjets)
+  //for(auto gen : arr)
+  {
+    cout<<gen.pt()<<endl;
+  int index=match2GenTopJet(gen,event);
+  if (index>-1)
+  {
+    TopJet reco=event.topjets->at(index);
+    float ptgen=TopJetPt(gen) ;
+    float ptreco=TopJetPt(reco) ;
+    float ptratio=ptreco/ptgen ;
+    float mgen=TopJetMass(gen) ;
+    float mreco=TopJetMass(reco) ;
+    float mratio=mreco/mgen ;
+    float etagen=TopJetEta(gen) ;
+    float etareco=TopJetEta(reco) ;
+    float etaratio=etareco/etagen ;
+    //pt/pt vs pt
+    ((TProfile*)hist("ptratioVSpt"))->Fill(ptgen,ptratio,weight);
+    //pt/pt vs eta
+    ((TProfile*)hist("ptratioVSeta"))->Fill(etagen,ptratio,weight);
+    //pt/pt vs pt,eta
+    ((TProfile2D*)hist("ptratioVSpteta"))->Fill(ptgen,etagen,ptratio,weight);
+    if (mgen>0.1)
+    {
+      //m/m vs pt
+      ((TProfile*)hist("mratioVSpt"))->Fill(ptgen,mratio,weight);
+      //m/m vs eta
+      ((TProfile*)hist("mratioVSeta"))->Fill(etagen,mratio,weight);
+      //m/m vs pt,eta
+      ((TProfile2D*)hist("mratioVSpteta"))->Fill(ptgen,etagen,mratio,weight);
+  }
+    //eta/eta vs pt
+    ((TProfile*)hist("etaratioVSpt"))->Fill(ptgen,etaratio,weight);
+    //eta/eta vs eta
+    ((TProfile*)hist("etaratioVSeta"))->Fill(etagen,etaratio,weight);
+    //eta/eta vs pt,eta
+    ((TProfile2D*)hist("etaratioVSpteta"))->Fill(ptgen,etagen,etaratio,weight);
+  }
+  }
+  cout<<endl<<endl;
+ 
+
+
+  int gen1=-1, gen2=-1;
+  if (event.gentopjets->size()>0) gen1=match2GenTopJet(event.gentopjets->at(0),event);
+  if (event.gentopjets->size()>1) gen2=match2GenTopJet(event.gentopjets->at(1),event);
   
+  if (gen1>-1&&gen2>-1)
+  {
+    float pt1gen= TopJetPt(event.gentopjets->at(0));
+    float pt2gen= TopJetPt(event.gentopjets->at(1));
+    float eta1gen= TopJetEta(event.gentopjets->at(0));
+    float eta2gen= TopJetEta(event.gentopjets->at(1));
+    float mzgen= ZprimeMass(event.gentopjets->at(0),event.gentopjets->at(1));
+    float mzreco= ZprimeMass(event.topjets->at(gen1),event.topjets->at(gen2));
+    float mzratio= mzreco/mzgen;
+  //mz/mz vs pt
+    ((TProfile*)hist("mZratioVSpt"))->Fill(pt1gen,mzratio,weight);
+  //mz/mz vs eta
+    ((TProfile*)hist("mZratioVSeta"))->Fill(eta1gen,mzratio,weight);
+  //mz/mz vs pt,eta
+    ((TProfile2D*)hist("mZratioVSpteta"))->Fill(pt1gen,eta1gen,mzratio,weight);
+  //mz/mz vs pt,pt
+    ((TProfile2D*)hist("mZratioVSptpt"))->Fill(pt1gen,pt2gen,mzratio,weight);
+    ((TProfile2D*)hist("mZratioVSetaeta"))->Fill(eta1gen,eta2gen,mzratio,weight);
+  }
+
   
   
 //   std::vector<Jet>* jets = event.jets;

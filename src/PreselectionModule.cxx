@@ -29,6 +29,7 @@ private:
     std::unique_ptr<JetCleaner> jetcleaner;
     std::unique_ptr<JetCorrector> jetcorrector;
     std::unique_ptr<TopJetCorrector> topjetcorrector;
+    std::unique_ptr<SubJetCorrector> subjetcorrector;
    
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
@@ -61,6 +62,7 @@ PreselectionModule::PreselectionModule(Context & ctx){
     jetcleaner.reset(new JetCleaner(30.0, 2.4));
     jetcorrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
     topjetcorrector.reset(new TopJetCorrector(JERFiles::PHYS14_L123_AK8PFchs_MC));
+    subjetcorrector.reset(new SubJetCorrector(JERFiles::PHYS14_L123_MC));
     
     // 2. set up selections:
     // njet_sel.reset(new NJetSelection(2));
@@ -107,6 +109,7 @@ bool PreselectionModule::process(Event & event) {
     jetcleaner->process(event);
     jetcorrector->process(event);
     topjetcorrector->process(event);
+    subjetcorrector->process(event);
     
     uhh2::Event::TriggerIndex ti_HT=event.get_trigger_index("HLT_PFHT900*");
     uhh2::Event::TriggerIndex ti_AK8=event.get_trigger_index("HLT_AK8PFJet360TrimMod_Mass30*");
