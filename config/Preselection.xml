@@ -23,7 +23,7 @@
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14/" PostFix="" TargetLumi="1" >
-   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-3/" PostFix="" TargetLumi="20000" >  -->
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-4/" PostFix="" TargetLumi="20000" >  -->
 
 
 
@@ -128,6 +128,8 @@
 	    <Item Name="TopJetCA8Collection" Value="patJetsCA8CHSprunedPacked" />
 	    <Item Name="TopJetCA15Collection" Value="patJetsCA15CHSFilteredPacked" />
         <Item Name="GenTopJetCollection" Value="caTopTagGen" />
+        <Item Name="GenParticleCollection" Value="GenParticles" />
+        <Item Name="GenJetCollection" Value="slimmedGenJets" />
             
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
             

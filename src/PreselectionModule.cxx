@@ -9,6 +9,7 @@
 #include "UHH2/Zp2TopVLQAllHad/include/Zp2TopVLQAllHadSelections.h"
 #include "UHH2/Zp2TopVLQAllHad/include/Zp2TopVLQAllHadHists.h"
 #include "UHH2/Zp2TopVLQAllHad/include/Tools.h"
+#include "UHH2/common/include/TTbarGen.h"
 
 using namespace std;
 using namespace uhh2;
@@ -36,7 +37,7 @@ private:
     // std::unique_ptr<Selection> njet_sel, bsel;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-    std::unique_ptr<Hists> h_nocuts, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection0,h_selection1,h_selection2;
+    std::unique_ptr<Hists> h_nocorr, h_nocorr_gen, h_nocuts, h_nocuts_gen, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection0,h_selection1,h_selection2,h_selection,h_selection_gen,h_preselection_gen;
 };
 
 
@@ -69,8 +70,12 @@ PreselectionModule::PreselectionModule(Context & ctx){
     // bsel.reset(new NBTagSelection(1));
 
     // 3. Set up Hists classes:
+    h_nocorr.reset(new Zp2TopVLQAllHadHists(ctx, "NoCorr"));
+    h_nocorr_gen.reset(new Zp2TopVLQAllHadHists(ctx, "NoCorrGen"));
     h_nocuts.reset(new Zp2TopVLQAllHadHists(ctx, "NoCuts"));
+    h_nocuts_gen.reset(new Zp2TopVLQAllHadHists(ctx, "NoCutsGen"));
     h_preselection.reset(new Zp2TopVLQAllHadHists(ctx, "Preselection"));
+    h_preselection_gen.reset(new Zp2TopVLQAllHadHists(ctx, "PreselectionGen"));
     h_trigger.reset(new Zp2TopVLQAllHadHists(ctx, "Trigger"));
     h_alttrigger.reset(new Zp2TopVLQAllHadHists(ctx, "altTrigger"));
     h_HTtrieffnum.reset(new Zp2TopVLQAllHadHists(ctx, "HTtrieffnum"));
@@ -79,6 +84,8 @@ PreselectionModule::PreselectionModule(Context & ctx){
     h_selection0.reset(new Zp2TopVLQAllHadHists(ctx, "Selection0"));
     h_selection1.reset(new Zp2TopVLQAllHadHists(ctx, "Selection1"));
     h_selection2.reset(new Zp2TopVLQAllHadHists(ctx, "Selection2"));
+    h_selection.reset(new Zp2TopVLQAllHadHists(ctx, "Selection"));
+    h_selection_gen.reset(new Zp2TopVLQAllHadHists(ctx, "SelectionGen"));
 
     // h_njet.reset(new Zp2TopVLQAllHadHists(ctx, "Njet"));
     // h_bsel.reset(new Zp2TopVLQAllHadHists(ctx, "Bsel"));
@@ -104,13 +111,21 @@ bool PreselectionModule::process(Event & event) {
     //cout<< event.get_current_triggernames()[i]<<"\n";
     //cout<<"\n\n\n";
 
+    TTbarGen ttbargen(*event.genparticles);
+    bool is_allhad = ttbargen.IsTopHadronicDecay() && ttbargen.IsAntiTopHadronicDecay();
+
+    if (event.topjets->size()>0) cout<<event.topjets->at(0).pt()<<endl;
+    uncorrect_topjets(event);
+    if (event.topjets->size()>0) cout<<event.topjets->at(0).pt()<<endl<<endl;
+    h_nocorr->fill(event);
+    if (is_allhad) h_nocorr_gen->fill(event);
 
     // 1. run all modules; here: only jet cleaning.
     jetcleaner->process(event);
     jetcorrector->process(event);
     topjetcorrector->process(event);
     subjetcorrector->process(event);
-    
+
     uhh2::Event::TriggerIndex ti_HT=event.get_trigger_index("HLT_PFHT900*");
     uhh2::Event::TriggerIndex ti_AK8=event.get_trigger_index("HLT_AK8PFJet360TrimMod_Mass30*");
     bool HT_trigger = event.passes_trigger(ti_HT);
@@ -153,10 +168,11 @@ bool PreselectionModule::process(Event & event) {
     // 2. test selections and fill histograms
     
     h_nocuts->fill(event);
+    if (is_allhad) h_nocuts_gen->fill(event);
     if (preselection)
     {
         h_preselection->fill(event);
-
+        if (is_allhad) h_preselection_gen->fill(event);
     }
     
     if (trigger_selection)
@@ -179,6 +195,12 @@ bool PreselectionModule::process(Event & event) {
         {
             h_AK8trieffnum->fill(event);
         }
+    }
+
+    if (preselection && selection)
+    {
+        h_selection->fill(event);
+        if (is_allhad) h_selection_gen->fill(event);
     }
     if (preselection && selection && (nbtag==0))
     {

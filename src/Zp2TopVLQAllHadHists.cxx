@@ -42,6 +42,30 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
   book<TH1F>("m1CMS", ";m_{1,CMS};Events", 200, 0, 2000);
   book<TH1F>("m2CMS", ";m_{2,CMS};Events", 200, 0, 2000);
   book<TH1F>("m12CMS", ";m_{12,CMS};Events", 200, 0, 6000);
+
+  book<TH1F>("m1CMSfat", ";m_{1,CMS};Events", 200, 0, 2000);
+  book<TH1F>("m2CMSfat", ";m_{2,CMS};Events", 200, 0, 2000);
+  book<TH1F>("m12CMSfat", ";m_{12,CMS};Events", 200, 0, 6000);
+
+  book<TH1F>("m1gen", ";m_{1,gen};Events", 200, 0, 2000);
+  book<TH1F>("m2gen", ";m_{2,gen};Events", 200, 0, 2000);
+  book<TH1F>("m12gen", ";m_{12,gen};Events", 200, 0, 6000);
+
+  book<TH1F>("m1AK4x3R8", ";m_{1,AK4x3R8};Events", 200, 0, 2000);
+  book<TH1F>("m2AK4x3R8", ";m_{2,AK4x3R8};Events", 200, 0, 2000);
+  book<TH1F>("m12AK4x3R8", ";m_{12,AK4x3R8};Events", 200, 0, 6000);
+
+  book<TH1F>("m1AK4x4R8", ";m_{1,4x4R8};Events", 200, 0, 2000);
+  book<TH1F>("m2AK4x4R8", ";m_{2,4x4R8};Events", 200, 0, 2000);
+  book<TH1F>("m12AK4x4R8", ";m_{12,AK4x4R8};Events", 200, 0, 6000);
+
+  book<TH1F>("m1AK4x3R15", ";m_{1,AK4x3R15};Events", 200, 0, 2000);
+  book<TH1F>("m2AK4x3R15", ";m_{2,AK4x3R15};Events", 200, 0, 2000);
+  book<TH1F>("m12AK4x3R15", ";m_{12,AK4x3R15};Events", 200, 0, 6000);
+
+  book<TH1F>("m1AK4x4R15", ";m_{1,AK4x4R15};Events", 200, 0, 2000);
+  book<TH1F>("m2AK4x4R15", ";m_{2,AK4x4R15};Events", 200, 0, 2000);
+  book<TH1F>("m12AK4x4R15", ";m_{12,AK4x4R15};Events", 200, 0, 6000);
   
   book<TH1F>("m1HEP", ";m_{1,HEP};Events", 200, 0, 2000);
   book<TH1F>("m2HEP", ";m_{2,HEP};Events", 200, 0, 2000);
@@ -95,8 +119,10 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
   
   //pt/pt vs pt
   book<TProfile>("ptratioVSpt", ";p_{T,gen};p_{T,reco}/p_{T,gen}", 150, 0, 1500);
+  book<TProfile>("ptratioVSptAK4", ";p_{T,gen};p_{T,reco}/p_{T,gen}", 500, 0, 1000);
   //pt/pt vs eta
   book<TProfile>("ptratioVSeta", ";#eta_{gen};p_{T,reco}/p_{T,gen}", 150, -4, 4);
+  book<TProfile>("ptratioVSnpv", ";n_{pv};p_{T,reco}/p_{T,gen}", 50, 0, 50);
   //pt/pt vs pt,eta
   book<TProfile2D>("ptratioVSpteta", ";p_{T,gen};#eta_{gen};p_{T,reco}/p_{T,gen}", 15, 0, 1500, 15, -4, 4);
   //m/m vs pt
@@ -142,7 +168,7 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
   // Don't forget to always use the weight when filling.
   double weight = event.weight;
   
-  
+  int Npvs = event.pvs->size();
   
   
   
@@ -164,10 +190,38 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
   if (event.topjetsCA15->size()>1) hist("m2CA15")->Fill(TopJetMass(event.topjetsCA15->at(1)),weight);
   if (event.topjetsCA15->size()>1) hist("m12CA15")->Fill(ZprimeMass(event.topjetsCA15->at(0),event.topjetsCA15->at(1)),weight);
   
-  if (event.topjets->size()>0) hist("m1CMS")->Fill(TopJetMass(event.topjets->at(0)),weight);
-  if (event.topjets->size()>1) hist("m2CMS")->Fill(TopJetMass(event.topjets->at(1)),weight);
-  if (event.topjets->size()>1) hist("m12CMS")->Fill(ZprimeMass(event.topjets->at(0),event.topjets->at(1)),weight);
-  
+  if (event.topjets->size()>0)
+  {
+    hist("m1CMS")->Fill(TopJetMass(event.topjets->at(0)),weight);
+    hist("m1CMSfat")->Fill(TopJetMass2(event.topjets->at(0)),weight);
+    hist("m1AK4x3R8")->Fill(TopJetMassAK4(event,event.topjets->at(0),3,0.8),weight);
+    hist("m1AK4x4R8")->Fill(TopJetMassAK4(event,event.topjets->at(0),4,0.8),weight);
+    hist("m1AK4x3R15")->Fill(TopJetMassAK4(event,event.topjets->at(0),3,1.5),weight);
+    hist("m1AK4x4R15")->Fill(TopJetMassAK4(event,event.topjets->at(0),4,1.5),weight);
+  }
+  if (event.topjets->size()>1)
+  {
+    hist("m2CMS")->Fill(TopJetMass(event.topjets->at(1)),weight);
+    hist("m2CMSfat")->Fill(TopJetMass2(event.topjets->at(1)),weight);
+    hist("m2AK4x3R8")->Fill(TopJetMassAK4(event,event.topjets->at(1),3,0.8),weight);
+    hist("m2AK4x4R8")->Fill(TopJetMassAK4(event,event.topjets->at(1),4,0.8),weight);
+    hist("m2AK4x3R15")->Fill(TopJetMassAK4(event,event.topjets->at(1),3,1.5),weight);
+    hist("m2AK4x4R15")->Fill(TopJetMassAK4(event,event.topjets->at(1),4,1.5),weight);
+  }
+  if (event.topjets->size()>1)
+  {
+    hist("m12CMS")->Fill(ZprimeMass(event.topjets->at(0),event.topjets->at(1)),weight);
+    hist("m12CMSfat")->Fill(ZprimeMass2(event.topjets->at(0),event.topjets->at(1)),weight);
+    hist("m12AK4x3R8")->Fill(ZprimeMassAK4(event,event.topjets->at(0),event.topjets->at(1),3,0.8),weight);
+    hist("m12AK4x4R8")->Fill(ZprimeMassAK4(event,event.topjets->at(0),event.topjets->at(1),4,0.8),weight);
+    hist("m12AK4x3R15")->Fill(ZprimeMassAK4(event,event.topjets->at(0),event.topjets->at(1),3,1.5),weight);
+    hist("m12AK4x4R15")->Fill(ZprimeMassAK4(event,event.topjets->at(0),event.topjets->at(1),4,1.5),weight);
+  }
+
+  if (event.gentopjets->size()>0) hist("m1gen")->Fill(TopJetMass2(event.gentopjets->at(0)),weight);
+  if (event.gentopjets->size()>1) hist("m2gen")->Fill(TopJetMass2(event.gentopjets->at(1)),weight);
+  if (event.gentopjets->size()>1) hist("m12gen")->Fill(ZprimeMass2(event.gentopjets->at(0),event.gentopjets->at(1)),weight);
+
   if (event.topjetsHEP->size()>0) hist("m1HEP")->Fill(TopJetMass(event.topjetsHEP->at(0)),weight);
   if (event.topjetsHEP->size()>1) hist("m2HEP")->Fill(TopJetMass(event.topjetsHEP->at(1)),weight);
   if (event.topjetsHEP->size()>1) hist("m12HEP")->Fill(ZprimeMass(event.topjetsHEP->at(0),event.topjetsHEP->at(1)),weight);
@@ -217,10 +271,10 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
   std::vector<GenTopJet> arr;
   if (event.gentopjets->size()>0) arr.push_back(event.gentopjets->at(0));
   if (event.gentopjets->size()>1) arr.push_back(event.gentopjets->at(1));
-  for(auto gen : *event.gentopjets)
-  //for(auto gen : arr)
+  //for(auto gen : *event.gentopjets)
+  for(auto gen : arr)
   {
-    cout<<gen.pt()<<endl;
+    //cout<<gen.pt()<<endl;
   int index=match2GenTopJet(gen,event);
   if (index>-1)
   {
@@ -236,6 +290,7 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
     float etaratio=etareco/etagen ;
     //pt/pt vs pt
     ((TProfile*)hist("ptratioVSpt"))->Fill(ptgen,ptratio,weight);
+    ((TProfile*)hist("ptratioVSnpv"))->Fill(Npvs,ptratio,weight);
     //pt/pt vs eta
     ((TProfile*)hist("ptratioVSeta"))->Fill(etagen,ptratio,weight);
     //pt/pt vs pt,eta
@@ -257,7 +312,17 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
     ((TProfile2D*)hist("etaratioVSpteta"))->Fill(ptgen,etagen,etaratio,weight);
   }
   }
-  cout<<endl<<endl;
+  //cout<<endl<<endl;
+
+  for(auto gen : *event.genjets)
+  {
+    int index=match2GenJet(gen,event);
+    if (index>-1)
+    {
+      Jet reco=event.jets->at(index);
+      ((TProfile*)hist("ptratioVSptAK4"))->Fill(gen.pt(),reco.pt()/gen.pt(),weight);
+    }
+  }
  
 
 
@@ -312,7 +377,7 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
 //       hist("reliso_mu")->Fill(thismu.relIso(), weight);
 //   }
   
-  int Npvs = event.pvs->size();
+  
   hist("N_pv")->Fill(Npvs, weight);
 }
 

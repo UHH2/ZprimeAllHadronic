@@ -30,7 +30,7 @@ float TopJetMass(TopJet topjet)
   else return allsubjets.M();
 }
 
-float TopJetMass2(TopJet topjet)
+float TopJetMass2(Particle topjet)
 {
   if (topjet.v4().isTimelike()) return topjet.v4().M();
   else return 0.0;
@@ -45,7 +45,7 @@ float ZprimeMass(TopJet t1, TopJet t2)
   else return allsubjets.M();
 }
 
-float ZprimeMass2(TopJet t1, TopJet t2)
+float ZprimeMass2(Particle t1, Particle t2)
 {
   LorentzVector allsubjets(0,0,0,0);
   allsubjets += t1.v4();
@@ -61,7 +61,7 @@ float TopJetPt(TopJet topjet)
   return allsubjets.Pt();
 }
 
-float TopJetPt2(TopJet topjet)
+float TopJetPt2(Particle topjet)
 {
   return topjet.pt();
 }
@@ -192,6 +192,23 @@ int match2GenTopJet(GenTopJet gen, const Event & event)
   }
   return index;
 }
+
+int match2GenJet(Particle gen, const Event & event)
+{
+  float deltar=0.4;
+  int index=-1;
+  for (unsigned int i=0;i<event.jets->size();i++)
+  {
+    float current_deltar=deltaR(gen,event.jets->at(i));
+    if (current_deltar<deltar)
+    {
+      deltar=current_deltar;
+      index=i;
+    }
+  }
+  return index;
+}
+
 float TopJetMass(GenTopJet topjet)
 {
   LorentzVector allsubjets(0,0,0,0);
@@ -199,12 +216,14 @@ float TopJetMass(GenTopJet topjet)
   if(!allsubjets.isTimelike()) return 0.0;
   else return allsubjets.M();
 }
+
 float TopJetPt(GenTopJet topjet)
 {
   LorentzVector allsubjets(0,0,0,0);
   for(auto subjet : topjet.subjets()) allsubjets += subjet.v4();
   return allsubjets.Pt();
 }
+
 float ZprimeMass(GenTopJet t1, GenTopJet t2)
 {
   LorentzVector allsubjets(0,0,0,0);
@@ -225,6 +244,67 @@ float TopJetEta(GenTopJet topjet)
   LorentzVector allsubjets(0,0,0,0);
   for(auto subjet : topjet.subjets()) allsubjets += subjet.v4();
   return allsubjets.Eta();
+}
+
+LorentzVector getAK4FromTopJet(const Event & event, TopJet t, unsigned int njets, float r)
+{
+  std::vector<int> indices;
+  std::vector<float> deltar;
+  for (unsigned int i=0;i<njets;i++)
+  {
+    float mindr=999;
+    float minindex=-1;
+    float drlimit=-1;
+    if (indices.size()>0)
+      drlimit=deltar[indices.size()-1];
+    for (unsigned int j=0;j<event.jets->size();j++)
+    {
+      float dr=deltaR(t,event.jets->at(j));
+      if ((dr<r) && (dr<mindr) && (dr>(drlimit+0.0001)))
+      {
+        mindr=dr;
+        minindex=j;
+      }
+    }
+    if (minindex>-1)
+    {
+      indices.push_back(minindex);
+      deltar.push_back(mindr);
+    }
+    else
+    {
+      break;
+    }
+  }
+  LorentzVector v(0,0,0,0);
+  for(auto i : indices)
+  {
+    v+=event.jets->at(i).v4();
+  }
+  return v;
+}
+
+float TopJetMassAK4(const Event & event, TopJet t, unsigned int njets, float r)
+{
+  LorentzVector tv4 = getAK4FromTopJet(event,t,njets,r);
+  if (tv4.isTimelike()) return tv4.M();
+  else return 0;
+}
+
+float ZprimeMassAK4(const Event & event, TopJet t1, TopJet t2, unsigned int njets, float r)
+{
+  LorentzVector zv4 = getAK4FromTopJet(event,t1,njets,r)+getAK4FromTopJet(event,t2,njets,r);
+  if (zv4.isTimelike()) return zv4.M();
+  else return 0;
+}
+
+
+void uncorrect_topjets(const Event & event){
+    for (auto & jet : *event.topjets)
+    {
+      jet.set_v4(jet.v4() * jet.JEC_factor_raw());
+      jet.set_JEC_factor_raw(1.);
+    }
 }
 
 int subJetBTag(TopJet topjet, E_BtagType type, TString mode, TString filename){
