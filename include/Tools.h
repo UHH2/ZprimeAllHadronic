@@ -7,12 +7,13 @@
 #include "TRandom3.h"
 #include "UHH2/core/include/AnalysisModule.h"
 #include "UHH2/common/include/JetCorrections.h"
+#include "UHH2/JetMETObjects/interface/FactorizedJetCorrector.h"
 
 using namespace uhh2;
 bool TopTag(TopJet topjet);
 bool AntiTopTag(TopJet topjet);
 float getHT50(const Event & event);
-float getHTAK8(const Event & event);
+float getHTCA8(const Event & event);
 float getMaxTopJetPt(const Event & event);
 float getMaxTopJetMass(const Event & event);
 float TopJetMass(TopJet topjet);
@@ -40,6 +41,23 @@ LorentzVector getAK4FromTopJet(const Event & event, TopJet t, unsigned int njets
 float TopJetMassAK4(const Event & event, TopJet t, unsigned int njets, float r);
 float ZprimeMassAK4(const Event & event, TopJet t1, TopJet t2, unsigned int njets, float r);
 void uncorrect_topjets(const Event & event);
+
+class GenericJetCorrector: public uhh2::AnalysisModule {
+public:
+    explicit GenericJetCorrector(const std::vector<std::string> & filenames);
+    
+    virtual bool process(uhh2::Event & event, std::vector<Jet> * jets) override;
+    
+    virtual ~GenericJetCorrector();
+    
+private:
+    std::unique_ptr<FactorizedJetCorrector> corrector;
+};
+
+void correct_jet(FactorizedJetCorrector & corrector, Jet & jet, const Event & event);
+
+std::unique_ptr<FactorizedJetCorrector> build_corrector(const std::vector<std::string> & filenames);
+
 struct HigherPt {
     bool operator() (const Particle& j1, const Particle& j2) const {
         return j1.pt() > j2.pt();

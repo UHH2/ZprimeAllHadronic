@@ -32,6 +32,11 @@ private:
     std::unique_ptr<TopJetCorrector> topjetcorrector;
     std::unique_ptr<SubJetCorrector> subjetcorrector;
    
+    uhh2::Event::Handle<std::vector<Jet> > h_jetsAK8;
+    uhh2::Event::Handle<std::vector<TopJet> > h_topjetsCA8;
+    uhh2::Event::Handle<std::vector<TopJet> > h_topjetsCA15;
+    uhh2::Event::Handle<std::vector<TopJet> > h_topjetsHEP;
+
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
     // std::unique_ptr<Selection> njet_sel, bsel;
@@ -90,6 +95,17 @@ PreselectionModule::PreselectionModule(Context & ctx){
     // h_njet.reset(new Zp2TopVLQAllHadHists(ctx, "Njet"));
     // h_bsel.reset(new Zp2TopVLQAllHadHists(ctx, "Bsel"));
     // h_ele.reset(new ElectronHists(ctx, "ele_nocuts"));
+
+    h_jetsAK8 = ctx.declare_event_input<std::vector<Jet> >("slimmedJetsAK8", "slimmedJetsAK8");
+    h_topjetsCA8 = ctx.declare_event_input<std::vector<TopJet> >("patJetsCA8CHSprunedPacked", "patJetsCA8CHSprunedPacked");
+    h_topjetsCA15 = ctx.declare_event_input<std::vector<TopJet> >("patJetsCA15CHSFilteredPacked", "patJetsCA15CHSFilteredPacked");
+    h_topjetsHEP = ctx.declare_event_input<std::vector<TopJet> >("patJetsHEPTopTagCHSPacked", "patJetsHEPTopTagCHSPacked");
+
+    h_jetsAK8 = ctx.declare_event_output<std::vector<Jet> >("slimmedJetsAK8", "slimmedJetsAK8");
+    h_topjetsCA8 = ctx.declare_event_output<std::vector<TopJet> >("patJetsCA8CHSprunedPacked", "patJetsCA8CHSprunedPacked");
+    h_topjetsCA15 = ctx.declare_event_output<std::vector<TopJet> >("patJetsCA15CHSFilteredPacked", "patJetsCA15CHSFilteredPacked");
+    h_topjetsHEP = ctx.declare_event_output<std::vector<TopJet> >("patJetsHEPTopTagCHSPacked", "patJetsHEPTopTagCHSPacked");
+
 }
 
 
@@ -124,8 +140,8 @@ if (event.gentopjets){
     // 1. run all modules; here: only jet cleaning.
     jetcleaner->process(event);
     jetcorrector->process(event);
-    topjetcorrector->process(event);
-    subjetcorrector->process(event);
+    //topjetcorrector->process(event);
+    //subjetcorrector->process(event);
 
     uhh2::Event::TriggerIndex ti_HT=event.get_trigger_index("HLT_PFHT900*");
     uhh2::Event::TriggerIndex ti_AK8=event.get_trigger_index("HLT_AK8PFJet360TrimMod_Mass30*");

@@ -15,10 +15,10 @@ float getHT50(const Event & event)
   return ht;
 }
 
-float getHTAK8(const Event & event)
+float getHTCA8(const Event & event)
 {
- if (event.jetsAK8->size()>1) return event.jetsAK8->at(0).pt() + event.jetsAK8->at(1).pt();
- if (event.jetsAK8->size()>0) return event.jetsAK8->at(0).pt();
+ if (event.topjets->size()>1) return event.topjets->at(0).pt() + event.topjets->at(1).pt();
+ if (event.topjets->size()>0) return event.topjets->at(0).pt();
  return 0.0;
 }
 
@@ -68,17 +68,17 @@ float TopJetPt2(Particle topjet)
 
 float getMaxTopJetMass(const Event & event)
 {
-  if  (event.topjetsCA8->size()==0) return 0.0;
+  if  (event.topjets->size()==0) return 0.0;
   std::vector<float> valuelist;
-  for(auto topjet : *event.topjetsCA8) valuelist.push_back(TopJetMass(topjet));
+  for(auto topjet : *event.topjets) valuelist.push_back(TopJetMass(topjet));
   return *std::max_element(valuelist.begin(),valuelist.end());
 }
 
 float getMaxTopJetPt(const Event & event)
 {
-  if  (event.topjetsCA8->size()==0) return 0.0;
+  if  (event.topjets->size()==0) return 0.0;
   std::vector<float> valuelist;
-  for(auto topjet : *event.topjetsCA8) valuelist.push_back( TopJetPt(topjet) );
+  for(auto topjet : *event.topjets) valuelist.push_back( TopJetPt(topjet) );
   return *std::max_element(valuelist.begin(),valuelist.end());
 }
 
@@ -305,6 +305,41 @@ void uncorrect_topjets(const Event & event){
       jet.set_v4(jet.v4() * jet.JEC_factor_raw());
       jet.set_JEC_factor_raw(1.);
     }
+}
+
+GenericJetCorrector::GenericJetCorrector(const std::vector<std::string> & filenames){
+    corrector = build_corrector(filenames);
+}
+    
+bool GenericJetCorrector::process(uhh2::Event & event, std::vector<Jet> * jets){
+    assert(event.jets);
+    for(auto & jet : *jets){
+        correct_jet(*corrector, jet, event);
+    }
+    return true;
+}
+
+// note: implement here because only here (and not in the header file), the destructor of FactorizedJetCorrector is known
+GenericJetCorrector::~GenericJetCorrector(){}
+
+void correct_jet(FactorizedJetCorrector & corrector, Jet & jet, const Event & event){
+    auto factor_raw = jet.JEC_factor_raw();
+    corrector.setJetPt(jet.pt() * factor_raw);
+    corrector.setJetEta(jet.eta());
+    corrector.setJetE(jet.energy() * factor_raw);
+    corrector.setJetA(jet.jetArea());
+    corrector.setRho(event.rho);
+    auto correctionfactor = corrector.getCorrection();
+    jet.set_v4(jet.v4() * (factor_raw * correctionfactor));
+    jet.set_JEC_factor_raw(1. / correctionfactor);
+}
+
+std::unique_ptr<FactorizedJetCorrector> build_corrector(const std::vector<std::string> & filenames){
+    std::vector<JetCorrectorParameters> pars;
+    for(const auto & filename : filenames){
+        pars.emplace_back(locate_file(filename));
+    }
+    return make_unique<FactorizedJetCorrector>(pars);
 }
 
 int subJetBTag(TopJet topjet, E_BtagType type, TString mode, TString filename){

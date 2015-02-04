@@ -17,6 +17,11 @@ public:
 
     virtual void fill(const uhh2::Event & ev) override;
     virtual ~Zp2TopVLQAllHadHists();
+private:
+    uhh2::Event::Handle<std::vector<Jet> > h_jetsAK8;
+    uhh2::Event::Handle<std::vector<TopJet> > h_topjetsCA8;
+    uhh2::Event::Handle<std::vector<TopJet> > h_topjetsCA15;
+    uhh2::Event::Handle<std::vector<TopJet> > h_topjetsHEP;
 };
 
 class MistagAndShapeHists: public uhh2::Hists {

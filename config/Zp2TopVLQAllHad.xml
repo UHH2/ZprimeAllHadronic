@@ -101,12 +101,12 @@
             <Item Name="MuonCollection" Value="slimmedMuons" /> 
             <Item Name="TauCollection" Value="slimmedTaus" />
             <Item Name="JetCollection" Value="slimmedJets" />
-            <Item Name="JetAK8Collection" Value="slimmedJetsAK8" />
+            <!-- <Item Name="JetAK8Collection" Value="slimmedJetsAK8" /> -->
             <Item Name="METName" Value="slimmedMETs" />
             <Item Name="TopJetCollection" Value="patJetsCMSTopTagCHSPacked" />
-            <Item Name="TopJetHEPCollection" Value="patJetsHEPTopTagCHSPacked" />
+<!--             <Item Name="TopJetHEPCollection" Value="patJetsHEPTopTagCHSPacked" />
             <Item Name="TopJetCA8Collection" Value="patJetsCA8CHSprunedPacked" />
-            <Item Name="TopJetCA15Collection" Value="patJetsCA15CHSFilteredPacked" />
+            <Item Name="TopJetCA15Collection" Value="patJetsCA15CHSFilteredPacked" /> -->
             
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
             
