@@ -29,68 +29,68 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
   //mass1 mass2 mass1+2 AK8 CA8 CA15 CMS HEP
   book<TH1F>("m1AK8", ";m_{1,AK8};Events", 200, 0, 2000);
   book<TH1F>("m2AK8", ";m_{2,AK8};Events", 200, 0, 2000);
-  book<TH1F>("m12AK8", ";m_{12,AK8};Events", 200, 0, 6000);
+  book<TH1F>("m12AK8", ";m_{12,AK8};Events", 240, 0, 6000);
   
   book<TH1F>("m1CA8", ";m_{1,CA8};Events", 200, 0, 2000);
   book<TH1F>("m2CA8", ";m_{2,CA8};Events", 200, 0, 2000);
-  book<TH1F>("m12CA8", ";m_{12,CA8};Events", 200, 0, 6000);
+  book<TH1F>("m12CA8", ";m_{12,CA8};Events", 240, 0, 6000);
   
   book<TH1F>("m1CA15", ";m_{1,CA15};Events", 200, 0, 2000);
   book<TH1F>("m2CA15", ";m_{2,CA15};Events", 200, 0, 2000);
-  book<TH1F>("m12CA15", ";m_{12,CA15};Events", 200, 0, 6000);
+  book<TH1F>("m12CA15", ";m_{12,CA15};Events", 240, 0, 6000);
   
   book<TH1F>("m1CMS", ";m_{1,CMS};Events", 200, 0, 2000);
   book<TH1F>("m2CMS", ";m_{2,CMS};Events", 200, 0, 2000);
-  book<TH1F>("m12CMS", ";m_{12,CMS};Events", 200, 0, 6000);
+  book<TH1F>("m12CMS", ";m_{12,CMS};Events", 240, 0, 6000);
 
   book<TH1F>("m1CMSfat", ";m_{1,CMS};Events", 200, 0, 2000);
   book<TH1F>("m2CMSfat", ";m_{2,CMS};Events", 200, 0, 2000);
-  book<TH1F>("m12CMSfat", ";m_{12,CMS};Events", 200, 0, 6000);
+  book<TH1F>("m12CMSfat", ";m_{12,CMS};Events", 240, 0, 6000);
 
   book<TH1F>("m1gen", ";m_{1,gen};Events", 200, 0, 2000);
   book<TH1F>("m2gen", ";m_{2,gen};Events", 200, 0, 2000);
-  book<TH1F>("m12gen", ";m_{12,gen};Events", 200, 0, 6000);
+  book<TH1F>("m12gen", ";m_{12,gen};Events", 240, 0, 6000);
 
   book<TH1F>("m1AK4x3R8", ";m_{1,AK4x3R8};Events", 200, 0, 2000);
   book<TH1F>("m2AK4x3R8", ";m_{2,AK4x3R8};Events", 200, 0, 2000);
-  book<TH1F>("m12AK4x3R8", ";m_{12,AK4x3R8};Events", 200, 0, 6000);
+  book<TH1F>("m12AK4x3R8", ";m_{12,AK4x3R8};Events", 240, 0, 6000);
 
   book<TH1F>("m1AK4x4R8", ";m_{1,4x4R8};Events", 200, 0, 2000);
   book<TH1F>("m2AK4x4R8", ";m_{2,4x4R8};Events", 200, 0, 2000);
-  book<TH1F>("m12AK4x4R8", ";m_{12,AK4x4R8};Events", 200, 0, 6000);
+  book<TH1F>("m12AK4x4R8", ";m_{12,AK4x4R8};Events", 240, 0, 6000);
 
   book<TH1F>("m1AK4x3R15", ";m_{1,AK4x3R15};Events", 200, 0, 2000);
   book<TH1F>("m2AK4x3R15", ";m_{2,AK4x3R15};Events", 200, 0, 2000);
-  book<TH1F>("m12AK4x3R15", ";m_{12,AK4x3R15};Events", 200, 0, 6000);
+  book<TH1F>("m12AK4x3R15", ";m_{12,AK4x3R15};Events", 240, 0, 6000);
 
   book<TH1F>("m1AK4x4R15", ";m_{1,AK4x4R15};Events", 200, 0, 2000);
   book<TH1F>("m2AK4x4R15", ";m_{2,AK4x4R15};Events", 200, 0, 2000);
-  book<TH1F>("m12AK4x4R15", ";m_{12,AK4x4R15};Events", 200, 0, 6000);
+  book<TH1F>("m12AK4x4R15", ";m_{12,AK4x4R15};Events", 240, 0, 6000);
   
   book<TH1F>("m1HEP", ";m_{1,HEP};Events", 200, 0, 2000);
   book<TH1F>("m2HEP", ";m_{2,HEP};Events", 200, 0, 2000);
-  book<TH1F>("m12HEP", ";m_{12,HEP};Events", 200, 0, 6000);
+  book<TH1F>("m12HEP", ";m_{12,HEP};Events", 240, 0, 6000);
   
   //pt1 pt2 pt1+2 AK8 CA8 CA15 CMS HEP
   book<TH1F>("pT1AK8", ";pT_{1,AK8};Events", 200, 0, 2000);
   book<TH1F>("pT2AK8", ";pT_{2,AK8};Events", 200, 0, 2000);
-  book<TH1F>("pT12AK8", ";pT_{1,AK8}+pT_{2,AK8};Events", 200, 0, 6000);
+  book<TH1F>("pT12AK8", ";pT_{1,AK8}+pT_{2,AK8};Events", 240, 0, 6000);
   
   book<TH1F>("pT1CA8", ";pT_{1,CA8};Events", 200, 0, 2000);
   book<TH1F>("pT2CA8", ";pT_{2,CA8};Events", 200, 0, 2000);
-  book<TH1F>("pT12CA8", ";pT_{1,CA8}+pT_{2,CA8};Events", 200, 0, 6000);
+  book<TH1F>("pT12CA8", ";pT_{1,CA8}+pT_{2,CA8};Events", 240, 0, 6000);
   
   book<TH1F>("pT1CA15", ";pT_{1,CA15};Events", 200, 0, 2000);
   book<TH1F>("pT2CA15", ";pT_{2,CA15};Events", 200, 0, 2000);
-  book<TH1F>("pT12CA15", ";pT_{1,CA15}+pT_{2,CA15};Events", 200, 0, 6000);
+  book<TH1F>("pT12CA15", ";pT_{1,CA15}+pT_{2,CA15};Events", 240, 0, 6000);
   
   book<TH1F>("pT1CMS", ";pT_{1,CMS};Events", 200, 0, 2000);
   book<TH1F>("pT2CMS", ";pT_{2,CMS};Events", 200, 0, 2000);
-  book<TH1F>("pT12CMS", ";pT_{1,CMS}+pT_{2,CMS};Events", 200, 0, 6000);
+  book<TH1F>("pT12CMS", ";pT_{1,CMS}+pT_{2,CMS};Events", 240, 0, 6000);
   
   book<TH1F>("pT1HEP", ";pT_{1,HEP};Events", 200, 0, 2000);
   book<TH1F>("pT2HEP", ";pT_{2,HEP};Events", 200, 0, 2000);
-  book<TH1F>("pT12HEP", ";pT_{1,HEP}+pT_{2,HEP};Events", 200, 0, 6000);
+  book<TH1F>("pT12HEP", ";pT_{1,HEP}+pT_{2,HEP};Events", 240, 0, 6000);
   
   //HT50
   book<TH1F>("HT", ";HT_{50};Events", 200, 0, 10000);
@@ -217,10 +217,10 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
     hist("m12AK4x3R15")->Fill(ZprimeMassAK4(event,event.topjets->at(0),event.topjets->at(1),3,1.5),weight);
     hist("m12AK4x4R15")->Fill(ZprimeMassAK4(event,event.topjets->at(0),event.topjets->at(1),4,1.5),weight);
   }
-
+if(event.gentopjets){
   if (event.gentopjets->size()>0) hist("m1gen")->Fill(TopJetMass2(event.gentopjets->at(0)),weight);
   if (event.gentopjets->size()>1) hist("m2gen")->Fill(TopJetMass2(event.gentopjets->at(1)),weight);
-  if (event.gentopjets->size()>1) hist("m12gen")->Fill(ZprimeMass2(event.gentopjets->at(0),event.gentopjets->at(1)),weight);
+  if (event.gentopjets->size()>1) hist("m12gen")->Fill(ZprimeMass2(event.gentopjets->at(0),event.gentopjets->at(1)),weight);}
 
   if (event.topjetsHEP->size()>0) hist("m1HEP")->Fill(TopJetMass(event.topjetsHEP->at(0)),weight);
   if (event.topjetsHEP->size()>1) hist("m2HEP")->Fill(TopJetMass(event.topjetsHEP->at(1)),weight);
@@ -267,7 +267,7 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
   if (event.topjets->size()>1) hist("mmin2")->Fill(getMmin(event.topjets->at(0)),weight);
   if (event.topjets->size()>1) hist("ndau2")->Fill(event.topjets->at(1).numberOfDaughters(),weight);
   
-
+if (event.gentopjets){
   std::vector<GenTopJet> arr;
   if (event.gentopjets->size()>0) arr.push_back(event.gentopjets->at(0));
   if (event.gentopjets->size()>1) arr.push_back(event.gentopjets->at(1));
@@ -349,7 +349,7 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
     ((TProfile2D*)hist("mZratioVSptpt"))->Fill(pt1gen,pt2gen,mzratio,weight);
     ((TProfile2D*)hist("mZratioVSetaeta"))->Fill(eta1gen,eta2gen,mzratio,weight);
   }
-
+}
   
   
 //   std::vector<Jet>* jets = event.jets;
@@ -410,7 +410,7 @@ void MistagAndShapeHists::fill(const Event & event){
   TRandom3 rand(abs(static_cast<int>(sin(event.topjets->at(1).subjets().at(0).eta()*1000000)*100000)));
   if (rand.Uniform(1.)<=0.5) probe_index=1;
   else tag_index=1;  
-  if ( TopTag(event.topjets->at(tag_index)) && TopTag(event.topjets->at(probe_index)) )// or use full z' candidate???
+  if ( TopTag(event.topjets->at(tag_index)) && TopTag(event.topjets->at(probe_index)) && (deltaY(event.topjets->at(tag_index),event.topjets->at(probe_index))<1.0))// or use full z' candidate???
     hist("mass_shape")->Fill(TopJetMass(event.topjets->at(probe_index)));
 
   //mistag matrix 2d 3d
@@ -422,7 +422,7 @@ void MistagAndShapeHists::fill(const Event & event){
   auto antitagJet=event.topjets->at(antitag_index);
   auto maxcsv = getMaxCSV(probeJet);
   auto pt = TopJetPt(probeJet);
-  if (AntiTopTag(antitagJet))
+  if (AntiTopTag(antitagJet) && (deltaY(antitagJet,probeJet)<1.0))
   {
     ((TH2F*)hist("mistag2D_den"))->Fill(pt,maxcsv,weight);
     if (TopTag(probeJet)) ((TH2F*)hist("mistag2D_num"))->Fill(pt,maxcsv,weight);
@@ -438,7 +438,7 @@ BackgroundHists::BackgroundHists(Context & ctx, const string & dirname): Hists(c
   mass_shape.reset((TH1F*)f->Get("mass_shape"));
   mistag.reset((TH2F*)f->Get("Mistag_CMSTT"));
 
-  book<TH1F>("m12CMS", ";m_{12,CMS};Events", 200, 0, 6000);
+  book<TH1F>("m12CMS", ";m_{12,CMS};Events", 240, 0, 6000);
 }
 
 void BackgroundHists::fill(const Event & event){
@@ -464,6 +464,7 @@ void BackgroundHists::fill(const Event & event){
     TagVector.SetPtEtaPhiE(TagSumOfSubjets.Pt(),TagSumOfSubjets.Eta(),TagSumOfSubjets.Phi(),TagSumOfSubjets.E());
     MistagVector.SetPtEtaPhiM(MistagSumOfSubjets.Pt(),MistagSumOfSubjets.Eta(),MistagSumOfSubjets.Phi(),RandomMass);
     auto mtt = ( TagVector + MistagVector ).M();
+    if (deltaY(tagJet,mistagJet)<1.0)
     hist("m12CMS")->Fill(mtt,weight*mistag_value);
   }
 }

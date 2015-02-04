@@ -8,7 +8,7 @@ from utils import compare,hadd,domistag
 gROOT.SetBatch()
 
 #setup
-path='/nfs/dust/cms/user/usaiem/phys14-3/'
+path='/nfs/dust/cms/user/usaiem/phys14-4/'
 outfile=TFile('mistag.root','RECREATE')
 filenames=['uhh2.AnalysisModuleRunner.MC.QCDHT1000ToInf','uhh2.AnalysisModuleRunner.MC.QCDHT1000ToInfExt','uhh2.AnalysisModuleRunner.MC.QCDHT500To1000','uhh2.AnalysisModuleRunner.MC.QCDHT500To1000Ext']
 filename=hadd(path,'',filenames,'mistag_added')

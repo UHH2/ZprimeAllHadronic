@@ -1,10 +1,10 @@
-from ROOT import TFile,TCanvas,gROOT,gStyle,TLegend,TGraphAsymmErrors,THStack,TIter,kRed,kYellow,kGray,kBlack
+from ROOT import TFile,TCanvas,gROOT,gStyle,TLegend,TGraphAsymmErrors,THStack,TIter,kRed,kYellow,kGray,kBlack,TLatex
 from os import system
 from sys import argv
 from os import mkdir
 from os.path import exists
 
-def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE',xtitle='',ytitle='',minx=0,maxx=0,rebin=1):
+def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE',xtitle='',ytitle='',minx=0,maxx=0,rebin=1,miny=0,maxy=0,textsizefactor=1):
   c=TCanvas(name,'',600,600)
   # c.SetLeftMargin(0.15)#
   # c.SetRightMargin(0.05)#
@@ -37,7 +37,7 @@ def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE'
   legend.SetFillStyle(0)
   histo_list=[]
   # tfile_list=[]
-  maxy=0.0
+  the_maxy=0
   for i in range(len(name_list)):
     # tfile_list.append(TFile(file_list[i],'READ'))
     histo_list.append(file_list[i].Get(name_list[i]))
@@ -49,19 +49,23 @@ def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE'
     histo_list[-1].SetLineColor(i+1)
     histo_list[-1].SetTitle('')
     legend.AddEntry(histo_list[-1],legend_list[i],'l')
-    if rebin!=0:
+    if rebin!=1:
       histo_list[-1].Rebin(rebin)
-    maxy=max(maxy,histo_list[-1].GetMaximum()*1.05)
+    the_maxy=max(maxy,histo_list[-1].GetMaximum()*1.05)
   for i in range(len(name_list)):
     if i==0:
       if not histo_list[-1].ClassName()=='TGraphAsymmErrors':
-        histo_list[i].SetMaximum(maxy)
-        histo_list[i].SetMinimum(0.0001)
+        if miny!=0 or maxy!=0:
+          histo_list[i].SetMaximum(maxy)
+          histo_list[i].SetMinimum(miny)
+        else:
+          histo_list[i].SetMaximum(the_maxy)
+          histo_list[i].SetMinimum(0.0001)
       else:
         histo_list[i].SetMaximum(1.05)
         histo_list[i].SetMinimum(0.0001)
       histo_list[i].Draw(drawoption)
-      charsize=0.05
+      charsize=0.05*textsizefactor
       histo_list[i].GetYaxis().SetLabelSize(charsize)
       histo_list[i].GetYaxis().SetTitleSize(charsize)
       histo_list[i].GetYaxis().SetTitleOffset(1.6)
@@ -71,7 +75,7 @@ def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE'
       # if useOutfile:
       histo_list[i].GetXaxis().SetTitle(xtitle)
       histo_list[i].GetYaxis().SetTitle(ytitle)
-      if maxx!=0 and minx!=0:
+      if maxx!=0 or minx!=0:
         histo_list[i].GetXaxis().SetRangeUser(minx,maxx)
       #   histo_list[i].GetYaxis().SetTitle('Efficiency')
     else:
@@ -125,12 +129,15 @@ def domistag(infile,outfile,mistag_den,mistag_num,outname):
   slice_and_save(outname,den_histo,outfile)
 
 
-def make_plot(name, ttbar_file, qcd_file, signal_files, histo, histo_qcd='',rebin=1,minx=0,maxx=0):
+def make_plot(name, ttbar_file, qcd_file, signal_files, histo, histo_qcd='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,logy=False):
   c=TCanvas(name,'',600,600)
   c.SetLeftMargin(0.15)#
   c.SetRightMargin(0.05)#
   c.SetBottomMargin(0.1)
   c.SetTopMargin(0.25)
+  latex=TLatex(0.65,0.70,'13 TeV, 20 fb^{-1} ')
+  latex.SetNDC(1)
+  latex.SetTextFont(42)
   legend=TLegend(0.0,0.75,0.99,1.04)
   legend.SetHeader('')
   #legend.SetTextSize(0.03)
@@ -183,8 +190,8 @@ def make_plot(name, ttbar_file, qcd_file, signal_files, histo, histo_qcd='',rebi
   err.Draw('2')
   #summc.Draw('samehist')
   #stack.SetMinimum(0.1)
-  stack.SetMaximum(stack.GetMaximum()*1.2)
-  stack.GetXaxis().SetTitle("m_{t#bar{t}}")
+  #stack.SetMaximum(stack.GetMaximum()*1.2)
+  stack.GetXaxis().SetTitle("m_{t#bar{t}} [GeV]")
   stack.GetYaxis().SetTitle('Events')
   charsize=0.05
   stack.GetYaxis().SetLabelSize(charsize)
@@ -193,11 +200,17 @@ def make_plot(name, ttbar_file, qcd_file, signal_files, histo, histo_qcd='',rebi
   stack.GetXaxis().SetLabelSize(charsize)
   stack.GetXaxis().SetTitleSize(charsize)
   stack.GetXaxis().SetTitleOffset(0.95)
-  stack.SetMinimum(0.001)
-  if maxx!=0 and minx!=0:
+  #stack.SetMinimum(0.001)
+  if logy:
+    c.SetLogy()
+  if maxx!=0 or minx!=0:
     stack.GetXaxis().SetRangeUser(minx,maxx)
+  if maxy!=0 or miny!=0:
+    stack.SetMinimum(miny)
+    stack.SetMaximum(maxy)
   signal_histos[0].Draw('samehist')
   signal_histos[1].Draw('samehist')
   signal_histos[2].Draw('samehist')
   legend.Draw()
+  latex.Draw()
   c.SaveAs('pdf/'+name+'.pdf')

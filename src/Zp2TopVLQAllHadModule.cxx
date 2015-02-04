@@ -113,7 +113,7 @@ bool Zp2TopVLQAllHadModule::process(Event & event) {
     } 
 
     h_nocuts->fill(event);
-    if (TopTag(event.topjets->at(0))&&TopTag(event.topjets->at(1)))
+    if (TopTag(event.topjets->at(0))&&TopTag(event.topjets->at(1)) && (deltaY(event.topjets->at(0),event.topjets->at(1))<1.0))
     {
         h_selection->fill(event);
         if (nbtag==0) h_selection0->fill(event);

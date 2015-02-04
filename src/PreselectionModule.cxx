@@ -55,9 +55,9 @@ PreselectionModule::PreselectionModule(Context & ctx){
     // If running in SFrame, the keys "dataset_version", "dataset_type" and "dataset_lumi"
     // are set to the according values in the xml file. For CMSSW, these are
     // not set automatically, but can be set in the python config file.
-    for(auto & kv : ctx.get_all()){
-        cout << " " << kv.first << " = " << kv.second << endl;
-    }
+    // for(auto & kv : ctx.get_all()){
+    //     cout << " " << kv.first << " = " << kv.second << endl;
+    // }
     
     // 1. setup other modules. Here, only the jet cleaner
     jetcleaner.reset(new JetCleaner(30.0, 2.4));
@@ -110,13 +110,14 @@ bool PreselectionModule::process(Event & event) {
     //for (unsigned int i=0; i<event.get_current_triggernames().size();i++)
     //cout<< event.get_current_triggernames()[i]<<"\n";
     //cout<<"\n\n\n";
-
+bool is_allhad=false;
+if (event.gentopjets){
     TTbarGen ttbargen(*event.genparticles);
-    bool is_allhad = ttbargen.IsTopHadronicDecay() && ttbargen.IsAntiTopHadronicDecay();
+    is_allhad = ttbargen.IsTopHadronicDecay() && ttbargen.IsAntiTopHadronicDecay();}
 
-    if (event.topjets->size()>0) cout<<event.topjets->at(0).pt()<<endl;
+    //if (event.topjets->size()>0) cout<<event.topjets->at(0).pt()<<endl;
     uncorrect_topjets(event);
-    if (event.topjets->size()>0) cout<<event.topjets->at(0).pt()<<endl<<endl;
+    //if (event.topjets->size()>0) cout<<event.topjets->at(0).pt()<<endl<<endl;
     h_nocorr->fill(event);
     if (is_allhad) h_nocorr_gen->fill(event);
 
@@ -160,7 +161,7 @@ bool PreselectionModule::process(Event & event) {
             nbtag++;
         }
     } 
-    bool eff_selection = selection && (nbtag>0);
+    bool eff_selection = selection && (nbtag>1);
 
     // bool CMScut = ;
     // bool HEPcut = ;
