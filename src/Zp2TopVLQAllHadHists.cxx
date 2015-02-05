@@ -158,12 +158,11 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
   book<TH1F>("N_pv", ";N^{PV};Events", 50, 0, 50);
 
 
-  //get handles
-  h_jetsAK8 = ctx.declare_event_input<std::vector<Jet> >("slimmedJetsAK8", "slimmedJetsAK8");
-  //h_jetsAK8 = ctx.get_handle<std::vector<Jet> >("slimmedJetsAK8");
-  h_topjetsCA8 = ctx.declare_event_input<std::vector<TopJet> >("patJetsCA8CHSprunedPacked", "patJetsCA8CHSprunedPacked");
-  h_topjetsCA15 = ctx.declare_event_input<std::vector<TopJet> >("patJetsCA15CHSFilteredPacked", "patJetsCA15CHSFilteredPacked");
-  h_topjetsHEP = ctx.declare_event_input<std::vector<TopJet> >("patJetsHEPTopTagCHSPacked", "patJetsHEPTopTagCHSPacked");
+  //get handles ctx.get_handle<double>("HT");
+  h_jetsAK8 = ctx.get_handle<std::vector<Jet> >("slimmedJetsAK8");//, "slimmedJetsAK8");
+  h_topjetsCA8 = ctx.get_handle<std::vector<TopJet> >("patJetsCA8CHSprunedPacked");//, "patJetsCA8CHSprunedPacked");
+  h_topjetsCA15 = ctx.get_handle<std::vector<TopJet> >("patJetsCA15CHSFilteredPacked");//, "patJetsCA15CHSFilteredPacked");
+  h_topjetsHEP = ctx.get_handle<std::vector<TopJet> >("patJetsHEPTopTagCHSPacked");//, "patJetsHEPTopTagCHSPacked");
 
 
 }

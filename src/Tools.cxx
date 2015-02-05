@@ -307,41 +307,6 @@ void uncorrect_topjets(const Event & event){
     }
 }
 
-GenericJetCorrector::GenericJetCorrector(const std::vector<std::string> & filenames){
-    corrector = build_corrector(filenames);
-}
-    
-bool GenericJetCorrector::process(uhh2::Event & event, std::vector<Jet> * jets){
-    assert(event.jets);
-    for(auto & jet : *jets){
-        correct_jet(*corrector, jet, event);
-    }
-    return true;
-}
-
-// note: implement here because only here (and not in the header file), the destructor of FactorizedJetCorrector is known
-GenericJetCorrector::~GenericJetCorrector(){}
-
-void correct_jet(FactorizedJetCorrector & corrector, Jet & jet, const Event & event){
-    auto factor_raw = jet.JEC_factor_raw();
-    corrector.setJetPt(jet.pt() * factor_raw);
-    corrector.setJetEta(jet.eta());
-    corrector.setJetE(jet.energy() * factor_raw);
-    corrector.setJetA(jet.jetArea());
-    corrector.setRho(event.rho);
-    auto correctionfactor = corrector.getCorrection();
-    jet.set_v4(jet.v4() * (factor_raw * correctionfactor));
-    jet.set_JEC_factor_raw(1. / correctionfactor);
-}
-
-std::unique_ptr<FactorizedJetCorrector> build_corrector(const std::vector<std::string> & filenames){
-    std::vector<JetCorrectorParameters> pars;
-    for(const auto & filename : filenames){
-        pars.emplace_back(locate_file(filename));
-    }
-    return make_unique<FactorizedJetCorrector>(pars);
-}
-
 int subJetBTag(TopJet topjet, E_BtagType type, TString mode, TString filename){
 
   //Modes:
