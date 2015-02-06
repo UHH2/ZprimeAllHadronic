@@ -33,9 +33,9 @@ private:
     std::unique_ptr<SubJetCorrector> subjetcorrector;
    
     std::unique_ptr<GenericJetCorrector> jetAK8corrector;
-    std::unique_ptr<GenericJetCorrector> jetCA8corrector;
-    std::unique_ptr<GenericJetCorrector> jetCA15corrector;
-    std::unique_ptr<GenericJetCorrector> jetHEPcorrector;
+    std::unique_ptr<GenericTopJetCorrector> jetCA8corrector;
+    std::unique_ptr<GenericTopJetCorrector> jetCA15corrector;
+    std::unique_ptr<GenericTopJetCorrector> jetHEPcorrector;
 
     std::unique_ptr<GenericSubJetCorrector> subjetCA8corrector;
     std::unique_ptr<GenericSubJetCorrector> subjetCA15corrector;
@@ -80,9 +80,9 @@ PreselectionModule::PreselectionModule(Context & ctx){
     subjetcorrector.reset(new SubJetCorrector(JERFiles::PHYS14_L123_MC));
 
     jetAK8corrector.reset(new GenericJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"slimmedJetsAK8"));
-    jetCA8corrector.reset(new GenericJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsCA8CHSprunedPacked"));
-    jetCA15corrector.reset(new GenericJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsCA15CHSFilteredPacked"));
-    jetHEPcorrector.reset(new GenericJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsHEPTopTagCHSPacked"));
+    jetCA8corrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsCA8CHSprunedPacked"));
+    jetCA15corrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsCA15CHSFilteredPacked"));
+    jetHEPcorrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsHEPTopTagCHSPacked"));
 
     subjetCA8corrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsCA8CHSprunedPacked"));
     subjetCA15corrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsCA15CHSFilteredPacked"));
@@ -141,9 +141,10 @@ bool PreselectionModule::process(Event & event) {
     //cout << "PreselectionModule: Starting to process event (runid, eventid) = (" << event.run << ", " << event.event << "); weight = " << event.weight << endl;
 
     //print all trigger names    
-    //for (unsigned int i=0; i<event.get_current_triggernames().size();i++)
-    //cout<< event.get_current_triggernames()[i]<<"\n";
-    //cout<<"\n\n\n";
+    // for (unsigned int i=0; i<event.get_current_triggernames().size();i++)
+    // cout<< event.get_current_triggernames()[i]<<"\n";
+    // cout<<"\n\n\n";
+
 bool is_allhad=false;
 if (event.gentopjets){
     TTbarGen ttbargen(*event.genparticles);
