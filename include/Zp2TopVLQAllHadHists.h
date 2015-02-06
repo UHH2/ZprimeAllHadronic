@@ -1,7 +1,7 @@
 #pragma once
 
 #include "UHH2/core/include/Hists.h"
-#include "UHH2/Zp2TopVLQAllHad/include/Tools.h"
+#include "UHH2/ZprimeAllHadronic/include/Tools.h"
 
 /**  \brief Example class for booking and filling histograms
  * 

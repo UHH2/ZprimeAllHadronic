@@ -14,6 +14,12 @@
 <!ENTITY Z3000W30 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z3000W30">
 <!ENTITY Z3000W300 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z3000W300">
 <!ENTITY newzp SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/newzp">
+
+<!ENTITY Z1000W10v2 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_Zp_TTJets_M1000W10_20x25.xml">
+<!ENTITY Z2000W20v2 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_Zp_TTJets_M2000W20_20x25.xml">
+<!ENTITY Z3000W30v2 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_Zp_TTJets_M3000W30_20x25.xml">
+
+
 ]
 >
 
@@ -25,7 +31,23 @@
    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-2/" PostFix="" TargetLumi="1" >
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-2/" PostFix="" TargetLumi="20000" >  -->
 
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z1000W10v2" Cacheable="False">
+        &Z1000W10v2;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
 
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z2000W20v2" Cacheable="False">
+        &Z2000W20v2;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z3000W30v2" Cacheable="False">
+        &Z3000W30v2;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
 
    <!-- <InputData Lumi="433.588411069248" NEventsMax="-1" Type="MC" Version="QCDHT1000ToInf" Cacheable="False">
         &QCDHT1000ToInf;
@@ -52,11 +74,11 @@
     </InputData> -->
 
 
-    <InputData Lumi="239194" NEventsMax="10000" Type="MC" Version="Z1000W10" Cacheable="False">
+    <!-- <InputData Lumi="239194" NEventsMax="-1" Type="MC" Version="Z1000W10" Cacheable="False">
         &Z1000W10;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
-    </InputData>
+    </InputData> -->
 
 <!--     <InputData Lumi="349334" NEventsMax="-1" Type="MC" Version="Z1000W100" Cacheable="False">
         &Z1000W100;
@@ -123,16 +145,52 @@
             <Item Name="JetCollection" Value="slimmedJets" />
 	    <!-- <Item Name="JetAK8Collection" Value="slimmedJetsAK8" /> -->
             <Item Name="METName" Value="slimmedMETs" />
-	    <Item Name="TopJetCollection" Value="patJetsCMSTopTagCHSPacked" />
+	    <Item Name="TopJetCollection" Value="patJetsCmsTopTagCHSPacked" />
 <!-- 	    <Item Name="TopJetHEPCollection" Value="patJetsHEPTopTagCHSPacked" />
 	    <Item Name="TopJetCA8Collection" Value="patJetsCA8CHSprunedPacked" />
 	    <Item Name="TopJetCA15Collection" Value="patJetsCA15CHSFilteredPacked" /> -->
-        <!-- <Item Name="GenTopJetCollection" Value="caTopTagGen" /> -->
+        <Item Name="GenTopJetCollection" Value="cmsTopTagGen" />
         <Item Name="GenParticleCollection" Value="GenParticles" />
         <Item Name="GenJetCollection" Value="slimmedGenJets" />
             
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
             
+
+branch: slimmedGenJets         7427159
+branch: ca8GenJets             2473249
+branch: ca15GenJets            2266541
+branch: ca8GenJetsPruned       6541036
+branch: ca15GenJetsFiltered    7614317
+branch: cmsTopTagGen           6558104
+branch: hepTopTagGen           6373462
+
+branch: GenParticles          12589209
+
+branch: patJetsCa15CHSJets     8103511
+branch: patJetsCa8CHSJets      7904667
+branch: patJetsCa15PuppiJets   7155140
+branch: patJetsCa8PuppiJets    7078686
+branch: patJetsHepTopTagCHSPacked  20122459
+branch: patJetsCmsTopTagCHSPacked  20604084
+branch: patJetsCa8CHSJetsPrunedPacked  18157835
+branch: patJetsCa15CHSJetsFilteredPacked  22114224
+branch: patJetsHepTopTagPuppiPacked  14032701
+branch: patJetsCmsTopTagPuppiPacked  16942624
+branch: patJetsCa8PuppiJetsPrunedPacked  16167770
+branch: patJetsCa15PuppiJetsFilteredPacked  20704100
+branch: patJetsCa8CHSJetsSoftDropPacked  16323628
+branch: patJetsCa8PuppiJetsSoftDropPacked  14495262
+
+
+
+
+
+
+
+
+
+
+
                  PrimaryVertexCollection
                  ElectronCollection
                  MuonCollection

@@ -5,8 +5,8 @@
 #include "UHH2/core/include/Event.h"
 #include "UHH2/common/include/CleaningModules.h"
 #include "UHH2/common/include/ElectronHists.h"
-#include "UHH2/Zp2TopVLQAllHad/include/Zp2TopVLQAllHadSelections.h"
-#include "UHH2/Zp2TopVLQAllHad/include/Zp2TopVLQAllHadHists.h"
+#include "UHH2/ZprimeAllHadronic/include/Zp2TopVLQAllHadSelections.h"
+#include "UHH2/ZprimeAllHadronic/include/Zp2TopVLQAllHadHists.h"
 #include "UHH2/common/include/JetCorrections.h"
 
 using namespace std;

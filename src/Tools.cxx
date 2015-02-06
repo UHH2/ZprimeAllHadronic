@@ -1,4 +1,4 @@
-#include "UHH2/Zp2TopVLQAllHad/include/Tools.h"
+#include "UHH2/ZprimeAllHadronic/include/Tools.h"
 
 float deltaR(Particle p1, Particle p2)
 {
@@ -84,7 +84,8 @@ float getMaxTopJetPt(const Event & event)
 
 float getMaxCSV(TopJet t)
 {
-  auto csv = t.btagsub_combinedSecondaryVertex();
+  std::vector<float> csv;
+  for (auto subjet : t.subjets()) csv.push_back(subjet.btag_combinedSecondaryVertex());
   return *max_element(std::begin(csv), std::end(csv)); 
 }
 
@@ -99,7 +100,7 @@ float getMmin(TopJet topjet)
   float mmin=0;
   if(nsubjets>=3) {
 
-        std::vector<Particle> subjets = topjet.subjets();
+        std::vector<Jet> subjets = topjet.subjets();
         sort(subjets.begin(), subjets.end(), HigherPt());
 
         double m01 = 0;
@@ -333,13 +334,13 @@ int subJetBTag(TopJet topjet, E_BtagType type, TString mode, TString filename){
   if(type==e_CSVM) discriminator_cut = 0.679;
   if(type==e_CSVT) discriminator_cut = 0.898;
  
-  std::vector<Particle> subjets_top;
-  std::vector<float> btagsub_combinedSecondaryVertex_top;
-  std::vector<int> flavorsub_top;
+  std::vector<Jet> subjets_top;
+  //std::vector<float> btagsub_combinedSecondaryVertex_top;
+  //std::vector<int> flavorsub_top;
 
   subjets_top=topjet.subjets();
-  btagsub_combinedSecondaryVertex_top=topjet.btagsub_combinedSecondaryVertex();
-  flavorsub_top=topjet.flavorsub();
+  //btagsub_combinedSecondaryVertex_top=topjet.btagsub_combinedSecondaryVertex();
+  //flavorsub_top=topjet.flavorsub();
 
   double dr12=deltaR(subjets_top[0],subjets_top[1]);
   double dr13=deltaR(subjets_top[0],subjets_top[2]);
@@ -374,13 +375,13 @@ int subJetBTag(TopJet topjet, E_BtagType type, TString mode, TString filename){
     file_mc->cd();
   }
   
-  for(unsigned int i=0; i < btagsub_combinedSecondaryVertex_top.size(); ++i){
+  for(unsigned int i=0; i < subjets_top.size(); ++i){
 
     Particle subjet=subjets_top[i];
-    int flav = flavorsub_top[i];
+    int flav = subjets_top[i].flavor();
     float subpt=subjet.pt();
     float subeta=subjet.eta();
-    float test=btagsub_combinedSecondaryVertex_top[i];
+    float test=subjets_top[i].btag_combinedSecondaryVertex();
 
     if(!dosf){
       if(test>discriminator_cut){

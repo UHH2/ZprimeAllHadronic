@@ -1,4 +1,4 @@
-#include "UHH2/Zp2TopVLQAllHad/include/Zp2TopVLQAllHadSelections.h"
+#include "UHH2/ZprimeAllHadronic/include/Zp2TopVLQAllHadSelections.h"
 #include "UHH2/core/include/Event.h"
 
 #include <stdexcept>
