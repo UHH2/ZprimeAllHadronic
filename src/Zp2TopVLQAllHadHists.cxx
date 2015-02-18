@@ -25,6 +25,7 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
   book<TH1F>("Nevts", ";Nevts;Events", 1, 0, 1);
   //njet ntopjet
   book<TH1F>("N_jets", ";N_{jets};Events", 20, 0, 20);
+  book<TH1F>("N_jets50", ";N_{jets};Events", 20, 0, 20);
   book<TH1F>("N_topjets", ";N_{topjets};Events", 10, 0, 10);
   //mass1 mass2 mass1+2 AK8 CA8 CA15 CMS HEP
   book<TH1F>("m1AK8", ";m_{1,AK8};Events", 200, 0, 2000);
@@ -94,6 +95,7 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
   
   //HT50
   book<TH1F>("HT", ";HT_{50};Events", 200, 0, 10000);
+  book<TH2F>("HT50vsNjet50", ";HT;N_{jets};Events", 20,0,5000,20, 0, 20);
   //deltaPhi(1,2) deltaY(1,2) eta1 eta2
   book<TH1F>("deltaPhi", ";#Delta(#phi);Events", 100, -4, 4);
   book<TH1F>("deltaY", ";#Delta(y);Events", 100, -4, 4);
@@ -119,7 +121,6 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
   
   //pt/pt vs pt
   book<TProfile>("ptratioVSpt", ";p_{T,gen};p_{T,reco}/p_{T,gen}", 150, 0, 1500);
-  book<TProfile>("ptratioVSptAK4", ";p_{T,gen};p_{T,reco}/p_{T,gen}", 500, 0, 1000);
   //pt/pt vs eta
   book<TProfile>("ptratioVSeta", ";#eta_{gen};p_{T,reco}/p_{T,gen}", 150, -4, 4);
   book<TProfile>("ptratioVSnpv", ";n_{pv};p_{T,reco}/p_{T,gen}", 50, 0, 50);
@@ -146,7 +147,15 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
   book<TProfile>("etaratioVSeta", ";#eta_{gen};#eta_{reco}/#eta_{gen}", 150, -4, 4);
   //eta/eta vs pt,eta
   book<TProfile2D>("etaratioVSpteta", ";p_{T,gen};#eta_{gen};#eta_{reco}/#eta_{gen}", 15, 0, 1500, 15, -4, 4);
-
+  //ak4
+  book<TH1F>("pTAK4", ";pT;Events", 200, 0, 1000);
+  book<TH1F>("etaAK4", ";eta;Events", 200, -4, 4);
+  book<TProfile>("ptratioVSptAK4", ";p_{T,gen};p_{T,reco}/p_{T,gen}", 200, 0, 1000);
+  book<TProfile>("ptratioVSetaAK4", ";#eta_{gen};p_{T,reco}/p_{T,gen}", 200, -4, 4);
+  book<TProfile>("ptratioVSeta30AK4", ";#eta_{gen};p_{T,reco}/p_{T,gen}", 50, -4, 4);
+  book<TProfile>("ptratioVSnpvAK4", ";n_{pv};p_{T,reco}/p_{T,gen}", 50, 0, 50);
+  //<(eta,reco-eta,gen)*sign(eta,gen)> vs eta,gen for e.g. 30<pTgen<40 GeV
+  book<TProfile>("etadiffVSeta30AK4", ";#eta_{gen};(#eta_{reco}-#eta_{gen})*sign(#eta_{gen})", 50, -4, 4);
 
   // leptons
 //   book<TH1F>("N_mu", "N^{#mu}", 10, 0, 10);
@@ -159,11 +168,49 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
 
 
   //get handles ctx.get_handle<double>("HT");
-  h_jetsAK8 = ctx.get_handle<std::vector<Jet> >("slimmedJetsAK8");//, "slimmedJetsAK8");
-  h_topjetsCA8 = ctx.get_handle<std::vector<TopJet> >("patJetsCA8CHSprunedPacked");//, "patJetsCA8CHSprunedPacked");
-  h_topjetsCA15 = ctx.get_handle<std::vector<TopJet> >("patJetsCA15CHSFilteredPacked");//, "patJetsCA15CHSFilteredPacked");
-  h_topjetsHEP = ctx.get_handle<std::vector<TopJet> >("patJetsHEPTopTagCHSPacked");//, "patJetsHEPTopTagCHSPacked");
+  h_jetsAK8 = ctx.get_handle<std::vector<Jet> >("patJetsCa8CHSJets");//, "slimmedJetsAK8");
+  h_topjetsCA8 = ctx.get_handle<std::vector<TopJet> >("patJetsCa8CHSJetsPrunedPacked");//, "patJetsCA8CHSprunedPacked");
+  h_topjetsCA15 = ctx.get_handle<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked");//, "patJetsCA15CHSFilteredPacked");
+  h_topjetsHEP = ctx.get_handle<std::vector<TopJet> >("patJetsHepTopTagCHSPacked");//, "patJetsHEPTopTagCHSPacked");
 
+  topjet_collection_names = {"patJetsHepTopTagCHSPacked", "patJetsCa8CHSJetsPrunedPacked", "patJetsCa15CHSJetsFilteredPacked", "patJetsHepTopTagPuppiPacked", "patJetsCmsTopTagPuppiPacked", "patJetsCa8PuppiJetsPrunedPacked", "patJetsCa15PuppiJetsFilteredPacked", "patJetsCa8CHSJetsSoftDropPacked", "patJetsCa8PuppiJetsSoftDropPacked"};//"patJetsCmsTopTagCHSPacked",
+  jet_collection_names = {"patJetsCa15CHSJets", "patJetsCa8CHSJets", "patJetsCa15PuppiJets", "patJetsCa8PuppiJets"};
+  for(auto collection_name : jet_collection_names)
+  {
+    jet_handles.push_back(ctx.get_handle<std::vector<Jet> >(collection_name));
+  }
+  for(auto collection_name : topjet_collection_names)
+  {
+    topjet_handles.push_back(ctx.get_handle<std::vector<TopJet> >(collection_name));
+  }
+
+  for(auto collection_name : jet_collection_names)
+  {
+    book<TH1F>("N_"+collection_name, ";N_{topjets};Events", 10, 0, 10);
+    book<TH1F>("m1_"+collection_name, ";m_{1};Events", 200, 0, 2000);
+    book<TH1F>("m2_"+collection_name, ";m_{2};Events", 200, 0, 2000);
+    book<TH1F>("m12_"+collection_name, ";m_{12};Events", 240, 0, 6000);
+    book<TH1F>("pT1_"+collection_name, ";pT_{1};Events", 200, 0, 2000);
+    book<TH1F>("pT2_"+collection_name, ";pT_{2};Events", 200, 0, 2000);
+    book<TH1F>("nsub1_"+collection_name, ";#tau_{3}/#tau_{2} 1;Events", 100, 0, 1.1);
+    book<TH1F>("nsub2_"+collection_name, ";#tau_{3}/#tau_{2} 2;Events", 100, 0, 1.1);
+    book<TH1F>("csv1_"+collection_name, ";CSV_{1};Events", 100, 0, 1.1);
+    book<TH1F>("csv2_"+collection_name, ";CSV_{2};Events", 100, 0, 1.1);
+  }
+
+  for(auto collection_name : topjet_collection_names)
+  {
+    book<TH1F>("N_"+collection_name, ";N_{topjets};Events", 10, 0, 10);
+    book<TH1F>("m1_"+collection_name, ";m_{1};Events", 200, 0, 2000);
+    book<TH1F>("m2_"+collection_name, ";m_{2};Events", 200, 0, 2000);
+    book<TH1F>("m12_"+collection_name, ";m_{12};Events", 240, 0, 6000);
+    book<TH1F>("pT1_"+collection_name, ";pT_{1};Events", 200, 0, 2000);
+    book<TH1F>("pT2_"+collection_name, ";pT_{2};Events", 200, 0, 2000);
+    book<TH1F>("nsub1_"+collection_name, ";#tau_{3}/#tau_{2} 1;Events", 100, 0, 1.1);
+    book<TH1F>("nsub2_"+collection_name, ";#tau_{3}/#tau_{2} 2;Events", 100, 0, 1.1);
+    book<TH1F>("csv1_"+collection_name, ";CSV_{1};Events", 100, 0, 1.1);
+    book<TH1F>("csv2_"+collection_name, ";CSV_{2};Events", 100, 0, 1.1);
+  }
 
 }
 
@@ -189,6 +236,9 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
   hist("Nevts")->Fill(0.5,weight);
   //njet ntopjet
   hist("N_jets")->Fill(event.jets->size(),weight);
+  int njet50=0;
+  for (auto jet : *event.jets) if (jet.pt()>40.0) njet50++;
+  hist("N_jets50")->Fill(njet50,weight);
   hist("N_topjets")->Fill(event.topjets->size(),weight);
   //mass1 mass2 mass1+2 AK8 CA8 CA15 CMS HEP
   if (jetsAK8->size()>0) if (jetsAK8->at(0).v4().isTimelike()) hist("m1AK8")->Fill(jetsAK8->at(0).v4().M(),weight);
@@ -262,7 +312,9 @@ if(event.gentopjets){
   if (topjetsHEP->size()>1) hist("pT12HEP")->Fill(TopJetPt(topjetsHEP->at(0))+TopJetPt(topjetsHEP->at(1)),weight);
   
   //HT50
-  hist("HT")->Fill(getHT50(event),weight);
+  double HT50=getHT50(event);
+  hist("HT")->Fill(HT50,weight);
+  ((TH2F*)hist("HT50vsNjet50"))->Fill(HT50,njet50,weight);
   //deltaPhi(1,2)->Fill(,weight); deltaY(1,2)->Fill(,weight); eta1 eta2
   if (event.topjets->size()>1) hist("deltaPhi")->Fill(deltaPhi(event.topjets->at(0),event.topjets->at(1)),weight);
   if (event.topjets->size()>1) hist("deltaY")->Fill(deltaY(event.topjets->at(0),event.topjets->at(1)),weight);
@@ -333,7 +385,24 @@ if (event.gentopjets){
     if (index>-1)
     {
       Jet reco=event.jets->at(index);
-      ((TProfile*)hist("ptratioVSptAK4"))->Fill(gen.pt(),reco.pt()/gen.pt(),weight);
+      float ptgen=gen.pt() ;
+      float ptreco=reco.pt() ;
+      float ptratio=ptreco/ptgen ;
+      float etagen=gen.eta() ;
+      float etareco=reco.eta() ;
+      ((TProfile*)hist("ptratioVSptAK4"))->Fill(ptgen,ptratio,weight);
+      hist("pTAK4")->Fill(ptreco,weight);
+      hist("etaAK4")->Fill(etareco,weight);
+      ((TProfile*)hist("ptratioVSptAK4"))->Fill(ptgen,ptratio,weight);
+      ((TProfile*)hist("ptratioVSetaAK4"))->Fill(etagen,ptratio,weight);
+      if (ptgen>=30 && ptgen<=40) {((TProfile*)hist("ptratioVSeta30AK4"))->Fill(etagen,ptratio,weight);}
+      ((TProfile*)hist("ptratioVSnpvAK4"))->Fill(Npvs,ptratio,weight);
+      //<(eta,reco-eta,gen)*sign(eta,gen)> vs eta,gen for e.g. 30<pTgen<40 GeV
+      float sign = 1.0; if (etagen<0.0) {sign=-1.0;}
+      if (ptgen>=30 && ptgen<=40) {((TProfile*)hist("etadiffVSeta30AK4"))->Fill(etagen,(etareco-etagen)*sign,weight);}
+
+
+
     }
   }
  
@@ -365,6 +434,36 @@ if (event.gentopjets){
 }
   
   
+for(unsigned int i=0; i<jet_collection_names.size(); i++)
+  {
+    auto jets = &event.get(jet_handles[i]);
+    hist(("N_"+jet_collection_names[i]).c_str())->Fill(jets->size(),weight);
+    if (jets->size()>0) if (jets->at(0).v4().isTimelike()) hist(("m1_"+jet_collection_names[i]).c_str())->Fill(jets->at(0).v4().M(),weight);
+    if (jets->size()>1) if (jets->at(1).v4().isTimelike()) hist(("m2_"+jet_collection_names[i]).c_str())->Fill(jets->at(1).v4().M(),weight);
+    if (jets->size()>1) if ((jets->at(1).v4()+jets->at(0).v4()).isTimelike()) hist(("m12_"+jet_collection_names[i]).c_str())->Fill((jets->at(0).v4()+jets->at(1).v4()).M(),weight);
+    if (jets->size()>0) hist(("pT1_"+jet_collection_names[i]).c_str())->Fill(jets->at(0).pt(),weight);
+    if (jets->size()>1) hist(("pT2_"+jet_collection_names[i]).c_str())->Fill(jets->at(1).pt(),weight);
+    // if (jets->size()>0) hist(("nsub1_"+jet_collection_names[i]).c_str())->Fill(jets->at(0),weight);
+    // if (jets->size()>1) hist(("nsub2_"+jet_collection_names[i]).c_str())->Fill(jets->at(1),weight);
+    // if (jets->size()>0) hist(("csv1_"+jet_collection_names[i]).c_str())->Fill(jets->at(0),weight);
+    // if (jets->size()>1) hist(("csv2_"+jet_collection_names[i]).c_str())->Fill(jets->at(1),weight);
+  }
+
+for(unsigned int i=0; i<topjet_collection_names.size(); i++)
+  {
+    auto jets = &event.get(topjet_handles[i]);
+    hist(("N_"+topjet_collection_names[i]).c_str())->Fill(jets->size(),weight);
+    if (jets->size()>0) hist(("m1_"+topjet_collection_names[i]).c_str())->Fill(TopJetMass(jets->at(0)),weight);
+    if (jets->size()>1) hist(("m2_"+topjet_collection_names[i]).c_str())->Fill(TopJetMass(jets->at(1)),weight);
+    if (jets->size()>1) hist(("m12_"+topjet_collection_names[i]).c_str())->Fill(ZprimeMass(jets->at(0),jets->at(1)),weight);
+    if (jets->size()>0) hist(("pT1_"+topjet_collection_names[i]).c_str())->Fill(TopJetPt(jets->at(0)),weight);
+    if (jets->size()>1) hist(("pT2_"+topjet_collection_names[i]).c_str())->Fill(TopJetPt(jets->at(1)),weight);
+    if (jets->size()>0) hist(("nsub1_"+topjet_collection_names[i]).c_str())->Fill(TopJetNsub(jets->at(0)),weight);
+    if (jets->size()>1) hist(("nsub2_"+topjet_collection_names[i]).c_str())->Fill(TopJetNsub(jets->at(1)),weight);
+    if (jets->size()>0) hist(("csv1_"+topjet_collection_names[i]).c_str())->Fill(getMaxCSV(jets->at(0)),weight);
+    if (jets->size()>1) hist(("csv2_"+topjet_collection_names[i]).c_str())->Fill(getMaxCSV(jets->at(1)),weight);
+  }
+
 //   std::vector<Jet>* jets = event.jets;
 //   int Njets = jets->size();
 //   hist("N_jets")->Fill(Njets, weight);

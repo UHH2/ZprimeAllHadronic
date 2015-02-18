@@ -46,6 +46,12 @@ private:
     uhh2::Event::Handle<std::vector<TopJet> > h_topjetsCA15;
     uhh2::Event::Handle<std::vector<TopJet> > h_topjetsHEP;
 
+    std::vector<std::unique_ptr<GenericJetCorrector> > jet_correctors;
+    std::vector<std::unique_ptr<GenericTopJetCorrector> > topjet_correctors;
+    std::vector<std::unique_ptr<GenericSubJetCorrector> > subjet_correctors;
+    std::vector<std::string> jet_collection_names;
+    std::vector<std::string> topjet_collection_names;
+
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
     // std::unique_ptr<Selection> njet_sel, bsel;
@@ -72,21 +78,29 @@ PreselectionModule::PreselectionModule(Context & ctx){
     // for(auto & kv : ctx.get_all()){
     //     cout << " " << kv.first << " = " << kv.second << endl;
     // }
-    
+    // h_jetsAK8 = ctx.declare_event_input<std::vector<Jet> >("patJetsCa8CHSJets");//, "slimmedJetsAK8");
+    // h_topjetsCA8 = ctx.declare_event_input<std::vector<TopJet> >("patJetsCa8CHSJetsPrunedPacked");//, "patJetsCA8CHSprunedPacked");
+    // h_topjetsCA15 = ctx.declare_event_input<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked");//, "patJetsCA15CHSFilteredPacked");
+    // h_topjetsHEP = ctx.declare_event_input<std::vector<TopJet> >("patJetsHepTopTagCHSPacked");//, "patJetsHEPTopTagCHSPacked");
+
+    // h_jetsAK8 = ctx.declare_event_output<std::vector<Jet> >("patJetsCa8CHSJets");//, "slimmedJetsAK8");
+    // h_topjetsCA8 = ctx.declare_event_output<std::vector<TopJet> >("patJetsCa8CHSJetsPrunedPacked");//, "patJetsCA8CHSprunedPacked");
+    // h_topjetsCA15 = ctx.declare_event_output<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked");//, "patJetsCA15CHSFilteredPacked");
+    // h_topjetsHEP = ctx.declare_event_output<std::vector<TopJet> >("patJetsHepTopTagCHSPacked");//, "patJetsHEPTopTagCHSPacked");
     // 1. setup other modules. Here, only the jet cleaner
     jetcleaner.reset(new JetCleaner(30.0, 2.4));
     jetcorrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
     topjetcorrector.reset(new TopJetCorrector(JERFiles::PHYS14_L123_AK8PFchs_MC));
     subjetcorrector.reset(new SubJetCorrector(JERFiles::PHYS14_L123_MC));
 
-    jetAK8corrector.reset(new GenericJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"slimmedJetsAK8"));
-    jetCA8corrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsCA8CHSprunedPacked"));
-    jetCA15corrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsCA15CHSFilteredPacked"));
-    jetHEPcorrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsHEPTopTagCHSPacked"));
+    jetAK8corrector.reset(new GenericJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsCa8CHSJets"));
+    jetCA8corrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsCa8CHSJetsPrunedPacked"));
+    jetCA15corrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsCa15CHSJetsFilteredPacked"));
+    jetHEPcorrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsHepTopTagCHSPacked"));
 
-    subjetCA8corrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsCA8CHSprunedPacked"));
-    subjetCA15corrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsCA15CHSFilteredPacked"));
-    subjetHEPcorrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsHEPTopTagCHSPacked"));
+    subjetCA8corrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsCa8CHSJetsPrunedPacked"));
+    subjetCA15corrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsCa15CHSJetsFilteredPacked"));
+    subjetHEPcorrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsHepTopTagCHSPacked"));
     
     // 2. set up selections:
     // njet_sel.reset(new NJetSelection(2));
@@ -113,16 +127,18 @@ PreselectionModule::PreselectionModule(Context & ctx){
     // h_njet.reset(new Zp2TopVLQAllHadHists(ctx, "Njet"));
     // h_bsel.reset(new Zp2TopVLQAllHadHists(ctx, "Bsel"));
     // h_ele.reset(new ElectronHists(ctx, "ele_nocuts"));
-
-    h_jetsAK8 = ctx.declare_event_input<std::vector<Jet> >("slimmedJetsAK8");//, "slimmedJetsAK8");
-    h_topjetsCA8 = ctx.declare_event_input<std::vector<TopJet> >("patJetsCA8CHSprunedPacked");//, "patJetsCA8CHSprunedPacked");
-    h_topjetsCA15 = ctx.declare_event_input<std::vector<TopJet> >("patJetsCA15CHSFilteredPacked");//, "patJetsCA15CHSFilteredPacked");
-    h_topjetsHEP = ctx.declare_event_input<std::vector<TopJet> >("patJetsHEPTopTagCHSPacked");//, "patJetsHEPTopTagCHSPacked");
-
-    h_jetsAK8 = ctx.declare_event_output<std::vector<Jet> >("slimmedJetsAK8");//, "slimmedJetsAK8");
-    h_topjetsCA8 = ctx.declare_event_output<std::vector<TopJet> >("patJetsCA8CHSprunedPacked");//, "patJetsCA8CHSprunedPacked");
-    h_topjetsCA15 = ctx.declare_event_output<std::vector<TopJet> >("patJetsCA15CHSFilteredPacked");//, "patJetsCA15CHSFilteredPacked");
-    h_topjetsHEP = ctx.declare_event_output<std::vector<TopJet> >("patJetsHEPTopTagCHSPacked");//, "patJetsHEPTopTagCHSPacked");
+    topjet_collection_names = {"patJetsHepTopTagCHSPacked", "patJetsCa8CHSJetsPrunedPacked", "patJetsCa15CHSJetsFilteredPacked", "patJetsHepTopTagPuppiPacked", "patJetsCmsTopTagPuppiPacked", "patJetsCa8PuppiJetsPrunedPacked", "patJetsCa15PuppiJetsFilteredPacked", "patJetsCa8CHSJetsSoftDropPacked", "patJetsCa8PuppiJetsSoftDropPacked"};//"patJetsCmsTopTagCHSPacked",
+    jet_collection_names = {"patJetsCa15CHSJets", "patJetsCa8CHSJets", "patJetsCa15PuppiJets", "patJetsCa8PuppiJets"};
+    for(auto collection_name : jet_collection_names)
+    {
+        jet_correctors.push_back(std::unique_ptr<GenericJetCorrector>(new GenericJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,collection_name)));
+    }
+    for(auto collection_name : topjet_collection_names)
+    {
+        topjet_correctors.push_back(std::unique_ptr<GenericTopJetCorrector>(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,collection_name)));
+        subjet_correctors.push_back(std::unique_ptr<GenericSubJetCorrector>(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,collection_name)));
+    }
+    
 
 }
 
@@ -151,25 +167,38 @@ if (event.gentopjets){
     is_allhad = ttbargen.IsTopHadronicDecay() && ttbargen.IsAntiTopHadronicDecay();}
 
     //if (event.topjets->size()>0) cout<<event.topjets->at(0).pt()<<endl;
-    uncorrect_topjets(event);
+    //uncorrect_topjets(event);
     //if (event.topjets->size()>0) cout<<event.topjets->at(0).pt()<<endl<<endl;
-    h_nocorr->fill(event);
-    if (is_allhad) h_nocorr_gen->fill(event);
+    // h_nocorr->fill(event);
+    // if (is_allhad) h_nocorr_gen->fill(event);
 
-    // 1. run all modules; here: only jet cleaning.
     jetcleaner->process(event);
     jetcorrector->process(event);
     topjetcorrector->process(event);
     subjetcorrector->process(event);
 
-    jetAK8corrector->process(event);
-    jetCA8corrector->process(event);
-    jetCA15corrector->process(event);
-    jetHEPcorrector->process(event);
+// jet_correctors[0]->process(event);
+    // for (unsigned int i=0;)
+    for(auto & corrector : jet_correctors)
+    {
+        corrector->process(event);
+    }
+    for(auto & corrector : topjet_correctors)
+    {
+        corrector->process(event);
+    }
+    for(auto & corrector : subjet_correctors)
+    {
+        corrector->process(event);
+    }
+    // jetAK8corrector->process(event);
+    // jetCA8corrector->process(event);
+    // jetCA15corrector->process(event);
+    // jetHEPcorrector->process(event);
 
-    subjetCA8corrector->process(event);
-    subjetCA15corrector->process(event);
-    subjetHEPcorrector->process(event);
+    // subjetCA8corrector->process(event);
+    // subjetCA15corrector->process(event);
+    // subjetHEPcorrector->process(event);
 
     uhh2::Event::TriggerIndex ti_HT=event.get_trigger_index("HLT_PFHT900*");
     uhh2::Event::TriggerIndex ti_AK8=event.get_trigger_index("HLT_AK8PFJet360TrimMod_Mass30*");
@@ -206,11 +235,6 @@ if (event.gentopjets){
         }
     } 
     bool eff_selection = selection && (nbtag>1);
-
-    // bool CMScut = ;
-    // bool HEPcut = ;
-
-    // 2. test selections and fill histograms
     
     h_nocuts->fill(event);
     if (is_allhad) h_nocuts_gen->fill(event);
@@ -259,19 +283,8 @@ if (event.gentopjets){
     {
         h_selection2->fill(event);    
     }
-
-    // bool njet_selection = njet_sel->passes(event);
-    // if(njet_selection){
-    //     h_njet->fill(event);
-    // }
-    // bool bjet_selection = bsel->passes(event);
-    // if(bjet_selection){
-    //     h_bsel->fill(event);
-    // }
-    // h_ele->fill(event);
     
-    // 3. decide whether or not to keep the current event in the output:
-    return preselection;//njet_selection && bjet_selection;
+    return preselection;
 }
 
 // as we want to run the ExampleCycleNew directly with AnalysisModuleRunner,

@@ -1,5 +1,5 @@
 def get_model():
-    model = build_model_from_rootfile('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/python/theta.root', include_mc_uncertainties = True)#mc uncertainties=true
+    model = build_model_from_rootfile('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/ZprimeAllHadronic/python/theta.root', include_mc_uncertainties = True)#mc uncertainties=true
     model.fill_histogram_zerobins()
     model.set_signal_processes('zp*')
     model.add_lognormal_uncertainty('ttbar_rate', 0.15, 'ttbar')
@@ -14,5 +14,5 @@ def get_model():
 model = get_model()
 model_summary(model)
 plot_exp, plot_obs = bayesian_limits(model,what='expected')#bayesian
-plot_exp.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/python/limits.txt')
-report.write_html('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/python/htmlout_limit2')
+plot_exp.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/ZprimeAllHadronic/python/limits.txt')
+report.write_html('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/ZprimeAllHadronic/python/htmlout_limit2')
