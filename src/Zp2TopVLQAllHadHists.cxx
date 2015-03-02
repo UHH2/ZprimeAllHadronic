@@ -28,69 +28,69 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
   book<TH1F>("N_jets50", ";N_{jets};Events", 20, 0, 20);
   book<TH1F>("N_topjets", ";N_{topjets};Events", 10, 0, 10);
   //mass1 mass2 mass1+2 AK8 CA8 CA15 CMS HEP
-  book<TH1F>("m1AK8", ";m_{1,AK8};Events", 200, 0, 2000);
-  book<TH1F>("m2AK8", ";m_{2,AK8};Events", 200, 0, 2000);
+  book<TH1F>("m1AK8", ";m_{1,AK8};Events", 2000, 0, 2000);
+  book<TH1F>("m2AK8", ";m_{2,AK8};Events", 2000, 0, 2000);
   book<TH1F>("m12AK8", ";m_{12,AK8};Events", 240, 0, 6000);
   
-  book<TH1F>("m1CA8", ";m_{1,CA8};Events", 200, 0, 2000);
-  book<TH1F>("m2CA8", ";m_{2,CA8};Events", 200, 0, 2000);
+  book<TH1F>("m1CA8", ";m_{1,CA8};Events", 2000, 0, 2000);
+  book<TH1F>("m2CA8", ";m_{2,CA8};Events", 2000, 0, 2000);
   book<TH1F>("m12CA8", ";m_{12,CA8};Events", 240, 0, 6000);
   
-  book<TH1F>("m1CA15", ";m_{1,CA15};Events", 200, 0, 2000);
-  book<TH1F>("m2CA15", ";m_{2,CA15};Events", 200, 0, 2000);
+  book<TH1F>("m1CA15", ";m_{1,CA15};Events", 2000, 0, 2000);
+  book<TH1F>("m2CA15", ";m_{2,CA15};Events", 2000, 0, 2000);
   book<TH1F>("m12CA15", ";m_{12,CA15};Events", 240, 0, 6000);
   
-  book<TH1F>("m1CMS", ";m_{1,CMS};Events", 200, 0, 2000);
-  book<TH1F>("m2CMS", ";m_{2,CMS};Events", 200, 0, 2000);
+  book<TH1F>("m1CMS", ";m_{1,CMS};Events", 2000, 0, 2000);
+  book<TH1F>("m2CMS", ";m_{2,CMS};Events", 2000, 0, 2000);
   book<TH1F>("m12CMS", ";m_{12,CMS};Events", 240, 0, 6000);
 
-  book<TH1F>("m1CMSfat", ";m_{1,CMS};Events", 200, 0, 2000);
-  book<TH1F>("m2CMSfat", ";m_{2,CMS};Events", 200, 0, 2000);
+  book<TH1F>("m1CMSfat", ";m_{1,CMS};Events", 2000, 0, 2000);
+  book<TH1F>("m2CMSfat", ";m_{2,CMS};Events", 2000, 0, 2000);
   book<TH1F>("m12CMSfat", ";m_{12,CMS};Events", 240, 0, 6000);
 
-  book<TH1F>("m1gen", ";m_{1,gen};Events", 200, 0, 2000);
-  book<TH1F>("m2gen", ";m_{2,gen};Events", 200, 0, 2000);
+  book<TH1F>("m1gen", ";m_{1,gen};Events", 2000, 0, 2000);
+  book<TH1F>("m2gen", ";m_{2,gen};Events", 2000, 0, 2000);
   book<TH1F>("m12gen", ";m_{12,gen};Events", 240, 0, 6000);
 
-  book<TH1F>("m1AK4x3R8", ";m_{1,AK4x3R8};Events", 200, 0, 2000);
-  book<TH1F>("m2AK4x3R8", ";m_{2,AK4x3R8};Events", 200, 0, 2000);
+  book<TH1F>("m1AK4x3R8", ";m_{1,AK4x3R8};Events", 2000, 0, 2000);
+  book<TH1F>("m2AK4x3R8", ";m_{2,AK4x3R8};Events", 2000, 0, 2000);
   book<TH1F>("m12AK4x3R8", ";m_{12,AK4x3R8};Events", 240, 0, 6000);
 
-  book<TH1F>("m1AK4x4R8", ";m_{1,4x4R8};Events", 200, 0, 2000);
-  book<TH1F>("m2AK4x4R8", ";m_{2,4x4R8};Events", 200, 0, 2000);
+  book<TH1F>("m1AK4x4R8", ";m_{1,4x4R8};Events", 2000, 0, 2000);
+  book<TH1F>("m2AK4x4R8", ";m_{2,4x4R8};Events", 2000, 0, 2000);
   book<TH1F>("m12AK4x4R8", ";m_{12,AK4x4R8};Events", 240, 0, 6000);
 
-  book<TH1F>("m1AK4x3R15", ";m_{1,AK4x3R15};Events", 200, 0, 2000);
-  book<TH1F>("m2AK4x3R15", ";m_{2,AK4x3R15};Events", 200, 0, 2000);
+  book<TH1F>("m1AK4x3R15", ";m_{1,AK4x3R15};Events", 2000, 0, 2000);
+  book<TH1F>("m2AK4x3R15", ";m_{2,AK4x3R15};Events", 2000, 0, 2000);
   book<TH1F>("m12AK4x3R15", ";m_{12,AK4x3R15};Events", 240, 0, 6000);
 
-  book<TH1F>("m1AK4x4R15", ";m_{1,AK4x4R15};Events", 200, 0, 2000);
-  book<TH1F>("m2AK4x4R15", ";m_{2,AK4x4R15};Events", 200, 0, 2000);
+  book<TH1F>("m1AK4x4R15", ";m_{1,AK4x4R15};Events", 2000, 0, 2000);
+  book<TH1F>("m2AK4x4R15", ";m_{2,AK4x4R15};Events", 2000, 0, 2000);
   book<TH1F>("m12AK4x4R15", ";m_{12,AK4x4R15};Events", 240, 0, 6000);
   
-  book<TH1F>("m1HEP", ";m_{1,HEP};Events", 200, 0, 2000);
-  book<TH1F>("m2HEP", ";m_{2,HEP};Events", 200, 0, 2000);
+  book<TH1F>("m1HEP", ";m_{1,HEP};Events", 2000, 0, 2000);
+  book<TH1F>("m2HEP", ";m_{2,HEP};Events", 2000, 0, 2000);
   book<TH1F>("m12HEP", ";m_{12,HEP};Events", 240, 0, 6000);
   
   //pt1 pt2 pt1+2 AK8 CA8 CA15 CMS HEP
-  book<TH1F>("pT1AK8", ";pT_{1,AK8};Events", 200, 0, 2000);
-  book<TH1F>("pT2AK8", ";pT_{2,AK8};Events", 200, 0, 2000);
+  book<TH1F>("pT1AK8", ";pT_{1,AK8};Events", 2000, 0, 2000);
+  book<TH1F>("pT2AK8", ";pT_{2,AK8};Events", 2000, 0, 2000);
   book<TH1F>("pT12AK8", ";pT_{1,AK8}+pT_{2,AK8};Events", 240, 0, 6000);
   
-  book<TH1F>("pT1CA8", ";pT_{1,CA8};Events", 200, 0, 2000);
-  book<TH1F>("pT2CA8", ";pT_{2,CA8};Events", 200, 0, 2000);
+  book<TH1F>("pT1CA8", ";pT_{1,CA8};Events", 2000, 0, 2000);
+  book<TH1F>("pT2CA8", ";pT_{2,CA8};Events", 2000, 0, 2000);
   book<TH1F>("pT12CA8", ";pT_{1,CA8}+pT_{2,CA8};Events", 240, 0, 6000);
   
-  book<TH1F>("pT1CA15", ";pT_{1,CA15};Events", 200, 0, 2000);
-  book<TH1F>("pT2CA15", ";pT_{2,CA15};Events", 200, 0, 2000);
+  book<TH1F>("pT1CA15", ";pT_{1,CA15};Events", 2000, 0, 2000);
+  book<TH1F>("pT2CA15", ";pT_{2,CA15};Events", 2000, 0, 2000);
   book<TH1F>("pT12CA15", ";pT_{1,CA15}+pT_{2,CA15};Events", 240, 0, 6000);
   
-  book<TH1F>("pT1CMS", ";pT_{1,CMS};Events", 200, 0, 2000);
-  book<TH1F>("pT2CMS", ";pT_{2,CMS};Events", 200, 0, 2000);
+  book<TH1F>("pT1CMS", ";pT_{1,CMS};Events", 2000, 0, 2000);
+  book<TH1F>("pT2CMS", ";pT_{2,CMS};Events", 2000, 0, 2000);
   book<TH1F>("pT12CMS", ";pT_{1,CMS}+pT_{2,CMS};Events", 240, 0, 6000);
   
-  book<TH1F>("pT1HEP", ";pT_{1,HEP};Events", 200, 0, 2000);
-  book<TH1F>("pT2HEP", ";pT_{2,HEP};Events", 200, 0, 2000);
+  book<TH1F>("pT1HEP", ";pT_{1,HEP};Events", 2000, 0, 2000);
+  book<TH1F>("pT2HEP", ";pT_{2,HEP};Events", 2000, 0, 2000);
   book<TH1F>("pT12HEP", ";pT_{1,HEP}+pT_{2,HEP};Events", 240, 0, 6000);
   
   //HT50
@@ -187,13 +187,13 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
   for(auto collection_name : jet_collection_names)
   {
     book<TH1F>("N_"+collection_name, ";N_{topjets};Events", 10, 0, 10);
-    book<TH1F>("m1_"+collection_name, ";m_{1};Events", 200, 0, 2000);
-    book<TH1F>("m2_"+collection_name, ";m_{2};Events", 200, 0, 2000);
+    book<TH1F>("m1_"+collection_name, ";m_{1};Events", 2000, 0, 2000);
+    book<TH1F>("m2_"+collection_name, ";m_{2};Events", 2000, 0, 2000);
     book<TH1F>("m12_"+collection_name, ";m_{12};Events", 240, 0, 6000);
-    book<TH1F>("pT1_"+collection_name, ";pT_{1};Events", 200, 0, 2000);
-    book<TH1F>("pT2_"+collection_name, ";pT_{2};Events", 200, 0, 2000);
-    book<TH1F>("nsub1_"+collection_name, ";#tau_{3}/#tau_{2} 1;Events", 100, 0, 1.1);
-    book<TH1F>("nsub2_"+collection_name, ";#tau_{3}/#tau_{2} 2;Events", 100, 0, 1.1);
+    book<TH1F>("pT1_"+collection_name, ";pT_{1};Events", 2000, 0, 2000);
+    book<TH1F>("pT2_"+collection_name, ";pT_{2};Events", 2000, 0, 2000);
+    // book<TH1F>("nsub1_"+collection_name, ";#tau_{3}/#tau_{2} 1;Events", 100, 0, 1.1);
+    // book<TH1F>("nsub2_"+collection_name, ";#tau_{3}/#tau_{2} 2;Events", 100, 0, 1.1);
     book<TH1F>("csv1_"+collection_name, ";CSV_{1};Events", 100, 0, 1.1);
     book<TH1F>("csv2_"+collection_name, ";CSV_{2};Events", 100, 0, 1.1);
   }
@@ -201,11 +201,11 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
   for(auto collection_name : topjet_collection_names)
   {
     book<TH1F>("N_"+collection_name, ";N_{topjets};Events", 10, 0, 10);
-    book<TH1F>("m1_"+collection_name, ";m_{1};Events", 200, 0, 2000);
-    book<TH1F>("m2_"+collection_name, ";m_{2};Events", 200, 0, 2000);
+    book<TH1F>("m1_"+collection_name, ";m_{1};Events", 2000, 0, 2000);
+    book<TH1F>("m2_"+collection_name, ";m_{2};Events", 2000, 0, 2000);
     book<TH1F>("m12_"+collection_name, ";m_{12};Events", 240, 0, 6000);
-    book<TH1F>("pT1_"+collection_name, ";pT_{1};Events", 200, 0, 2000);
-    book<TH1F>("pT2_"+collection_name, ";pT_{2};Events", 200, 0, 2000);
+    book<TH1F>("pT1_"+collection_name, ";pT_{1};Events", 2000, 0, 2000);
+    book<TH1F>("pT2_"+collection_name, ";pT_{2};Events", 2000, 0, 2000);
     book<TH1F>("nsub1_"+collection_name, ";#tau_{3}/#tau_{2} 1;Events", 100, 0, 1.1);
     book<TH1F>("nsub2_"+collection_name, ";#tau_{3}/#tau_{2} 2;Events", 100, 0, 1.1);
     book<TH1F>("csv1_"+collection_name, ";CSV_{1};Events", 100, 0, 1.1);
@@ -445,8 +445,8 @@ for(unsigned int i=0; i<jet_collection_names.size(); i++)
     if (jets->size()>1) hist(("pT2_"+jet_collection_names[i]).c_str())->Fill(jets->at(1).pt(),weight);
     // if (jets->size()>0) hist(("nsub1_"+jet_collection_names[i]).c_str())->Fill(jets->at(0),weight);
     // if (jets->size()>1) hist(("nsub2_"+jet_collection_names[i]).c_str())->Fill(jets->at(1),weight);
-    // if (jets->size()>0) hist(("csv1_"+jet_collection_names[i]).c_str())->Fill(jets->at(0),weight);
-    // if (jets->size()>1) hist(("csv2_"+jet_collection_names[i]).c_str())->Fill(jets->at(1),weight);
+    if (jets->size()>0) hist(("csv1_"+jet_collection_names[i]).c_str())->Fill(jets->at(0).btag_combinedSecondaryVertex(),weight);
+    if (jets->size()>1) hist(("csv2_"+jet_collection_names[i]).c_str())->Fill(jets->at(1).btag_combinedSecondaryVertex(),weight);
   }
 
 for(unsigned int i=0; i<topjet_collection_names.size(); i++)

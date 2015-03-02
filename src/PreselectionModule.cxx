@@ -163,7 +163,7 @@ bool PreselectionModule::process(Event & event) {
 
 bool is_allhad=false;
 if (event.gentopjets){
-    TTbarGen ttbargen(*event.genparticles);
+    TTbarGen ttbargen(*event.genparticles,false);
     is_allhad = ttbargen.IsTopHadronicDecay() && ttbargen.IsAntiTopHadronicDecay();}
 
     //if (event.topjets->size()>0) cout<<event.topjets->at(0).pt()<<endl;

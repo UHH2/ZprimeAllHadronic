@@ -51,7 +51,7 @@ def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE'
     legend.AddEntry(histo_list[-1],legend_list[i],'l')
     if rebin!=1:
       histo_list[-1].Rebin(rebin)
-    the_maxy=max(maxy,histo_list[-1].GetMaximum()*1.05)
+    the_maxy=max(the_maxy,histo_list[-1].GetBinContent(histo_list[-1].GetMaximumBin())*1.05)
   for i in range(len(name_list)):
     if i==0:
       if not histo_list[-1].ClassName()=='TGraphAsymmErrors':
@@ -86,8 +86,10 @@ def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE'
   c.SaveAs('pdf/'+name+'.pdf')
   #c.SaveAs(folder+name+'.png')
 
-def hadd(path_base,name_base,inputlist,outputname):
+def hadd(path_base,name_base,inputlist,outputname,force=True):
   command_list='hadd -f '+path_base+outputname+'.root'#-v 0
+  if not force:
+    command_list='hadd '+path_base+outputname+'.root'#-v 0
   for i in inputlist:
     command_list+=' '+path_base+name_base+i+'.root'
   system(command_list)

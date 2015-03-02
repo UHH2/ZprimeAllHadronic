@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"
 [
-<!ENTITY QCDHT1000ToInf SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/QCDHT1000ToInf">
-<!ENTITY QCDHT1000ToInfExt SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/QCDHT1000ToInfExt">
-<!ENTITY QCDHT500To1000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/QCDHT500To1000">
-<!ENTITY QCDHT500To1000Ext SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/QCDHT500To1000Ext">
-<!ENTITY TTbar SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/TTbar">
-<!ENTITY TTbar50ns SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/TTbar50ns">
-<!ENTITY Z1000W10 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z1000W10">
-<!ENTITY Z1000W100 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z1000W100">
-<!ENTITY Z2000W20 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z2000W20">
-<!ENTITY Z2000W200 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z2000W200">
-<!ENTITY Z3000W30 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z3000W30">
-<!ENTITY Z3000W300 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z3000W300">
-<!ENTITY newzp SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/newzp">
 
-<!ENTITY Z1000W10v2 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_Zp_TTJets_M1000W10_20x25.xml">
-<!ENTITY Z2000W20v2 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_Zp_TTJets_M2000W20_20x25.xml">
-<!ENTITY Z3000W30v2 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_Zp_TTJets_M3000W30_20x25.xml">
+<!ENTITY QCDHT500To1000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_QCD_HT500To1000_20x25.xml">
+<!ENTITY QCDHT500To1000Ext SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_QCD_HT500To1000_20x25_ext1.xml">
+<!ENTITY QCDHT1000ToInf SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_QCD_HT1000ToInf_20x25.xml">
+<!ENTITY QCDHT1000ToInfExt SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_QCD_HT1000ToInf_20x25_ext1.xml">
+<!ENTITY TTbar SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_TTJets_20x25.xml">
+<!ENTITY Z1000W10 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_Zp_TTJets_M1000W10_20x25.xml">
+<!ENTITY Z2000W20 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_Zp_TTJets_M2000W20_20x25.xml">
+<!ENTITY Z3000W30 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_Zp_TTJets_M3000W30_20x25.xml">
 
 
 ]
@@ -31,77 +23,28 @@
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-2/" PostFix="" TargetLumi="1" > -->
    <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-2/" PostFix="" TargetLumi="20000" > 
 
-   <!--  <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z1000W10v2" Cacheable="False">
-        &Z1000W10v2;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData> -->
-
-    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z2000W20v2" Cacheable="False">
-        &Z2000W20v2;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData>
-
- <!--    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="Z3000W30v2" Cacheable="False">
-        &Z3000W30v2;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData> -->
-
-   <!-- <InputData Lumi="433.588411069248" NEventsMax="-1" Type="MC" Version="QCDHT1000ToInf" Cacheable="False">
+   <InputData Lumi="1902.62829673899" NEventsMax="-1" Type="MC" Version="QCDHT1000ToInf" Cacheable="False">
         &QCDHT1000ToInf;
         &QCDHT1000ToInfExt;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
     </InputData>
 
-    <InputData Lumi="1469.03988566974" NEventsMax="-1" Type="MC" Version="QCDHT1000ToInfExt" Cacheable="False">
-        &QCDHT1000ToInfExt;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData>
-
-    <InputData Lumi="31.751421091997" NEventsMax="-1" Type="MC" Version="QCDHT500To1000" Cacheable="False">
+    <InputData Lumi="151.957554225879" NEventsMax="-1" Type="MC" Version="QCDHT500To1000" Cacheable="False">
         &QCDHT500To1000;
         &QCDHT500To1000Ext;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
     </InputData>
 
-    <InputData Lumi="120.206133133882" NEventsMax="-1" Type="MC" Version="QCDHT500To1000Ext" Cacheable="False">
-        &QCDHT500To1000Ext;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData> -->
-
-
-    <!-- <InputData Lumi="239194" NEventsMax="-1" Type="MC" Version="Z1000W10" Cacheable="False">
+    <InputData Lumi="239194" NEventsMax="-1" Type="MC" Version="Z1000W10" Cacheable="False">
         &Z1000W10;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
-    </InputData> -->
+    </InputData>
 
-<!--     <InputData Lumi="349334" NEventsMax="-1" Type="MC" Version="Z1000W100" Cacheable="False">
-        &Z1000W100;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData> -->
-
-    <!-- <InputData Lumi="211296" NEventsMax="-1" Type="MC" Version="Z2000W20" Cacheable="False">
+    <InputData Lumi="211296" NEventsMax="-1" Type="MC" Version="Z2000W20" Cacheable="False">
         &Z2000W20;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData> -->
-
-       <!--  <InputData Lumi="211296" NEventsMax="-1" Type="MC" Version="newzp" Cacheable="False">
-        &newzp;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData> -->
-<!-- 
-    <InputData Lumi="246089" NEventsMax="-1" Type="MC" Version="Z2000W200" Cacheable="False">
-        &Z2000W200;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
     </InputData>
@@ -112,28 +55,30 @@
         <OutputTree Name="AnalysisTree" /> 
     </InputData> 
 
-    <InputData Lumi="244930" NEventsMax="-1" Type="MC" Version="Z3000W300" Cacheable="False">
-        &Z3000W300;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData>
 
-
-     <InputData Lumi="31571.9503722084" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
+<!--      <InputData Lumi="31571.9503722084" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
         &TTbar;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData>
-
-
-
-    <InputData Lumi="30393.9875930521" NEventsMax="-1" Type="MC" Version="TTbar50ns" Cacheable="False">
-        &TTbar50ns;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
     </InputData> -->
 
 
+<!-- <InputData Lumi="349334" NEventsMax="-1" Type="MC" Version="Z1000W100" Cacheable="False">
+        &Z1000W100;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
+<InputData Lumi="246089" NEventsMax="-1" Type="MC" Version="Z2000W200" Cacheable="False">
+        &Z2000W200;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
+
+<InputData Lumi="244930" NEventsMax="-1" Type="MC" Version="Z3000W300" Cacheable="False">
+        &Z3000W300;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> -->
 
 
 
@@ -144,7 +89,7 @@
             <Item Name="ElectronCollection" Value="slimmedElectrons" />
             <Item Name="MuonCollection" Value="slimmedMuons" /> 
             <Item Name="TauCollection" Value="slimmedTaus" />
-            <Item Name="JetCollection" Value="slimmedJets" />
+            <Item Name="JetCollection" Value="patJetsAk4PFCHS" />
 	    <!-- <Item Name="JetAK8Collection" Value="slimmedJetsAK8" /> -->
             <Item Name="METName" Value="slimmedMETs" />
 	    <Item Name="TopJetCollection" Value="patJetsCmsTopTagCHSPacked" />

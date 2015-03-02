@@ -1,0 +1,941 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"qcd",
+				"qcd_added"
+			],
+			[
+				"test",
+				"testlist"
+			],
+			[
+				"jet",
+				"jet_correctors"
+			],
+			[
+				"collection",
+				"collection_name"
+			],
+			[
+				"collec",
+				"collection_name"
+			],
+			[
+				"njet",
+				"njet50"
+			],
+			[
+				"bta",
+				"btag_combinedSecondaryVertex"
+			],
+			[
+				"antit",
+				"antitagJet"
+			],
+			[
+				"sign",
+				"signal_files"
+			],
+			[
+				"h_pre",
+				"h_preselection_gen"
+			],
+			[
+				"is",
+				"is_allhad"
+			],
+			[
+				"TL",
+				"TLorentzVector"
+			],
+			[
+				"min",
+				"minindex"
+			],
+			[
+				"get",
+				"getAK4FromTopJet"
+			],
+			[
+				"signal",
+				"signal_names"
+			],
+			[
+				"hi",
+				"histo_list"
+			],
+			[
+				"ttbar",
+				"ttbar_histo"
+			],
+			[
+				"h_",
+				"h_background"
+			],
+			[
+				"mass",
+				"mass_shape"
+			],
+			[
+				"mistag",
+				"mistag_value"
+			],
+			[
+				"Mis",
+				"MistagSumOfSubjets"
+			],
+			[
+				"Tag",
+				"TagSumOfSubjets"
+			],
+			[
+				"mist",
+				"mistagJet"
+			],
+			[
+				"tag",
+				"tagJet"
+			],
+			[
+				"histo",
+				"histoname_out"
+			],
+			[
+				"mis",
+				"mistagJet"
+			],
+			[
+				"TopJ",
+				"TopJetPt"
+			],
+			[
+				"mi",
+				"mistag2D_den"
+			],
+			[
+				"anti",
+				"antitagJet"
+			],
+			[
+				"probe",
+				"probeJet"
+			],
+			[
+				"subjets",
+				"subjets_top"
+			],
+			[
+				"top",
+				"topjetcorrector"
+			],
+			[
+				"file",
+				"filename_base"
+			],
+			[
+				"ttba",
+				"ttbar50ns_name"
+			],
+			[
+				"ttb",
+				"ttbar_name"
+			],
+			[
+				"qcd_",
+				"qcd_filename"
+			],
+			[
+				"name",
+				"name_base"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/VLQTrigger/TriggerStudies/plugins/TriggerStudies.cc",
+			"settings":
+			{
+				"buffer_size": 34114,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "python/studies.py",
+			"settings":
+			{
+				"buffer_size": 12686,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/PreselectionModule.cxx",
+			"settings":
+			{
+				"buffer_size": 13287,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/afs/desy.de/user/u/usaiem/Downloads/Pheno2DPlot_HTT2D_NOheptoptag_NOmasscut_hists_Background_Add.svg",
+			"settings":
+			{
+				"buffer_size": 1732608,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_Zp_TTJets_M2000W20_20x25.xml",
+			"settings":
+			{
+				"buffer_size": 691,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_QCD_HT500To1000_20x25.xml",
+			"settings":
+			{
+				"buffer_size": 2556,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "python/utils.py",
+			"settings":
+			{
+				"buffer_size": 7301,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/VLQTrigger/analysis.py",
+			"settings":
+			{
+				"buffer_size": 9137,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/VLQTrigger/TriggerStudies/python/TriggerMenu_cff.py",
+			"settings":
+			{
+				"buffer_size": 1596,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/VLQTrigger/TriggerStudies/python/TriggerStudies_cfg.py",
+			"settings":
+			{
+				"buffer_size": 52184,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": " ( INFO  )  SInputData         : Input type \"MC\" version \"QCDHT1000ToInf\" : 1464453 events\n ( INFO  )  SInputData         : Input type \"MC\" version \"QCDHT500To1000\" : 4063345 events\n ( INFO  )  SInputData         : Input type \"MC\" version \"Z1000W10\" : 239194 events\n ( INFO  )  SInputData         : Input type \"MC\" version \"Z2000W20\" : 211296 events\n ( INFO  )  SInputData         : Input type \"MC\" version \"Z3000W30\" : 243766 events\n ( INFO  )  SInputData         : Input type \"MC\" version \"TTbar\" : 25446993 events\n",
+			"settings":
+			{
+				"buffer_size": 517,
+				"line_ending": "Unix",
+				"name": "( INFO  )  SInputData         : Input type \"MC\" v"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/ZprimeAllHadronic",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/ZprimeAllHadronic/config",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/ZprimeAllHadronic/include",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/ZprimeAllHadronic/python",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/ZprimeAllHadronic/src"
+	],
+	"file_history":
+	[
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/ZprimeAllHadronic/src/Zp2TopVLQAllHadModule.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/ZprimeAllHadronic/src/Zp2TopVLQAllHadSelections.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/MyStudies/signals2.conf",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/MyStudies/signals.conf",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/MyStudies/common-naf-local.conf",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/MyStudies/B2G-Phys14DR-00039_Vis_cfg.py",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/MyStudies/changes",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/MyStudies/B2G-Phys14DR-00039_2_cfg.py",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/MyStudies/B2G-Phys14DR-00039_1_cfg.py",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/ZprimeAllHadronic/config/Preselection.xml",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/ZprimeAllHadronic/src/PreselectionModule.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/ZprimeAllHadronic/src/Zp2TopVLQAllHadHists.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/ZprimeAllHadronic/src/Tools.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/src/TTbarGen.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/include/TTbarGen.h",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/MyStudies/signals-v2.conf",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/VLQTrigger/TriggerStudies/plugins/TriggerStudies.cc",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/VLQTrigger/TriggerStudies/python/TriggerStudies_cfg.py",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/VLQTrigger/TriggerStudies/python/TriggerMenu_cff.py",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/VLQTrigger/runna",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/gen/folder/Cards/run_card.dat",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/gen2/MG5_aMC_v2_2_2/UpdateNotes.txt",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/gen2/MG5_aMC_v2_2_2/README",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/gen2/MG5_aMC_v2_2_2/Template/MadWeight/Readme.txt",
+		"/tmp/.fr-bVjDYH/MG5_aMC_v2_2_3/README",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/gen/cards/run_card.dat",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/gen2/MG5_aMC_v2_2_2/proc_card.dat",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/MyStudies/prova.py",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/VLQTrigger/out",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/MyStudies/step2.dbs",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/MyStudies/HLT_User_cff.py",
+		"/tmp/IR_HIG_13_031.txt",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/ZprimeAllHadronic/include/Zp2TopVLQAllHadHists.h",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/ZprimeAllHadronic/python/studies.py",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/core/python/ntuplewriter.py",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/jobs/signals.conf",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/jobs/common-naf-local.conf",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/include/JetCorrections.h",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/common/src/JetCorrections.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/src/JetCorrections.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_Zp_TTJets_M1000W10_20x25.xml",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/core/include/FlavorParticle.h",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/core/include/Jet.h",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/common/include/JetCorrections.h",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/src/Tools.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/include/Tools.h",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Preselection.xml",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/src/PreselectionModule.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/src/Zp2TopVLQAllHadHists.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/include/Zp2TopVLQAllHadHists.h",
+		"/afs/desy.de/user/u/usaiem/Downloads/sd/SD-tosvn/TopGluonModel.cxx",
+		"/afs/desy.de/user/u/usaiem/Downloads/sd/SD-tosvn/input_card.dat",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/core/include/AnalysisModule.h",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/core/src/AnalysisModule.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/core/src/EventHelper.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/core/src/Event.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/core/src/AnalysisModuleRunner.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Zp2TopVLQAllHad.xml",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/core/src/classes.h",
+		"/afs/desy.de/user/u/usaiem/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/src/Zp2TopVLQAllHadModule.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/include/Zp2TopVLQAllHadSelections.h",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/python/mistag.py",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/python/studies.py",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/python/model.py",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/python/utils.py",
+		"/afs/desy.de/user/u/usaiem/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/newzp",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/core/python/ntuplewriter.py",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/python/jetresponse.py",
+		"/afs/desy.de/user/u/usaiem/code/ZprimeFullHadAnalysis/closure.py",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/jobs/common-naf-local-alt.conf",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/jobs/signals2.conf",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/dev/UHH2/common/src/JetCorrections.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/dev/UHH2/common/include/JetCorrections.h",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/core/plugins/NtupleWriter.cc",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/dev/UHH2/core/plugins/NtupleWriter.cc",
+		"/afs/desy.de/user/u/usaiem/code/ZprimeFullHadAnalysis/src/BackgroundHists.cxx",
+		"/afs/desy.de/user/u/usaiem/code/ZprimeFullHadAnalysis/bkg.py",
+		"/afs/desy.de/user/u/usaiem/code/SFrameAnalysis/src/Cleaner.cxx",
+		"/afs/desy.de/user/u/usaiem/Downloads/sd/ShowerdeconstructionV2.cxx",
+		"/afs/desy.de/user/u/usaiem/Downloads/mhep/Utils.cxx",
+		"/afs/desy.de/user/u/usaiem/Downloads/mhep/MultiRHEPTopTagger.cxx",
+		"/afs/desy.de/user/u/usaiem/Downloads/mhep/HEPTopTagger.cxx",
+		"/afs/desy.de/user/u/usaiem/Downloads/mhep/MultiRHEPTopTagger.h",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/core/include/Particle.h",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/core/include/TopJet.h",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/core/plugins/NtupleWriterJets.h",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/core/plugins/NtupleWriterJets.cxx",
+		"/afs/desy.de/user/u/usaiem/code/ZprimeFullHadAnalysis/src/BackgroundCycle.cxx",
+		"/afs/desy.de/user/u/usaiem/code/SFrameTools/JetMETObjects/src/JetCorrectorParameters.cc",
+		"/afs/desy.de/user/u/usaiem/code/SFrameTools/src/AnalysisModuleRunner.cxx",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/Z2000W20",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/xsec",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/JetMETObjects/data/PHYS14_V2_MC_L1FastJet_AK8PFchs.txt",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/JetMETObjects/data/PHYS14_V2_MC_L2Relative_AK8PFchs.txt",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/JetMETObjects/data/README",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/JetMETObjects/data/PHYS14_V1_MC_L1FastJet_AK8PFchs.txt",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/JetMETObjects/data/PHYS14_25_V2_L1FastJet_AK4PFchs.txt",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/python/analysis.py",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/python/trigger.py",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/python/compare.py",
+		"/afs/desy.de/user/u/usaiem/code/SFrameTools/include/Utils.h",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/config/QCDHT500To1000",
+		"/afs/desy.de/user/u/usaiem/code/ZprimeFullHadAnalysis/config/Background_config.xml",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/test/ana.py",
+		"/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_2_1_patch4/src/UHH2/Zp2TopVLQAllHad/python/makecfg.py",
+		"/afs/desy.de/user/u/usaiem/code/ZprimeFullHadAnalysis/config/Preselection_config.xml",
+		"/afs/desy.de/user/u/usaiem/code/SFrameTools/src/Utils.cxx"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"fill:none;stroke:#666666;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke",
+			"NoCutsGen",
+			"NoCuts",
+			",'CA8 CHS','CA8 puppi'",
+			",'NoCutsGen/'+i+'_patJetsCa8CHSJets','NoCutsGen/'+i+'_patJetsCa8PuppiJets'",
+			"if useOutfile and overlayKin:\n    ttfile=TFile(file_list[0],'READ')",
+			"']#'",
+			"step2.root",
+			"HLT_",
+			".root",
+			"'/store/",
+			"/store/mc/",
+			".root",
+			"=\"",
+			"    for(auto collection_name : topjet_collection_names)\n    {\n        std::unique_ptr<GenericTopJetCorrector> a;\n        std::unique_ptr<GenericSubJetCorrector> b;\n        topjet_correctors.push_back(a);\n        subjet_correctors.push_back(b);\n        topjet_correctors[topjet_correctors.size()-1].reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,collection_name));\n        subjet_correctors[subjet_correctors.size()-1].reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,collection_name));\n    }",
+			"signal_files.append(TFile(path2+filename_base+signal_names[2]+root,'READ'))\nsignal_files.append(TFile(path2+filename_base+signal_names[4]+root,'READ'))\n# signal_files.append(TFile(path2+filename_base+'newzp'+root,'READ'))\nsignal_files.append(TFile(path2+filename_base+signal_names[0]+root,'READ'))\nsignal_files.append(TFile(path+filename_base+'newzp'+root,'READ'))",
+			"=\"",
+			"jet_collection_names",
+			"jet_collection_name[i]",
+			"(&event.get(jet_handles[i]))",
+			"jet_collection_name",
+			"collection_name",
+			"uhh2",
+			"h_jetsAK8 = ctx.declare_event_input<std::vector<Jet> >(\"patJetsCa8CHSJets\");//, \"slimmedJetsAK8\");\n    h_topjetsCA8 = ctx.declare_event_input<std::vector<TopJet> >(\"patJetsCa8CHSJetsPrunedPacked\");//, \"patJetsCA8CHSprunedPacked\");\n    h_topjetsCA15 = ctx.declare_event_input<std::vector<TopJet> >(\"patJetsCa15CHSJetsFilteredPacked\");//, \"patJetsCA15CHSFilteredPacked\");\n    h_topjetsHEP = ctx.declare_event_input<std::vector<TopJet> >(\"patJetsHepTopTagCHSPacked\");//, \"patJetsHEPTopTagCHSPacked\");\n\n    h_jetsAK8 = ctx.declare_event_output<std::vector<Jet> >(\"patJetsCa8CHSJets\");//, \"slimmedJetsAK8\");\n    h_topjetsCA8 = ctx.declare_event_output<std::vector<TopJet> >(\"patJetsCa8CHSJetsPrunedPacked\");//, \"patJetsCA8CHSprunedPacked\");\n    h_topjetsCA15 = ctx.declare_event_output<std::vector<TopJet> >(\"patJetsCa15CHSJetsFilteredPacked\");//, \"patJetsCA15CHSFilteredPacked\");\n    h_topjetsHEP = ctx.declare_event_output<std::vector<TopJet> >(\"patJetsHepTopTagCHSPacked\");//, \"patJetsHEPTopTagCHSPacked\");",
+			"   ",
+			"  ",
+			"branch: ",
+			"patJetsCa8CHSJets",
+			"branch: patJetsCa8CHSJets",
+			"branch: ",
+			"flavorsub_top",
+			"flavorsub_top=",
+			"flavo",
+			"btagsub_combinedSecondaryVertex_top",
+			"    for(auto & jet : *event.topjetsCA8){\n        correct_subjets(*corrector, jet, event);\n    }\n    for(auto & jet : *event.topjetsCA15){\n        correct_subjets(*corrector, jet, event);\n    }\n    for(auto & jet : *event.topjetsHEP){\n        correct_subjets(*corrector, jet, event);\n    }",
+			"\");//,",
+			"build_",
+			"AnalysisModuleRunner",
+			"ctx",
+			"event.topjetsHEP",
+			"event.topjetsCA15",
+			"events.topjetsCA15",
+			"event.topjetsCA8",
+			"event.jetsAK8",
+			"tab",
+			"topjets",
+			".jets",
+			"topjets",
+			"CMS",
+			"AK8",
+			", 200, 0, 6000);",
+			"\n  ",
+			"200, 0, 6000);\n",
+			"200, 0, 6000);",
+			"AnalysisModuleRunner",
+			"for(auto & kv : ctx.get_all()){\n        cout << \" \" << kv.first << \" = \" << kv.second << endl;\n    }",
+			"    <InputData Lumi=\"239194\" NEventsMax=\"-1\" Type=\"MC\" Version=\"Z1000W10\" Cacheable=\"False\">\n        &Z1000W10;\n        <InputTree Name=\"AnalysisTree\" /> \n        <OutputTree Name=\"AnalysisTree\" /> \n    </InputData>",
+			"Name",
+			"AnalysisModuleRunner",
+			"  if (event.topjets->size()>0)\n  {\n    hist(\"m1CMS\")->Fill(TopJetMass(event.topjets->at(0)),weight);\n    hist(\"m1AK4x3R8\")->Fill(TopJetMassAK4(event,event.topjets->at(0),3,0.8),weight);\n    hist(\"m1AK4x4R8\")->Fill(TopJetMassAK4(event,event.topjets->at(0),4,0.8),weight);\n    hist(\"m1AK4x3R15\")->Fill(TopJetMassAK4(event,event.topjets->at(0),3,1.5),weight);\n    hist(\"m1AK4x4R15\")->Fill(TopJetMassAK4(event,event.topjets->at(0),4,1.5),weight);\n  }\n  if (event.topjets->size()>1)\n  {\n    hist(\"m2CMS\")->Fill(TopJetMass(event.topjets->at(1)),weight);\n    hist(\"m2AK4x3R8\")->Fill(TopJetMassAK4(event,event.topjets->at(1),3,0.8),weight);\n    hist(\"m2AK4x4R8\")->Fill(TopJetMassAK4(event,event.topjets->at(1),4,0.8),weight);\n    hist(\"m2AK4x3R15\")->Fill(TopJetMassAK4(event,event.topjets->at(1),3,1.5),weight);\n    hist(\"m2AK4x4R15\")->Fill(TopJetMassAK4(event,event.topjets->at(1),4,1.5),weight);\n  }\n  if (event.topjets->size()>1)\n  {\n    hist(\"m12CMS\")->Fill(ZprimeMass(event.topjets->at(0),event.topjets->at(1)),weight);\n    hist(\"m12AK4x3R8\")->Fill(ZprimeMassAK4(event,event.topjets->at(0),event.topjets->at(1),3,0.8),weight);\n    hist(\"m12AK4x4R8\")->Fill(ZprimeMassAK4(event,event.topjets->at(0),event.topjets->at(1),4,0.8),weight);\n    hist(\"m12AK4x3R15\")->Fill(ZprimeMassAK4(event,event.topjets->at(0),event.topjets->at(1),3,1.5),weight);\n    hist(\"m12AK4x4R15\")->Fill(ZprimeMassAK4(event,event.topjets->at(0),event.topjets->at(1),4,1.5),weight);\n  }",
+			"GenJet",
+			"Topjet",
+			"(TopJet",
+			"topjet",
+			"TopJet",
+			"(0)",
+			"AK4(",
+			"book<TH1F>(\"m12",
+			"AK4x3R15",
+			"4x4R8",
+			"AK4x3R8",
+			"m1AK4x3R8",
+			"make_plot('Selection0', ttbar_file, qcd_file, [signal_files[0],signal_files[2],signal_files[4]], 'Selection0/m12CMS','Background0/m12CMS',3,500,4000)\nmake_plot('Selection1', ttbar_file, qcd_file, [signal_files[0],signal_files[2],signal_files[4]], 'Selection1/m12CMS','Background1/m12CMS',3,500,4000)\nmake_plot('Selection2', ttbar_file, qcd_file, [signal_files[0],signal_files[2],signal_files[4]], 'Selection2/m12CMS','Background2/m12CMS',3,500,4000)",
+			"dogentop",
+			"getPairDiscri",
+			"=\"",
+			"        <InputData Lumi=\"1\" NEventsMax=\"100\" Type=\"MC\" Version=\"BpJ_TW_800\" Cacheable=\"False\">\n            <In FileName=\"/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M800_20x25_14_Ntuple.root\" Lumi=\"0.0\"/> \n            <In FileName=\"/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M800_20x25_15_Ntuple.root\" Lumi=\"0.0\"/> \n            <In FileName=\"/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M800_20x25_16_Ntuple.root\" Lumi=\"0.0\"/> \n            <InputTree Name=\"AnalysisTree\" /> \n            <!-- uncomment to write tree of selected events, i.e. of those events for which the AnalysisModule::process method  returns true\n                If no OutputTree is given, no events will be written. Please do use \"AnalysisTree\" as Name. -->\n            <!-- <OutputTree Name=\"AnalysisTree\" /> -->\n        </InputData>\n        \n        <InputData Lumi=\"1\" NEventsMax=\"100\" Type=\"MC\" Version=\"BpJ_TW_1200\" Cacheable=\"False\">\n            <In FileName=\"/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M1200_20x25_19_Ntuple.root\" Lumi=\"0.0\"/> \n            <InputTree Name=\"AnalysisTree\" /> \n        </InputData>",
+			"isantitagged",
+			"addJetCollection",
+			"addjetcollection",
+			"def addjetcollection",
+			"addjetcollection",
+			"jetCorrections",
+			"JEC",
+			"Recorrector",
+			"ZprimeMass",
+			"zprimemass",
+			"uhh2",
+			"TopTag(",
+			"(Event &",
+			"TimeLike",
+			"Topjet",
+			"events",
+			"TH2F",
+			"   <InputData Lumi=\"1\" NEventsMax=\"-1\" Type=\"MC\" Version=\"QCDHT1000ToInf\" Cacheable=\"False\">\n        &QCDHT1000ToInf;\n        <InputTree Name=\"AnalysisTree\" /> \n        <OutputTree Name=\"AnalysisTree\" /> \n    </InputData>\n\n    <InputData Lumi=\"1\" NEventsMax=\"-1\" Type=\"MC\" Version=\"QCDHT1000ToInfExt\" Cacheable=\"False\">\n        &QCDHT1000ToInfExt;\n        <InputTree Name=\"AnalysisTree\" /> \n        <OutputTree Name=\"AnalysisTree\" /> \n    </InputData>\n\n    <InputData Lumi=\"1\" NEventsMax=\"-1\" Type=\"MC\" Version=\"QCDHT500To1000\" Cacheable=\"False\">\n        &QCDHT500To1000;\n        <InputTree Name=\"AnalysisTree\" /> \n        <OutputTree Name=\"AnalysisTree\" /> \n    </InputData>\n\n    <InputData Lumi=\"1\" NEventsMax=\"-1\" Type=\"MC\" Version=\"QCDHT500To1000Ext\" Cacheable=\"False\">\n        &QCDHT500To1000Ext;\n        <InputTree Name=\"AnalysisTree\" /> \n        <OutputTree Name=\"AnalysisTree\" /> \n    </InputData>\n\n    <InputData Lumi=\"1\" NEventsMax=\"-1\" Type=\"MC\" Version=\"TTbar\" Cacheable=\"False\">\n        &TTbar;\n        <InputTree Name=\"AnalysisTree\" /> \n        <OutputTree Name=\"AnalysisTree\" /> \n    </InputData>\n\n    <InputData Lumi=\"1\" NEventsMax=\"-1\" Type=\"MC\" Version=\"TTbar50ns\" Cacheable=\"False\">\n        &TTbar50ns;\n        <InputTree Name=\"AnalysisTree\" /> \n        <OutputTree Name=\"AnalysisTree\" /> \n    </InputData>\n\n    <InputData Lumi=\"1\" NEventsMax=\"-1\" Type=\"MC\" Version=\"Z1000W10\" Cacheable=\"False\">\n        &Z1000W10;\n        <InputTree Name=\"AnalysisTree\" /> \n        <OutputTree Name=\"AnalysisTree\" /> \n    </InputData>\n\n    <InputData Lumi=\"1\" NEventsMax=\"-1\" Type=\"MC\" Version=\"Z1000W100\" Cacheable=\"False\">\n        &Z1000W100;\n        <InputTree Name=\"AnalysisTree\" /> \n        <OutputTree Name=\"AnalysisTree\" /> \n    </InputData>\n\n    <InputData Lumi=\"1\" NEventsMax=\"-1\" Type=\"MC\" Version=\"Z2000W20\" Cacheable=\"False\">\n        &Z2000W20;\n        <InputTree Name=\"AnalysisTree\" /> \n        <OutputTree Name=\"AnalysisTree\" /> \n    </InputData>\n\n    <InputData Lumi=\"1\" NEventsMax=\"-1\" Type=\"MC\" Version=\"Z2000W200\" Cacheable=\"False\">\n        &Z2000W200;\n        <InputTree Name=\"AnalysisTree\" /> \n        <OutputTree Name=\"AnalysisTree\" /> \n    </InputData>\n\n    <InputData Lumi=\"1\" NEventsMax=\"-1\" Type=\"MC\" Version=\"Z3000W30\" Cacheable=\"False\">\n        &Z3000W30;\n        <InputTree Name=\"AnalysisTree\" /> \n        <OutputTree Name=\"AnalysisTree\" /> \n    </InputData>",
+			"# import of standard configurations\nprocess.load('Configuration.StandardSequences.Services_cff')\nprocess.load('SimGeneral.HepPDTESSource.pythiapdt_cfi')\nprocess.load('FWCore.MessageService.MessageLogger_cfi')\nprocess.load('Configuration.EventContent.EventContent_cff')\nprocess.load('SimGeneral.MixingModule.mixNoPU_cfi')\nprocess.load('Configuration.StandardSequences.GeometryRecoDB_cff')\nprocess.load('Configuration.StandardSequences.MagneticField_38T_cff')\nprocess.load('Configuration.StandardSequences.Generator_cff')\nprocess.load('IOMC.EventVertexGenerators.VtxSmearedRealistic8TeVCollision_cfi')\nprocess.load('GeneratorInterface.Core.genFilterSummary_cff')\nprocess.load('Configuration.StandardSequences.EndOfProcess_cff')\nprocess.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')\n\nfrom Configuration.AlCa.GlobalTag import GlobalTag\nprocess.GlobalTag = GlobalTag(process.GlobalTag, 'auto:mc', '')\nprocess.maxEvents = cms.untracked.PSet(\n    input = cms.untracked.int32(options.maxEvents)\n)",
+			"<InputData Lumi=\"1\" NEventsMax=\"100\" Type=\"MC\" Version=\"BpJ_TW_800\" Cacheable=\"False\">\n	    <In FileName=\"/nfs/dust/cms/user/usaiem/gc-output/PHYS14v0/signals/MC_Zp_TTJets_M1000W10_20x25_0_Ntuple.root\" Lumi=\"0.0\"/> ",
+			"deltay(",
+			"deltay",
+			"variableTopTag(",
+			"toptag"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"fill:none;stroke:#666666;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:0;stroke",
+			"topjetsHEP",
+			"topjetsCA15",
+			"topjetsCA8",
+			"jetsAK8",
+			"ZprimeMass2",
+			"(const Event &",
+			"Timelike",
+			"event"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/VLQTrigger/TriggerStudies/plugins/TriggerStudies.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 34114,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4607,
+								4607
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2454.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "python/studies.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12686,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 1978.0,
+						"translation.y": 1026.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/PreselectionModule.cxx",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 13287,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4212.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/afs/desy.de/user/u/usaiem/Downloads/Pheno2DPlot_HTT2D_NOheptoptag_NOmasscut_hists_Background_Add.svg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1732608,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1318901,
+								1318901
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 487125.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_Zp_TTJets_M2000W20_20x25.xml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 691,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								123,
+								123
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_QCD_HT500To1000_20x25.xml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2556,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								127,
+								127
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "python/utils.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7301,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1725,
+								1725
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 270.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/VLQTrigger/analysis.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9137,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4124,
+								4124
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1944.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/VLQTrigger/TriggerStudies/python/TriggerMenu_cff.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1596,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								278,
+								278
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_3_2_patch2/src/VLQTrigger/TriggerStudies/python/TriggerStudies_cfg.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 52184,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								49163,
+								49163
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 517,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								517,
+								517
+							]
+						],
+						"settings":
+						{
+							"auto_name": "( INFO  )  SInputData         : Input type \"MC\" v",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "project.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 316.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

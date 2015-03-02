@@ -8,27 +8,27 @@ from utils import compare,hadd,doeff,make_plot
 gROOT.SetBatch()
 
 #setup
-path='/nfs/dust/cms/user/usaiem/phys14-4/'
-path2='/nfs/dust/cms/user/usaiem/phys14-2/'
+path='/nfs/dust/cms/user/usaiem/phys14-2/'
+# path2='/nfs/dust/cms/user/usaiem/phys14-2/'
 root='.root'
 filename_base='uhh2.AnalysisModuleRunner.MC.'
-signal_names=['Z1000W10','Z1000W100','Z2000W20v2','Z2000W200','Z3000W30','Z3000W300']
-qcd_names=['QCDHT1000ToInfExt','QCDHT500To1000Ext']#'QCDHT1000ToInf',,'QCDHT500To1000'
+signal_names=['Z1000W10','Z2000W20','Z3000W30']#'Z1000W100','Z2000W200','Z3000W300'
+qcd_names=['QCDHT1000ToInf','QCDHT500To1000']#'QCDHT1000ToInf',,'QCDHT500To1000'
 #qcd_names=['QCDHT1000ToInf','QCDHT500To1000']#'QCDHT1000ToInf',,'QCDHT500To1000'
 ttbar_name='TTbar'
-ttbar50ns_name='TTbar50ns'
+# ttbar50ns_name='TTbar50ns'
 outfile=TFile('outfile.root','RECREATE')
 
 #merge qcd
-qcd_filename=hadd(path,filename_base,qcd_names,'qcd_added')
+qcd_filename=hadd(path,filename_base,qcd_names,'qcd_added',True)
 #open files
 qcd_file=TFile(qcd_filename,'READ')
 ttbar_file=TFile(path+filename_base+ttbar_name+root,'READ')
-ttbar50ns_file=TFile(path+filename_base+ttbar50ns_name+root,'READ')
+# ttbar50ns_file=TFile(path+filename_base+ttbar50ns_name+root,'READ')
 signal_files=[]
 for i in signal_names:
 	signal_files.append(TFile(path+filename_base+i+root,'READ'))
-signal_files.append(TFile(path2+filename_base+signal_names[2]+root,'READ'))	
+# signal_files.append(TFile(path2+filename_base+signal_names[2]+root,'READ'))	
 # signal_files.append(TFile(path2+filename_base+signal_names[2]+root,'READ'))
 # signal_files.append(TFile(path2+filename_base+signal_names[4]+root,'READ'))
 # # signal_files.append(TFile(path2+filename_base+'newzp'+root,'READ'))
@@ -70,18 +70,35 @@ signal_files.append(TFile(path2+filename_base+signal_names[2]+root,'READ'))
 # 	compare(i+'_Pre_Zbtag',[signal_files[0],signal_files[2],signal_files[4]],['Preselection/'+i,'Preselection/'+i,'Preselection/'+i],["Z' 1TeV","Z' 2TeV","Z' 3TeV"],True,'hE',i,maxx)
 #jet
 #for i in ['m1','m2','m12','pT1','pT2']:
-for i in ['m12']:
-	maxx=0
-	if 'm1' in i or 'm2' in i:
-		maxx=600
-	if 'm12' in i:
-		maxx=3000
-	if 'pT' in i:
-		maxx=1400
 
-	compare(i+'_new',[signal_files[-1]]*2,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'_patJetsCmsTopTagPuppiPacked'],['CMS chs','CMS puppi'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,rebin=1)
-	compare(i+'_new2',[signal_files[-1]]*4,['NoCutsGen/'+i+'_patJetsCa8CHSJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8CHSJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsSoftDropPacked'],['CA8 chs pruned','CA8 puppi pruned','CA8 chs sd','CA8 puppi sd'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,rebin=1)
-	compare(i+'_new3',[signal_files[-1]]*2,['NoCutsGen/'+i+'_patJetsCa15CHSJetsFilteredPacked','NoCutsGen/'+i+'_patJetsCa15PuppiJetsFilteredPacked'],['CA15 chs filtered','CA15 puppi filtered'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,rebin=1)
+i='m12'
+	#compare(i+'_new',[signal_files[1]]*2,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'_patJetsCmsTopTagPuppiPacked'],['CMS chs','CMS puppi'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,rebin=1)
+	#compare(i+'_new2',[signal_files[1]]*4,['NoCutsGen/'+i+'_patJetsCa8CHSJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8CHSJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsSoftDropPacked'],['CA8 chs pruned','CA8 puppi pruned','CA8 chs sd','CA8 puppi sd'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,rebin=1)
+compare(i+'_new4',[signal_files[1]]*7,['NoCutsGen/'+i+'_patJetsCa8CHSJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8CHSJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8CHSJets','NoCutsGen/'+i+'_patJetsCa8PuppiJets','NoCutsGen/'+i+'CMS'],['CA8 chs pruned','CA8 puppi pruned','CA8 chs sd','CA8 puppi sd','CA8 CHS','CA8 puppi','CMS'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,rebin=1)
+	#compare(i+'_new3',[signal_files[1]]*2,['NoCutsGen/'+i+'_patJetsCa15CHSJetsFilteredPacked','NoCutsGen/'+i+'_patJetsCa15PuppiJetsFilteredPacked'],['CA15 chs filtered','CA15 puppi filtered'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,rebin=1)
+compare(i+'_new1tev',[signal_files[0]]*7,['NoCutsGen/'+i+'_patJetsCa8CHSJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8CHSJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8CHSJets','NoCutsGen/'+i+'_patJetsCa8PuppiJets','NoCutsGen/'+i+'CMS'],['CA8 chs pruned','CA8 puppi pruned','CA8 chs sd','CA8 puppi sd','CA8 CHS','CA8 puppi','CMS'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',0,2000,rebin=1)
+compare(i+'_new3tev',[signal_files[2]]*7,['NoCutsGen/'+i+'_patJetsCa8CHSJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8CHSJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8CHSJets','NoCutsGen/'+i+'_patJetsCa8PuppiJets','NoCutsGen/'+i+'CMS'],['CA8 chs pruned','CA8 puppi pruned','CA8 chs sd','CA8 puppi sd','CA8 CHS','CA8 puppi','CMS'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',2000,4000,rebin=1)
+compare(i+'_newqcd',[qcd_file]*7,['NoCuts/'+i+'_patJetsCa8CHSJetsPrunedPacked','NoCuts/'+i+'_patJetsCa8PuppiJetsPrunedPacked','NoCuts/'+i+'_patJetsCa8CHSJetsSoftDropPacked','NoCuts/'+i+'_patJetsCa8PuppiJetsSoftDropPacked','NoCuts/'+i+'_patJetsCa8CHSJets','NoCuts/'+i+'_patJetsCa8PuppiJets','NoCuts/'+i+'CMS'],['CA8 chs pruned','CA8 puppi pruned','CA8 chs sd','CA8 puppi sd','CA8 CHS','CA8 puppi','CMS'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',0,2500,rebin=1)
+
+compare(i+'_dpg2tev',[signal_files[1]]*4,['SelectionGen/'+i+'_patJetsCa8CHSJetsPrunedPacked','SelectionGen/'+i+'_patJetsCa8PuppiJetsPrunedPacked','SelectionGen/'+i+'_patJetsCa8CHSJetsSoftDropPacked','SelectionGen/'+i+'_patJetsCa8PuppiJetsSoftDropPacked'],['CA8 CHS pruned','CA8 PUPPI pruned','CA8 CHS soft drop','CA8 PUPPI soft drop'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',500,2500,rebin=1,textsizefactor=0.75)
+compare(i+'_dpg1tev',[signal_files[0]]*4,['SelectionGen/'+i+'_patJetsCa8CHSJetsPrunedPacked','SelectionGen/'+i+'_patJetsCa8PuppiJetsPrunedPacked','SelectionGen/'+i+'_patJetsCa8CHSJetsSoftDropPacked','SelectionGen/'+i+'_patJetsCa8PuppiJetsSoftDropPacked'],['CA8 CHS pruned','CA8 PUPPI pruned','CA8 CHS soft drop','CA8 PUPPI soft drop'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',0,2000,rebin=1)
+compare(i+'_dpg3tev',[signal_files[2]]*4,['SelectionGen/'+i+'_patJetsCa8CHSJetsPrunedPacked','SelectionGen/'+i+'_patJetsCa8PuppiJetsPrunedPacked','SelectionGen/'+i+'_patJetsCa8CHSJetsSoftDropPacked','SelectionGen/'+i+'_patJetsCa8PuppiJetsSoftDropPacked'],['CA8 CHS pruned','CA8 PUPPI pruned','CA8 CHS soft drop','CA8 PUPPI soft drop'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,4000,rebin=2)
+compare(i+'_dpgqcd',[qcd_file]*4,['Selection/'+i+'_patJetsCa8CHSJetsPrunedPacked','Selection/'+i+'_patJetsCa8PuppiJetsPrunedPacked','Selection/'+i+'_patJetsCa8CHSJetsSoftDropPacked','Selection/'+i+'_patJetsCa8PuppiJetsSoftDropPacked'],['CA8 CHS pruned','CA8 PUPPI pruned','CA8 CHS soft drop','CA8 PUPPI soft drop'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',0,2500,rebin=3)
+
+i='m1'
+compare(i+'_dpg2tev',[signal_files[1]]*4,['NoCutsGen/'+i+'_patJetsCa8CHSJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8CHSJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsSoftDropPacked'],['CA8 CHS pruned','CA8 PUPPI pruned','CA8 CHS soft drop','CA8 PUPPI soft drop'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',0,300,rebin=1,textsizefactor=0.75)
+compare(i+'_dpg1tev',[signal_files[0]]*4,['NoCutsGen/'+i+'_patJetsCa8CHSJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8CHSJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsSoftDropPacked'],['CA8 CHS pruned','CA8 PUPPI pruned','CA8 CHS soft drop','CA8 PUPPI soft drop'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',0,300,rebin=1)
+compare(i+'_dpg3tev',[signal_files[2]]*4,['NoCutsGen/'+i+'_patJetsCa8CHSJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8CHSJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsSoftDropPacked'],['CA8 CHS pruned','CA8 PUPPI pruned','CA8 CHS soft drop','CA8 PUPPI soft drop'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',0,300,rebin=1)
+compare(i+'_dpgqcd',[qcd_file]*4,['NoCuts/'+i+'_patJetsCa8CHSJetsPrunedPacked','NoCuts/'+i+'_patJetsCa8PuppiJetsPrunedPacked','NoCuts/'+i+'_patJetsCa8CHSJetsSoftDropPacked','NoCuts/'+i+'_patJetsCa8PuppiJetsSoftDropPacked'],['CA8 CHS pruned','CA8 PUPPI pruned','CA8 CHS soft drop','CA8 PUPPI soft drop'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',0,300,rebin=1)
+
+# for i in ['m12']:
+# 	maxx=0
+# 	if 'm1' in i or 'm2' in i:
+# 		maxx=600
+# 	if 'm12' in i:
+# 		maxx=3000
+# 	if 'pT' in i:
+# 		maxx=1400
 	# compare(i+'_NoCutGen_jet',[signal_files[-1],signal_files[-1],signal_files[-1],signal_files[-1]],['NoCutsGen/'+i+'AK4x4R15','NoCutsGen/'+i+'CA15','NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'gen'],['up to 4 closest AK4 to CMSJet within R=1.5','CA15 filtered','CMSTT Jet','CMS gen. Jet'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,rebin=1)
 	# compare(i+'_SelGen_jet',[signal_files[-1],signal_files[-1],signal_files[-1],signal_files[-1]],['SelectionGen/'+i+'AK4x4R15','SelectionGen/'+i+'CA15','SelectionGen/'+i+'CMS','SelectionGen/'+i+'gen'],['up to 4 closest AK4 to CMSJet within R=1.5','CA15 filtered','CMSTT Jet','CMS gen. Jet'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,1)
 	# compare(i+'_Sel_jet',[signal_files[-1],signal_files[-1],signal_files[-1],signal_files[-1]],['Selection/'+i+'AK4x4R15','Selection/'+i+'CA15','Selection/'+i+'CMS','Selection/'+i+'gen'],['up to 4 closest AK4 to CMSJet within R=1.5','CA15 filtered','CMSTT Jet','CMS gen. Jet'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,1)
