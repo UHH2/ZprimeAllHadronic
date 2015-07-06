@@ -2,15 +2,8 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"
 [
 
-<!ENTITY QCDHT500To1000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_QCD_HT500To1000_20x25.xml">
-<!ENTITY QCDHT500To1000Ext SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_QCD_HT500To1000_20x25_ext1.xml">
-<!ENTITY QCDHT1000ToInf SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_QCD_HT1000ToInf_20x25.xml">
-<!ENTITY QCDHT1000ToInfExt SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_QCD_HT1000ToInf_20x25_ext1.xml">
-<!ENTITY TTbar SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_TTJets_20x25.xml">
-<!ENTITY Z1000W10 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_Zp_TTJets_M1000W10_20x25.xml">
-<!ENTITY Z2000W20 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_Zp_TTJets_M2000W20_20x25.xml">
-<!ENTITY Z3000W30 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_0_pre6/src/UHH2/common/datasets/MC_Zp_TTJets_M3000W30_20x25.xml">
 
+<!ENTITY newzp1000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_3/src/UHH2/ZprimeAllHadronic/config/newzp1000">
 
 ]
 >
@@ -20,10 +13,10 @@
     <Library Name="libSUHH2Zp2TopVLQAllHad"/>
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
-   <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-2/" PostFix="" TargetLumi="1" > -->
-   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-2/" PostFix="" TargetLumi="20000" > 
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="1" >
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-2/" PostFix="" TargetLumi="20000" >  -->
 
-   <InputData Lumi="1902.62829673899" NEventsMax="-1" Type="MC" Version="QCDHT1000ToInf" Cacheable="False">
+<!--    <InputData Lumi="1902.62829673899" NEventsMax="-1" Type="MC" Version="QCDHT1000ToInf" Cacheable="False">
         &QCDHT1000ToInf;
         &QCDHT1000ToInfExt;
         <InputTree Name="AnalysisTree" /> 
@@ -53,7 +46,13 @@
         &Z3000W30;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
-    </InputData> 
+    </InputData>  -->
+
+        <InputData Lumi="239194" NEventsMax="-1" Type="MC" Version="newzp1000" Cacheable="False">
+        &newzp1000;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
 
 
 <!--      <InputData Lumi="31571.9503722084" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
@@ -86,21 +85,21 @@
         <UserConfig>
             <!-- define which collections to read from the input. Only specify what you need to save I/O time -->
             <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices" /> 
-            <Item Name="ElectronCollection" Value="slimmedElectrons" />
-            <Item Name="MuonCollection" Value="slimmedMuons" /> 
+            <Item Name="ElectronCollection" Value="slimmedElectronsUSER" />
+            <Item Name="MuonCollection" Value="slimmedMuonsUSER" /> 
             <Item Name="TauCollection" Value="slimmedTaus" />
-            <Item Name="JetCollection" Value="patJetsAk4PFCHS" />
+            <Item Name="JetCollection" Value="slimmedJets" />
 	    <!-- <Item Name="JetAK8Collection" Value="slimmedJetsAK8" /> -->
             <Item Name="METName" Value="slimmedMETs" />
-	    <Item Name="TopJetCollection" Value="patJetsCmsTopTagCHSPacked" />
+	    <Item Name="TopJetCollection" Value="slimmedJetsAK8_CMSTopTag" />
 <!-- 	    <Item Name="TopJetHEPCollection" Value="patJetsHEPTopTagCHSPacked" />
 	    <Item Name="TopJetCA8Collection" Value="patJetsCA8CHSprunedPacked" />
 	    <Item Name="TopJetCA15Collection" Value="patJetsCA15CHSFilteredPacked" /> -->
-        <Item Name="GenTopJetCollection" Value="cmsTopTagGen" />
+        <Item Name="GenTopJetCollection" Value="slimmedGenJetsAK8" />
         <Item Name="GenParticleCollection" Value="GenParticles" />
         <Item Name="GenJetCollection" Value="slimmedGenJets" />
          
-         <Item Name="additionalBranches" Value="patJetsCa15CHSJets patJetsCa8CHSJets patJetsCa15PuppiJets patJetsCa8PuppiJets patJetsHepTopTagCHSPacked patJetsCmsTopTagCHSPacked patJetsCa8CHSJetsPrunedPacked patJetsCa15CHSJetsFilteredPacked patJetsHepTopTagPuppiPacked patJetsCmsTopTagPuppiPacked patJetsCa8PuppiJetsPrunedPacked patJetsCa15PuppiJetsFilteredPacked patJetsCa8CHSJetsSoftDropPacked patJetsCa8PuppiJetsSoftDropPacked" />    
+         <Item Name="additionalBranches" Value="patJetsAk8CHSJetsSoftDropPacked_daughters patJetsCa15CHSJetsFilteredPacked_daughters" />    
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
             
 
