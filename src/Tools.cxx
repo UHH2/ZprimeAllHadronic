@@ -71,7 +71,9 @@ float getMaxTopJetMass(const Event & event)
   if  (event.topjets->size()==0) return 0.0;
   std::vector<float> valuelist;
   for(auto topjet : *event.topjets) valuelist.push_back(TopJetMass(topjet));
+  if (valuelist.size()>0)
   return *std::max_element(valuelist.begin(),valuelist.end());
+  else return 0;
 }
 
 float getMaxTopJetPt(const Event & event)
@@ -79,14 +81,18 @@ float getMaxTopJetPt(const Event & event)
   if  (event.topjets->size()==0) return 0.0;
   std::vector<float> valuelist;
   for(auto topjet : *event.topjets) valuelist.push_back( TopJetPt(topjet) );
+  if (valuelist.size()>0)
   return *std::max_element(valuelist.begin(),valuelist.end());
+  else return 0;
 }
 
 float getMaxCSV(TopJet t)
 {
   std::vector<float> csv;
   for (auto subjet : t.subjets()) csv.push_back(subjet.btag_combinedSecondaryVertex());
-  return *max_element(std::begin(csv), std::end(csv)); 
+  if (csv.size()>0)
+  return *max_element(std::begin(csv), std::end(csv));
+  else return 0;
 }
 
 float TopJetNsub(TopJet t)
@@ -96,7 +102,7 @@ float TopJetNsub(TopJet t)
 
 float getMmin(TopJet topjet)
 {
-  auto nsubjets=topjet.numberOfDaughters();
+  auto nsubjets=topjet.subjets().size();
   float mmin=0;
   if(nsubjets>=3) {
 
@@ -133,7 +139,7 @@ float deltaPhi(Particle j1,Particle j2)
 bool TopTag(TopJet topjet)
 {
   //number of subjets requirement
-  if(topjet.numberOfDaughters()<3) return false;
+  if(topjet.subjets().size()<3) return false;
   //mass requirement
   auto mjet = TopJetMass(topjet);
   if(mjet<140 || mjet>250) return false;
@@ -146,7 +152,7 @@ bool TopTag(TopJet topjet)
 bool AntiTopTag(TopJet topjet)
 {
   //number of subjets requirement
-  if(topjet.numberOfDaughters()<3) return false;
+  if(topjet.subjets().size()<3) return false;
   //mass requirement
   auto mjet = TopJetMass(topjet);
   if(mjet<140 || mjet>250) return false;

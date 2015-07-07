@@ -32,19 +32,19 @@ private:
     std::unique_ptr<TopJetCorrector> topjetcorrector;
     std::unique_ptr<SubJetCorrector> subjetcorrector;
    
-    std::unique_ptr<GenericJetCorrector> jetAK8corrector;
-    std::unique_ptr<GenericTopJetCorrector> jetCA8corrector;
+    // std::unique_ptr<GenericJetCorrector> jetAK8corrector;
+    std::unique_ptr<GenericTopJetCorrector> jetAK8corrector;
     std::unique_ptr<GenericTopJetCorrector> jetCA15corrector;
-    std::unique_ptr<GenericTopJetCorrector> jetHEPcorrector;
+    // std::unique_ptr<GenericTopJetCorrector> jetHEPcorrector;
 
-    std::unique_ptr<GenericSubJetCorrector> subjetCA8corrector;
+    std::unique_ptr<GenericSubJetCorrector> subjetAK8corrector;
     std::unique_ptr<GenericSubJetCorrector> subjetCA15corrector;
-    std::unique_ptr<GenericSubJetCorrector> subjetHEPcorrector;
+    // std::unique_ptr<GenericSubJetCorrector> subjetHEPcorrector;
 
-    uhh2::Event::Handle<std::vector<Jet> > h_jetsAK8;
-    uhh2::Event::Handle<std::vector<TopJet> > h_topjetsCA8;
+    // uhh2::Event::Handle<std::vector<Jet> > h_jetsAK8;
+    uhh2::Event::Handle<std::vector<TopJet> > h_topjetsAK8;
     uhh2::Event::Handle<std::vector<TopJet> > h_topjetsCA15;
-    uhh2::Event::Handle<std::vector<TopJet> > h_topjetsHEP;
+    // uhh2::Event::Handle<std::vector<TopJet> > h_topjetsHEP;
 
     std::vector<std::unique_ptr<GenericJetCorrector> > jet_correctors;
     std::vector<std::unique_ptr<GenericTopJetCorrector> > topjet_correctors;
@@ -93,14 +93,14 @@ PreselectionModule::PreselectionModule(Context & ctx){
     topjetcorrector.reset(new TopJetCorrector(JERFiles::PHYS14_L123_AK8PFchs_MC));
     subjetcorrector.reset(new SubJetCorrector(JERFiles::PHYS14_L123_MC));
 
-    jetAK8corrector.reset(new GenericJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsCa8CHSJets"));
-    jetCA8corrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsCa8CHSJetsPrunedPacked"));
-    jetCA15corrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsCa15CHSJetsFilteredPacked"));
-    jetHEPcorrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsHepTopTagCHSPacked"));
+    //jetAK8corrector.reset(new GenericJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsCa8CHSJets"));
+    jetAK8corrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsAk8CHSJetsSoftDropPacked_daughters"));
+    jetCA15corrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsCa15CHSJetsFilteredPacked_daughters"));
+    // jetHEPcorrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsHepTopTagCHSPacked"));
 
-    subjetCA8corrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsCa8CHSJetsPrunedPacked"));
-    subjetCA15corrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsCa15CHSJetsFilteredPacked"));
-    subjetHEPcorrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsHepTopTagCHSPacked"));
+    subjetAK8corrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsAk8CHSJetsSoftDropPacked_daughters"));
+    subjetCA15corrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsCa15CHSJetsFilteredPacked_daughters"));
+    // subjetHEPcorrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsHepTopTagCHSPacked"));
     
     // 2. set up selections:
     // njet_sel.reset(new NJetSelection(2));
@@ -127,17 +127,17 @@ PreselectionModule::PreselectionModule(Context & ctx){
     // h_njet.reset(new Zp2TopVLQAllHadHists(ctx, "Njet"));
     // h_bsel.reset(new Zp2TopVLQAllHadHists(ctx, "Bsel"));
     // h_ele.reset(new ElectronHists(ctx, "ele_nocuts"));
-    topjet_collection_names = {"patJetsHepTopTagCHSPacked", "patJetsCa8CHSJetsPrunedPacked", "patJetsCa15CHSJetsFilteredPacked", "patJetsHepTopTagPuppiPacked", "patJetsCmsTopTagPuppiPacked", "patJetsCa8PuppiJetsPrunedPacked", "patJetsCa15PuppiJetsFilteredPacked", "patJetsCa8CHSJetsSoftDropPacked", "patJetsCa8PuppiJetsSoftDropPacked"};//"patJetsCmsTopTagCHSPacked",
-    jet_collection_names = {"patJetsCa15CHSJets", "patJetsCa8CHSJets", "patJetsCa15PuppiJets", "patJetsCa8PuppiJets"};
-    for(auto collection_name : jet_collection_names)
-    {
-        jet_correctors.push_back(std::unique_ptr<GenericJetCorrector>(new GenericJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,collection_name)));
-    }
-    for(auto collection_name : topjet_collection_names)
-    {
-        topjet_correctors.push_back(std::unique_ptr<GenericTopJetCorrector>(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,collection_name)));
-        subjet_correctors.push_back(std::unique_ptr<GenericSubJetCorrector>(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,collection_name)));
-    }
+    // topjet_collection_names = {"patJetsHepTopTagCHSPacked", "patJetsCa8CHSJetsPrunedPacked", "patJetsCa15CHSJetsFilteredPacked", "patJetsHepTopTagPuppiPacked", "patJetsCmsTopTagPuppiPacked", "patJetsCa8PuppiJetsPrunedPacked", "patJetsCa15PuppiJetsFilteredPacked", "patJetsCa8CHSJetsSoftDropPacked", "patJetsCa8PuppiJetsSoftDropPacked"};//"patJetsCmsTopTagCHSPacked",
+    // jet_collection_names = {"patJetsCa15CHSJets", "patJetsCa8CHSJets", "patJetsCa15PuppiJets", "patJetsCa8PuppiJets"};
+    // for(auto collection_name : jet_collection_names)
+    // {
+    //     jet_correctors.push_back(std::unique_ptr<GenericJetCorrector>(new GenericJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,collection_name)));
+    // }
+    // for(auto collection_name : topjet_collection_names)
+    // {
+    //     topjet_correctors.push_back(std::unique_ptr<GenericTopJetCorrector>(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,collection_name)));
+    //     subjet_correctors.push_back(std::unique_ptr<GenericSubJetCorrector>(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,collection_name)));
+    // }
     
 
 }
@@ -162,9 +162,10 @@ bool PreselectionModule::process(Event & event) {
     // cout<<"\n\n\n";
 
 bool is_allhad=false;
-if (event.gentopjets){
+//if (event.gentopjets){
     TTbarGen ttbargen(*event.genparticles,false);
-    is_allhad = ttbargen.IsTopHadronicDecay() && ttbargen.IsAntiTopHadronicDecay();}
+    is_allhad = ttbargen.IsTopHadronicDecay() && ttbargen.IsAntiTopHadronicDecay();
+//}
 
     //if (event.topjets->size()>0) cout<<event.topjets->at(0).pt()<<endl;
     //uncorrect_topjets(event);
@@ -179,29 +180,29 @@ if (event.gentopjets){
 
 // jet_correctors[0]->process(event);
     // for (unsigned int i=0;)
-    for(auto & corrector : jet_correctors)
-    {
-        corrector->process(event);
-    }
-    for(auto & corrector : topjet_correctors)
-    {
-        corrector->process(event);
-    }
-    for(auto & corrector : subjet_correctors)
-    {
-        corrector->process(event);
-    }
+    // for(auto & corrector : jet_correctors)
+    // {
+    //     corrector->process(event);
+    // }
+    // for(auto & corrector : topjet_correctors)
+    // {
+    //     corrector->process(event);
+    // }
+    // for(auto & corrector : subjet_correctors)
+    // {
+    //     corrector->process(event);
+    // }
     // jetAK8corrector->process(event);
-    // jetCA8corrector->process(event);
-    // jetCA15corrector->process(event);
+     jetAK8corrector->process(event);
+     jetCA15corrector->process(event);
     // jetHEPcorrector->process(event);
 
-    // subjetCA8corrector->process(event);
-    // subjetCA15corrector->process(event);
+     subjetAK8corrector->process(event);
+     subjetCA15corrector->process(event);
     // subjetHEPcorrector->process(event);
 
     uhh2::Event::TriggerIndex ti_HT=event.get_trigger_index("HLT_PFHT900*");
-    uhh2::Event::TriggerIndex ti_AK8=event.get_trigger_index("HLT_AK8PFJet360TrimMod_Mass30*");
+    uhh2::Event::TriggerIndex ti_AK8=event.get_trigger_index("HLT_AK8PFJet360_TrimMass30*");
     bool HT_trigger = event.passes_trigger(ti_HT);
     bool AK8_trigger = event.passes_trigger(ti_AK8);
     bool HT_cut = getHT50(event)>950.0;

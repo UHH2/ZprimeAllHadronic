@@ -4,6 +4,9 @@
 
 
 <!ENTITY newzp1000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_3/src/UHH2/ZprimeAllHadronic/config/newzp1000">
+<!ENTITY newzp2000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_3/src/UHH2/ZprimeAllHadronic/config/newzp2000">
+<!ENTITY newzp3000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_3/src/UHH2/ZprimeAllHadronic/config/newzp3000">
+<!ENTITY newzp4000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_3/src/UHH2/ZprimeAllHadronic/config/newzp4000">
 
 ]
 >
@@ -13,8 +16,8 @@
     <Library Name="libSUHH2Zp2TopVLQAllHad"/>
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="1" >
-   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-2/" PostFix="" TargetLumi="20000" >  -->
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="1" > -->
+   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="20000" > 
 
 <!--    <InputData Lumi="1902.62829673899" NEventsMax="-1" Type="MC" Version="QCDHT1000ToInf" Cacheable="False">
         &QCDHT1000ToInf;
@@ -48,10 +51,28 @@
         <OutputTree Name="AnalysisTree" /> 
     </InputData>  -->
 
-        <InputData Lumi="239194" NEventsMax="-1" Type="MC" Version="newzp1000" Cacheable="False">
+    <InputData Lumi="122204" NEventsMax="-1" Type="MC" Version="newzp1000" Cacheable="False">
         &newzp1000;
         <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
+        <!-- <OutputTree Name="AnalysisTree" />  -->
+    </InputData>
+
+    <InputData Lumi="202573" NEventsMax="-1" Type="MC" Version="newzp2000" Cacheable="False">
+        &newzp2000;
+        <InputTree Name="AnalysisTree" /> 
+        <!-- <OutputTree Name="AnalysisTree" />  -->
+    </InputData>
+
+    <InputData Lumi="117069" NEventsMax="-1" Type="MC" Version="newzp3000" Cacheable="False">
+        &newzp3000;
+        <InputTree Name="AnalysisTree" /> 
+        <!-- <OutputTree Name="AnalysisTree" />  -->
+    </InputData>
+
+    <InputData Lumi="111625" NEventsMax="-1" Type="MC" Version="newzp4000" Cacheable="False">
+        &newzp4000;
+        <InputTree Name="AnalysisTree" /> 
+        <!-- <OutputTree Name="AnalysisTree" />  -->
     </InputData>
 
 
@@ -95,7 +116,7 @@
 <!-- 	    <Item Name="TopJetHEPCollection" Value="patJetsHEPTopTagCHSPacked" />
 	    <Item Name="TopJetCA8Collection" Value="patJetsCA8CHSprunedPacked" />
 	    <Item Name="TopJetCA15Collection" Value="patJetsCA15CHSFilteredPacked" /> -->
-        <Item Name="GenTopJetCollection" Value="slimmedGenJetsAK8" />
+        <!-- <Item Name="GenTopJetCollection" Value="ak8GenJets" /> -->
         <Item Name="GenParticleCollection" Value="GenParticles" />
         <Item Name="GenJetCollection" Value="slimmedGenJets" />
          
