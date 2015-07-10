@@ -16,8 +16,8 @@
     <Library Name="libSUHH2Zp2TopVLQAllHad"/>
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
-   <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="1" > -->
-   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="20000" > 
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="1000" >
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="1000" >  -->
 
 <!--    <InputData Lumi="1902.62829673899" NEventsMax="-1" Type="MC" Version="QCDHT1000ToInf" Cacheable="False">
         &QCDHT1000ToInf;
@@ -51,25 +51,25 @@
         <OutputTree Name="AnalysisTree" /> 
     </InputData>  -->
 
-    <InputData Lumi="122204" NEventsMax="-1" Type="MC" Version="newzp1000" Cacheable="False">
+    <InputData Lumi="122204" NEventsMax="-1" Type="MC" Version="newzp1000" Cacheable="True">
         &newzp1000;
         <InputTree Name="AnalysisTree" /> 
         <!-- <OutputTree Name="AnalysisTree" />  -->
     </InputData>
 
-    <InputData Lumi="202573" NEventsMax="-1" Type="MC" Version="newzp2000" Cacheable="False">
+    <InputData Lumi="202573" NEventsMax="-1" Type="MC" Version="newzp2000" Cacheable="True">
         &newzp2000;
         <InputTree Name="AnalysisTree" /> 
         <!-- <OutputTree Name="AnalysisTree" />  -->
     </InputData>
 
-    <InputData Lumi="117069" NEventsMax="-1" Type="MC" Version="newzp3000" Cacheable="False">
+    <InputData Lumi="117069" NEventsMax="-1" Type="MC" Version="newzp3000" Cacheable="True">
         &newzp3000;
         <InputTree Name="AnalysisTree" /> 
         <!-- <OutputTree Name="AnalysisTree" />  -->
     </InputData>
 
-    <InputData Lumi="111625" NEventsMax="-1" Type="MC" Version="newzp4000" Cacheable="False">
+    <InputData Lumi="111625" NEventsMax="-1" Type="MC" Version="newzp4000" Cacheable="True">
         &newzp4000;
         <InputTree Name="AnalysisTree" /> 
         <!-- <OutputTree Name="AnalysisTree" />  -->

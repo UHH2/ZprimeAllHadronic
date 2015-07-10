@@ -10,6 +10,8 @@
 #include "UHH2/ZprimeAllHadronic/include/Zp2TopVLQAllHadHists.h"
 #include "UHH2/ZprimeAllHadronic/include/Tools.h"
 #include "UHH2/common/include/TTbarGen.h"
+#include "UHH2/common/include/TopJetIds.h"
+#include "UHH2/common/include/NSelections.h"
 
 using namespace std;
 using namespace uhh2;
@@ -55,6 +57,9 @@ private:
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
     // std::unique_ptr<Selection> njet_sel, bsel;
+    std::unique_ptr<Selection> toptag_sel;
+    std::unique_ptr<Selection> toptaggroom_sel;
+    std::unique_ptr<Selection> toptaghep_sel;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
     std::unique_ptr<Hists> h_nocorr, h_nocorr_gen, h_nocuts, h_nocuts_gen, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection0,h_selection1,h_selection2,h_selection,h_selection_gen,h_preselection_gen;
@@ -105,6 +110,12 @@ PreselectionModule::PreselectionModule(Context & ctx){
     // 2. set up selections:
     // njet_sel.reset(new NJetSelection(2));
     // bsel.reset(new NBTagSelection(1));
+    const TopJetId topjetID = CMSTopTag();
+    const TopJetId topjetIDgroom = CMSTopTag(CMSTopTag::MassType::groomed);
+    const TopJetId topjetIDhep = HEPTopTag();
+    toptag_sel.reset(new NTopJetSelection(1,-1,topjetID));
+    toptaggroom_sel.reset(new NTopJetSelection(1,-1,topjetIDgroom));
+    toptaghep_sel.reset(new NTopJetSelection(1,-1,topjetIDhep));
 
     // 3. Set up Hists classes:
     h_nocorr.reset(new Zp2TopVLQAllHadHists(ctx, "NoCorr"));
@@ -201,8 +212,25 @@ bool is_allhad=false;
      subjetCA15corrector->process(event);
     // subjetHEPcorrector->process(event);
 
+     //std::cout<<CMSTopTag()<<std::endl;
+
     uhh2::Event::TriggerIndex ti_HT=event.get_trigger_index("HLT_PFHT900*");
     uhh2::Event::TriggerIndex ti_AK8=event.get_trigger_index("HLT_AK8PFJet360_TrimMass30*");
+
+    std::cout<< "Event" <<std::endl;
+    std::cout<< "CMS ungroomed" <<std::endl;
+    std::cout<< toptag_sel->passes(event) <<std::endl;
+    std::cout<< "CMS groomed" <<std::endl;
+    std::cout<< toptaggroom_sel->passes(event) <<std::endl;
+    std::cout<< "HEP" <<std::endl;
+    std::cout<< toptaghep_sel->passes(event) <<std::endl;
+    std::cout<<std::endl;
+    if(event.topjets->size()>0)
+    {
+        //std::cout<< event.topjets->at(0).subjets()[0].v4().M()-event.topjets->at(0).subjets()[0].v4().mass() <<std::endl;
+        //std::cout<<  <<std::endl;
+    }
+
     bool HT_trigger = event.passes_trigger(ti_HT);
     bool AK8_trigger = event.passes_trigger(ti_AK8);
     bool HT_cut = getHT50(event)>950.0;
