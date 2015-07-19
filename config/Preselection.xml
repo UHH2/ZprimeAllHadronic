@@ -3,10 +3,12 @@
 [
 
 
-<!ENTITY newzp1000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_3/src/UHH2/ZprimeAllHadronic/config/newzp1000">
-<!ENTITY newzp2000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_3/src/UHH2/ZprimeAllHadronic/config/newzp2000">
-<!ENTITY newzp3000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_3/src/UHH2/ZprimeAllHadronic/config/newzp3000">
-<!ENTITY newzp4000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_3/src/UHH2/ZprimeAllHadronic/config/newzp4000">
+<!ENTITY newzp1000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/newzp1000">
+<!ENTITY newzp2000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/newzp2000">
+<!ENTITY newzp3000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/newzp3000">
+<!ENTITY newzp4000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/newzp4000">
+
+<!ENTITY dati SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/dati">
 
 ]
 >
@@ -16,89 +18,40 @@
     <Library Name="libSUHH2Zp2TopVLQAllHad"/>
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="1000" >
-   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="1000" >  -->
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="1000" > -->
+   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="1000" > 
 
-<!--    <InputData Lumi="1902.62829673899" NEventsMax="-1" Type="MC" Version="QCDHT1000ToInf" Cacheable="False">
-        &QCDHT1000ToInf;
-        &QCDHT1000ToInfExt;
+    <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="Run2015B" Cacheable="True">
+        &dati;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
     </InputData>
 
-    <InputData Lumi="151.957554225879" NEventsMax="-1" Type="MC" Version="QCDHT500To1000" Cacheable="False">
-        &QCDHT500To1000;
-        &QCDHT500To1000Ext;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData>
-
-    <InputData Lumi="239194" NEventsMax="-1" Type="MC" Version="Z1000W10" Cacheable="False">
-        &Z1000W10;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData>
-
-    <InputData Lumi="211296" NEventsMax="-1" Type="MC" Version="Z2000W20" Cacheable="False">
-        &Z2000W20;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData>
-
-    <InputData Lumi="243766" NEventsMax="-1" Type="MC" Version="Z3000W30" Cacheable="False">
-        &Z3000W30;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData>  -->
-
-    <InputData Lumi="122204" NEventsMax="-1" Type="MC" Version="newzp1000" Cacheable="True">
+<!--     <InputData Lumi="122204" NEventsMax="-1" Type="MC" Version="newzp1000" Cacheable="True">
         &newzp1000;
         <InputTree Name="AnalysisTree" /> 
-        <!-- <OutputTree Name="AnalysisTree" />  -->
+        <OutputTree Name="AnalysisTree" /> 
     </InputData>
 
     <InputData Lumi="202573" NEventsMax="-1" Type="MC" Version="newzp2000" Cacheable="True">
         &newzp2000;
         <InputTree Name="AnalysisTree" /> 
-        <!-- <OutputTree Name="AnalysisTree" />  -->
+        <OutputTree Name="AnalysisTree" /> 
     </InputData>
 
     <InputData Lumi="117069" NEventsMax="-1" Type="MC" Version="newzp3000" Cacheable="True">
         &newzp3000;
         <InputTree Name="AnalysisTree" /> 
-        <!-- <OutputTree Name="AnalysisTree" />  -->
+        <OutputTree Name="AnalysisTree" /> 
     </InputData>
 
     <InputData Lumi="111625" NEventsMax="-1" Type="MC" Version="newzp4000" Cacheable="True">
         &newzp4000;
         <InputTree Name="AnalysisTree" /> 
-        <!-- <OutputTree Name="AnalysisTree" />  -->
-    </InputData>
-
-
-<!--      <InputData Lumi="31571.9503722084" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
-        &TTbar;
-        <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
     </InputData> -->
 
 
-<!-- <InputData Lumi="349334" NEventsMax="-1" Type="MC" Version="Z1000W100" Cacheable="False">
-        &Z1000W100;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData>
-<InputData Lumi="246089" NEventsMax="-1" Type="MC" Version="Z2000W200" Cacheable="False">
-        &Z2000W200;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData>
-
-<InputData Lumi="244930" NEventsMax="-1" Type="MC" Version="Z3000W300" Cacheable="False">
-        &Z3000W300;
-        <InputTree Name="AnalysisTree" /> 
-        <OutputTree Name="AnalysisTree" /> 
-    </InputData> -->
 
 
 
@@ -120,7 +73,7 @@
         <Item Name="GenParticleCollection" Value="GenParticles" />
         <Item Name="GenJetCollection" Value="slimmedGenJets" />
          
-         <Item Name="additionalBranches" Value="patJetsAk8CHSJetsSoftDropPacked_daughters patJetsCa15CHSJetsFilteredPacked_daughters" />    
+         <Item Name="additionalBranches" Value="patJetsAk8CHSJetsSoftDropPacked_daughters patJetsCa15CHSJetsFilteredPacked_daughters patJetsHepTopTagCHSPacked_daughters" />    
             <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
             
 

@@ -173,10 +173,10 @@ bool PreselectionModule::process(Event & event) {
     // cout<<"\n\n\n";
 
 bool is_allhad=false;
-//if (event.gentopjets){
+if (event.gentopjets){
     TTbarGen ttbargen(*event.genparticles,false);
     is_allhad = ttbargen.IsTopHadronicDecay() && ttbargen.IsAntiTopHadronicDecay();
-//}
+}
 
     //if (event.topjets->size()>0) cout<<event.topjets->at(0).pt()<<endl;
     //uncorrect_topjets(event);
@@ -214,22 +214,22 @@ bool is_allhad=false;
 
      //std::cout<<CMSTopTag()<<std::endl;
 
-    uhh2::Event::TriggerIndex ti_HT=event.get_trigger_index("HLT_PFHT900*");
+    uhh2::Event::TriggerIndex ti_HT=event.get_trigger_index("HLT_PFHT800*");
     uhh2::Event::TriggerIndex ti_AK8=event.get_trigger_index("HLT_AK8PFJet360_TrimMass30*");
 
-    std::cout<< "Event" <<std::endl;
-    std::cout<< "CMS ungroomed" <<std::endl;
-    std::cout<< toptag_sel->passes(event) <<std::endl;
-    std::cout<< "CMS groomed" <<std::endl;
-    std::cout<< toptaggroom_sel->passes(event) <<std::endl;
-    std::cout<< "HEP" <<std::endl;
-    std::cout<< toptaghep_sel->passes(event) <<std::endl;
-    std::cout<<std::endl;
-    if(event.topjets->size()>0)
-    {
+    // std::cout<< "Event" <<std::endl;
+    // std::cout<< "CMS ungroomed" <<std::endl;
+    // std::cout<< toptag_sel->passes(event) <<std::endl;
+    // std::cout<< "CMS groomed" <<std::endl;
+    // std::cout<< toptaggroom_sel->passes(event) <<std::endl;
+    // std::cout<< "HEP" <<std::endl;
+    // std::cout<< toptaghep_sel->passes(event) <<std::endl;
+    // std::cout<<std::endl;
+    //if(event.topjets->size()>0)
+    //{
         //std::cout<< event.topjets->at(0).subjets()[0].v4().M()-event.topjets->at(0).subjets()[0].v4().mass() <<std::endl;
         //std::cout<<  <<std::endl;
-    }
+    //}
 
     bool HT_trigger = event.passes_trigger(ti_HT);
     bool AK8_trigger = event.passes_trigger(ti_AK8);
