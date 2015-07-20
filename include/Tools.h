@@ -23,6 +23,7 @@ float TopJetPt2(Particle topjet);
 float ZprimeMass(TopJet t1, TopJet t2);
 float ZprimeMass2(Particle t1, Particle t2);
 float TopJetNsub(TopJet t);
+float TopJetNsub2(TopJet t);
 float getMaxCSV(TopJet t);
 float getMmin(TopJet topjet);
 float deltaY(TopJet j1,TopJet j2);

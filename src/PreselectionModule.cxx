@@ -60,9 +60,12 @@ private:
     std::unique_ptr<Selection> toptag_sel;
     std::unique_ptr<Selection> toptaggroom_sel;
     std::unique_ptr<Selection> toptaghep_sel;
+
+    //uhh2::Event::Handle<std::vector<TopJet> > h_topjetsAK8;
+    //uhh2::Event::Handle<std::vector<TopJet> > h_topjetsCA15;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-    std::unique_ptr<Hists> h_nocorr, h_nocorr_gen, h_nocuts, h_nocuts_gen, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection0,h_selection1,h_selection2,h_selection,h_selection_gen,h_preselection_gen;
+    std::unique_ptr<Hists> h_nocorr, h_nocorr_gen, h_nocuts, h_nocuts_gen, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection0,h_selection1,h_selection2,h_selection,h_selection_gen,h_preselection_gen,h_ww;
 };
 
 
@@ -134,6 +137,10 @@ PreselectionModule::PreselectionModule(Context & ctx){
     h_selection2.reset(new Zp2TopVLQAllHadHists(ctx, "Selection2"));
     h_selection.reset(new Zp2TopVLQAllHadHists(ctx, "Selection"));
     h_selection_gen.reset(new Zp2TopVLQAllHadHists(ctx, "SelectionGen"));
+    h_ww.reset(new Zp2TopVLQAllHadHists(ctx, "ww"));
+
+    h_topjetsAK8 = ctx.get_handle<std::vector<TopJet> >("patJetsAk8CHSJetsSoftDropPacked_daughters");//, "patJetsCA8CHSprunedPacked");
+    h_topjetsCA15 = ctx.get_handle<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked_daughters");//, "patJetsCA15CHSFilteredPacked");
 
     // h_njet.reset(new Zp2TopVLQAllHadHists(ctx, "Njet"));
     // h_bsel.reset(new Zp2TopVLQAllHadHists(ctx, "Bsel"));
@@ -236,7 +243,7 @@ if (event.gentopjets){
     bool HT_cut = getHT50(event)>950.0;
     bool AK8_cut = getMaxTopJetPt(event)>400.0 && getMaxTopJetMass(event)>35.0;
     bool DiTopjet_condition = isDiTopjetEvent(event);
-    bool preselection = (((HT_trigger && HT_cut) || (AK8_trigger && AK8_cut)) && (DiTopjet_condition));
+    bool preselection = /*(((HT_trigger && HT_cut) || (AK8_trigger && AK8_cut)) &&*/ (DiTopjet_condition)/*)*/;
     bool trigger_selection = ((HT_trigger && HT_cut) || (AK8_trigger && AK8_cut));
     bool alt_trigger_selection = ((AK8_trigger && AK8_cut) && (!(HT_trigger && HT_cut)));
     bool selection = false;
@@ -244,8 +251,8 @@ if (event.gentopjets){
         {
             if (TopTag(event.topjets->at(0))&&
                 TopTag(event.topjets->at(1))&&
-                (fabs(deltaPhi(event.topjets->at(0),event.topjets->at(1)))>2.1)&&
-                (fabs(deltaY(event.topjets->at(0),event.topjets->at(1)))<1.0)
+                (fabs(deltaPhi(event.topjets->at(0),event.topjets->at(1)))>2.1)//&&
+                //(fabs(deltaY(event.topjets->at(0),event.topjets->at(1)))<1.0)
                     ) {selection=true;}
         }
     int nbtag = 0;
@@ -298,6 +305,7 @@ if (event.gentopjets){
     if (preselection && selection)
     {
         h_selection->fill(event);
+        if (ZprimeMass(event.topjets->at(0),event.topjets->at(1))>2000.0) cout<<"ditopjet "<<event.run<<":"<<event.luminosityBlock<<":"<<event.event<<endl;
         if (is_allhad) h_selection_gen->fill(event);
     }
     if (preselection && selection && (nbtag==0))
@@ -312,7 +320,23 @@ if (event.gentopjets){
     {
         h_selection2->fill(event);    
     }
-    
+    const auto topjetsAK8 = &event.get(h_topjetsAK8);
+    if (topjetsAK8->size()>1)
+    {
+        if ((TopJetPt(topjetsAK8->at(0))>200)&&
+        (TopJetMass(topjetsAK8->at(0))>60)&&
+        (TopJetMass(topjetsAK8->at(0))<100)&&
+        (TopJetNsub2(topjetsAK8->at(0))<0.5)&&
+        (TopJetPt(topjetsAK8->at(1))>200)&&
+        (TopJetMass(topjetsAK8->at(1))>60)&&
+        (TopJetMass(topjetsAK8->at(1))<100)&&
+        (TopJetNsub2(topjetsAK8->at(1))<0.5)&&
+        (fabs(deltaPhi(topjetsAK8->at(0),topjetsAK8->at(1)))>2.1))
+        {
+            h_ww->fill(event);
+            if (ZprimeMass(topjetsAK8->at(0),topjetsAK8->at(1))>2000.0) cout<<"diwjet "<<event.run<<":"<<event.luminosityBlock<<":"<<event.event<<endl;
+        }
+    }
     return preselection;
 }
 

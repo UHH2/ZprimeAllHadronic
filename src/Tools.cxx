@@ -100,6 +100,11 @@ float TopJetNsub(TopJet t)
   return t.tau3()/t.tau2();
 }
 
+float TopJetNsub2(TopJet t)
+{
+  return t.tau2()/t.tau1();
+}
+
 float getMmin(TopJet topjet)
 {
   auto nsubjets=topjet.subjets().size();
@@ -176,7 +181,7 @@ bool isDiTopjetEvent(const Event & event)
 {
   if (event.topjets->size()>1)
   {
-    if ((TopJetPt(event.topjets->at(0))>400) && (TopJetPt(event.topjets->at(1))>400))
+    if ((TopJetPt(event.topjets->at(0))>300) && (TopJetPt(event.topjets->at(1))>300))
     {
       return true;
     }

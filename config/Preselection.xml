@@ -18,8 +18,8 @@
     <Library Name="libSUHH2Zp2TopVLQAllHad"/>
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
-   <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="1000" > -->
-   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="1000" > 
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="1" > -->
+   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="24" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="1" > 
 
     <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="Run2015B" Cacheable="True">
         &dati;
