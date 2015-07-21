@@ -65,7 +65,7 @@ private:
     //uhh2::Event::Handle<std::vector<TopJet> > h_topjetsCA15;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-    std::unique_ptr<Hists> h_nocorr, h_nocorr_gen, h_nocuts, h_nocuts_gen, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection0,h_selection1,h_selection2,h_selection,h_selection_gen,h_preselection_gen,h_ww;
+    std::unique_ptr<Hists> h_nocorr, h_nocorr_gen, h_nocuts, h_nocuts_gen, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection0,h_selection1,h_selection2,h_selection,h_selection_gen,h_preselection_gen,h_ww,h_tv,h_tev;
 };
 
 
@@ -138,6 +138,8 @@ PreselectionModule::PreselectionModule(Context & ctx){
     h_selection.reset(new Zp2TopVLQAllHadHists(ctx, "Selection"));
     h_selection_gen.reset(new Zp2TopVLQAllHadHists(ctx, "SelectionGen"));
     h_ww.reset(new Zp2TopVLQAllHadHists(ctx, "ww"));
+    h_tev.reset(new Zp2TopVLQAllHadHists(ctx, "tev"));
+    h_tv.reset(new Zp2TopVLQAllHadHists(ctx, "tv"));
 
     h_topjetsAK8 = ctx.get_handle<std::vector<TopJet> >("patJetsAk8CHSJetsSoftDropPacked_daughters");//, "patJetsCA8CHSprunedPacked");
     h_topjetsCA15 = ctx.get_handle<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked_daughters");//, "patJetsCA15CHSFilteredPacked");
@@ -305,7 +307,7 @@ if (event.gentopjets){
     if (preselection && selection)
     {
         h_selection->fill(event);
-        if (ZprimeMass(event.topjets->at(0),event.topjets->at(1))>2000.0) cout<<"ditopjet "<<event.run<<":"<<event.luminosityBlock<<":"<<event.event<<endl;
+        if (ZprimeMass(event.topjets->at(0),event.topjets->at(1))>2000.0) cout<<"ditopjet "<<event.run<<":"<<event.luminosityBlock<<":"<<event.event<<" "<<TopJetMass(event.topjets->at(0))<<" "<<TopJetPt(event.topjets->at(0))<<" "<<TopJetMass(event.topjets->at(1))<<" "<<TopJetPt(event.topjets->at(1))<<" "<<ZprimeMass(event.topjets->at(0),event.topjets->at(1))<<" "<<nbtag<<" "<<event.topjets->at(0).eta()<<" "<<event.topjets->at(1).eta()<<endl;
         if (is_allhad) h_selection_gen->fill(event);
     }
     if (preselection && selection && (nbtag==0))
@@ -335,6 +337,43 @@ if (event.gentopjets){
         {
             h_ww->fill(event);
             if (ZprimeMass(topjetsAK8->at(0),topjetsAK8->at(1))>2000.0) cout<<"diwjet "<<event.run<<":"<<event.luminosityBlock<<":"<<event.event<<endl;
+        }
+
+        if ((TopJetPt(topjetsAK8->at(0))>200)&&
+        (TopJetMass(topjetsAK8->at(0))>50)&&
+        (TopJetMass(topjetsAK8->at(0))<130)&&
+        (TopJetNsub2(topjetsAK8->at(0))<0.6)&&
+        (TopJetPt(topjetsAK8->at(1))>200)&&
+        (TopJetMass(topjetsAK8->at(1))>50)&&
+        (TopJetMass(topjetsAK8->at(1))<130)&&
+        (TopJetNsub2(topjetsAK8->at(1))<0.6)&&
+        (fabs(deltaPhi(topjetsAK8->at(0),topjetsAK8->at(1)))>2.1))
+        {
+            h_tev->fill(event);
+            if (ZprimeMass(topjetsAK8->at(0),topjetsAK8->at(1))>4000.0) cout<<"tev "<<event.run<<":"<<event.luminosityBlock<<":"<<event.event<<" "<<ZprimeMass(topjetsAK8->at(0),topjetsAK8->at(1))<<endl;
+        }
+    }
+    if ((event.topjets->size()>1)&&(topjetsAK8->size()>1))
+    {
+        if (((TopTag(event.topjets->at(0)))&&
+            (TopJetPt(event.topjets->at(0))>400)&&
+            (TopJetPt(topjetsAK8->at(1))>200)&&
+            (TopJetMass(topjetsAK8->at(1))>60)&&
+            (TopJetMass(topjetsAK8->at(1))<130)&&
+            (TopJetNsub2(topjetsAK8->at(1))<0.5)&&
+            (fabs(deltaPhi(event.topjets->at(0),topjetsAK8->at(1)))>2.1)) ||
+            ((TopTag(event.topjets->at(1)))&&
+            (TopJetPt(event.topjets->at(1))>400)&&
+            (TopJetPt(topjetsAK8->at(0))>200)&&
+            (TopJetMass(topjetsAK8->at(0))>60)&&
+            (TopJetMass(topjetsAK8->at(0))<130)&&
+            (TopJetNsub2(topjetsAK8->at(0))<0.5)&&
+            (fabs(deltaPhi(event.topjets->at(1),topjetsAK8->at(0)))>2.1))
+
+            )
+        {
+            h_tv->fill(event);
+            if (ZprimeMass(event.topjets->at(0),topjetsAK8->at(1))>3000.0 || ZprimeMass(event.topjets->at(1),topjetsAK8->at(0))>3000.0 ) cout<<"tv "<<event.run<<":"<<event.luminosityBlock<<":"<<event.event<<endl;
         }
     }
     return preselection;

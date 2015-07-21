@@ -11,8 +11,8 @@ gROOT.SetBatch()
 path='/nfs/dust/cms/user/usaiem/spring15/'
 # path2='/nfs/dust/cms/user/usaiem/phys14-2/'
 root='.root'
-filename_base='uhh2.AnalysisModuleRunner.MC.'
-signal_names=['newzp1000','newzp2000','newzp3000','newzp4000']#'Z1000W100','Z2000W200','Z3000W300'
+filename_base='uhh2.AnalysisModuleRunner.DATA.'
+signal_names=['Run2015B']#['newzp1000','newzp2000','newzp3000','newzp4000']#'Z1000W100','Z2000W200','Z3000W300'
 qcd_names=['QCDHT1000ToInf','QCDHT500To1000']#'QCDHT1000ToInf',,'QCDHT500To1000'
 #qcd_names=['QCDHT1000ToInf','QCDHT500To1000']#'QCDHT1000ToInf',,'QCDHT500To1000'
 ttbar_name='TTbar'
@@ -69,37 +69,44 @@ for i in signal_names:
 # 	compare(i+'_NoCut_Zbtag',[signal_files[0],signal_files[2],signal_files[4]],['NoCuts/'+i,'NoCuts/'+i,'NoCuts/'+i],["Z' 1TeV","Z' 2TeV","Z' 3TeV"],True,'hE',i,maxx)
 # 	compare(i+'_Pre_Zbtag',[signal_files[0],signal_files[2],signal_files[4]],['Preselection/'+i,'Preselection/'+i,'Preselection/'+i],["Z' 1TeV","Z' 2TeV","Z' 3TeV"],True,'hE',i,maxx)
 #jet
-for i in ['m1','m2','m12','pT1','pT2','nsub_1CMS','nsub_2CMS','csv_1','csv_2','mmin1','mmin2','ndau1','ndau2']:
 
-	#compare(i+'_new',[signal_files[1]]*2,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'_patJetsCmsTopTagPuppiPacked'],['CMS chs','CMS puppi'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,rebin=1)
-	#compare(i+'_new2',[signal_files[1]]*4,['NoCutsGen/'+i+'_patJetsCa8CHSJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8CHSJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsSoftDropPacked'],['CA8 chs pruned','CA8 puppi pruned','CA8 chs sd','CA8 puppi sd'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,rebin=1)
-	#compare(i+'_new4',[signal_files[1]]*7,['NoCutsGen/'+i+'_patJetsCa8CHSJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8CHSJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8CHSJets','NoCutsGen/'+i+'_patJetsCa8PuppiJets','NoCutsGen/'+i+'CMS'],['CA8 chs pruned','CA8 puppi pruned','CA8 chs sd','CA8 puppi sd','CA8 CHS','CA8 puppi','CMS'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,rebin=1)
-	#compare(i+'_new3',[signal_files[1]]*2,['NoCutsGen/'+i+'_patJetsCa15CHSJetsFilteredPacked','NoCutsGen/'+i+'_patJetsCa15PuppiJetsFilteredPacked'],['CA15 chs filtered','CA15 puppi filtered'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,rebin=1)
+compare('mttbar',[signal_files[0]]*1,['Selection/m12CMS'],['13TeV Data'],False,'hE','mttbar [GeV]','Events',0,5000,rebin=6,textsizefactor=0.75)
+compare('mww',[signal_files[0]]*1,['ww/m12AK8'],['13TeV Data'],False,'hE','mww [GeV]','Events',0,5000,rebin=6,textsizefactor=0.75,logy=True,miny=0.5,maxy=1000)
+compare('mww2',[signal_files[0]]*1,['tev/m12AK8'],['13TeV Data'],False,'hE','mww [GeV]','Events',0,5000,rebin=6,textsizefactor=0.75,logy=True,miny=0.5,maxy=10000)
+compare('mtv',[signal_files[0]]*1,['tev/m12AK8CMS'],['13TeV Data'],False,'hE','mtw [GeV]','Events',400,5000,rebin=6,textsizefactor=0.75,logy=True,miny=0.5,maxy=10000)
+compare('mtv2',[signal_files[0]]*1,['tev/m12CMSAK8'],['13TeV Data'],False,'hE','mtw [GeV]','Events',400,5000,rebin=6,textsizefactor=0.75,logy=True,miny=0.5,maxy=10000)
+
+# for i in ['m1','m2','m12','pT1','pT2','nsub_1CMS','nsub_2CMS','csv_1','csv_2','mmin1','mmin2','ndau1','ndau2']:
+
+# 	#compare(i+'_new',[signal_files[1]]*2,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'_patJetsCmsTopTagPuppiPacked'],['CMS chs','CMS puppi'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,rebin=1)
+# 	#compare(i+'_new2',[signal_files[1]]*4,['NoCutsGen/'+i+'_patJetsCa8CHSJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8CHSJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsSoftDropPacked'],['CA8 chs pruned','CA8 puppi pruned','CA8 chs sd','CA8 puppi sd'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,rebin=1)
+# 	#compare(i+'_new4',[signal_files[1]]*7,['NoCutsGen/'+i+'_patJetsCa8CHSJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8CHSJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8CHSJets','NoCutsGen/'+i+'_patJetsCa8PuppiJets','NoCutsGen/'+i+'CMS'],['CA8 chs pruned','CA8 puppi pruned','CA8 chs sd','CA8 puppi sd','CA8 CHS','CA8 puppi','CMS'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,rebin=1)
+# 	#compare(i+'_new3',[signal_files[1]]*2,['NoCutsGen/'+i+'_patJetsCa15CHSJetsFilteredPacked','NoCutsGen/'+i+'_patJetsCa15PuppiJetsFilteredPacked'],['CA15 chs filtered','CA15 puppi filtered'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',1000,2500,rebin=1)
 	
-	if i in ['m1','m2','m12']:
-		lim=400
-		rb=4
-		if i=='m12':
-			lim=4000
-			rb=1
-		compare(i+'_1tev',[signal_files[0]]*8,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'CMSfat','NoCutsGen/'+i+'AK8','NoCutsGen/'+i+'CA15','NoCutsGen/'+i+'AK4x3R8','NoCutsGen/'+i+'AK4x4R8','NoCutsGen/'+i+'AK4x3R15','NoCutsGen/'+i+'AK4x4R15'],['CMS','CMSfat','AK8','CA15','AK4x3R8','AK4x4R8','AK4x3R15','AK4x4R15'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=rb)
-		compare(i+'_2tev',[signal_files[1]]*8,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'CMSfat','NoCutsGen/'+i+'AK8','NoCutsGen/'+i+'CA15','NoCutsGen/'+i+'AK4x3R8','NoCutsGen/'+i+'AK4x4R8','NoCutsGen/'+i+'AK4x3R15','NoCutsGen/'+i+'AK4x4R15'],['CMS','CMSfat','AK8','CA15','AK4x3R8','AK4x4R8','AK4x3R15','AK4x4R15'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=rb)
-		compare(i+'_3tev',[signal_files[2]]*8,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'CMSfat','NoCutsGen/'+i+'AK8','NoCutsGen/'+i+'CA15','NoCutsGen/'+i+'AK4x3R8','NoCutsGen/'+i+'AK4x4R8','NoCutsGen/'+i+'AK4x3R15','NoCutsGen/'+i+'AK4x4R15'],['CMS','CMSfat','AK8','CA15','AK4x3R8','AK4x4R8','AK4x3R15','AK4x4R15'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=rb)
-		compare(i+'_4tev',[signal_files[3]]*8,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'CMSfat','NoCutsGen/'+i+'AK8','NoCutsGen/'+i+'CA15','NoCutsGen/'+i+'AK4x3R8','NoCutsGen/'+i+'AK4x4R8','NoCutsGen/'+i+'AK4x3R15','NoCutsGen/'+i+'AK4x4R15'],['CMS','CMSfat','AK8','CA15','AK4x3R8','AK4x4R8','AK4x3R15','AK4x4R15'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=rb)
-	elif i in ['pT1','pT2','csv_1','csv_2']:
-		lim=2000
-		rb=1
-		if 'pT' in i:
-			rb=8
-		compare(i+'_1tev',[signal_files[0]]*3,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'AK8','NoCutsGen/'+i+'CA15'],['CMS','AK8','CA15'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=rb)
-		compare(i+'_2tev',[signal_files[1]]*3,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'AK8','NoCutsGen/'+i+'CA15'],['CMS','AK8','CA15'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=rb)
-		compare(i+'_3tev',[signal_files[2]]*3,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'AK8','NoCutsGen/'+i+'CA15'],['CMS','AK8','CA15'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=rb)
-		compare(i+'_4tev',[signal_files[3]]*3,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'AK8','NoCutsGen/'+i+'CA15'],['CMS','AK8','CA15'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=rb)
-	elif i in ['nsub_1CMS','nsub_2CMS','mmin1','mmin2','ndau1','ndau2']:
-		compare(i+'_1tev',[signal_files[0]]*1,['NoCutsGen/'+i],['CMS'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=1)
-		compare(i+'_2tev',[signal_files[1]]*1,['NoCutsGen/'+i],['CMS'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=1)
-		compare(i+'_3tev',[signal_files[2]]*1,['NoCutsGen/'+i],['CMS'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=1)
-		compare(i+'_4tev',[signal_files[3]]*1,['NoCutsGen/'+i],['CMS'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=1)
+# 	if i in ['m1','m2','m12']:
+# 		lim=400
+# 		rb=4
+# 		if i=='m12':
+# 			lim=4000
+# 			rb=1
+# 		compare(i+'_1tev',[signal_files[0]]*8,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'CMSfat','NoCutsGen/'+i+'AK8','NoCutsGen/'+i+'CA15','NoCutsGen/'+i+'AK4x3R8','NoCutsGen/'+i+'AK4x4R8','NoCutsGen/'+i+'AK4x3R15','NoCutsGen/'+i+'AK4x4R15'],['CMS','CMSfat','AK8','CA15','AK4x3R8','AK4x4R8','AK4x3R15','AK4x4R15'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=rb)
+# 		compare(i+'_2tev',[signal_files[1]]*8,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'CMSfat','NoCutsGen/'+i+'AK8','NoCutsGen/'+i+'CA15','NoCutsGen/'+i+'AK4x3R8','NoCutsGen/'+i+'AK4x4R8','NoCutsGen/'+i+'AK4x3R15','NoCutsGen/'+i+'AK4x4R15'],['CMS','CMSfat','AK8','CA15','AK4x3R8','AK4x4R8','AK4x3R15','AK4x4R15'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=rb)
+# 		compare(i+'_3tev',[signal_files[2]]*8,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'CMSfat','NoCutsGen/'+i+'AK8','NoCutsGen/'+i+'CA15','NoCutsGen/'+i+'AK4x3R8','NoCutsGen/'+i+'AK4x4R8','NoCutsGen/'+i+'AK4x3R15','NoCutsGen/'+i+'AK4x4R15'],['CMS','CMSfat','AK8','CA15','AK4x3R8','AK4x4R8','AK4x3R15','AK4x4R15'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=rb)
+# 		compare(i+'_4tev',[signal_files[3]]*8,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'CMSfat','NoCutsGen/'+i+'AK8','NoCutsGen/'+i+'CA15','NoCutsGen/'+i+'AK4x3R8','NoCutsGen/'+i+'AK4x4R8','NoCutsGen/'+i+'AK4x3R15','NoCutsGen/'+i+'AK4x4R15'],['CMS','CMSfat','AK8','CA15','AK4x3R8','AK4x4R8','AK4x3R15','AK4x4R15'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=rb)
+# 	elif i in ['pT1','pT2','csv_1','csv_2']:
+# 		lim=2000
+# 		rb=1
+# 		if 'pT' in i:
+# 			rb=8
+# 		compare(i+'_1tev',[signal_files[0]]*3,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'AK8','NoCutsGen/'+i+'CA15'],['CMS','AK8','CA15'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=rb)
+# 		compare(i+'_2tev',[signal_files[1]]*3,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'AK8','NoCutsGen/'+i+'CA15'],['CMS','AK8','CA15'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=rb)
+# 		compare(i+'_3tev',[signal_files[2]]*3,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'AK8','NoCutsGen/'+i+'CA15'],['CMS','AK8','CA15'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=rb)
+# 		compare(i+'_4tev',[signal_files[3]]*3,['NoCutsGen/'+i+'CMS','NoCutsGen/'+i+'AK8','NoCutsGen/'+i+'CA15'],['CMS','AK8','CA15'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=rb)
+# 	elif i in ['nsub_1CMS','nsub_2CMS','mmin1','mmin2','ndau1','ndau2']:
+# 		compare(i+'_1tev',[signal_files[0]]*1,['NoCutsGen/'+i],['CMS'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=1)
+# 		compare(i+'_2tev',[signal_files[1]]*1,['NoCutsGen/'+i],['CMS'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=1)
+# 		compare(i+'_3tev',[signal_files[2]]*1,['NoCutsGen/'+i],['CMS'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=1)
+# 		compare(i+'_4tev',[signal_files[3]]*1,['NoCutsGen/'+i],['CMS'],True,'histo',i+' [GeV]','Fraction of events',0,lim,rebin=1)
 	#compare(i+'_new3tev',[signal_files[2]]*7,['NoCutsGen/'+i+'_patJetsCa8CHSJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsPrunedPacked','NoCutsGen/'+i+'_patJetsCa8CHSJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8PuppiJetsSoftDropPacked','NoCutsGen/'+i+'_patJetsCa8CHSJets','NoCutsGen/'+i+'_patJetsCa8PuppiJets','NoCutsGen/'+i+'CMS'],['CA8 chs pruned','CA8 puppi pruned','CA8 chs sd','CA8 puppi sd','CA8 CHS','CA8 puppi','CMS'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',2000,4000,rebin=1)
 	#compare(i+'_newqcd',[qcd_file]*7,['NoCuts/'+i+'_patJetsCa8CHSJetsPrunedPacked','NoCuts/'+i+'_patJetsCa8PuppiJetsPrunedPacked','NoCuts/'+i+'_patJetsCa8CHSJetsSoftDropPacked','NoCuts/'+i+'_patJetsCa8PuppiJetsSoftDropPacked','NoCuts/'+i+'_patJetsCa8CHSJets','NoCuts/'+i+'_patJetsCa8PuppiJets','NoCuts/'+i+'CMS'],['CA8 chs pruned','CA8 puppi pruned','CA8 chs sd','CA8 puppi sd','CA8 CHS','CA8 puppi','CMS'],True,'histo','m_{t#bar{t}} [GeV]','Fraction of events',0,2500,rebin=1)
 

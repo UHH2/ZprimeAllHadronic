@@ -4,7 +4,7 @@ from sys import argv
 from os import mkdir
 from os.path import exists
 
-def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE',xtitle='',ytitle='',minx=0,maxx=0,rebin=1,miny=0,maxy=0,textsizefactor=1):
+def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE',xtitle='',ytitle='',minx=0,maxx=0,rebin=1,miny=0,maxy=0,textsizefactor=1,logy=False):
   c=TCanvas(name,'',600,600)
   # c.SetLeftMargin(0.15)#
   # c.SetRightMargin(0.05)#
@@ -80,6 +80,8 @@ def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE'
       #   histo_list[i].GetYaxis().SetTitle('Efficiency')
     else:
       histo_list[i].Draw(drawoption+'SAME')
+  if logy:
+    c.SetLogy()
   legend.Draw()
   # outfile.cd()
   # c.Write(name)

@@ -67,6 +67,9 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
   book<TH1F>("m1AK4x4R15", ";m_{1,AK4x4R15};Events", 2000, 0, 2000);
   book<TH1F>("m2AK4x4R15", ";m_{2,AK4x4R15};Events", 2000, 0, 2000);
   book<TH1F>("m12AK4x4R15", ";m_{12,AK4x4R15};Events", 240, 0, 6000);
+
+  book<TH1F>("m12CMSAK8", ";m_{12,CMSAK8};Events", 240, 0, 6000);
+  book<TH1F>("m12AK8CMS", ";m_{12,AK8CMS};Events", 240, 0, 6000);
   
   // book<TH1F>("m1HEP", ";m_{1,HEP};Events", 2000, 0, 2000);
   // book<TH1F>("m2HEP", ";m_{2,HEP};Events", 2000, 0, 2000);
@@ -301,6 +304,11 @@ if(event.gentopjets){
   if (event.gentopjets->size()>1) hist("m2gen")->Fill(TopJetMass2(event.gentopjets->at(1)),weight);
   if (event.gentopjets->size()>1) hist("m12gen")->Fill(ZprimeMass2(event.gentopjets->at(0),event.gentopjets->at(1)),weight);}
 
+if(event.topjets->size()>1 && topjetsAK8->size()>1)
+{
+  hist("m12CMSAK8")->Fill(ZprimeMass(event.topjets->at(0),topjetsAK8->at(1)),weight);
+  hist("m12AK8CMS")->Fill(ZprimeMass(event.topjets->at(1),topjetsAK8->at(0)),weight);
+}
   // if (topjetsHEP->size()>0) hist("m1HEP")->Fill(TopJetMass(topjetsHEP->at(0)),weight);
   // if (topjetsHEP->size()>1) hist("m2HEP")->Fill(TopJetMass(topjetsHEP->at(1)),weight);
   // if (topjetsHEP->size()>1) hist("m12HEP")->Fill(ZprimeMass(topjetsHEP->at(0),topjetsHEP->at(1)),weight);
