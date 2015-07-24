@@ -12,6 +12,16 @@
 <!ENTITY ZpTpTbW SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/ZpTpTbW">
 <!ENTITY ZpTpTtZ SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/ZpTpTtZ">
 
+<!ENTITY MC_QCD_Pt300to470 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt300to470.xml">
+<!ENTITY MC_QCD_Pt470to600 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt470to600.xml">
+<!ENTITY MC_QCD_Pt600to800 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt600to800.xml">
+<!ENTITY MC_QCD_Pt800to1000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt800to1000.xml">
+<!ENTITY MC_QCD_Pt1000to1400 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt1000to1400.xml">
+<!ENTITY MC_QCD_Pt1400to1800 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt1400to1800.xml">
+<!ENTITY MC_QCD_Pt1800to2400 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt1800to2400.xml">
+<!ENTITY MC_QCD_Pt2400to3200 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt2400to3200.xml">
+<!ENTITY MC_QCD_Pt3200toInf SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt3200toInf.xml">
+
 ]
 >
 
@@ -28,6 +38,65 @@
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
     </InputData> -->
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="MC_QCD_Pt300to470" Cacheable="True">
+        &MC_QCD_Pt300to470;
+        <InputTree Name="AnalysisTree" /> 
+        <!-- <OutputTree Name="AnalysisTree" />  -->
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="MC_QCD_Pt470to600" Cacheable="True">
+        &MC_QCD_Pt470to600;
+        <InputTree Name="AnalysisTree" /> 
+        <!-- <OutputTree Name="AnalysisTree" />  -->
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="MC_QCD_Pt600to800" Cacheable="True">
+        &MC_QCD_Pt600to800;
+        <InputTree Name="AnalysisTree" /> 
+        <!-- <OutputTree Name="AnalysisTree" />  -->
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="MC_QCD_Pt800to1000" Cacheable="True">
+        &MC_QCD_Pt800to1000;
+        <InputTree Name="AnalysisTree" /> 
+        <!-- <OutputTree Name="AnalysisTree" />  -->
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="MC_QCD_Pt1000to1400" Cacheable="True">
+        &MC_QCD_Pt1000to1400;
+        <InputTree Name="AnalysisTree" /> 
+        <!-- <OutputTree Name="AnalysisTree" />  -->
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="MC_QCD_Pt1400to1800" Cacheable="True">
+        &MC_QCD_Pt1400to1800;
+        <InputTree Name="AnalysisTree" /> 
+        <!-- <OutputTree Name="AnalysisTree" />  -->
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="MC_QCD_Pt1800to2400" Cacheable="True">
+        &MC_QCD_Pt1800to2400;
+        <InputTree Name="AnalysisTree" /> 
+        <!-- <OutputTree Name="AnalysisTree" />  -->
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="MC_QCD_Pt2400to3200" Cacheable="True">
+        &MC_QCD_Pt2400to3200;
+        <InputTree Name="AnalysisTree" /> 
+        <!-- <OutputTree Name="AnalysisTree" />  -->
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="MC_QCD_Pt3200toInf" Cacheable="True">
+        &MC_QCD_Pt3200toInf;
+        <InputTree Name="AnalysisTree" /> 
+        <!-- <OutputTree Name="AnalysisTree" />  -->
+    </InputData>
+
+
+
+
+
 
     <InputData Lumi="224853" NEventsMax="-1" Type="MC" Version="ZpTpTbW" Cacheable="True">
         &ZpTpTbW;
