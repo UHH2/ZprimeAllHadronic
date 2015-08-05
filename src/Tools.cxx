@@ -319,6 +319,11 @@ void uncorrect_topjets(const Event & event){
     }
 }
 
+bool WTag(TopJet topjet)
+{
+  return TopJetMass(topjet)>60.0 && TopJetMass(topjet)<100.0 && TopJetNsub2(topjet)<0.6;
+}
+
 int subJetBTag(TopJet topjet, E_BtagType type, TString mode, TString filename){
 
   //Modes:

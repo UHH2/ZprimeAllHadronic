@@ -11,6 +11,7 @@
 
 using namespace uhh2;
 bool TopTag(TopJet topjet);
+bool WTag(TopJet topjet);
 bool AntiTopTag(TopJet topjet);
 float getHT50(const Event & event);
 float getHTCA8(const Event & event);
