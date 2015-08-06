@@ -625,3 +625,103 @@ BackgroundHists::~BackgroundHists(){
   //f->Close();
   //delete mistag;delete mass_shape;
 }
+
+
+SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx, dirname){
+  h_topjetsAK8 = ctx.get_handle<std::vector<TopJet> >("patJetsAk8CHSJetsSoftDropPacked_daughters");
+  h_topjetsCA15 = ctx.get_handle<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked_daughters");
+
+  book<TH1F>("N_toptags", ";N_{toptags};Events", 10, 0, 10);
+  book<TH1F>("N_wtags", ";N_{wtags};Events", 10, 0, 10);
+  book<TH1F>("N_btags", ";N_{btags};Events", 10, 0, 10);
+  book<TH1F>("N_subjetbtags", ";N_{subjetbtags};Events", 10, 0, 10);
+
+  book<TH1F>("pTtop", ";p_{T} top gen;Events", 300, 0, 3000);
+  book<TH1F>("pTtprime", ";p_{T} T' gen;Events", 300, 0, 3000);
+  book<TH1F>("pTb", ";p_{T} b gen;Events", 300, 0, 3000);
+  book<TH1F>("pTw", ";p_{T} W gen;Events", 300, 0, 3000);
+
+  book<TH1F>("dRbW", ";#Delta R(b,W);Events", 300, 0, 3);
+  book<TH1F>("dRtT", ";#Delta R(t,T');Events", 300, 0, 3);
+  book<TH1F>("dRbt", ";#Delta R(b,t);Events", 300, 0, 3);
+  book<TH1F>("dRtW", ";#Delta R(t,W);Events", 300, 0, 3);
+
+  book<TH1F>("pT_closest_topjet_to_top", ";pT closest topjet to top;Events", 300, 0, 3000);
+  book<TH1F>("mass_closest_topjet_to_top", ";mass closest topjet to top;Events", 100, 0, 1000);
+  book<TH1F>("nsub_closest_topjet_to_top", ";tau32 closest topjet to top;Events", 100, 0, 1);
+
+  book<TH1F>("pT_closest_topjet_to_tprime", ";pT closest topjet to tprime;Events", 300, 0, 3000);
+  book<TH1F>("mass_closest_topjet_to_tprime", ";mass closest topjet to tprime;Events", 100, 0, 1000);
+  book<TH1F>("nsub_closest_topjet_to_tprime", ";tau32 closest topjet to tprime;Events", 100, 0, 1);
+
+  book<TH1F>("pT_closest_wjet_to_w", ";pT closest wjet to w;Events", 300, 0, 3000);
+  book<TH1F>("mass_closest_wjet_to_w", ";mass closest wjet to w;Events", 100, 0, 1000);
+  book<TH1F>("nsub_closest_wjet_to_w", ";tau32 closest wjet to w;Events", 100, 0, 1);
+
+  book<TH1F>("pT_closest_bjet_to_b", ";pT closest bjet to b;Events", 300, 0, 3000);
+  book<TH1F>("csv_closest_bjet_to_b", ";csv closest bjet to b;Events", 100, 0, 1);
+
+  book<TH1F>("step1_wmass", ";step1: mass w candidate;Events", 100, 0, 1000);
+  book<TH1F>("step1_wnsub", ";step1: nsub w candidate;Events", 100, 0, 1);
+  book<TH1F>("step1_tcsv", ";step1: csv t candidate;Events", 100, 0, 1);
+  book<TH1F>("step1_tpt", ";step1: pt t candidate;Events", 300, 0, 3000);
+  book<TH1F>("step2_bcsv", ";step2: csv b candidate;Events", 100, 0, 1);
+  book<TH1F>("step2_wpt", ";step2: pt w candidate;Events", 300, 0, 3000);
+  book<TH1F>("step3_tprimemass", ";step3: mass tprime candidate;Events", 300, 0, 3000);
+  book<TH1F>("step3_tprimept", ";step3: pt tprime candidate;Events", 300, 0, 3000);
+  book<TH1F>("step4_zprimemass", ";step4: mass zprime candidate;Events", 300, 0, 3000);
+  book<TH1F>("step4_zprimemassbtag", ";step4: mass zprime candidate;Events", 300, 0, 3000);
+
+}
+
+void SelectionHists::fill(const Event & event){
+    double weight = event.weight;
+  
+  //get extra jet collections
+  //const auto jetsAK8 = &event.get(h_jetsAK8);
+  const auto topjetsAK8 = &event.get(h_topjetsAK8);
+  const auto topjetsCA15 = &event.get(h_topjetsCA15);
+
+    TopJet the_top;
+    bool has_the_top=false;
+    for(auto topjet : *event.topjets)
+    {
+        if (TopTag(topjet))
+        {
+            the_top=topjet;
+            has_the_top=true;
+            break;
+        }
+    }
+    bool has_the_w=false;
+    TopJet the_w;
+    if (has_the_top)
+    {
+        for(auto topjet : *topjetsAK8)
+        {
+            if (WTag(topjet)&&deltaR(topjet,the_top)>0.8)
+            {
+                the_w=topjet;
+                has_the_w=true;
+                break;
+            }
+        }
+    }
+    bool has_the_b=false;
+    Jet the_b;
+    if (has_the_top && has_the_w)
+    {
+        for(auto jet : *event.jets)
+        {
+            if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8)
+            {
+                the_b=jet;
+                has_the_b=true;
+                break;
+            }
+        }
+    }
+
+}
+
+SelectionHists::~SelectionHists(){}

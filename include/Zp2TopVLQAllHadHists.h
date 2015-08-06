@@ -28,6 +28,18 @@ private:
     // std::vector<std::string> topjet_collection_names;
 };
 
+class SelectionHists: public uhh2::Hists {
+public:
+    // use the same constructor arguments as Hists for forwarding:
+    SelectionHists(uhh2::Context & ctx, const std::string & dirname);
+
+    virtual void fill(const uhh2::Event & ev) override;
+    virtual ~SelectionHists();
+private:
+    uhh2::Event::Handle<std::vector<TopJet> > h_topjetsAK8;
+    uhh2::Event::Handle<std::vector<TopJet> > h_topjetsCA15;
+};
+
 class MistagAndShapeHists: public uhh2::Hists {
 public:
     // use the same constructor arguments as Hists for forwarding:

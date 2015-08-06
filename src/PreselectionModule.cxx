@@ -57,15 +57,15 @@ private:
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
     // std::unique_ptr<Selection> njet_sel, bsel;
-    std::unique_ptr<Selection> toptag_sel;
-    std::unique_ptr<Selection> toptaggroom_sel;
-    std::unique_ptr<Selection> toptaghep_sel;
+    // std::unique_ptr<Selection> toptag_sel;
+    // std::unique_ptr<Selection> toptaggroom_sel;
+    // std::unique_ptr<Selection> toptaghep_sel;
 
     //uhh2::Event::Handle<std::vector<TopJet> > h_topjetsAK8;
     //uhh2::Event::Handle<std::vector<TopJet> > h_topjetsCA15;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-    std::unique_ptr<Hists> h_nocorr, h_nocorr_gen, h_nocuts, h_nocuts_gen, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection0,h_selection1,h_selection2,h_selection,h_selection_gen,h_preselection_gen,h_ww,h_tv,h_tev;
+    std::unique_ptr<Hists> h_nocuts, h_allhad;//h_nocorr, h_nocorr_gen, h_nocuts, h_nocuts_gen, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection0,h_selection1,h_selection2,h_selection,h_selection_gen,h_preselection_gen,h_ww,h_tv,h_tev;
 };
 
 
@@ -113,33 +113,36 @@ PreselectionModule::PreselectionModule(Context & ctx){
     // 2. set up selections:
     // njet_sel.reset(new NJetSelection(2));
     // bsel.reset(new NBTagSelection(1));
-    const TopJetId topjetID = CMSTopTag();
-    const TopJetId topjetIDgroom = CMSTopTag(CMSTopTag::MassType::groomed);
-    const TopJetId topjetIDhep = HEPTopTag();
-    toptag_sel.reset(new NTopJetSelection(1,-1,topjetID));
-    toptaggroom_sel.reset(new NTopJetSelection(1,-1,topjetIDgroom));
-    toptaghep_sel.reset(new NTopJetSelection(1,-1,topjetIDhep));
+    // const TopJetId topjetID = CMSTopTag();
+    // const TopJetId topjetIDgroom = CMSTopTag(CMSTopTag::MassType::groomed);
+    // const TopJetId topjetIDhep = HEPTopTag();
+    // toptag_sel.reset(new NTopJetSelection(1,-1,topjetID));
+    // toptaggroom_sel.reset(new NTopJetSelection(1,-1,topjetIDgroom));
+    // toptaghep_sel.reset(new NTopJetSelection(1,-1,topjetIDhep));
 
     // 3. Set up Hists classes:
-    h_nocorr.reset(new Zp2TopVLQAllHadHists(ctx, "NoCorr"));
-    h_nocorr_gen.reset(new Zp2TopVLQAllHadHists(ctx, "NoCorrGen"));
-    h_nocuts.reset(new Zp2TopVLQAllHadHists(ctx, "NoCuts"));
-    h_nocuts_gen.reset(new Zp2TopVLQAllHadHists(ctx, "NoCutsGen"));
-    h_preselection.reset(new Zp2TopVLQAllHadHists(ctx, "Preselection"));
-    h_preselection_gen.reset(new Zp2TopVLQAllHadHists(ctx, "PreselectionGen"));
-    h_trigger.reset(new Zp2TopVLQAllHadHists(ctx, "Trigger"));
-    h_alttrigger.reset(new Zp2TopVLQAllHadHists(ctx, "altTrigger"));
-    h_HTtrieffnum.reset(new Zp2TopVLQAllHadHists(ctx, "HTtrieffnum"));
-    h_AK8trieffnum.reset(new Zp2TopVLQAllHadHists(ctx, "AK8trieffnum"));
-    h_trieffden.reset(new Zp2TopVLQAllHadHists(ctx, "trieffden"));
-    h_selection0.reset(new Zp2TopVLQAllHadHists(ctx, "Selection0"));
-    h_selection1.reset(new Zp2TopVLQAllHadHists(ctx, "Selection1"));
-    h_selection2.reset(new Zp2TopVLQAllHadHists(ctx, "Selection2"));
-    h_selection.reset(new Zp2TopVLQAllHadHists(ctx, "Selection"));
-    h_selection_gen.reset(new Zp2TopVLQAllHadHists(ctx, "SelectionGen"));
-    h_ww.reset(new Zp2TopVLQAllHadHists(ctx, "ww"));
-    h_tev.reset(new Zp2TopVLQAllHadHists(ctx, "tev"));
-    h_tv.reset(new Zp2TopVLQAllHadHists(ctx, "tv"));
+    // h_nocorr.reset(new Zp2TopVLQAllHadHists(ctx, "NoCorr"));
+    // h_nocorr_gen.reset(new Zp2TopVLQAllHadHists(ctx, "NoCorrGen"));
+    // h_nocuts.reset(new Zp2TopVLQAllHadHists(ctx, "NoCuts"));
+    // h_nocuts_gen.reset(new Zp2TopVLQAllHadHists(ctx, "NoCutsGen"));
+    // h_preselection.reset(new Zp2TopVLQAllHadHists(ctx, "Preselection"));
+    // h_preselection_gen.reset(new Zp2TopVLQAllHadHists(ctx, "PreselectionGen"));
+    // h_trigger.reset(new Zp2TopVLQAllHadHists(ctx, "Trigger"));
+    // h_alttrigger.reset(new Zp2TopVLQAllHadHists(ctx, "altTrigger"));
+    // h_HTtrieffnum.reset(new Zp2TopVLQAllHadHists(ctx, "HTtrieffnum"));
+    // h_AK8trieffnum.reset(new Zp2TopVLQAllHadHists(ctx, "AK8trieffnum"));
+    // h_trieffden.reset(new Zp2TopVLQAllHadHists(ctx, "trieffden"));
+    // h_selection0.reset(new Zp2TopVLQAllHadHists(ctx, "Selection0"));
+    // h_selection1.reset(new Zp2TopVLQAllHadHists(ctx, "Selection1"));
+    // h_selection2.reset(new Zp2TopVLQAllHadHists(ctx, "Selection2"));
+    // h_selection.reset(new Zp2TopVLQAllHadHists(ctx, "Selection"));
+    // h_selection_gen.reset(new Zp2TopVLQAllHadHists(ctx, "SelectionGen"));
+    // h_ww.reset(new Zp2TopVLQAllHadHists(ctx, "ww"));
+    // h_tev.reset(new Zp2TopVLQAllHadHists(ctx, "tev"));
+    // h_tv.reset(new Zp2TopVLQAllHadHists(ctx, "tv"));
+
+    h_nocuts.reset(new SelectionHists(ctx, "NoCuts"));
+    h_allhad.reset(new SelectionHists(ctx, "AllHad"));
 
     h_topjetsAK8 = ctx.get_handle<std::vector<TopJet> >("patJetsAk8CHSJetsSoftDropPacked_daughters");//, "patJetsCA8CHSprunedPacked");
     h_topjetsCA15 = ctx.get_handle<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked_daughters");//, "patJetsCA15CHSFilteredPacked");
@@ -227,24 +230,8 @@ if (event.gentopjets){
      subjetCA15corrector->process(event);
     // subjetHEPcorrector->process(event);
 
-     //std::cout<<CMSTopTag()<<std::endl;
 
-    
-    //uhh2::Event::TriggerIndex ti_AK8=event.get_trigger_index("HLT_AK8PFJet360_TrimMass30*");
 
-    // std::cout<< "Event" <<std::endl;
-    // std::cout<< "CMS ungroomed" <<std::endl;
-    // std::cout<< toptag_sel->passes(event) <<std::endl;
-    // std::cout<< "CMS groomed" <<std::endl;
-    // std::cout<< toptaggroom_sel->passes(event) <<std::endl;
-    // std::cout<< "HEP" <<std::endl;
-    // std::cout<< toptaghep_sel->passes(event) <<std::endl;
-    // std::cout<<std::endl;
-    //if(event.topjets->size()>0)
-    //{
-        //std::cout<< event.topjets->at(0).subjets()[0].v4().M()-event.topjets->at(0).subjets()[0].v4().mass() <<std::endl;
-        //std::cout<<  <<std::endl;
-    //}
     TopJet the_top;
     bool has_the_top=false;
     for(auto topjet : *event.topjets)
@@ -276,7 +263,7 @@ if (event.gentopjets){
     {
         for(auto jet : *event.jets)
         {
-            if (jet.btag_combinedSecondaryVertex()>0.8&&deltaR(jet,the_top)>0.8)
+            if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8)
             {
                 the_b=jet;
                 has_the_b=true;
@@ -284,6 +271,27 @@ if (event.gentopjets){
             }
         }
     }
+
+
+     //std::cout<<CMSTopTag()<<std::endl;
+
+    
+    //uhh2::Event::TriggerIndex ti_AK8=event.get_trigger_index("HLT_AK8PFJet360_TrimMass30*");
+
+    // std::cout<< "Event" <<std::endl;
+    // std::cout<< "CMS ungroomed" <<std::endl;
+    // std::cout<< toptag_sel->passes(event) <<std::endl;
+    // std::cout<< "CMS groomed" <<std::endl;
+    // std::cout<< toptaggroom_sel->passes(event) <<std::endl;
+    // std::cout<< "HEP" <<std::endl;
+    // std::cout<< toptaghep_sel->passes(event) <<std::endl;
+    // std::cout<<std::endl;
+    //if(event.topjets->size()>0)
+    //{
+        //std::cout<< event.topjets->at(0).subjets()[0].v4().M()-event.topjets->at(0).subjets()[0].v4().mass() <<std::endl;
+        //std::cout<<  <<std::endl;
+    //}
+
 
     
     // bool AK8_trigger = event.passes_trigger(ti_AK8);
