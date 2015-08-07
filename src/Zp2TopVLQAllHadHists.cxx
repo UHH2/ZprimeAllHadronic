@@ -641,10 +641,10 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("pTb", ";p_{T} b gen;Events", 300, 0, 3000);
   book<TH1F>("pTw", ";p_{T} W gen;Events", 300, 0, 3000);
 
-  book<TH1F>("dRbW", ";#Delta R(b,W);Events", 300, 0, 3);
-  book<TH1F>("dRtT", ";#Delta R(t,T');Events", 300, 0, 3);
-  book<TH1F>("dRbt", ";#Delta R(b,t);Events", 300, 0, 3);
-  book<TH1F>("dRtW", ";#Delta R(t,W);Events", 300, 0, 3);
+  book<TH1F>("dRbW", ";#Delta R(b,W);Events", 500, 0, 5);
+  book<TH1F>("dRtT", ";#Delta R(t,T');Events", 500, 0, 5);
+  book<TH1F>("dRbt", ";#Delta R(b,t);Events", 500, 0, 5);
+  book<TH1F>("dRtW", ";#Delta R(t,W);Events", 500, 0, 5);
 
   book<TH1F>("pT_closest_topjet_to_top", ";pT closest topjet to top;Events", 300, 0, 3000);
   book<TH1F>("mass_closest_topjet_to_top", ";mass closest topjet to top;Events", 100, 0, 1000);
@@ -671,6 +671,7 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("step3_tprimept", ";step3: pt tprime candidate;Events", 300, 0, 3000);
   book<TH1F>("step4_zprimemass", ";step4: mass zprime candidate;Events", 300, 0, 3000);
   book<TH1F>("step4_zprimemassbtag", ";step4: mass zprime candidate;Events", 300, 0, 3000);
+  book<TH1F>("step4_zprimemassbtagnsub", ";step4: mass zprime candidate;Events", 300, 0, 3000);
 
 }
 
@@ -682,6 +683,170 @@ void SelectionHists::fill(const Event & event){
   const auto topjetsAK8 = &event.get(h_topjetsAK8);
   const auto topjetsCA15 = &event.get(h_topjetsCA15);
 
+  int N_toptags=0;
+  for(auto topjet : *event.topjets)
+    {
+        if (TopTag(topjet))
+        {
+            N_toptags++;
+        }
+    }
+  hist("N_toptags")->Fill(N_toptags,weight);
+
+  int N_wtags=0;
+  for(auto topjet : *topjetsAK8)
+    {
+        if (WTag(topjet))
+        {
+            N_wtags++;
+        }
+    }
+  hist("N_wtags")->Fill(N_wtags,weight);
+
+  int N_bjets=0;
+  for(auto jet : *event.jets)
+    {
+      if (jet.btag_combinedSecondaryVertex()>0.890)
+      {
+          N_bjets++;
+      }
+    }
+  hist("N_btags")->Fill(N_bjets,weight);
+
+
+  int N_subjetbtags=0;
+  for(auto topjet : *event.topjets)
+    {
+      if (getMaxCSV(topjet)>0.890)
+      {
+        N_subjetbtags++;
+      }
+    }
+  hist("N_subjetbtags")->Fill(N_subjetbtags,weight);
+
+  GenParticle the_gen_top,the_gen_tprime,the_gen_w,the_gen_b;
+  bool has_gen_top=false,has_gen_tprime=false,has_gen_w=false,has_gen_b=false;
+  for (auto genp : *event.genparticles)
+  {
+    if (abs(genp.pdgId()) == 6)
+    {
+      hist("pTtop")->Fill(genp.pt(),weight);
+      has_gen_top=true;
+      the_gen_top=genp;
+    }
+    if (abs(genp.pdgId()) == 8000001)
+    {
+      hist("pTtprime")->Fill(genp.pt(),weight);
+      has_gen_tprime=true;
+      the_gen_tprime=genp;
+      auto pthe_gen_w = genp.daughter(event.genparticles, 1);
+      auto pthe_gen_b = genp.daughter(event.genparticles, 2);
+      if (pthe_gen_w && pthe_gen_b)
+      {
+        the_gen_w=*pthe_gen_w;
+        the_gen_b=*pthe_gen_b;
+        if(abs(the_gen_w.pdgId()) != 24)
+        {
+          std::swap(the_gen_w, the_gen_b);
+        }
+        if(abs(the_gen_w.pdgId()) == 24)
+        {
+          hist("pTw")->Fill(the_gen_w.pt(),weight);
+          has_gen_w=true;
+        }
+        if(abs(the_gen_b.pdgId()) == 5)
+        {
+          hist("pTb")->Fill(the_gen_b.pt(),weight);
+          has_gen_b=true;
+        }
+      } 
+    }
+  }
+
+
+  if (has_gen_b && has_gen_w)
+  {
+    hist("dRbW")->Fill(deltaR(the_gen_b,the_gen_w),weight);
+  }
+
+  if (has_gen_top && has_gen_tprime)
+  {
+    hist("dRtT")->Fill(deltaR(the_gen_top,the_gen_tprime),weight);
+  }
+
+  if (has_gen_b && has_gen_top)
+  {
+    hist("dRbt")->Fill(deltaR(the_gen_b,the_gen_top),weight);
+  }
+
+  if (has_gen_top && has_gen_w)
+  {
+    hist("dRtW")->Fill(deltaR(the_gen_top,the_gen_w),weight);
+  }
+
+  TopJet the_closest_top,the_closest_w,the_closest_tprime; Jet the_closest_b;
+  bool has_closest_top=false,has_closest_w=false,has_closest_b=false,has_closest_tprime=false;
+  if (has_gen_top)
+  {
+    for(auto topjet : *event.topjets)
+    {
+      if (deltaR(the_gen_top,topjet)<0.8)
+      {
+        hist("pT_closest_topjet_to_top")->Fill(TopJetPt(topjet),weight);
+        hist("mass_closest_topjet_to_top")->Fill(TopJetMass(topjet),weight);
+        hist("nsub_closest_topjet_to_top")->Fill(TopJetNsub(topjet),weight);
+        has_closest_top=true;
+        the_closest_top=topjet;
+      }
+    }
+  }
+
+  if (has_gen_tprime)
+  {
+    for(auto topjet : *event.topjets)
+    {
+      if (deltaR(the_gen_tprime,topjet)<0.8)
+      {
+        hist("pT_closest_topjet_to_tprime")->Fill(TopJetPt(topjet),weight);
+        hist("mass_closest_topjet_to_tprime")->Fill(TopJetMass(topjet),weight);
+        hist("nsub_closest_topjet_to_tprime")->Fill(TopJetNsub(topjet),weight);
+        has_closest_tprime=true;
+        the_closest_tprime=topjet;
+      }
+    }
+  }
+
+  if (has_gen_w)
+  {
+    for(auto topjet : *topjetsAK8)
+    {
+      if (deltaR(the_gen_w,topjet)<0.8)
+      {
+        hist("pT_closest_wjet_to_w")->Fill(TopJetPt(topjet),weight);
+        hist("mass_closest_wjet_to_w")->Fill(TopJetMass(topjet),weight);
+        hist("nsub_closest_wjet_to_w")->Fill(TopJetNsub2(topjet),weight);
+        has_closest_w=true;
+        the_closest_w=topjet;
+      }
+    }
+  }
+
+    if (has_gen_b)
+  {
+    for(auto jet : *event.jets)
+    {
+      if (deltaR(the_gen_b,jet)<0.4)
+      {
+        hist("pT_closest_bjet_to_b")->Fill(jet.pt(),weight);
+        hist("csv_closest_bjet_to_b")->Fill(jet.btag_combinedSecondaryVertex(),weight);
+        has_closest_b=true;
+        the_closest_b=jet;
+      }
+    }
+  }
+
+
+
     TopJet the_top;
     bool has_the_top=false;
     for(auto topjet : *event.topjets)
@@ -690,6 +855,8 @@ void SelectionHists::fill(const Event & event){
         {
             the_top=topjet;
             has_the_top=true;
+            hist("step1_tcsv")->Fill(getMaxCSV(topjet),weight);
+            hist("step1_tpt")->Fill(TopJetPt(topjet),weight);
             break;
         }
     }
@@ -697,12 +864,20 @@ void SelectionHists::fill(const Event & event){
     TopJet the_w;
     if (has_the_top)
     {
+        bool found=false;
         for(auto topjet : *topjetsAK8)
         {
+            if(deltaR(topjet,the_top)>0.8 && !found)
+            {
+              hist("step1_wmass")->Fill(TopJetMass(topjet),weight);
+              hist("step1_wnsub")->Fill(TopJetNsub2(topjet),weight);
+              found=true;
+            }
             if (WTag(topjet)&&deltaR(topjet,the_top)>0.8)
             {
                 the_w=topjet;
                 has_the_w=true;
+                hist("step2_wpt")->Fill(TopJetPt(topjet),weight);
                 break;
             }
         }
@@ -711,15 +886,29 @@ void SelectionHists::fill(const Event & event){
     Jet the_b;
     if (has_the_top && has_the_w)
     {
+        bool found=false;
         for(auto jet : *event.jets)
         {
-            if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8)
+            if(deltaR(jet,the_top)>0.8 && !found)
+            {
+              hist("step2_bcsv")->Fill(jet.btag_combinedSecondaryVertex(),weight);
+              found=true;
+            }
+            if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8 && jet.pt()>200.0)
             {
                 the_b=jet;
                 has_the_b=true;
+                hist("step3_tprimemass")->Fill(TprimeMass(the_w,the_b),weight);
+                hist("step3_tprimept")->Fill(TprimePt(the_w,the_b),weight);
                 break;
             }
         }
+    }
+    if (has_the_b && has_the_w && has_the_top && TprimeMass(the_w,the_b)>700.0)
+    {
+      hist("step4_zprimemass")->Fill(ZprimeMassVLQ(the_top,the_w,the_b),weight);
+      if (getMaxCSV(the_top)>0.890) hist("step4_zprimemassbtag")->Fill(ZprimeMassVLQ(the_top,the_w,the_b),weight);
+      if (getMaxCSV(the_top)>0.890 && TopJetNsub(the_top)<0.7) hist("step4_zprimemassbtagnsub")->Fill(ZprimeMassVLQ(the_top,the_w,the_b),weight);
     }
 
 }

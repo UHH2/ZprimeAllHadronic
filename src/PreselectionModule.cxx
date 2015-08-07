@@ -65,7 +65,7 @@ private:
     //uhh2::Event::Handle<std::vector<TopJet> > h_topjetsCA15;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-    std::unique_ptr<Hists> h_nocuts, h_allhad;//h_nocorr, h_nocorr_gen, h_nocuts, h_nocuts_gen, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection0,h_selection1,h_selection2,h_selection,h_selection_gen,h_preselection_gen,h_ww,h_tv,h_tev;
+    std::unique_ptr<Hists> h_nocuts, h_allhad, h_nocutssub, h_allhadsub;//h_nocorr, h_nocorr_gen, h_nocuts, h_nocuts_gen, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection0,h_selection1,h_selection2,h_selection,h_selection_gen,h_preselection_gen,h_ww,h_tv,h_tev;
 };
 
 
@@ -143,6 +143,8 @@ PreselectionModule::PreselectionModule(Context & ctx){
 
     h_nocuts.reset(new SelectionHists(ctx, "NoCuts"));
     h_allhad.reset(new SelectionHists(ctx, "AllHad"));
+    h_nocutssub.reset(new Zp2TopVLQAllHadHists(ctx, "NoCutsSub"));
+    h_allhadsub.reset(new Zp2TopVLQAllHadHists(ctx, "AllHadSub"));
 
     h_topjetsAK8 = ctx.get_handle<std::vector<TopJet> >("patJetsAk8CHSJetsSoftDropPacked_daughters");//, "patJetsCA8CHSprunedPacked");
     h_topjetsCA15 = ctx.get_handle<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked_daughters");//, "patJetsCA15CHSFilteredPacked");
@@ -184,17 +186,90 @@ bool PreselectionModule::process(Event & event) {
     // cout<< event.get_current_triggernames()[i]<<"\n";
     // cout<<"\n\n\n";
 
-uhh2::Event::TriggerIndex ti_HT=event.get_trigger_index("HLT_PFHT800*");
-bool HT_trigger = event.passes_trigger(ti_HT);
-const auto topjetsAK8 = &event.get(h_topjetsAK8);
-if ((!HT_trigger)||(topjetsAK8->size()<2)) return false;
-
+//uhh2::Event::TriggerIndex ti_HT=event.get_trigger_index("HLT_PFHT900*");
+//bool HT_trigger = event.passes_trigger(ti_HT);
+//const auto topjetsAK8 = &event.get(h_topjetsAK8);
+//if ((!HT_trigger)||(topjetsAK8->size()<2)) return false;
+//if ((!HT_trigger)||(topjetsAK8->size()<2)) return false;
+if (getHT50(event)<800.0) return false;
 
 bool is_allhad=false;
-if (event.gentopjets){
-    TTbarGen ttbargen(*event.genparticles,false);
-    is_allhad = ttbargen.IsTopHadronicDecay() && ttbargen.IsAntiTopHadronicDecay();
-}
+
+  GenParticle the_gen_top,the_gen_tprime,the_gen_w,the_gen_b,the_gen_tw,the_gen_tb;
+  bool has_gen_top=false,has_gen_tprime=false,has_gen_w=false,has_gen_b=false,has_gen_tw=false,has_gen_tb=false;
+  for (auto genp : *event.genparticles)
+  {
+    if (abs(genp.pdgId()) == 6)
+    {
+      has_gen_top=true;
+      auto pthe_gen_tw = genp.daughter(event.genparticles, 1);
+      auto pthe_gen_tb = genp.daughter(event.genparticles, 2);
+      if (pthe_gen_tw && pthe_gen_tb)
+      {
+        the_gen_tw=*pthe_gen_tw;
+        the_gen_tb=*pthe_gen_tb;
+        if(abs(the_gen_tw.pdgId()) != 24)
+        {
+          std::swap(the_gen_tw, the_gen_tb);
+        }
+        if(abs(the_gen_tw.pdgId()) == 24)
+        {
+          has_gen_tw=true;
+        }
+        if(abs(the_gen_tb.pdgId()) == 5)
+        {
+          has_gen_tb=true;
+        }
+      } 
+    }
+    if (abs(genp.pdgId()) == 8000001)
+    {
+      has_gen_tprime=true;
+      auto pthe_gen_w = genp.daughter(event.genparticles, 1);
+      auto pthe_gen_b = genp.daughter(event.genparticles, 2);
+      if (pthe_gen_w && pthe_gen_b)
+      {
+        the_gen_w=*pthe_gen_w;
+        the_gen_b=*pthe_gen_b;
+        if(abs(the_gen_w.pdgId()) != 24)
+        {
+          std::swap(the_gen_w, the_gen_b);
+        }
+        if(abs(the_gen_w.pdgId()) == 24)
+        {
+          has_gen_w=true;
+        }
+        if(abs(the_gen_b.pdgId()) == 5)
+        {
+          has_gen_b=true;
+        }
+      } 
+    }
+  }
+  if (has_gen_top && has_gen_tprime && has_gen_w && has_gen_b && has_gen_tw && has_gen_tb)
+  {
+    auto wd1 = the_gen_w.daughter(event.genparticles, 1);
+    auto wd2 = the_gen_w.daughter(event.genparticles, 2);
+    auto wd3 = the_gen_tw.daughter(event.genparticles, 1);
+    auto wd4 = the_gen_tw.daughter(event.genparticles, 2);
+    if(wd1 && wd2 && wd3 && wd4)
+    {
+        int lept=0;
+        for(const auto & wd : {*wd1 , *wd2 , *wd3 , *wd4})
+        {
+            int id = abs(wd.pdgId());
+            if(id == 11 || id == 13 || id == 15) ++lept;
+        }
+        if (lept==0) is_allhad=true;
+    }
+  }
+
+
+
+// if (event.gentopjets){
+//     TTbarGen ttbargen(*event.genparticles,false);
+//     is_allhad = ttbargen.IsTopHadronicDecay() && ttbargen.IsAntiTopHadronicDecay();
+// }
 
     //if (event.topjets->size()>0) cout<<event.topjets->at(0).pt()<<endl;
     //uncorrect_topjets(event);
@@ -231,46 +306,54 @@ if (event.gentopjets){
     // subjetHEPcorrector->process(event);
 
 
+h_nocuts->fill(event);
+h_nocutssub->fill(event);
+if (is_allhad)
+{
+h_allhad->fill(event);
+h_allhadsub->fill(event);
+}
 
-    TopJet the_top;
-    bool has_the_top=false;
-    for(auto topjet : *event.topjets)
-    {
-        if (TopTag(topjet))
-        {
-            the_top=topjet;
-            has_the_top=true;
-            break;
-        }
-    }
-    bool has_the_w=false;
-    TopJet the_w;
-    if (has_the_top)
-    {
-        for(auto topjet : *topjetsAK8)
-        {
-            if (WTag(topjet)&&deltaR(topjet,the_top)>0.8)
-            {
-                the_w=topjet;
-                has_the_w=true;
-                break;
-            }
-        }
-    }
-    bool has_the_b=false;
-    Jet the_b;
-    if (has_the_top && has_the_w)
-    {
-        for(auto jet : *event.jets)
-        {
-            if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8)
-            {
-                the_b=jet;
-                has_the_b=true;
-                break;
-            }
-        }
-    }
+
+    // TopJet the_top;
+    // bool has_the_top=false;
+    // for(auto topjet : *event.topjets)
+    // {
+    //     if (TopTag(topjet))
+    //     {
+    //         the_top=topjet;
+    //         has_the_top=true;
+    //         break;
+    //     }
+    // }
+    // bool has_the_w=false;
+    // TopJet the_w;
+    // if (has_the_top)
+    // {
+    //     for(auto topjet : *topjetsAK8)
+    //     {
+    //         if (WTag(topjet)&&deltaR(topjet,the_top)>0.8)
+    //         {
+    //             the_w=topjet;
+    //             has_the_w=true;
+    //             break;
+    //         }
+    //     }
+    // }
+    // bool has_the_b=false;
+    // Jet the_b;
+    // if (has_the_top && has_the_w)
+    // {
+    //     for(auto jet : *event.jets)
+    //     {
+    //         if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8)
+    //         {
+    //             the_b=jet;
+    //             has_the_b=true;
+    //             break;
+    //         }
+    //     }
+    // }
 
 
      //std::cout<<CMSTopTag()<<std::endl;

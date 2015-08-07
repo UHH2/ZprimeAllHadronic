@@ -11,19 +11,20 @@ gROOT.SetBatch()
 path='/nfs/dust/cms/user/usaiem/spring15/'
 # path2='/nfs/dust/cms/user/usaiem/phys14-2/'
 root='.root'
-filename_base='uhh2.AnalysisModuleRunner.DATA.'
-signal_names=['Run2015B']#['newzp1000','newzp2000','newzp3000','newzp4000']#'Z1000W100','Z2000W200','Z3000W300'
-qcd_names=['QCDHT1000ToInf','QCDHT500To1000']#'QCDHT1000ToInf',,'QCDHT500To1000'
+filename_base='uhh2.AnalysisModuleRunner.MC.'
+signal_names=['ZpTpTbW','ZpTpTtZ']#['newzp1000','newzp2000','newzp3000','newzp4000']#'Z1000W100','Z2000W200','Z3000W300'
+qcd_names=['MC_QCD_Pt1000to1400','MC_QCD_Pt120to170','MC_QCD_Pt1400to1800','MC_QCD_Pt15to30','MC_QCD_Pt170to300','MC_QCD_Pt1800to2400','MC_QCD_Pt2400to3200','MC_QCD_Pt300to470','MC_QCD_Pt30to50','MC_QCD_Pt3200toInf','MC_QCD_Pt470to600','MC_QCD_Pt50to80','MC_QCD_Pt600to800','MC_QCD_Pt800to1000','MC_QCD_Pt80to120',]#'QCDHT1000ToInf',,'QCDHT500To1000'
 #qcd_names=['QCDHT1000ToInf','QCDHT500To1000']#'QCDHT1000ToInf',,'QCDHT500To1000'
 ttbar_name='TTbar'
 # ttbar50ns_name='TTbar50ns'
 outfile=TFile('outfile.root','RECREATE')
 
+
 # #merge qcd
-# qcd_filename=hadd(path,filename_base,qcd_names,'qcd_added',True)
+qcd_filename=hadd(path,filename_base,qcd_names,'qcd_added',True)
 # #open files
-# qcd_file=TFile(qcd_filename,'READ')
-# ttbar_file=TFile(path+filename_base+ttbar_name+root,'READ')
+qcd_file=TFile(qcd_filename,'READ')
+ttbar_file=TFile(path+filename_base+ttbar_name+root,'READ')
 # # ttbar50ns_file=TFile(path+filename_base+ttbar50ns_name+root,'READ')
 signal_files=[]
 for i in signal_names:
@@ -34,6 +35,12 @@ for i in signal_names:
 # # signal_files.append(TFile(path2+filename_base+'newzp'+root,'READ'))
 # signal_files.append(TFile(path2+filename_base+signal_names[0]+root,'READ'))
 # signal_files.append(TFile(path+filename_base+'newzp'+root,'READ'))
+
+rebinna=10
+
+for i in ['step1_wmass','step1_wnsub','step1_tcsv','step1_tpt','step2_bcsv','step2_wpt','step3_tprimemass','step3_tprimept','step4_zprimemass','step4_zprimemassbtag','step4_zprimemassbtagnsub']:
+	make_plot(i, ttbar_file, qcd_file, signal_files, 'NoCuts/'+i,'NoCuts/'+i,rebin=rebinna,minx=500,maxx=4000,miny=0.1,maxy=10000,logy=True)
+	
 
 
 # thetafile=TFile('theta.root','RECREATE')
@@ -70,11 +77,11 @@ for i in signal_names:
 # 	compare(i+'_Pre_Zbtag',[signal_files[0],signal_files[2],signal_files[4]],['Preselection/'+i,'Preselection/'+i,'Preselection/'+i],["Z' 1TeV","Z' 2TeV","Z' 3TeV"],True,'hE',i,maxx)
 #jet
 
-compare('mttbar',[signal_files[0]]*1,['Selection/m12CMS'],['13TeV Data'],False,'hE','mttbar [GeV]','Events',0,5000,rebin=6,textsizefactor=0.75)
-compare('mww',[signal_files[0]]*1,['ww/m12AK8'],['13TeV Data'],False,'hE','mww [GeV]','Events',0,5000,rebin=6,textsizefactor=0.75,logy=True,miny=0.5,maxy=1000)
-compare('mww2',[signal_files[0]]*1,['tev/m12AK8'],['13TeV Data'],False,'hE','mww [GeV]','Events',0,5000,rebin=6,textsizefactor=0.75,logy=True,miny=0.5,maxy=10000)
-compare('mtv',[signal_files[0]]*1,['tev/m12AK8CMS'],['13TeV Data'],False,'hE','mtw [GeV]','Events',400,5000,rebin=6,textsizefactor=0.75,logy=True,miny=0.5,maxy=10000)
-compare('mtv2',[signal_files[0]]*1,['tev/m12CMSAK8'],['13TeV Data'],False,'hE','mtw [GeV]','Events',400,5000,rebin=6,textsizefactor=0.75,logy=True,miny=0.5,maxy=10000)
+# compare('mttbar',[signal_files[0]]*1,['Selection/m12CMS'],['13TeV Data'],False,'hE','mttbar [GeV]','Events',0,5000,rebin=6,textsizefactor=0.75)
+# compare('mww',[signal_files[0]]*1,['ww/m12AK8'],['13TeV Data'],False,'hE','mww [GeV]','Events',0,5000,rebin=6,textsizefactor=0.75,logy=True,miny=0.5,maxy=1000)
+# compare('mww2',[signal_files[0]]*1,['tev/m12AK8'],['13TeV Data'],False,'hE','mww [GeV]','Events',0,5000,rebin=6,textsizefactor=0.75,logy=True,miny=0.5,maxy=10000)
+# compare('mtv',[signal_files[0]]*1,['tev/m12AK8CMS'],['13TeV Data'],False,'hE','mtw [GeV]','Events',400,5000,rebin=6,textsizefactor=0.75,logy=True,miny=0.5,maxy=10000)
+# compare('mtv2',[signal_files[0]]*1,['tev/m12CMSAK8'],['13TeV Data'],False,'hE','mtw [GeV]','Events',400,5000,rebin=6,textsizefactor=0.75,logy=True,miny=0.5,maxy=10000)
 
 # for i in ['m1','m2','m12','pT1','pT2','nsub_1CMS','nsub_2CMS','csv_1','csv_2','mmin1','mmin2','ndau1','ndau2']:
 

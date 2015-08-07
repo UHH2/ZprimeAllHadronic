@@ -45,6 +45,48 @@ float ZprimeMass(TopJet t1, TopJet t2)
   else return allsubjets.M();
 }
 
+float ZprimePt(TopJet t1, TopJet t2)
+{
+  LorentzVector allsubjets(0,0,0,0);
+  for(auto subjet : t1.subjets()) allsubjets += subjet.v4();
+  for(auto subjet : t2.subjets()) allsubjets += subjet.v4();
+  return allsubjets.Pt();
+}
+float ZprimeMassVLQ(TopJet t1, TopJet t2, Jet t3)
+{
+  LorentzVector allsubjets(0,0,0,0);
+  for(auto subjet : t1.subjets()) allsubjets += subjet.v4();
+  for(auto subjet : t2.subjets()) allsubjets += subjet.v4();
+  allsubjets += t3.v4();
+  if(!allsubjets.isTimelike()) return 0.0;
+  else return allsubjets.M();
+}
+float ZprimePtVLQ(TopJet t1, TopJet t2, Jet t3)
+{
+  LorentzVector allsubjets(0,0,0,0);
+  for(auto subjet : t1.subjets()) allsubjets += subjet.v4();
+  for(auto subjet : t2.subjets()) allsubjets += subjet.v4();
+  allsubjets += t3.v4();
+  return allsubjets.Pt();
+}
+
+float TprimeMass(TopJet t1, Jet t2)
+{
+  LorentzVector allsubjets(0,0,0,0);
+  for(auto subjet : t1.subjets()) allsubjets += subjet.v4();
+  allsubjets += t2.v4();
+  if(!allsubjets.isTimelike()) return 0.0;
+  else return allsubjets.M();
+}
+float TprimePt(TopJet t1, Jet t2)
+{
+  LorentzVector allsubjets(0,0,0,0);
+  for(auto subjet : t1.subjets()) allsubjets += subjet.v4();
+  allsubjets += t2.v4();
+  return allsubjets.Pt();
+}
+
+
 float ZprimeMass2(Particle t1, Particle t2)
 {
   LorentzVector allsubjets(0,0,0,0);
@@ -143,6 +185,7 @@ float deltaPhi(Particle j1,Particle j2)
 
 bool TopTag(TopJet topjet)
 {
+  if(TopJetPt(topjet)<400.0) return false;
   //number of subjets requirement
   if(topjet.subjets().size()<3) return false;
   //mass requirement
@@ -321,7 +364,7 @@ void uncorrect_topjets(const Event & event){
 
 bool WTag(TopJet topjet)
 {
-  return TopJetMass(topjet)>60.0 && TopJetMass(topjet)<100.0 && TopJetNsub2(topjet)<0.6;
+  return TopJetMass(topjet)>60.0 && TopJetMass(topjet)<100.0 && TopJetNsub2(topjet)<0.6 && TopJetPt(topjet)>200.0;
 }
 
 int subJetBTag(TopJet topjet, E_BtagType type, TString mode, TString filename){
