@@ -39,7 +39,7 @@ for i in signal_names:
 rebinna=10
 
 for i in ['step1_wmass','step1_wnsub','step1_tcsv','step1_tpt','step2_bcsv','step2_wpt','step3_tprimemass','step3_tprimept','step4_zprimemass','step4_zprimemassbtag','step4_zprimemassbtagnsub']:
-	make_plot(i, ttbar_file, qcd_file, signal_files, 'NoCuts/'+i,'NoCuts/'+i,rebin=rebinna,minx=500,maxx=4000,miny=0.1,maxy=10000,logy=True)
+	make_plot(i, ttbar_file, qcd_file, signal_files, 'NoCuts/'+i,'NoCuts/'+i,'AllHad/'+i,rebin=rebinna,minx=500,maxx=4000,miny=0.1,maxy=10000,logy=True)
 	
 
 

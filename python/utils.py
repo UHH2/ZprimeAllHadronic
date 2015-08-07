@@ -133,7 +133,7 @@ def domistag(infile,outfile,mistag_den,mistag_num,outname):
   slice_and_save(outname,den_histo,outfile)
 
 
-def make_plot(name, ttbar_file, qcd_file, signal_files, histo, histo_qcd='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,logy=False):
+def make_plot(name, ttbar_file, qcd_file, signal_files, histo, histo_qcd='',histo_signal='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,logy=False):
   c=TCanvas(name,'',600,600)
   c.SetLeftMargin(0.15)#
   c.SetRightMargin(0.05)#
@@ -163,7 +163,10 @@ def make_plot(name, ttbar_file, qcd_file, signal_files, histo, histo_qcd='',rebi
   signal_histos=[]
   colors=[28,9,8]
   for i in range(len(signal_files)):
-    signal_histos.append(signal_files[i].Get(histo))
+    if histo_signal=='':
+      signal_histos.append(signal_files[i].Get(histo))
+    else:
+      signal_histos.append(signal_files[i].Get(histo_signal))
     signal_histos[i].SetLineWidth(3)
     signal_histos[i].SetLineStyle(1)
     signal_histos[i].SetLineColor(colors[i])
@@ -217,3 +220,4 @@ def make_plot(name, ttbar_file, qcd_file, signal_files, histo, histo_qcd='',rebi
   legend.Draw()
   latex.Draw()
   c.SaveAs('pdf/'+name+'.pdf')
+  c.SaveAs('pdf/'+name+'.png')

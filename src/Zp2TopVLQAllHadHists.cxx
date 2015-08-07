@@ -640,6 +640,19 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("pTtprime", ";p_{T} T' gen;Events", 300, 0, 3000);
   book<TH1F>("pTb", ";p_{T} b gen;Events", 300, 0, 3000);
   book<TH1F>("pTw", ";p_{T} W gen;Events", 300, 0, 3000);
+  book<TH1F>("pTzprime", ";p_{T} Z' gen;Events", 300, 0, 3000);
+
+  book<TH1F>("ptop", ";p top gen;Events", 300, 0, 3000);
+  book<TH1F>("ptprime", ";p T' gen;Events", 300, 0, 3000);
+  book<TH1F>("pb", ";p b gen;Events", 300, 0, 3000);
+  book<TH1F>("pw", ";p W gen;Events", 300, 0, 3000);
+  book<TH1F>("pzprime", ";p Z' gen;Events", 300, 0, 3000);
+
+  book<TH1F>("mtop", ";M top gen;Events", 300, 0, 3000);
+  book<TH1F>("mtprime", ";M T' gen;Events", 300, 0, 3000);
+  book<TH1F>("mb", ";M b gen;Events", 300, 0, 3000);
+  book<TH1F>("mw", ";M W gen;Events", 300, 0, 3000);
+  book<TH1F>("mzprime", ";M Z' gen;Events", 300, 0, 3000);
 
   book<TH1F>("dRbW", ";#Delta R(b,W);Events", 500, 0, 5);
   book<TH1F>("dRtT", ";#Delta R(t,T');Events", 500, 0, 5);
@@ -728,15 +741,27 @@ void SelectionHists::fill(const Event & event){
   bool has_gen_top=false,has_gen_tprime=false,has_gen_w=false,has_gen_b=false;
   for (auto genp : *event.genparticles)
   {
+
+    if (abs(genp.pdgId()) == 9900113)
+    {
+      hist("pTzprime")->Fill(genp.pt(),weight);
+      hist("pzprime")->Fill(genp.v4().P(),weight);
+      hist("mzprime")->Fill(genp.v4().M(),weight);
+    }
+
     if (abs(genp.pdgId()) == 6)
     {
       hist("pTtop")->Fill(genp.pt(),weight);
+      hist("ptop")->Fill(genp.v4().P(),weight);
+      hist("mtop")->Fill(genp.v4().M(),weight);
       has_gen_top=true;
       the_gen_top=genp;
     }
     if (abs(genp.pdgId()) == 8000001)
     {
       hist("pTtprime")->Fill(genp.pt(),weight);
+      hist("ptprime")->Fill(genp.v4().P(),weight);
+      hist("mtprime")->Fill(genp.v4().M(),weight);
       has_gen_tprime=true;
       the_gen_tprime=genp;
       auto pthe_gen_w = genp.daughter(event.genparticles, 1);
@@ -752,11 +777,15 @@ void SelectionHists::fill(const Event & event){
         if(abs(the_gen_w.pdgId()) == 24)
         {
           hist("pTw")->Fill(the_gen_w.pt(),weight);
+          hist("pw")->Fill(the_gen_w.v4().P(),weight);
+          hist("mw")->Fill(the_gen_w.v4().M(),weight);
           has_gen_w=true;
         }
         if(abs(the_gen_b.pdgId()) == 5)
         {
           hist("pTb")->Fill(the_gen_b.pt(),weight);
+          hist("pb")->Fill(the_gen_b.v4().P(),weight);
+          hist("mb")->Fill(the_gen_b.v4().M(),weight);
           has_gen_b=true;
         }
       } 

@@ -73,7 +73,7 @@
 
    
 
-    <InputData Lumi="0.00268666002688567" NEventsMax="-1" Type="MC" Version="MC_QCD_Pt15to30" Cacheable="True">
+    <!-- <InputData Lumi="0.00268666002688567" NEventsMax="-1" Type="MC" Version="MC_QCD_Pt15to30" Cacheable="True">
         &MC_QCD_Pt15to30;
         <InputTree Name="AnalysisTree" /> 
     </InputData>
@@ -153,7 +153,7 @@
     <InputData Lumi="23642.8705395787" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="True">
         &MC_TTbar;
         <InputTree Name="AnalysisTree" /> 
-    </InputData>
+    </InputData> -->
 
 
     <InputData Lumi="224853" NEventsMax="-1" Type="MC" Version="ZpTpTbW" Cacheable="True">
