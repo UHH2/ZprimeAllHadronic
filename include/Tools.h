@@ -8,6 +8,7 @@
 #include "UHH2/core/include/AnalysisModule.h"
 #include "UHH2/common/include/JetCorrections.h"
 #include "UHH2/JetMETObjects/interface/FactorizedJetCorrector.h"
+#include "UHH2/common/include/TopJetIds.h"
 
 using namespace uhh2;
 bool TopTag(TopJet topjet);
@@ -54,12 +55,57 @@ struct HigherPt {
         return j1.pt() > j2.pt();
     };
 };
-enum E_BtagType {
-    e_CSVT, /**< Combined Secondary Vertex tagger, tight working point */
-    e_CSVM, /**< Combined Secondary Vertex tagger, medium working point */
-    e_CSVL, /**< Combined Secondary Vertex tagger, loose working point */
-    e_JPT,  /**< Jet Probability tagger, tight working point */
-    e_JPM, /**< Jet Probability tagger, medium working point */
-    e_JPL /**< Jet Probability tagger, loose working point */
+//enum E_BtagType {
+//    e_CSVT, /**< Combined Secondary Vertex tagger, tight working point */
+//    e_CSVM, /**< Combined Secondary Vertex tagger, medium working point */
+//    e_CSVL, /**< Combined Secondary Vertex tagger, loose working point */
+//    e_JPT,  /**< Jet Probability tagger, tight working point */
+//    e_JPM, /**< Jet Probability tagger, medium working point */
+//    e_JPL /**< Jet Probability tagger, loose working point */
+//};
+
+
+
+// e(B) = 0.1% SD WP1	0.1%	 	SD(β=0,z=0.1, R=0.8) [110,210]	tau32 < 0.44
+// e(B) = 0.1% SD WP2	0.1%	 	SD(β=0,z=0.1, R=0.8) [110,210]	tau32 < 0.54, max SD subjet b-discriminant > 0.79
+
+// e(B) = 0.3% SD WP1	0.3%	 	SD(β=0,z=0.1, R=0.8) [110,210]	tau32 < 0.50
+// e(B) = 0.3% SD WP2	0.3%	 	SD(β=0,z=0.1, R=0.8) [110,210]	tau32 < 0.61, max SD subjet b-discriminant > 0.76
+
+// e(B) = 1% SD WP1	1%	 	SD(β=0,z=0.1, R=0.8) [110,210]	tau32 < 0.59
+// e(B) = 1% SD WP2	1%	 	SD(β=0,z=0.1, R=0.8) [110,210]	tau32 < 0.69, max SD subjet b-discriminant > 0.66
+
+// e(B) = 3% SD WP1	3%	 	SD(β=0,z=0.1, R=0.8) [110,210]	tau32 < 0.69
+// e(B) = 3% SD WP2	3%	 	SD(β=0,z=0.1, R=0.8) [110,210]	tau32 < 0.75, max SD subjet b-discriminant > 0.39
+
+// e(B) = 10% SD WP1	10%	 	SD(β=0,z=0.1, R=0.8) [110,210]	tau32 < 0.86
+// e(B) = 10% SD WP2	10%	 	SD(β=0,z=0.1, R=0.8) [110,210]	tau32 < 0.87, max SD subjet b-discriminant > 0.089
+
+
+
+class SDTopTag {
+public:
+  
+  enum class WP {
+	Mis0p1,
+	Mis0p1b,
+	Mis0p3,
+	Mis0p3b,
+	Mis1,
+	Mis1b,
+	Mis3,
+	Mis3b,
+	Mis10,
+	Mis10b
 };
-int subJetBTag(TopJet topjet, E_BtagType type, TString mode="default",TString filename="");
+
+  explicit SDTopTag(TopTagWP WorkingPoint = WP::Mis0p1);
+  
+  bool operator()(const TopJet & topjet, const uhh2::Event & event) const;
+
+ private:
+  WP m_WP;
+};
+
+
+

@@ -694,7 +694,7 @@ void SelectionHists::fill(const Event & event){
   //get extra jet collections
   //const auto jetsAK8 = &event.get(h_jetsAK8);
   const auto topjetsAK8 = &event.get(h_topjetsAK8);
-  const auto topjetsCA15 = &event.get(h_topjetsCA15);
+  //const auto topjetsCA15 = &event.get(h_topjetsCA15);
 
   int N_toptags=0;
   for(auto topjet : *event.topjets)
@@ -814,7 +814,7 @@ void SelectionHists::fill(const Event & event){
   }
 
   TopJet the_closest_top,the_closest_w,the_closest_tprime; Jet the_closest_b;
-  bool has_closest_top=false,has_closest_w=false,has_closest_b=false,has_closest_tprime=false;
+  //bool has_closest_top=false,has_closest_w=false,has_closest_b=false,has_closest_tprime=false;
   if (has_gen_top)
   {
     for(auto topjet : *event.topjets)
@@ -824,7 +824,7 @@ void SelectionHists::fill(const Event & event){
         hist("pT_closest_topjet_to_top")->Fill(TopJetPt(topjet),weight);
         hist("mass_closest_topjet_to_top")->Fill(TopJetMass(topjet),weight);
         hist("nsub_closest_topjet_to_top")->Fill(TopJetNsub(topjet),weight);
-        has_closest_top=true;
+        //has_closest_top=true;
         the_closest_top=topjet;
       }
     }
@@ -839,7 +839,7 @@ void SelectionHists::fill(const Event & event){
         hist("pT_closest_topjet_to_tprime")->Fill(TopJetPt(topjet),weight);
         hist("mass_closest_topjet_to_tprime")->Fill(TopJetMass(topjet),weight);
         hist("nsub_closest_topjet_to_tprime")->Fill(TopJetNsub(topjet),weight);
-        has_closest_tprime=true;
+        //has_closest_tprime=true;
         the_closest_tprime=topjet;
       }
     }
@@ -854,7 +854,7 @@ void SelectionHists::fill(const Event & event){
         hist("pT_closest_wjet_to_w")->Fill(TopJetPt(topjet),weight);
         hist("mass_closest_wjet_to_w")->Fill(TopJetMass(topjet),weight);
         hist("nsub_closest_wjet_to_w")->Fill(TopJetNsub2(topjet),weight);
-        has_closest_w=true;
+        //has_closest_w=true;
         the_closest_w=topjet;
       }
     }
@@ -868,7 +868,7 @@ void SelectionHists::fill(const Event & event){
       {
         hist("pT_closest_bjet_to_b")->Fill(jet.pt(),weight);
         hist("csv_closest_bjet_to_b")->Fill(jet.btag_combinedSecondaryVertex(),weight);
-        has_closest_b=true;
+        //has_closest_b=true;
         the_closest_b=jet;
       }
     }
@@ -943,3 +943,16 @@ void SelectionHists::fill(const Event & event){
 }
 
 SelectionHists::~SelectionHists(){}
+
+
+TriggerHists::TriggerHists(Context & ctx, const string & dirname): Hists(ctx, dirname){
+  book<TH1F>("HT", ";HT_{50};Events", 200, 0, 10000);
+}
+void TriggerHists::fill(const Event & event){
+  double weight = event.weight;
+  double HT50=getHT50(event);
+  hist("HT")->Fill(HT50,weight);
+}
+TriggerHists::~TriggerHists(){
+
+}

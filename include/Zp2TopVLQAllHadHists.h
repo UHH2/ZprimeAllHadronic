@@ -64,3 +64,13 @@ private:
     // TH2F * mistag;
     // TH1F * mass_shape;
 };
+
+class TriggerHists: public uhh2::Hists {
+public:
+    // use the same constructor arguments as Hists for forwarding:
+    TriggerHists(uhh2::Context & ctx, const std::string & dirname);
+
+    virtual void fill(const uhh2::Event & ev) override;
+    virtual ~TriggerHists();
+private:
+};
