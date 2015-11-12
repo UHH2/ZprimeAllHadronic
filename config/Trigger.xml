@@ -44,8 +44,8 @@
     <Library Name="libSUHH2Zp2TopVLQAllHad"/>
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="552.67" >
-   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="48" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="552.67" >  -->
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="552.67" > -->
+   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="48" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="552.76" > 
 
 <!--     <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="Run2015B" Cacheable="True">
         &dati;
@@ -169,12 +169,7 @@
         <InputTree Name="AnalysisTree" /> 
     </InputData>
 
-    <InputData Lumi="20.578" NEventsMax="-1" Type="MC" Version="TTbar1000toInf" Cacheable="True">
-        &MC_TT_Mtt-1000toInf;
-        <InputTree Name="AnalysisTree" /> 
-    </InputData>
-
-    <InputData Lumi="552.67" NEventsMax="-1" Type="DATA" Version="DATA_SingleMuon_Run2015D" Cacheable="True">
+    <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="SingleMuon_Run2015D" Cacheable="True">
         &DATA_SingleMuon_Run2015D;
         <InputTree Name="AnalysisTree" /> 
     </InputData>
@@ -228,7 +223,8 @@
             <Item Name="JetCollection" Value="slimmedJets" />
 	    <!-- <Item Name="JetAK8Collection" Value="slimmedJetsAK8" /> -->
             <Item Name="METName" Value="slimmedMETs" />
-	    <Item Name="TopJetCollection" Value="slimmedJetsAK8_CMSTopTag" />
+	    <!-- <Item Name="TopJetCollection" Value="slimmedJetsAK8_CMSTopTag" /> -->
+        <Item Name="TopJetCollection" Value="patJetsAk8CHSJetsSoftDropPacked_daughters" />
 <!-- 	    <Item Name="TopJetHEPCollection" Value="patJetsHEPTopTagCHSPacked" />
 	    <Item Name="TopJetCA8Collection" Value="patJetsCA8CHSprunedPacked" />
 	    <Item Name="TopJetCA15Collection" Value="patJetsCA15CHSFilteredPacked" /> -->
@@ -236,13 +232,15 @@
         <Item Name="GenParticleCollection" Value="GenParticles" />
         <Item Name="GenJetCollection" Value="slimmedGenJets" />
          
-         <Item Name="additionalBranches" Value="patJetsAk8CHSJetsSoftDropPacked_daughters patJetsCa15CHSJetsFilteredPacked_daughters patJetsHepTopTagCHSPacked_daughters" />    
+         <Item Name="additionalBranches" Value="slimmedJetsAK8_CMSTopTag patJetsCa15CHSJetsFilteredPacked_daughters patJetsHepTopTagCHSPacked_daughters" />    
 
             <Item Name="lumi_file" Value="/nfs/dust/cms/user/peiffer/NtupleWriter/Ntuples/RunII_25ns_v1/Lumifile_Cert_246908-258159_13TeV_PromptReco_Collisions15_25ns_JSON_v3.root" />
             <Item Name="lumihists_lumi_per_bin" Value="0.2"/>
 
             <Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/marchesi/PUData/MyDataPileupHistogram.root" />
             <Item Name="pileup_directory_25ns" Value="/nfs/dust/cms/user/peiffer/NtupleWriter/Ntuples/RunII_25ns_v1/Pileup.MC.TTbar.root"/>
+
+            <Item Name="use_sframe_weight" Value="false" />
             
             <!-- the class name of the AnalysisModule subclasses to run: -->
             <Item Name="AnalysisModule" Value="TriggerModule" /> 

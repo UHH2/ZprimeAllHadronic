@@ -99,7 +99,7 @@ public:
 	Mis10b
 };
 
-  explicit SDTopTag(TopTagWP WorkingPoint = WP::Mis0p1);
+  explicit SDTopTag(WP WorkingPoint = WP::Mis0p1);
   
   bool operator()(const TopJet & topjet, const uhh2::Event & event) const;
 

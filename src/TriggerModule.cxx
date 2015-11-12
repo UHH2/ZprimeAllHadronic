@@ -34,9 +34,9 @@ private:
     uhh2::Event::Handle<std::vector<TopJet> > h_topjetsAK8;
     uhh2::Event::Handle<std::vector<TopJet> > h_topjetsCA15;
 
-    std::unique_ptr<CommonModules> common;
+    unique_ptr<AnalysisModule> common_modules_with_lumi_sel;
 
-    std::unique_ptr<Hists> h_nocuts, h_num, h_denom;
+    std::unique_ptr<Hists> h_nocuts, h_sel, h_num, h_denom, h_num2, h_denom2;
 };
 
 
@@ -44,17 +44,24 @@ TriggerModule::TriggerModule(Context & ctx){
     
 
     h_nocuts.reset(new TriggerHists(ctx, "NoCuts"));
+    h_sel.reset(new TriggerHists(ctx, "Sel"));
     h_denom.reset(new TriggerHists(ctx, "Denom"));
+    h_denom2.reset(new TriggerHists(ctx, "Denom2"));
     h_num.reset(new TriggerHists(ctx, "Num"));
+    h_num2.reset(new TriggerHists(ctx, "Num2"));
     // h_allhadsub.reset(new TriggerHists(ctx, "AllHadSub"));
 
-    h_topjetsAK8 = ctx.get_handle<std::vector<TopJet> >("patJetsAk8CHSJetsSoftDropPacked_daughters");//, "patJetsCA8CHSprunedPacked");
-    h_topjetsCA15 = ctx.get_handle<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked_daughters");//, "patJetsCA15CHSFilteredPacked");
+    //h_topjetsAK8 = ctx.get_handle<std::vector<TopJet> >("patJetsAk8CHSJetsSoftDropPacked_daughters");//, "patJetsCA8CHSprunedPacked");
+    //h_topjetsCA15 = ctx.get_handle<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked_daughters");//, "patJetsCA15CHSFilteredPacked");
 
-    common.reset(new CommonModules());
-    common->set_jet_id(AndId<Jet>(JetPFID(JetPFID::WP_LOOSE), PtEtaCut(30.0,7.0)));
-    common->switch_jetPtSorter(true);
-    common->init(ctx);
+    CommonModules* commonObjectCleaning = new CommonModules();
+    commonObjectCleaning->set_jet_id(AndId<Jet>(JetPFID(JetPFID::WP_LOOSE), PtEtaCut(30.0,7.0)));
+    //commonObjectCleaning->set_electron_id(AndId<Electron>(ElectronID_Spring15_25ns_medium_noIso,PtEtaCut(20.0, 2.1)));
+    //commonObjectCleaning->set_muon_id(AndId<Muon>(MuonIDTight(),PtEtaCut(20.0, 2.1)));
+    //commonObjectCleaning->switch_jetlepcleaner(true);
+    commonObjectCleaning->switch_jetPtSorter(true);
+    commonObjectCleaning->init(ctx);
+    common_modules_with_lumi_sel.reset(commonObjectCleaning);
 
     
 
@@ -63,28 +70,61 @@ TriggerModule::TriggerModule(Context & ctx){
 
 bool TriggerModule::process(Event & event) {
 
+if (!common_modules_with_lumi_sel->process(event)) {
+        return false;
+    }
 
-// uhh2::Event::TriggerIndex ti_Mu=event.get_trigger_index("HLT_Mu45_eta2p1_*");
-// bool Mu_trigger = event.passes_trigger(ti_Mu);
+uhh2::Event::TriggerIndex ti_Mu=event.get_trigger_index("HLT_Mu45_eta2p1_*");
+bool Mu_trigger = event.passes_trigger(ti_Mu);
 
-// uhh2::Event::TriggerIndex ti_HT=event.get_trigger_index("HLT_PFHT800*");
-// bool HT_trigger = event.passes_trigger(ti_HT);
+uhh2::Event::TriggerIndex ti_HT;
+if (event.isRealData)
+    ti_HT=event.get_trigger_index("HLT_PFHT800_v*");
+else
+    ti_HT=event.get_trigger_index("HLT_PFHT800Emu_v*");
+
+bool HT_trigger = event.passes_trigger(ti_HT);
+
+uhh2::Event::TriggerIndex ti_HT650=event.get_trigger_index("HLT_PFHT650_v*");
+bool HT650_trigger = event.passes_trigger(ti_HT650);
 
 //bool selection=false;
 
-const TopJetId topjetID = CMSTopTag();
-//topjetID(,event)
+//const auto topjetsSD = &event.get(h_topjetsAK8);
+//const auto topjetsCA15 = &event.get(h_topjetsCA15);
+const auto topjets = event.topjets;
 
-if (event.topjets->size()>1)
-{
-cout<<topjetID(event.topjets->at(0),event);
-}
+const TopJetId topjetID = SDTopTag(SDTopTag::WP::Mis10);
+
+bool selection=false;
+if (topjets->size()>1)
+    selection = topjetID(topjets->at(0),event)&&topjetID(topjets->at(1),event);
 
 h_nocuts->fill(event);
-// if (Mu_trigger)
-// {
 
-// }
+if (selection)
+{
+    h_sel->fill(event);
+    if (Mu_trigger)
+    {
+        h_denom->fill(event);
+        if (HT_trigger)
+        {
+            h_num->fill(event);
+        }
+    }
+    if (HT650_trigger)
+    {
+        h_denom2->fill(event);
+        if (HT_trigger)
+        {
+            h_num2->fill(event);
+        }
+    }
+}
+
+
+
 //h_nocutssub->fill(event);
 //if (is_allhad)
 //{

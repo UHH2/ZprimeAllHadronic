@@ -367,27 +367,50 @@ bool WTag(TopJet topjet)
   return TopJetMass(topjet)>60.0 && TopJetMass(topjet)<100.0 && TopJetNsub2(topjet)<0.6 && TopJetPt(topjet)>200.0;
 }
 
-bool CMSTopTag::operator()(const TopJet & topjet, const uhh2::Event &) const {
-    auto subjets = topjet.subjets();
-    if(subjets.size() < 3) return false;
+bool SDTopTag::operator()(const TopJet & topjet, const uhh2::Event &) const {
     
-    float mjet = 0.0;
-    switch(m_typeOfMass)
+    float mjet = TopJetMass(topjet);
+
+    if(mjet < 110) return false;
+    if(mjet > 210) return false;
+
+    float nsub = TopJetNsub(topjet);
+    float csv  = getMaxCSV(topjet);
+
+    //bool istagged=false;
+
+// e(B) = 0.1% SD WP1 0.1%    SD(β=0,z=0.1, R=0.8) [110,210]  tau32 < 0.44
+// e(B) = 0.1% SD WP2 0.1%    SD(β=0,z=0.1, R=0.8) [110,210]  tau32 < 0.54, max SD subjet b-discriminant > 0.79
+
+// e(B) = 0.3% SD WP1 0.3%    SD(β=0,z=0.1, R=0.8) [110,210]  tau32 < 0.50
+// e(B) = 0.3% SD WP2 0.3%    SD(β=0,z=0.1, R=0.8) [110,210]  tau32 < 0.61, max SD subjet b-discriminant > 0.76
+
+// e(B) = 1% SD WP1 1%    SD(β=0,z=0.1, R=0.8) [110,210]  tau32 < 0.59
+// e(B) = 1% SD WP2 1%    SD(β=0,z=0.1, R=0.8) [110,210]  tau32 < 0.69, max SD subjet b-discriminant > 0.66
+
+// e(B) = 3% SD WP1 3%    SD(β=0,z=0.1, R=0.8) [110,210]  tau32 < 0.69
+// e(B) = 3% SD WP2 3%    SD(β=0,z=0.1, R=0.8) [110,210]  tau32 < 0.75, max SD subjet b-discriminant > 0.39
+
+// e(B) = 10% SD WP1  10%   SD(β=0,z=0.1, R=0.8) [110,210]  tau32 < 0.86
+// e(B) = 10% SD WP2  10%   SD(β=0,z=0.1, R=0.8) [110,210]  tau32 < 0.87, max SD subjet b-discriminant > 0.089
+
+    switch(m_WP)
     {
-      case MassType::ungroomed : mjet=topjet.v4().M(); break;
-      case MassType::groomed : mjet=m_groomed(topjet); break;
-      default: std::cout<<"CMSTopTag Mass type not valid"<<std::endl;
+      case WP::Mis0p1 : if(nsub<0.44) return true; break;
+      case WP::Mis0p1b : if(nsub<0.54 && csv>0.79) return true; break;
+      case WP::Mis0p3 : if(nsub<0.50) return true; break;
+      case WP::Mis0p3b : if(nsub<0.61 && csv>0.76) return true; break;
+      case WP::Mis1 : if(nsub<0.59) return true; break;
+      case WP::Mis1b : if(nsub<0.69 && csv>0.66) return true; break;
+      case WP::Mis3 : if(nsub<0.69) return true; break;
+      case WP::Mis3b : if(nsub<0.75 && csv>0.39) return true; break;
+      case WP::Mis10 : if(nsub<0.86) return true; break;
+      case WP::Mis10b : if(nsub<0.87 && csv>0.089) return true; break;
+      default: std::cout<<"SDTopTag working point not valid"<<std::endl;
     }
-    if(mjet < m_mjetLower) return false;
-    if(mjet > m_mjetUpper) return false;
+    
 
-    auto mmin = m_disubjet_min(topjet);
-    if(mmin < m_mminLower) return false;
-
-    return true;
+    return false;
 }
 
-CMSTopTag::CMSTopTag(double mminLower, double mjetLower, double mjetUpper, MassType typeOfMass): m_mminLower(mminLower),
-    m_mjetLower(mjetLower), m_mjetUpper(mjetUpper), m_typeOfMass(typeOfMass){}
-
-CMSTopTag::CMSTopTag(MassType typeOfMass): m_mminLower(50.), m_mjetLower(140.), m_mjetUpper(250.), m_typeOfMass(typeOfMass){}
+SDTopTag::SDTopTag(WP WorkingPoint): m_WP(WorkingPoint){}

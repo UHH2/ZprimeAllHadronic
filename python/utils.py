@@ -51,7 +51,8 @@ def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE'
     legend.AddEntry(histo_list[-1],legend_list[i],'l')
     if rebin!=1:
       histo_list[-1].Rebin(rebin)
-    the_maxy=max(the_maxy,histo_list[-1].GetBinContent(histo_list[-1].GetMaximumBin())*1.05)
+    if not histo_list[-1].ClassName()=='TGraphAsymmErrors':
+      the_maxy=max(the_maxy,histo_list[-1].GetBinContent(histo_list[-1].GetMaximumBin())*1.05)
   for i in range(len(name_list)):
     if i==0:
       if not histo_list[-1].ClassName()=='TGraphAsymmErrors':
@@ -79,6 +80,8 @@ def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE'
         histo_list[i].GetXaxis().SetRangeUser(minx,maxx)
       #   histo_list[i].GetYaxis().SetTitle('Efficiency')
     else:
+      if histo_list[-1].ClassName()=='TGraphAsymmErrors':
+        drawoption= drawoption.replace("A", "")
       histo_list[i].Draw(drawoption+'SAME')
   if logy:
     c.SetLogy()
