@@ -28,13 +28,21 @@
 <!ENTITY MC_QCD_Pt1400to1800 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt1400to1800.xml">
 <!ENTITY MC_QCD_Pt1800to2400 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt1800to2400.xml">
 <!ENTITY MC_QCD_Pt2400to3200 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt2400to3200.xml">
-<!ENTITY MC_QCD_Pt3200toInf SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt3200toInf.xml"> -->
+<!ENTITY MC_QCD_Pt3200toInf SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt3200toInf.xml">
 
-<!ENTITY MC_TTbar SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_9/src/UHH2/common/datasets/RunII_25ns_v1/MC_TTbar.xml">
+
 <!ENTITY MC_TT_Mtt-700to1000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_9/src/UHH2/common/datasets/RunII_25ns_v1/MC_TT_Mtt-700to1000.xml">
 <!ENTITY MC_TT_Mtt-1000toInf SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_9/src/UHH2/common/datasets/RunII_25ns_v1/MC_TT_Mtt-1000toInf.xml">
 
 <!ENTITY DATA_SingleMuon_Run2015D SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_9/src/UHH2/common/datasets/RunII_25ns_v1/SingleMuon_Run2015D-PromptReco-v3_MINIAOD_JSONv3_withtau.xml">
+
+ -->
+
+<!ENTITY MC_TTbar SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TTbar.xml">
+
+<!ENTITY SingleMuon_Run2015D_05Oct2015_v1 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/SingleMuon_Run2015D-05Oct2015-v1.xml">
+<!ENTITY SingleMuon_Run2015D_PromptReco_v4 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/SingleMuon_Run2015D-PromptReco-v4.xml">
+
 
 ]
 >
@@ -44,8 +52,8 @@
     <Library Name="libSUHH2Zp2TopVLQAllHad"/>
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
-   <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="552.67" > -->
-   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="48" OutputDirectory="/nfs/dust/cms/user/usaiem/spring15/" PostFix="" TargetLumi="552.76" > 
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/miniaodv2/" PostFix="" TargetLumi="1984.1" >
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="48" OutputDirectory="/nfs/dust/cms/user/usaiem/miniaodv2/" PostFix="" TargetLumi="1984.1" >  -->
 
 <!--     <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="Run2015B" Cacheable="True">
         &dati;
@@ -159,7 +167,7 @@
         <InputTree Name="AnalysisTree" /> 
     </InputData>
 
-    <InputData Lumi="76.605" NEventsMax="-1" Type="MC" Version="TTbar700to1000" Cacheable="True">
+<!--     <InputData Lumi="76.605" NEventsMax="-1" Type="MC" Version="TTbar700to1000" Cacheable="True">
         &MC_TT_Mtt-700to1000;
         <InputTree Name="AnalysisTree" /> 
     </InputData>
@@ -167,10 +175,15 @@
     <InputData Lumi="20.578" NEventsMax="-1" Type="MC" Version="TTbar1000toInf" Cacheable="True">
         &MC_TT_Mtt-1000toInf;
         <InputTree Name="AnalysisTree" /> 
+    </InputData> -->
+
+    <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="SingleMuon_Run2015D_05Oct2015_v1" Cacheable="True">
+        &SingleMuon_Run2015D_05Oct2015_v1;
+        <InputTree Name="AnalysisTree" /> 
     </InputData>
 
-    <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="SingleMuon_Run2015D" Cacheable="True">
-        &DATA_SingleMuon_Run2015D;
+    <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="SingleMuon_Run2015D_PromptReco_v4" Cacheable="True">
+        &SingleMuon_Run2015D_PromptReco_v4;
         <InputTree Name="AnalysisTree" /> 
     </InputData>
 
@@ -232,12 +245,12 @@
         <Item Name="GenParticleCollection" Value="GenParticles" />
         <Item Name="GenJetCollection" Value="slimmedGenJets" />
          
-         <Item Name="additionalBranches" Value="slimmedJetsAK8_CMSTopTag patJetsCa15CHSJetsFilteredPacked_daughters patJetsHepTopTagCHSPacked_daughters" />    
+         <Item Name="additionalBranches" Value="patJetsHepTopTagCHSPacked_daughters" />   <!--  slimmedJetsAK8_CMSTopTag  patJetsCa15CHSJetsFilteredPacked_daughters -->
 
-            <Item Name="lumi_file" Value="/nfs/dust/cms/user/peiffer/NtupleWriter/Ntuples/RunII_25ns_v1/Lumifile_Cert_246908-258159_13TeV_PromptReco_Collisions15_25ns_JSON_v3.root" />
+            <Item Name="lumi_file" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/scripts/Out.root" />
             <Item Name="lumihists_lumi_per_bin" Value="0.2"/>
 
-            <Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/marchesi/PUData/MyDataPileupHistogram.root" />
+            <Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/marchesi/PUData/25ns_v2/MyDataPileupHistogram.root" />
             <Item Name="pileup_directory_25ns" Value="/nfs/dust/cms/user/peiffer/NtupleWriter/Ntuples/RunII_25ns_v1/Pileup.MC.TTbar.root"/>
 
             <Item Name="use_sframe_weight" Value="false" />

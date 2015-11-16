@@ -36,7 +36,7 @@ private:
 
     unique_ptr<AnalysisModule> common_modules_with_lumi_sel;
 
-    std::unique_ptr<Hists> h_nocuts, h_sel, h_num, h_denom, h_num2, h_denom2;
+    std::unique_ptr<Hists> h_nocuts, h_sel, h_num, h_denom, h_num2, h_denom2, h_sel2;
 };
 
 
@@ -45,6 +45,7 @@ TriggerModule::TriggerModule(Context & ctx){
 
     h_nocuts.reset(new TriggerHists(ctx, "NoCuts"));
     h_sel.reset(new TriggerHists(ctx, "Sel"));
+    h_sel2.reset(new TriggerHists(ctx, "Sel2"));
     h_denom.reset(new TriggerHists(ctx, "Denom"));
     h_denom2.reset(new TriggerHists(ctx, "Denom2"));
     h_num.reset(new TriggerHists(ctx, "Num"));
@@ -85,8 +86,8 @@ else
 
 bool HT_trigger = event.passes_trigger(ti_HT);
 
-uhh2::Event::TriggerIndex ti_HT650=event.get_trigger_index("HLT_PFHT650_v*");
-bool HT650_trigger = event.passes_trigger(ti_HT650);
+// uhh2::Event::TriggerIndex ti_HT650=event.get_trigger_index("HLT_PFHT650_v*");
+// bool HT650_trigger = event.passes_trigger(ti_HT650);
 
 //bool selection=false;
 
@@ -95,10 +96,13 @@ bool HT650_trigger = event.passes_trigger(ti_HT650);
 const auto topjets = event.topjets;
 
 const TopJetId topjetID = SDTopTag(SDTopTag::WP::Mis10);
+//const TopJetId topjetID = SDTopTag(SDTopTag::WP::Mis1b);
 
 bool selection=false;
+bool selection2=false;
 if (topjets->size()>1)
     selection = topjetID(topjets->at(0),event)&&topjetID(topjets->at(1),event);
+    if (selection && ( getMaxCSV(topjets->at(0))>0.890 || getMaxCSV(topjets->at(1))>0.890 )) selection2=true;
 
 h_nocuts->fill(event);
 
@@ -113,7 +117,21 @@ if (selection)
             h_num->fill(event);
         }
     }
-    if (HT650_trigger)
+    // if (HT650_trigger)
+    // {
+    //     h_denom2->fill(event);
+    //     if (HT_trigger)
+    //     {
+    //         h_num2->fill(event);
+    //     }
+    // }
+}
+
+
+if (selection2 )
+{
+    h_sel2->fill(event);
+    if (Mu_trigger)
     {
         h_denom2->fill(event);
         if (HT_trigger)
@@ -122,7 +140,6 @@ if (selection)
         }
     }
 }
-
 
 
 //h_nocutssub->fill(event);

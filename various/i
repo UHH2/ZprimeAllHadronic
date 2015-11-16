@@ -1,0 +1,13 @@
+module use -a /afs/desy.de/group/cms/modulefiles/
+module load cmssw
+export SCRAM_ARCH=slc6_amd64_gcc491
+cd ~/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/
+cmsenv
+cd ~/xxl-af-cms/code/sframe/SFrame/
+source setup.sh
+cd
+export PATH=$PATH:/afs/desy.de/user/u/usaiem/xxl-af-cms/code/gc/grid-control:/afs/desy.de/user/u/usaiem/xxl-af-cms/code/gc/grid-control/scripts
+export CMSSW_GIT_REFERENCE=/nfs/dust/cms/user/usaiem/cmssw.git
+export PATH=$PATH:/afs/desy.de/user/u/usaiem/xxl-af-cms/code/batch/SFrameBatch/
+cd ~/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/
+#source /cvmfs/cms.cern.ch/crab3/crab.sh
