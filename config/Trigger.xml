@@ -247,11 +247,11 @@
          
          <Item Name="additionalBranches" Value="patJetsHepTopTagCHSPacked_daughters" />   <!--  slimmedJetsAK8_CMSTopTag  patJetsCa15CHSJetsFilteredPacked_daughters -->
 
-            <Item Name="lumi_file" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/scripts/Out.root" />
+            <Item Name="lumi_file" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/scripts/Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_Silver.root" />
             <Item Name="lumihists_lumi_per_bin" Value="0.2"/>
 
             <Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/marchesi/PUData/25ns_v2/MyDataPileupHistogram.root" />
-            <Item Name="pileup_directory_25ns" Value="/nfs/dust/cms/user/peiffer/NtupleWriter/Ntuples/RunII_25ns_v1/Pileup.MC.TTbar.root"/>
+            <Item Name="pileup_directory_25ns" Value="/nfs/dust/cms/user/nowatsd/PUHistogram-25ns-v2/Pileup.MC.TTbar.root"/>
 
             <Item Name="use_sframe_weight" Value="false" />
             
