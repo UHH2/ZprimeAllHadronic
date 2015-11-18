@@ -1,140 +1,163 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd">
+<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"
+[
+
+
+<!-- <!ENTITY newzp1000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/newzp1000">
+<!ENTITY newzp2000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/newzp2000">
+<!ENTITY newzp3000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/newzp3000">
+<!ENTITY newzp4000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/newzp4000">
+
+<!ENTITY dati SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/dati">
+<!ENTITY ZpTpTbW SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/ZpTpTbW">
+<!ENTITY ZpTpTtZ SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/ZpTpTtZ">
+
+<!ENTITY MC_QCD_Pt15to30 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt15to30.xml">
+<!ENTITY MC_QCD_Pt30to50 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt30to50.xml">
+<!ENTITY MC_QCD_Pt50to80 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt50to80.xml">
+
+<!ENTITY MC_QCD_Pt170to300 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt170to300.xml">
+<!ENTITY MC_QCD_Pt120to170 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt120to170.xml">
+<!ENTITY MC_QCD_Pt80to120 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt80to120.xml">
+
+<!ENTITY MC_QCD_Pt300to470 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt300to470.xml">
+<!ENTITY MC_QCD_Pt470to600 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt470to600.xml">
+<!ENTITY MC_QCD_Pt600to800 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt600to800.xml">
+<!ENTITY MC_QCD_Pt800to1000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt800to1000.xml">
+<!ENTITY MC_QCD_Pt1000to1400 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt1000to1400.xml">
+<!ENTITY MC_QCD_Pt1400to1800 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt1400to1800.xml">
+<!ENTITY MC_QCD_Pt1800to2400 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt1800to2400.xml">
+<!ENTITY MC_QCD_Pt2400to3200 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt2400to3200.xml">
+<!ENTITY MC_QCD_Pt3200toInf SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/test/CMSSW_7_4_7/src/UHH2/ZprimeAllHadronic/config/MC_QCD_Pt3200toInf.xml">
+
+
+<!ENTITY MC_TT_Mtt-700to1000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_9/src/UHH2/common/datasets/RunII_25ns_v1/MC_TT_Mtt-700to1000.xml">
+<!ENTITY MC_TT_Mtt-1000toInf SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_9/src/UHH2/common/datasets/RunII_25ns_v1/MC_TT_Mtt-1000toInf.xml">
+
+<!ENTITY DATA_SingleMuon_Run2015D SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_9/src/UHH2/common/datasets/RunII_25ns_v1/SingleMuon_Run2015D-PromptReco-v3_MINIAOD_JSONv3_withtau.xml">
+
+ -->
+
+<!ENTITY MC_TTbar SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TTbar.xml">
+
+<!ENTITY SingleMuon_Run2015D_05Oct2015_v1 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/SingleMuon_Run2015D-05Oct2015-v1.xml">
+<!ENTITY SingleMuon_Run2015D_PromptReco_v4 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/SingleMuon_Run2015D-PromptReco-v4.xml">
+
+
+]
+>
 
 <!-- OutputLevel controls which messages are printed; set to VERBOSE or DEBUG for more verbosity, to WARNING or ERROR for less -->
 <JobConfiguration JobName="ExampleCycleJob" OutputLevel="INFO">
     <Library Name="libSUHH2Zp2TopVLQAllHad"/>
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
-   <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-3/" PostFix="" TargetLumi="20000" > -->
-   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="10" OutputDirectory="/nfs/dust/cms/user/usaiem/phys14-4/" PostFix="" TargetLumi="20000" > 
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/miniaodv2/" PostFix="" TargetLumi="1984.1" >
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="48" OutputDirectory="/nfs/dust/cms/user/usaiem/miniaodv2/" PostFix="" TargetLumi="1984.1" >  -->
 
 
 
- <InputData Lumi="433.588411069248" NEventsMax="-1" Type="MC" Version="QCDHT1000ToInf" Cacheable="False">
-        <In FileName="/nfs/dust/cms/user/usaiem/phys14/uhh2.AnalysisModuleRunner.MC.QCDHT1000ToInf.root" Lumi="0.0"/>
-        <InputTree Name="AnalysisTree" />  
-    </InputData>
+   
 
-    <InputData Lumi="1469.03988566974" NEventsMax="-1" Type="MC" Version="QCDHT1000ToInfExt" Cacheable="False">
-        <In FileName="/nfs/dust/cms/user/usaiem/phys14/uhh2.AnalysisModuleRunner.MC.QCDHT1000ToInfExt.root" Lumi="0.0"/>
+
+
+
+
+    <InputData Lumi="113811.0" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="True">
+        &MC_TTbar;
         <InputTree Name="AnalysisTree" /> 
     </InputData>
 
-    <InputData Lumi="31.751421091997" NEventsMax="-1" Type="MC" Version="QCDHT500To1000" Cacheable="False">
-        <In FileName="/nfs/dust/cms/user/usaiem/phys14/uhh2.AnalysisModuleRunner.MC.QCDHT500To1000.root" Lumi="0.0"/>
+<!--     <InputData Lumi="76.605" NEventsMax="-1" Type="MC" Version="TTbar700to1000" Cacheable="True">
+        &MC_TT_Mtt-700to1000;
         <InputTree Name="AnalysisTree" /> 
     </InputData>
 
-    <InputData Lumi="120.206133133882" NEventsMax="-1" Type="MC" Version="QCDHT500To1000Ext" Cacheable="False">
-        <In FileName="/nfs/dust/cms/user/usaiem/phys14/uhh2.AnalysisModuleRunner.MC.QCDHT500To1000Ext.root" Lumi="0.0"/>
+    <InputData Lumi="20.578" NEventsMax="-1" Type="MC" Version="TTbar1000toInf" Cacheable="True">
+        &MC_TT_Mtt-1000toInf;
+        <InputTree Name="AnalysisTree" /> 
+    </InputData> -->
+
+    <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="SingleMuon_Run2015D_05Oct2015_v1" Cacheable="True">
+        &SingleMuon_Run2015D_05Oct2015_v1;
         <InputTree Name="AnalysisTree" /> 
     </InputData>
 
-
-    <InputData Lumi="239194" NEventsMax="-1" Type="MC" Version="Z1000W10" Cacheable="False">
-        <In FileName="/nfs/dust/cms/user/usaiem/phys14/uhh2.AnalysisModuleRunner.MC.Z1000W10.root" Lumi="0.0"/>
-        <InputTree Name="AnalysisTree" /> 
-    </InputData>
-
-    <InputData Lumi="349334" NEventsMax="-1" Type="MC" Version="Z1000W100" Cacheable="False">
-        <In FileName="/nfs/dust/cms/user/usaiem/phys14/uhh2.AnalysisModuleRunner.MC.Z1000W100.root" Lumi="0.0"/>
-        <InputTree Name="AnalysisTree" /> 
-    </InputData>
-
-    <InputData Lumi="211296" NEventsMax="-1" Type="MC" Version="Z2000W20" Cacheable="False">
-        <In FileName="/nfs/dust/cms/user/usaiem/phys14/uhh2.AnalysisModuleRunner.MC.Z2000W20.root" Lumi="0.0"/> 
+    <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="SingleMuon_Run2015D_PromptReco_v4" Cacheable="True">
+        &SingleMuon_Run2015D_PromptReco_v4;
         <InputTree Name="AnalysisTree" /> 
     </InputData>
 
 
-    <InputData Lumi="246089" NEventsMax="-1" Type="MC" Version="Z2000W200" Cacheable="False">
-        <In FileName="/nfs/dust/cms/user/usaiem/phys14/uhh2.AnalysisModuleRunner.MC.Z2000W200.root" Lumi="0.0"/>
+<!--     <InputData Lumi="224853" NEventsMax="-1" Type="MC" Version="ZpTpTbW" Cacheable="True">
+        &ZpTpTbW;
         <InputTree Name="AnalysisTree" /> 
     </InputData>
 
-    <InputData Lumi="243766" NEventsMax="-1" Type="MC" Version="Z3000W30" Cacheable="False">
-        <In FileName="/nfs/dust/cms/user/usaiem/phys14/uhh2.AnalysisModuleRunner.MC.Z3000W30.root" Lumi="0.0"/>
+    <InputData Lumi="204723" NEventsMax="-1" Type="MC" Version="ZpTpTtZ" Cacheable="True">
+        &ZpTpTtZ;
         <InputTree Name="AnalysisTree" /> 
-    </InputData> 
+    </InputData> -->
 
-    <InputData Lumi="244930" NEventsMax="-1" Type="MC" Version="Z3000W300" Cacheable="False">
-        <In FileName="/nfs/dust/cms/user/usaiem/phys14/uhh2.AnalysisModuleRunner.MC.Z3000W300.root" Lumi="0.0"/>
+<!--     <InputData Lumi="122204" NEventsMax="-1" Type="MC" Version="newzp1000" Cacheable="True">
+        &newzp1000;
         <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
     </InputData>
 
-     <InputData Lumi="31571.9503722084" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
-        <In FileName="/nfs/dust/cms/user/usaiem/phys14/uhh2.AnalysisModuleRunner.MC.TTbar.root" Lumi="0.0"/>
+    <InputData Lumi="202573" NEventsMax="-1" Type="MC" Version="newzp2000" Cacheable="True">
+        &newzp2000;
         <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
     </InputData>
 
-
-
-    <InputData Lumi="30393.9875930521" NEventsMax="-1" Type="MC" Version="TTbar50ns" Cacheable="False">
-        <In FileName="/nfs/dust/cms/user/usaiem/phys14/uhh2.AnalysisModuleRunner.MC.TTbar50ns.root" Lumi="0.0"/>
+    <InputData Lumi="117069" NEventsMax="-1" Type="MC" Version="newzp3000" Cacheable="True">
+        &newzp3000;
         <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
     </InputData>
 
+    <InputData Lumi="111625" NEventsMax="-1" Type="MC" Version="newzp4000" Cacheable="True">
+        &newzp4000;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> -->
 
 
 
-<!--         <InputData Lumi="1" NEventsMax="100" Type="MC" Version="BpJ_TW_800" Cacheable="False">
-            <In FileName="/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M800_20x25_14_Ntuple.root" Lumi="0.0"/> 
-            <In FileName="/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M800_20x25_15_Ntuple.root" Lumi="0.0"/> 
-            <In FileName="/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M800_20x25_16_Ntuple.root" Lumi="0.0"/> 
-            <InputTree Name="AnalysisTree" /> 
-            uncomment to write tree of selected events, i.e. of those events for which the AnalysisModule::process method  returns true
-                If no OutputTree is given, no events will be written. Please do use "AnalysisTree" as Name.
-            <OutputTree Name="AnalysisTree" />
-        </InputData>
-        
-        <InputData Lumi="1" NEventsMax="100" Type="MC" Version="BpJ_TW_1200" Cacheable="False">
-            <In FileName="/nfs/dust/cms/user/ottjoc/gc-output/PHYS14v1/signals/MC_BpJ_TW_M1200_20x25_19_Ntuple.root" Lumi="0.0"/> 
-            <InputTree Name="AnalysisTree" /> 
-        </InputData> -->
+
 
             
         <UserConfig>
             <!-- define which collections to read from the input. Only specify what you need to save I/O time -->
             <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices" /> 
-            <Item Name="ElectronCollection" Value="slimmedElectrons" />
-            <Item Name="MuonCollection" Value="slimmedMuons" /> 
+            <Item Name="ElectronCollection" Value="slimmedElectronsUSER" />
+            <Item Name="MuonCollection" Value="slimmedMuonsUSER" /> 
             <Item Name="TauCollection" Value="slimmedTaus" />
             <Item Name="JetCollection" Value="slimmedJets" />
-            <!-- <Item Name="JetAK8Collection" Value="slimmedJetsAK8" /> -->
+        <!-- <Item Name="JetAK8Collection" Value="slimmedJetsAK8" /> -->
             <Item Name="METName" Value="slimmedMETs" />
-            <Item Name="TopJetCollection" Value="patJetsCMSTopTagCHSPacked" />
-<!--             <Item Name="TopJetHEPCollection" Value="patJetsHEPTopTagCHSPacked" />
-            <Item Name="TopJetCA8Collection" Value="patJetsCA8CHSprunedPacked" />
-            <Item Name="TopJetCA15Collection" Value="patJetsCA15CHSFilteredPacked" /> -->
-            
-            <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
-            
-                 PrimaryVertexCollection
-                 ElectronCollection
-                 MuonCollection
-                 TauCollection
-                 PhotonCollection
-                 JetCollection
-                 TopJetCollection
-                 METName
-                 
-                 GenInfoName
-                 GenJetCollection
-                 GenTopJetCollection
-                 GenParticleCollection
-                 
-                 Note that the last four are only read in for MC (InputData Type="MC"), so it is save to specify
-                 them for real data, although those branches do not exist.
-                 
-                 As 'Value', always use the branch name (if in doubt, open the input file in ROOT).
-                 
-                 By default, triggers are read. To explicitly disable reading triggers, use:
-                 <Item Name="readTrigger" Value="false" />
-            -->
+        <!-- <Item Name="TopJetCollection" Value="slimmedJetsAK8_CMSTopTag" /> -->
+        <Item Name="TopJetCollection" Value="patJetsAk8CHSJetsSoftDropPacked_daughters" />
+<!--        <Item Name="TopJetHEPCollection" Value="patJetsHEPTopTagCHSPacked" />
+        <Item Name="TopJetCA8Collection" Value="patJetsCA8CHSprunedPacked" />
+        <Item Name="TopJetCA15Collection" Value="patJetsCA15CHSFilteredPacked" /> -->
+        <Item Name="GenTopJetCollection" Value="ak8GenJetsSoftDrop" />
+        <Item Name="GenParticleCollection" Value="GenParticles" />
+        <Item Name="GenJetCollection" Value="slimmedGenJets" />
+         
+         <Item Name="additionalBranches" Value="patJetsHepTopTagCHSPacked_daughters" />   <!--  slimmedJetsAK8_CMSTopTag  patJetsCa15CHSJetsFilteredPacked_daughters -->
+
+            <Item Name="lumi_file" Value="/nfs/dust/cms/user/usaiem/lumi/Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_Silver.root" />
+            <Item Name="lumihists_lumi_per_bin" Value="0.2"/>
+
+            <Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/marchesi/PUData/25ns_v2/MyDataPileupHistogram.root" />
+            <Item Name="pileup_directory_25ns" Value="/nfs/dust/cms/user/nowatsd/PUHistogram-25ns-v2/Pileup.MC.TTbar.root"/>
+
+            <Item Name="use_sframe_weight" Value="false" />
             
             <!-- the class name of the AnalysisModule subclasses to run: -->
-            <Item Name="AnalysisModule" Value="Zp2TopVLQAllHadModule" /> 
+            <Item Name="AnalysisModule" Value="TriggerModule" /> 
             
             <!-- set this to the name of an AndSelection to control what is written to the output. If not given, *all* events are written to the output tree. -->
             <Item Name="TestKey" Value="TestKeyValue" />

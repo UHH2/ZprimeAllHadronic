@@ -43,6 +43,9 @@
 <!ENTITY SingleMuon_Run2015D_05Oct2015_v1 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/SingleMuon_Run2015D-05Oct2015-v1.xml">
 <!ENTITY SingleMuon_Run2015D_PromptReco_v4 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/SingleMuon_Run2015D-PromptReco-v4.xml">
 
+<!ENTITY JetHT_Run2015D_05Oct2015_v1 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/JetHT_Run2015D-05Oct2015-v1.xml">
+<!ENTITY JetHT_Run2015D_PromptReco_v4 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/JetHT_Run2015D-PromptReco-v4.xml">
+
 
 ]
 >
@@ -247,7 +250,7 @@
          
          <Item Name="additionalBranches" Value="patJetsHepTopTagCHSPacked_daughters" />   <!--  slimmedJetsAK8_CMSTopTag  patJetsCa15CHSJetsFilteredPacked_daughters -->
 
-            <Item Name="lumi_file" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/scripts/Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_Silver.root" />
+            <Item Name="lumi_file" Value="/nfs/dust/cms/user/usaiem/lumi/Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_Silver.root" />
             <Item Name="lumihists_lumi_per_bin" Value="0.2"/>
 
             <Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/marchesi/PUData/25ns_v2/MyDataPileupHistogram.root" />

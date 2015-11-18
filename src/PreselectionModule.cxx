@@ -34,35 +34,7 @@ private:
     std::unique_ptr<TopJetCorrector> topjetcorrector;
     std::unique_ptr<SubJetCorrector> subjetcorrector;
    
-    // std::unique_ptr<GenericJetCorrector> jetAK8corrector;
-    std::unique_ptr<GenericTopJetCorrector> jetAK8corrector;
-    std::unique_ptr<GenericTopJetCorrector> jetCA15corrector;
-    // std::unique_ptr<GenericTopJetCorrector> jetHEPcorrector;
-
-    std::unique_ptr<GenericSubJetCorrector> subjetAK8corrector;
-    std::unique_ptr<GenericSubJetCorrector> subjetCA15corrector;
-    // std::unique_ptr<GenericSubJetCorrector> subjetHEPcorrector;
-
-    // uhh2::Event::Handle<std::vector<Jet> > h_jetsAK8;
-    uhh2::Event::Handle<std::vector<TopJet> > h_topjetsAK8;
-    uhh2::Event::Handle<std::vector<TopJet> > h_topjetsCA15;
-    // uhh2::Event::Handle<std::vector<TopJet> > h_topjetsHEP;
-
-    std::vector<std::unique_ptr<GenericJetCorrector> > jet_correctors;
-    std::vector<std::unique_ptr<GenericTopJetCorrector> > topjet_correctors;
-    std::vector<std::unique_ptr<GenericSubJetCorrector> > subjet_correctors;
-    std::vector<std::string> jet_collection_names;
-    std::vector<std::string> topjet_collection_names;
-
-    // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
-    // to avoid memory leaks.
-    // std::unique_ptr<Selection> njet_sel, bsel;
-    // std::unique_ptr<Selection> toptag_sel;
-    // std::unique_ptr<Selection> toptaggroom_sel;
-    // std::unique_ptr<Selection> toptaghep_sel;
-
-    //uhh2::Event::Handle<std::vector<TopJet> > h_topjetsAK8;
-    //uhh2::Event::Handle<std::vector<TopJet> > h_topjetsCA15;
+    
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
     std::unique_ptr<Hists> h_nocuts, h_allhad, h_nocutssub, h_allhadsub;//h_nocorr, h_nocorr_gen, h_nocuts, h_nocuts_gen, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection0,h_selection1,h_selection2,h_selection,h_selection_gen,h_preselection_gen,h_ww,h_tv,h_tev;
@@ -70,99 +42,20 @@ private:
 
 
 PreselectionModule::PreselectionModule(Context & ctx){
-    // In the constructor, the typical tasks are to create
-    // other modules like cleaners (1), selections (2) and Hist classes (3).
-    // But you can do more and e.g. access the configuration, as shown below.
     
-    // cout << "Hello World from PreselectionModule!" << endl;
-    
-    // If needed, access the configuration of the module here, e.g.:
-    // string testvalue = ctx.get("TestKey", "<not set>");
-    // cout << "TestKey in the configuration was: " << testvalue << endl;
-    
-    // If running in SFrame, the keys "dataset_version", "dataset_type" and "dataset_lumi"
-    // are set to the according values in the xml file. For CMSSW, these are
-    // not set automatically, but can be set in the python config file.
-    // for(auto & kv : ctx.get_all()){
-    //     cout << " " << kv.first << " = " << kv.second << endl;
-    // }
-    // h_jetsAK8 = ctx.declare_event_input<std::vector<Jet> >("patJetsCa8CHSJets");//, "slimmedJetsAK8");
-    // h_topjetsCA8 = ctx.declare_event_input<std::vector<TopJet> >("patJetsCa8CHSJetsPrunedPacked");//, "patJetsCA8CHSprunedPacked");
-    // h_topjetsCA15 = ctx.declare_event_input<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked");//, "patJetsCA15CHSFilteredPacked");
-    // h_topjetsHEP = ctx.declare_event_input<std::vector<TopJet> >("patJetsHepTopTagCHSPacked");//, "patJetsHEPTopTagCHSPacked");
-
-    // h_jetsAK8 = ctx.declare_event_output<std::vector<Jet> >("patJetsCa8CHSJets");//, "slimmedJetsAK8");
-    // h_topjetsCA8 = ctx.declare_event_output<std::vector<TopJet> >("patJetsCa8CHSJetsPrunedPacked");//, "patJetsCA8CHSprunedPacked");
-    // h_topjetsCA15 = ctx.declare_event_output<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked");//, "patJetsCA15CHSFilteredPacked");
-    // h_topjetsHEP = ctx.declare_event_output<std::vector<TopJet> >("patJetsHepTopTagCHSPacked");//, "patJetsHEPTopTagCHSPacked");
-    // 1. setup other modules. Here, only the jet cleaner
     jetcleaner.reset(new JetCleaner(30.0, 2.4));
     jetcorrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
     topjetcorrector.reset(new TopJetCorrector(JERFiles::PHYS14_L123_AK8PFchs_MC));
     subjetcorrector.reset(new SubJetCorrector(JERFiles::PHYS14_L123_MC));
 
-    //jetAK8corrector.reset(new GenericJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsCa8CHSJets"));
-    jetAK8corrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsAk8CHSJetsSoftDropPacked_daughters"));
-    jetCA15corrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsCa15CHSJetsFilteredPacked_daughters"));
-    // jetHEPcorrector.reset(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,"patJetsHepTopTagCHSPacked"));
-
-    subjetAK8corrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsAk8CHSJetsSoftDropPacked_daughters"));
-    subjetCA15corrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsCa15CHSJetsFilteredPacked_daughters"));
-    // subjetHEPcorrector.reset(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,"patJetsHepTopTagCHSPacked"));
     
-    // 2. set up selections:
-    // njet_sel.reset(new NJetSelection(2));
-    // bsel.reset(new NBTagSelection(1));
-    // const TopJetId topjetID = CMSTopTag();
-    // const TopJetId topjetIDgroom = CMSTopTag(CMSTopTag::MassType::groomed);
-    // const TopJetId topjetIDhep = HEPTopTag();
-    // toptag_sel.reset(new NTopJetSelection(1,-1,topjetID));
-    // toptaggroom_sel.reset(new NTopJetSelection(1,-1,topjetIDgroom));
-    // toptaghep_sel.reset(new NTopJetSelection(1,-1,topjetIDhep));
-
-    // 3. Set up Hists classes:
-    // h_nocorr.reset(new Zp2TopVLQAllHadHists(ctx, "NoCorr"));
-    // h_nocorr_gen.reset(new Zp2TopVLQAllHadHists(ctx, "NoCorrGen"));
-    // h_nocuts.reset(new Zp2TopVLQAllHadHists(ctx, "NoCuts"));
-    // h_nocuts_gen.reset(new Zp2TopVLQAllHadHists(ctx, "NoCutsGen"));
-    // h_preselection.reset(new Zp2TopVLQAllHadHists(ctx, "Preselection"));
-    // h_preselection_gen.reset(new Zp2TopVLQAllHadHists(ctx, "PreselectionGen"));
-    // h_trigger.reset(new Zp2TopVLQAllHadHists(ctx, "Trigger"));
-    // h_alttrigger.reset(new Zp2TopVLQAllHadHists(ctx, "altTrigger"));
-    // h_HTtrieffnum.reset(new Zp2TopVLQAllHadHists(ctx, "HTtrieffnum"));
-    // h_AK8trieffnum.reset(new Zp2TopVLQAllHadHists(ctx, "AK8trieffnum"));
-    // h_trieffden.reset(new Zp2TopVLQAllHadHists(ctx, "trieffden"));
-    // h_selection0.reset(new Zp2TopVLQAllHadHists(ctx, "Selection0"));
-    // h_selection1.reset(new Zp2TopVLQAllHadHists(ctx, "Selection1"));
-    // h_selection2.reset(new Zp2TopVLQAllHadHists(ctx, "Selection2"));
-    // h_selection.reset(new Zp2TopVLQAllHadHists(ctx, "Selection"));
-    // h_selection_gen.reset(new Zp2TopVLQAllHadHists(ctx, "SelectionGen"));
-    // h_ww.reset(new Zp2TopVLQAllHadHists(ctx, "ww"));
-    // h_tev.reset(new Zp2TopVLQAllHadHists(ctx, "tev"));
-    // h_tv.reset(new Zp2TopVLQAllHadHists(ctx, "tv"));
 
     h_nocuts.reset(new SelectionHists(ctx, "NoCuts"));
     h_allhad.reset(new SelectionHists(ctx, "AllHad"));
     h_nocutssub.reset(new Zp2TopVLQAllHadHists(ctx, "NoCutsSub"));
     h_allhadsub.reset(new Zp2TopVLQAllHadHists(ctx, "AllHadSub"));
 
-    h_topjetsAK8 = ctx.get_handle<std::vector<TopJet> >("patJetsAk8CHSJetsSoftDropPacked_daughters");//, "patJetsCA8CHSprunedPacked");
-    h_topjetsCA15 = ctx.get_handle<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked_daughters");//, "patJetsCA15CHSFilteredPacked");
 
-    // h_njet.reset(new Zp2TopVLQAllHadHists(ctx, "Njet"));
-    // h_bsel.reset(new Zp2TopVLQAllHadHists(ctx, "Bsel"));
-    // h_ele.reset(new ElectronHists(ctx, "ele_nocuts"));
-    // topjet_collection_names = {"patJetsHepTopTagCHSPacked", "patJetsCa8CHSJetsPrunedPacked", "patJetsCa15CHSJetsFilteredPacked", "patJetsHepTopTagPuppiPacked", "patJetsCmsTopTagPuppiPacked", "patJetsCa8PuppiJetsPrunedPacked", "patJetsCa15PuppiJetsFilteredPacked", "patJetsCa8CHSJetsSoftDropPacked", "patJetsCa8PuppiJetsSoftDropPacked"};//"patJetsCmsTopTagCHSPacked",
-    // jet_collection_names = {"patJetsCa15CHSJets", "patJetsCa8CHSJets", "patJetsCa15PuppiJets", "patJetsCa8PuppiJets"};
-    // for(auto collection_name : jet_collection_names)
-    // {
-    //     jet_correctors.push_back(std::unique_ptr<GenericJetCorrector>(new GenericJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,collection_name)));
-    // }
-    // for(auto collection_name : topjet_collection_names)
-    // {
-    //     topjet_correctors.push_back(std::unique_ptr<GenericTopJetCorrector>(new GenericTopJetCorrector(ctx,JERFiles::PHYS14_L123_AK8PFchs_MC,collection_name)));
-    //     subjet_correctors.push_back(std::unique_ptr<GenericSubJetCorrector>(new GenericSubJetCorrector(ctx,JERFiles::PHYS14_L123_MC,collection_name)));
-    // }
     
 
 }
@@ -297,12 +190,12 @@ bool is_allhad=false;
     //     corrector->process(event);
     // }
     // jetAK8corrector->process(event);
-     jetAK8corrector->process(event);
-     jetCA15corrector->process(event);
+    // jetAK8corrector->process(event);
+    // jetCA15corrector->process(event);
     // jetHEPcorrector->process(event);
 
-     subjetAK8corrector->process(event);
-     subjetCA15corrector->process(event);
+    // subjetAK8corrector->process(event);
+    // subjetCA15corrector->process(event);
     // subjetHEPcorrector->process(event);
 
 
