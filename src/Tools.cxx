@@ -373,6 +373,7 @@ bool SDTopTag::operator()(const TopJet & topjet, const uhh2::Event &) const {
 
     if(mjet < 110) return false;
     if(mjet > 210) return false;
+    if (topjet.pt()<400) return false;
 
     float nsub = TopJetNsub(topjet);
     float csv  = getMaxCSV(topjet);

@@ -92,17 +92,18 @@ else
     ti_HT=event.get_trigger_index("HLT_PFHT800Emu_v*");
 
 bool HT_trigger = event.passes_trigger(ti_HT);
-float HT=getHT50(event);
-bool HT_cut= HT>850;
+//float HT=getHT50(event);
+//bool HT_cut= HT>850;
 //if (!(HT_trigger && HT>850.0)) return false;
+
 
 bool Nfatjets=false;
 if (event.topjets->size()>1)
 {
     if (event.topjets->at(0).pt()>400.0 && event.topjets->at(1).pt()>400.0) Nfatjets=true;
 }
-
-bool preselection = HT_trigger && HT_cut && Nfatjets;
+cout<<HT_trigger<<Nfatjets;
+//bool preselection = HT_trigger && HT_cut && Nfatjets;
 
 
 bool is_allhad=false;

@@ -31,29 +31,36 @@ public:
 private:
     
 
-    uhh2::Event::Handle<std::vector<TopJet> > h_topjetsAK8;
-    uhh2::Event::Handle<std::vector<TopJet> > h_topjetsCA15;
 
     unique_ptr<AnalysisModule> common_modules_with_lumi_sel;
 
-    std::unique_ptr<Hists> h_nocuts, h_sel, h_num, h_denom, h_num2, h_denom2, h_sel2;
+    std::unique_ptr<Hists> h_nocuts, 
+                           h_sel0, h_sel1, h_sel2,
+                           h_den_mu0, h_den_mu1, h_den_mu2,
+                           h_den_ht0, h_den_ht1, h_den_ht2,
+                           h_num_mu0, h_num_mu1, h_num_mu2,
+                           h_num_ht0, h_num_ht1, h_num_ht2;
 };
 
 
 TriggerModule::TriggerModule(Context & ctx){
     
-
-    h_nocuts.reset(new TriggerHists(ctx, "NoCuts"));
-    h_sel.reset(new TriggerHists(ctx, "Sel"));
-    h_sel2.reset(new TriggerHists(ctx, "Sel2"));
-    h_denom.reset(new TriggerHists(ctx, "Denom"));
-    h_denom2.reset(new TriggerHists(ctx, "Denom2"));
-    h_num.reset(new TriggerHists(ctx, "Num"));
-    h_num2.reset(new TriggerHists(ctx, "Num2"));
-    // h_allhadsub.reset(new TriggerHists(ctx, "AllHadSub"));
-
-    //h_topjetsAK8 = ctx.get_handle<std::vector<TopJet> >("patJetsAk8CHSJetsSoftDropPacked_daughters");//, "patJetsCA8CHSprunedPacked");
-    //h_topjetsCA15 = ctx.get_handle<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked_daughters");//, "patJetsCA15CHSFilteredPacked");
+    h_nocuts.reset(new TriggerHists(ctx,"nocuts"));
+    h_sel0.reset(new TriggerHists(ctx,"sel0"));
+    h_sel1.reset(new TriggerHists(ctx,"sel1"));
+    h_sel2.reset(new TriggerHists(ctx,"sel2"));
+    h_den_mu0.reset(new TriggerHists(ctx,"den_mu0"));
+    h_den_mu1.reset(new TriggerHists(ctx,"den_mu1"));
+    h_den_mu2.reset(new TriggerHists(ctx,"den_mu2"));
+    h_den_ht0.reset(new TriggerHists(ctx,"den_ht0"));
+    h_den_ht1.reset(new TriggerHists(ctx,"den_ht1"));
+    h_den_ht2.reset(new TriggerHists(ctx,"den_ht2"));
+    h_num_mu0.reset(new TriggerHists(ctx,"num_mu0"));
+    h_num_mu1.reset(new TriggerHists(ctx,"num_mu1"));
+    h_num_mu2.reset(new TriggerHists(ctx,"num_mu2"));
+    h_num_ht0.reset(new TriggerHists(ctx,"num_ht0"));
+    h_num_ht1.reset(new TriggerHists(ctx,"num_ht1"));
+    h_num_ht2.reset(new TriggerHists(ctx,"num_ht2"));
 
     CommonModules* commonObjectCleaning = new CommonModules();
     commonObjectCleaning->set_jet_id(AndId<Jet>(JetPFID(JetPFID::WP_LOOSE), PtEtaCut(30.0,2.4)));
@@ -86,72 +93,99 @@ else
 
 bool HT_trigger = event.passes_trigger(ti_HT);
 
-// uhh2::Event::TriggerIndex ti_HT650=event.get_trigger_index("HLT_PFHT650_v*");
-// bool HT650_trigger = event.passes_trigger(ti_HT650);
+uhh2::Event::TriggerIndex ti_HT650=event.get_trigger_index("HLT_PFHT650_v*");
+bool HT650_trigger = event.passes_trigger(ti_HT650);
 
-//bool selection=false;
+bool sel0=false;
+bool sel1=false;
+bool sel2=false;
 
-//const auto topjetsSD = &event.get(h_topjetsAK8);
-//const auto topjetsCA15 = &event.get(h_topjetsCA15);
 const auto topjets = event.topjets;
 
 const TopJetId topjetID = SDTopTag(SDTopTag::WP::Mis10);
 //const TopJetId topjetID = SDTopTag(SDTopTag::WP::Mis1b);
 
-bool selection=false;
-bool selection2=false;
+bool toptag_requirement=false;
+int nbtag=0;
 if (topjets->size()>1)
-    selection = topjetID(topjets->at(0),event)&&topjetID(topjets->at(1),event);
-    if (selection && ( getMaxCSV(topjets->at(0))>0.890 || getMaxCSV(topjets->at(1))>0.890 )) selection2=true;
-
-h_nocuts->fill(event);
-
-if (selection)
 {
-    h_sel->fill(event);
-    if (Mu_trigger)
-    {
-        h_denom->fill(event);
-        if (HT_trigger)
-        {
-            h_num->fill(event);
-        }
-    }
-    // if (HT650_trigger)
-    // {
-    //     h_denom2->fill(event);
-    //     if (HT_trigger)
-    //     {
-    //         h_num2->fill(event);
-    //     }
-    // }
+    toptag_requirement = topjetID(topjets->at(0),event)&&topjetID(topjets->at(1),event);
+    if (getMaxCSV(topjets->at(0))>0.890) nbtag++;
+    if (getMaxCSV(topjets->at(1))>0.890) nbtag++;
 }
 
 
-if (selection2 )
+sel0 = toptag_requirement;
+sel1 = toptag_requirement && (nbtag>0);
+sel2 = toptag_requirement && (nbtag>1);
+
+h_nocuts->fill(event);
+
+//0
+if (sel0)
+{
+    h_sel0->fill(event);
+    if (Mu_trigger)
+    {
+        h_den_mu0->fill(event);
+        if (HT_trigger)
+        {
+            h_num_mu0->fill(event);
+        }
+    }
+    if (HT650_trigger)
+    {
+        h_den_ht0->fill(event);
+        if (HT_trigger)
+        {
+            h_num_ht0->fill(event);
+        }
+    }
+}
+//1
+if (sel1)
+{
+    h_sel1->fill(event);
+    if (Mu_trigger)
+    {
+        h_den_mu1->fill(event);
+        if (HT_trigger)
+        {
+            h_num_mu1->fill(event);
+        }
+    }
+    if (HT650_trigger)
+    {
+        h_den_ht1->fill(event);
+        if (HT_trigger)
+        {
+            h_num_ht1->fill(event);
+        }
+    }
+}
+//2
+if (sel2)
 {
     h_sel2->fill(event);
     if (Mu_trigger)
     {
-        h_denom2->fill(event);
+        h_den_mu2->fill(event);
         if (HT_trigger)
         {
-            h_num2->fill(event);
+            h_num_mu2->fill(event);
+        }
+    }
+    if (HT650_trigger)
+    {
+        h_den_ht2->fill(event);
+        if (HT_trigger)
+        {
+            h_num_ht2->fill(event);
         }
     }
 }
 
-
-//h_nocutssub->fill(event);
-//if (is_allhad)
-//{
-//h_allhad->fill(event);
-//h_allhadsub->fill(event);
-//}
-
-
-
-    return true;
+    return false;
 }
 
 // as we want to run the ExampleCycleNew directly with AnalysisModuleRunner,

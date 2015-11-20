@@ -102,6 +102,7 @@ public:
   explicit SDTopTag(WP WorkingPoint = WP::Mis0p1);
   
   bool operator()(const TopJet & topjet, const uhh2::Event & event) const;
+ 
 
  private:
   WP m_WP;
