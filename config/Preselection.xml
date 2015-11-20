@@ -81,7 +81,7 @@
         <InputTree Name="AnalysisTree" /> 
     </InputData> -->
 
-<!--     <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_05Oct2015_v1" Cacheable="True">
+    <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_05Oct2015_v1" Cacheable="True">
         &JetHT_Run2015D_05Oct2015_v1;
         <InputTree Name="AnalysisTree" /> 
     </InputData>
@@ -89,7 +89,7 @@
     <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_PromptReco_v4" Cacheable="True">
         &JetHT_Run2015D_PromptReco_v4;
         <InputTree Name="AnalysisTree" /> 
-    </InputData> -->
+    </InputData>
 
 
 
@@ -355,7 +355,7 @@
             <Item Name="AnalysisModule" Value="PreselectionModule" /> 
             
             <!-- set this to the name of an AndSelection to control what is written to the output. If not given, *all* events are written to the output tree. -->
-            <Item Name="TestKey" Value="TestKeyValue" />
+            <Item Name="TestKey" Value="PreselectionModule" />
         </UserConfig>
     </Cycle>
 </JobConfiguration>

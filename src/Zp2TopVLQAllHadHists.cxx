@@ -188,8 +188,8 @@ Zp2TopVLQAllHadHists::Zp2TopVLQAllHadHists(Context & ctx, const string & dirname
 
   //get handles ctx.get_handle<double>("HT");
   //h_jetsAK8 = ctx.get_handle<std::vector<Jet> >("patJetsCa8CHSJets");//, "slimmedJetsAK8");
-  h_topjetsAK8 = ctx.get_handle<std::vector<TopJet> >("patJetsAk8CHSJetsSoftDropPacked_daughters");//, "patJetsCA8CHSprunedPacked");
-  h_topjetsCA15 = ctx.get_handle<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked_daughters");//, "patJetsCA15CHSFilteredPacked");
+  //h_topjetsAK8 = ctx.get_handle<std::vector<TopJet> >("patJetsAk8CHSJetsSoftDropPacked_daughters");//, "patJetsCA8CHSprunedPacked");
+  //h_topjetsCA15 = ctx.get_handle<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked_daughters");//, "patJetsCA15CHSFilteredPacked");
   //h_topjetsHEP = ctx.get_handle<std::vector<TopJet> >("patJetsHepTopTagCHSPacked");//, "patJetsHEPTopTagCHSPacked");
 
   //topjet_collection_names = {"patJetsHepTopTagCHSPacked", "patJetsCa8CHSJetsPrunedPacked", "patJetsCa15CHSJetsFilteredPacked", "patJetsHepTopTagPuppiPacked", "patJetsCmsTopTagPuppiPacked", "patJetsCa8PuppiJetsPrunedPacked", "patJetsCa15PuppiJetsFilteredPacked", "patJetsCa8CHSJetsSoftDropPacked", "patJetsCa8PuppiJetsSoftDropPacked"};//"patJetsCmsTopTagCHSPacked",
@@ -245,8 +245,8 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
   
   //get extra jet collections
   //const auto jetsAK8 = &event.get(h_jetsAK8);
-  const auto topjetsAK8 = &event.get(h_topjetsAK8);
-  const auto topjetsCA15 = &event.get(h_topjetsCA15);
+  // const auto topjetsAK8 = &event.get(h_topjetsAK8);
+  // const auto topjetsCA15 = &event.get(h_topjetsCA15);
   //const auto topjetsHEP = &event.get(h_topjetsHEP);
 
   int Npvs = event.pvs->size();
@@ -264,13 +264,13 @@ void Zp2TopVLQAllHadHists::fill(const Event & event){
   // if (jetsAK8->size()>1) if (jetsAK8->at(1).v4().isTimelike()) hist("m2AK8")->Fill(jetsAK8->at(1).v4().M(),weight);
   // if (jetsAK8->size()>1) if ((jetsAK8->at(0).v4()+jetsAK8->at(1).v4()).isTimelike()) hist("m12AK8")->Fill((jetsAK8->at(0).v4()+jetsAK8->at(1).v4()).M(),weight);
   
-  if (topjetsAK8->size()>0) hist("m1AK8")->Fill(TopJetMass(topjetsAK8->at(0)),weight);
-  if (topjetsAK8->size()>1) hist("m2AK8")->Fill(TopJetMass(topjetsAK8->at(1)),weight);
-  if (topjetsAK8->size()>1) hist("m12AK8")->Fill(ZprimeMass(topjetsAK8->at(0),topjetsAK8->at(1)),weight);
+  // if (topjetsAK8->size()>0) hist("m1AK8")->Fill(TopJetMass(topjetsAK8->at(0)),weight);
+  // if (topjetsAK8->size()>1) hist("m2AK8")->Fill(TopJetMass(topjetsAK8->at(1)),weight);
+  // if (topjetsAK8->size()>1) hist("m12AK8")->Fill(ZprimeMass(topjetsAK8->at(0),topjetsAK8->at(1)),weight);
   
-  if (topjetsCA15->size()>0) hist("m1CA15")->Fill(TopJetMass(topjetsCA15->at(0)),weight);
-  if (topjetsCA15->size()>1) hist("m2CA15")->Fill(TopJetMass(topjetsCA15->at(1)),weight);
-  if (topjetsCA15->size()>1) hist("m12CA15")->Fill(ZprimeMass(topjetsCA15->at(0),topjetsCA15->at(1)),weight);
+  // if (topjetsCA15->size()>0) hist("m1CA15")->Fill(TopJetMass(topjetsCA15->at(0)),weight);
+  // if (topjetsCA15->size()>1) hist("m2CA15")->Fill(TopJetMass(topjetsCA15->at(1)),weight);
+  // if (topjetsCA15->size()>1) hist("m12CA15")->Fill(ZprimeMass(topjetsCA15->at(0),topjetsCA15->at(1)),weight);
   
   if (event.topjets->size()>0)
   {
@@ -304,11 +304,11 @@ if(event.gentopjets){
   if (event.gentopjets->size()>1) hist("m2gen")->Fill(TopJetMass2(event.gentopjets->at(1)),weight);
   if (event.gentopjets->size()>1) hist("m12gen")->Fill(ZprimeMass2(event.gentopjets->at(0),event.gentopjets->at(1)),weight);}
 
-if(event.topjets->size()>1 && topjetsAK8->size()>1)
-{
-  hist("m12CMSAK8")->Fill(ZprimeMass(event.topjets->at(0),topjetsAK8->at(1)),weight);
-  hist("m12AK8CMS")->Fill(ZprimeMass(event.topjets->at(1),topjetsAK8->at(0)),weight);
-}
+// if(event.topjets->size()>1 && topjetsAK8->size()>1)
+// {
+//   hist("m12CMSAK8")->Fill(ZprimeMass(event.topjets->at(0),topjetsAK8->at(1)),weight);
+//   hist("m12AK8CMS")->Fill(ZprimeMass(event.topjets->at(1),topjetsAK8->at(0)),weight);
+// }
   // if (topjetsHEP->size()>0) hist("m1HEP")->Fill(TopJetMass(topjetsHEP->at(0)),weight);
   // if (topjetsHEP->size()>1) hist("m2HEP")->Fill(TopJetMass(topjetsHEP->at(1)),weight);
   // if (topjetsHEP->size()>1) hist("m12HEP")->Fill(ZprimeMass(topjetsHEP->at(0),topjetsHEP->at(1)),weight);
@@ -319,13 +319,13 @@ if(event.topjets->size()>1 && topjetsAK8->size()>1)
   // if (jetsAK8->size()>1) hist("pT2AK8")->Fill(jetsAK8->at(1).pt(),weight);
   // if (jetsAK8->size()>1) hist("pT12AK8")->Fill(jetsAK8->at(0).pt()+jetsAK8->at(1).pt(),weight);
   
-  if (topjetsAK8->size()>0) hist("pT1AK8")->Fill(TopJetPt(topjetsAK8->at(0)),weight);
-  if (topjetsAK8->size()>1) hist("pT2AK8")->Fill(TopJetPt(topjetsAK8->at(1)),weight);
-  if (topjetsAK8->size()>1) hist("pT12AK8")->Fill(TopJetPt(topjetsAK8->at(0))+TopJetPt(topjetsAK8->at(1)),weight);
+  // if (topjetsAK8->size()>0) hist("pT1AK8")->Fill(TopJetPt(topjetsAK8->at(0)),weight);
+  // if (topjetsAK8->size()>1) hist("pT2AK8")->Fill(TopJetPt(topjetsAK8->at(1)),weight);
+  // if (topjetsAK8->size()>1) hist("pT12AK8")->Fill(TopJetPt(topjetsAK8->at(0))+TopJetPt(topjetsAK8->at(1)),weight);
   
-  if (topjetsCA15->size()>0) hist("pT1CA15")->Fill(TopJetPt(topjetsCA15->at(0)),weight);
-  if (topjetsCA15->size()>1) hist("pT2CA15")->Fill(TopJetPt(topjetsCA15->at(1)),weight);
-  if (topjetsCA15->size()>1) hist("pT12CA15")->Fill(TopJetPt(topjetsCA15->at(0))+TopJetPt(topjetsCA15->at(1)),weight);
+  // if (topjetsCA15->size()>0) hist("pT1CA15")->Fill(TopJetPt(topjetsCA15->at(0)),weight);
+  // if (topjetsCA15->size()>1) hist("pT2CA15")->Fill(TopJetPt(topjetsCA15->at(1)),weight);
+  // if (topjetsCA15->size()>1) hist("pT12CA15")->Fill(TopJetPt(topjetsCA15->at(0))+TopJetPt(topjetsCA15->at(1)),weight);
   
   if (event.topjets->size()>0) hist("pT1CMS")->Fill(TopJetPt(event.topjets->at(0)),weight);
   if (event.topjets->size()>1) hist("pT2CMS")->Fill(TopJetPt(event.topjets->at(1)),weight);
@@ -352,19 +352,19 @@ if(event.topjets->size()>1 && topjetsAK8->size()>1)
   if (event.topjets->size()>0) hist("csv_1CMS")->Fill(getMaxCSV(event.topjets->at(0)),weight);
   if (event.topjets->size()>1) hist("csv_2CMS")->Fill(getMaxCSV(event.topjets->at(1)),weight);
 
-  //nsub1 nsub2 AK8
-  if (topjetsAK8->size()>0) hist("nsub_1AK8")->Fill(TopJetNsub(topjetsAK8->at(0)),weight);
-  if (topjetsAK8->size()>1) hist("nsub_2AK8")->Fill(TopJetNsub(topjetsAK8->at(1)),weight);
-  //maxcsv1 maxcsv2 AK8
-  if (topjetsAK8->size()>0) hist("csv_1AK8")->Fill(getMaxCSV(topjetsAK8->at(0)),weight);
-  if (topjetsAK8->size()>1) hist("csv_2AK8")->Fill(getMaxCSV(topjetsAK8->at(1)),weight);
+  // //nsub1 nsub2 AK8
+  // if (topjetsAK8->size()>0) hist("nsub_1AK8")->Fill(TopJetNsub(topjetsAK8->at(0)),weight);
+  // if (topjetsAK8->size()>1) hist("nsub_2AK8")->Fill(TopJetNsub(topjetsAK8->at(1)),weight);
+  // //maxcsv1 maxcsv2 AK8
+  // if (topjetsAK8->size()>0) hist("csv_1AK8")->Fill(getMaxCSV(topjetsAK8->at(0)),weight);
+  // if (topjetsAK8->size()>1) hist("csv_2AK8")->Fill(getMaxCSV(topjetsAK8->at(1)),weight);
 
-  //nsub1 nsub2 CA15
-  if (topjetsCA15->size()>0) hist("nsub_1CA15")->Fill(TopJetNsub(topjetsCA15->at(0)),weight);
-  if (topjetsCA15->size()>1) hist("nsub_2CA15")->Fill(TopJetNsub(topjetsCA15->at(1)),weight);
-  //maxcsv1 maxcsv2 CA15
-  if (topjetsCA15->size()>0) hist("csv_1CA15")->Fill(getMaxCSV(topjetsCA15->at(0)),weight);
-  if (topjetsCA15->size()>1) hist("csv_2CA15")->Fill(getMaxCSV(topjetsCA15->at(1)),weight);
+  // //nsub1 nsub2 CA15
+  // if (topjetsCA15->size()>0) hist("nsub_1CA15")->Fill(TopJetNsub(topjetsCA15->at(0)),weight);
+  // if (topjetsCA15->size()>1) hist("nsub_2CA15")->Fill(TopJetNsub(topjetsCA15->at(1)),weight);
+  // //maxcsv1 maxcsv2 CA15
+  // if (topjetsCA15->size()>0) hist("csv_1CA15")->Fill(getMaxCSV(topjetsCA15->at(0)),weight);
+  // if (topjetsCA15->size()>1) hist("csv_2CA15")->Fill(getMaxCSV(topjetsCA15->at(1)),weight);
   
   //mmin ndau
   if (event.topjets->size()>0) hist("mmin1")->Fill(getMmin(event.topjets->at(0)),weight);
