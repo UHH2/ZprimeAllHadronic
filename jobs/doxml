@@ -38,5 +38,7 @@
 #python makecfg.py /nfs/dust/cms/user/usaiem/gc-output/miniaodv2/MC_ZpToTpT/ MC_ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH.xml MC_ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH
 #python makecfg.py /nfs/dust/cms/user/usaiem/gc-output/miniaodv2/DATAv1/ JetHT_Run2015D-05Oct2015-v1.xml JetHT_Run2015D-05Oct2015-v1
 #python makecfg.py /nfs/dust/cms/user/usaiem/gc-output/miniaodv2/DATAv1/ JetHT_Run2015D-PromptReco-v4.xml JetHT_Run2015D-PromptReco-v4
-python makecfg.py /nfs/dust/cms/user/usaiem/gc-output/miniaodv2/DATAv2/ SingleMuon_Run2015D-05Oct2015-v1.xml SingleMuon_Run2015D-05Oct2015-v1
-python makecfg.py /nfs/dust/cms/user/usaiem/gc-output/miniaodv2/DATAv2/ SingleMuon_Run2015D-PromptReco-v4.xml SingleMuon_Run2015D-PromptReco-v4
+#python makecfg.py /nfs/dust/cms/user/usaiem/gc-output/miniaodv2/DATAv2/ SingleMuon_Run2015D-05Oct2015-v1.xml SingleMuon_Run2015D-05Oct2015-v1
+#python makecfg.py /nfs/dust/cms/user/usaiem/gc-output/miniaodv2/DATAv2/ SingleMuon_Run2015D-PromptReco-v4.xml SingleMuon_Run2015D-PromptReco-v4
+python makecfg.py /nfs/dust/cms/user/usaiem/gc-output/miniaodv2/DATAv3/ SingleElectron_Run2015D-05Oct2015-v1.xml SingleElectron_Run2015D-05Oct2015-v1
+python makecfg.py /nfs/dust/cms/user/usaiem/gc-output/miniaodv2/DATAv3/ SingleElectron_Run2015D-PromptReco-v4.xml SingleElectron_Run2015D-PromptReco-v4

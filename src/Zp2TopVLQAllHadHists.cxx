@@ -947,11 +947,14 @@ SelectionHists::~SelectionHists(){}
 
 TriggerHists::TriggerHists(Context & ctx, const string & dirname): Hists(ctx, dirname){
   book<TH1F>("HT", ";HT_{50};Events", 200, 0, 10000);
+  book<TH1F>("HTCA8", ";HT_{CA8};Events", 200, 0, 10000);
 }
 void TriggerHists::fill(const Event & event){
   double weight = event.weight;
   double HT50=getHT50(event);
+  double HTCA8=getHTCA8(event);
   hist("HT")->Fill(HT50,weight);
+  hist("HTCA8")->Fill(HTCA8,weight);
 }
 TriggerHists::~TriggerHists(){
 

@@ -6,12 +6,28 @@ from utils import compare,hadd,doeff,make_plot
 gROOT.SetBatch()
 
 
-path_base='/nfs/dust/cms/user/usaiem/spring15/uhh2.AnalysisModuleRunner.'
-data_filename='DATA.DATA_SingleMuon_Run2015D.root'
-mc_filename='MC.TTbar.root'
+path_base='/nfs/dust/cms/user/usaiem/miniaodv2/'
+name_base='uhh2.AnalysisModuleRunner.'
+datamu_filenames=["DATA.SingleMuon_Run2015D_05Oct2015_v1","DATA.SingleMuon_Run2015D_PromptReco_v4"]
+dataht_filenames=["DATA.JetHT_Run2015D_05Oct2015_v1","DATA.JetHT_Run2015D_PromptReco_v4"]
+ttbar_filenames=['MC.TTbar']
+qcd_filenames=["MC.QCD_HT500to700","MC.QCD_HT700to1000","MC.QCD_HT1000to1500","MC.QCD_HT1500to2000","MC.QCD_HT2000toInf"]
+mc_filenames=ttbar_filenames+qcd_filenames
 
-data_file=TFile(path_base+data_filename)
-mc_file=TFile(path_base+mc_filename)
+force=False
+datamu_filename=hadd(path_base,name_base,datamu_filenames,'datamu_trigger_merge',force)
+dataht_filename=hadd(path_base,name_base,dataht_filenames,'dataht_trigger_merge',force)
+ttbar_filename=hadd(path_base,name_base,ttbar_filenames,'ttbar_trigger_merge',force)
+qcd_filename=hadd(path_base,name_base,qcd_filenames,'qcd_trigger_merge',force)
+mc_filename=hadd(path_base,name_base,mc_filenames,'mc_trigger_merge',force)
+
+
+datamu_file=TFile(datamu_filename)
+dataht_file=TFile(dataht_filename)
+ttbar_file=TFile(ttbar_filename)
+qcd_file=TFile(qcd_filename)
+mc_file=TFile(mc_filename)
+
 outfile=TFile('outfile.root','RECREATE')
 
 # colors=[kRed,kBlue,kBlack,kGreen,kOrange,6,9]
@@ -26,10 +42,12 @@ outfile=TFile('outfile.root','RECREATE')
 
 
 
-def getEff(name,den,num,rebin=0,xtitle='',ytitle=''):
+def getEff(name,den_input,num_input,rebin=0,xtitle='',ytitle=''):
   c=TCanvas(name+'_Canvas')
   legend=TLegend(0.8,0.1,0.999,0.6)
   legend.SetFillColor(kWhite)
+  den=den_input.Clone()
+  num=num_input.Clone()
   if rebin!=0:
       den.Rebin(rebin)
       num.Rebin(rebin)
@@ -57,10 +75,14 @@ def getEff(name,den,num,rebin=0,xtitle='',ytitle=''):
   c.Write(name+'_Canvas')
   error_bars.Write(name)
 
-def getSF(name,den_data,num_data,den_mc,num_mc,rebin=0,xtitle='',ytitle=''):
+def getSF(name,den_data_input,num_data_input,den_mc_input,num_mc_input,rebin=0,xtitle='',ytitle=''):
   c=TCanvas(name+'_Canvas')
   legend=TLegend(0.8,0.1,0.999,0.6)
   legend.SetFillColor(kWhite)
+  den_data=den_data_input.Clone()
+  num_data=num_data_input.Clone()
+  den_mc=den_mc_input.Clone()
+  num_mc=num_mc_input.Clone()
   if rebin!=0:
       den_mc.Rebin(rebin)
       num_mc.Rebin(rebin)
@@ -92,20 +114,56 @@ def getSF(name,den_data,num_data,den_mc,num_mc,rebin=0,xtitle='',ytitle=''):
   c.Write(name+'_Canvas')
   num_data.Write(name)
 
-getEff('DATA',data_file.Get('Denom/HT'),data_file.Get('Num/HT'),2)
-getEff('MC',mc_file.Get('Denom/HT'),mc_file.Get('Num/HT'),2)
-getSF('SF',data_file.Get('Denom/HT'),data_file.Get('Num/HT'),mc_file.Get('Denom/HT'),mc_file.Get('Num/HT'))
+def getEffSF(name,data_file,mc_file,folder_postfix,histo_name,den_custom='',num_custom=''):
+  den='den_'+folder_postfix+'/'+histo_name
+  num='num_'+folder_postfix+'/'+histo_name
+  if den_custom!='':
+    den=den_custom
+  if num_custom!='':
+    num=num_custom
+  getEff(name+'_eff_data_'+folder_postfix,data_file.Get(den).Clone(),data_file.Get(num),2)
+  getEff(name+'_eff_mc_'+folder_postfix,mc_file.Get(den),mc_file.Get(num),2)
+  getSF(name+'_sf_'+folder_postfix,data_file.Get(den),
+                             data_file.Get(num),
+                             mc_file.Get(den),
+                             mc_file.Get(num),2)
+  compare(
+      name=name+'_'+folder_postfix+'_DATAMC',
+      file_list=[outfile,outfile],
+      name_list=[name+'_eff_data_'+folder_postfix,name+'_eff_mc_'+folder_postfix],
+      legend_list=['DATA','MC'],
+      drawoption='AP',
+      xtitle='HT [GeV]',
+      ytitle='Trigger efficiency',
+      #minx=0,maxx=0,rebin=1,miny=0,maxy=0,
+      textsizefactor=0.7)
 
-compare(
-  name='DATAMC',
-  file_list=[outfile,outfile],
-  name_list=['DATA','MC'],
-  legend_list=['DATA','MC'],
-  drawoption='AP',
-  xtitle='HT [GeV]',
-  ytitle='Trigger efficiency',
-  #minx=0,maxx=0,rebin=1,miny=0,maxy=0,
-  textsizefactor=1)
+paths=['mu0','mu1','mu2','ht0','ht1','ht2']
+
+for i in paths:
+  if 'mu' in i:
+    getEffSF('muqcd',datamu_file,qcd_file,i,'HT')
+    getEffSF('muttbar',datamu_file,ttbar_file,i,'HT')
+    getEffSF('muqcdttbar',datamu_file,mc_file,i,'HT')
+  else:
+    getEffSF('htqcd',dataht_file,qcd_file,i,'HT')
+    getEffSF('htttbar',dataht_file,ttbar_file,i,'HT')
+    getEffSF('htqcdttbar',dataht_file,mc_file,i,'HT')
+  
+# getEff('DATA',data_file.Get('Denom/HT'),data_file.Get('Num/HT'),2)
+# getEff('MC',mc_file.Get('Denom/HT'),mc_file.Get('Num/HT'),2)
+# getSF('SF',data_file.Get('Denom/HT'),data_file.Get('Num/HT'),mc_file.Get('Denom/HT'),mc_file.Get('Num/HT'))
+
+# compare(
+#   name='DATAMC',
+#   file_list=[outfile,outfile],
+#   name_list=['DATA','MC'],
+#   legend_list=['DATA','MC'],
+#   drawoption='AP',
+#   xtitle='HT [GeV]',
+#   ytitle='Trigger efficiency',
+#   #minx=0,maxx=0,rebin=1,miny=0,maxy=0,
+#   textsizefactor=1)
 
 #drawoption2= drawoption.replace("a", "")
 
