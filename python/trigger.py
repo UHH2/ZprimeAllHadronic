@@ -14,7 +14,7 @@ ttbar_filenames=['MC.TTbar']
 qcd_filenames=["MC.QCD_HT500to700","MC.QCD_HT700to1000","MC.QCD_HT1000to1500","MC.QCD_HT1500to2000","MC.QCD_HT2000toInf"]
 mc_filenames=ttbar_filenames+qcd_filenames
 
-force=False
+force=True
 datamu_filename=hadd(path_base,name_base,datamu_filenames,'datamu_trigger_merge',force)
 dataht_filename=hadd(path_base,name_base,dataht_filenames,'dataht_trigger_merge',force)
 ttbar_filename=hadd(path_base,name_base,ttbar_filenames,'ttbar_trigger_merge',force)
@@ -121,16 +121,16 @@ def getEffSF(name,data_file,mc_file,folder_postfix,histo_name,den_custom='',num_
     den=den_custom
   if num_custom!='':
     num=num_custom
-  getEff(name+'_eff_data_'+folder_postfix,data_file.Get(den).Clone(),data_file.Get(num),2)
-  getEff(name+'_eff_mc_'+folder_postfix,mc_file.Get(den),mc_file.Get(num),2)
-  getSF(name+'_sf_'+folder_postfix,data_file.Get(den),
+  getEff(name+'_eff_data_'+folder_postfix+'_'+histo_name,data_file.Get(den).Clone(),data_file.Get(num),2)
+  getEff(name+'_eff_mc_'+folder_postfix+'_'+histo_name,mc_file.Get(den),mc_file.Get(num),2)
+  getSF(name+'_sf_'+folder_postfix+'_'+histo_name,data_file.Get(den),
                              data_file.Get(num),
                              mc_file.Get(den),
                              mc_file.Get(num),2)
   compare(
-      name=name+'_'+folder_postfix+'_DATAMC',
+      name=name+'_'+folder_postfix+'_'+histo_name+'_DATAMC',
       file_list=[outfile,outfile],
-      name_list=[name+'_eff_data_'+folder_postfix,name+'_eff_mc_'+folder_postfix],
+      name_list=[name+'_eff_data_'+folder_postfix+'_'+histo_name,name+'_eff_mc_'+folder_postfix+'_'+histo_name],
       legend_list=['DATA','MC'],
       drawoption='AP',
       xtitle='HT [GeV]',
@@ -142,13 +142,20 @@ paths=['mu0','mu1','mu2','ht0','ht1','ht2']
 
 for i in paths:
   if 'mu' in i:
-    getEffSF('muqcd',datamu_file,qcd_file,i,'HT')
-    getEffSF('muttbar',datamu_file,ttbar_file,i,'HT')
-    getEffSF('muqcdttbar',datamu_file,mc_file,i,'HT')
+    # getEffSF('muqcd',datamu_file,qcd_file,i,'HT')
+    # getEffSF('muttbar',datamu_file,ttbar_file,i,'HT')
+    # getEffSF('muqcdttbar',datamu_file,mc_file,i,'HT')
+    getEffSF('muqcd',datamu_file,qcd_file,i,'HTCA8')
+    getEffSF('muttbar',datamu_file,ttbar_file,i,'HTCA8')
+    getEffSF('muqcdttbar',datamu_file,mc_file,i,'HTCA8')
   else:
-    getEffSF('htqcd',dataht_file,qcd_file,i,'HT')
-    getEffSF('htttbar',dataht_file,ttbar_file,i,'HT')
-    getEffSF('htqcdttbar',dataht_file,mc_file,i,'HT')
+    # getEffSF('htqcd',dataht_file,qcd_file,i,'HT')
+    # getEffSF('htttbar',dataht_file,ttbar_file,i,'HT')
+    # getEffSF('htqcdttbar',dataht_file,mc_file,i,'HT')
+    getEffSF('htqcd',dataht_file,qcd_file,i,'HTCA8')
+    getEffSF('htttbar',dataht_file,ttbar_file,i,'HTCA8')
+    getEffSF('htqcdttbar',dataht_file,mc_file,i,'HTCA8')
+
   
 # getEff('DATA',data_file.Get('Denom/HT'),data_file.Get('Num/HT'),2)
 # getEff('MC',mc_file.Get('Denom/HT'),mc_file.Get('Num/HT'),2)

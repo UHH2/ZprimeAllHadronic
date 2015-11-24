@@ -39,7 +39,13 @@ private:
                            h_den_mu0, h_den_mu1, h_den_mu2,
                            h_den_ht0, h_den_ht1, h_den_ht2,
                            h_num_mu0, h_num_mu1, h_num_mu2,
-                           h_num_ht0, h_num_ht1, h_num_ht2;
+                           h_num_ht0, h_num_ht1, h_num_ht2,
+
+                           h_sel0pt, h_sel1pt, h_sel2pt,
+                           h_den_mu0pt, h_den_mu1pt, h_den_mu2pt,
+                           h_den_ht0pt, h_den_ht1pt, h_den_ht2pt,
+                           h_num_mu0pt, h_num_mu1pt, h_num_mu2pt,
+                           h_num_ht0pt, h_num_ht1pt, h_num_ht2pf;
 };
 
 
@@ -61,6 +67,22 @@ TriggerModule::TriggerModule(Context & ctx){
     h_num_ht0.reset(new TriggerHists(ctx,"num_ht0"));
     h_num_ht1.reset(new TriggerHists(ctx,"num_ht1"));
     h_num_ht2.reset(new TriggerHists(ctx,"num_ht2"));
+
+    h_sel0pt.reset(new TriggerHists(ctx,"sel0pt"));
+    h_sel1pt.reset(new TriggerHists(ctx,"sel1pt"));
+    h_sel2pt.reset(new TriggerHists(ctx,"sel2pt"));
+    h_den_mu0pt.reset(new TriggerHists(ctx,"den_mu0pt"));
+    h_den_mu1pt.reset(new TriggerHists(ctx,"den_mu1pt"));
+    h_den_mu2pt.reset(new TriggerHists(ctx,"den_mu2pt"));
+    h_den_ht0pt.reset(new TriggerHists(ctx,"den_ht0pt"));
+    h_den_ht1pt.reset(new TriggerHists(ctx,"den_ht1pt"));
+    h_den_ht2pt.reset(new TriggerHists(ctx,"den_ht2pt"));
+    h_num_mu0pt.reset(new TriggerHists(ctx,"num_mu0pt"));
+    h_num_mu1pt.reset(new TriggerHists(ctx,"num_mu1pt"));
+    h_num_mu2pt.reset(new TriggerHists(ctx,"num_mu2pt"));
+    h_num_ht0pt.reset(new TriggerHists(ctx,"num_ht0pt"));
+    h_num_ht1pt.reset(new TriggerHists(ctx,"num_ht1pt"));
+    h_num_ht2pt.reset(new TriggerHists(ctx,"num_ht2pt"));
 
     CommonModules* commonObjectCleaning = new CommonModules();
     commonObjectCleaning->set_jet_id(AndId<Jet>(JetPFID(JetPFID::WP_LOOSE), PtEtaCut(30.0,2.4)));
@@ -96,9 +118,20 @@ bool HT_trigger = event.passes_trigger(ti_HT);
 uhh2::Event::TriggerIndex ti_HT650=event.get_trigger_index("HLT_PFHT650_v*");
 bool HT650_trigger = event.passes_trigger(ti_HT650);
 
+HLT_AK8DiPFJet250_200_TrimMass30_BTagCSV0p45_v2
+HLT_AK8DiPFJet280_200_TrimMass30_BTagCSV0p45_v3
+HLT_AK8PFHT600_TrimR0p1PT0p03Mass50_BTagCSV0p45_v2
+HLT_AK8PFHT650_TrimR0p1PT0p03Mass50_v2
+HLT_AK8PFHT700_TrimR0p1PT0p03Mass50_v3
+HLT_AK8PFJet360_TrimMass30_v3
+
+
 bool sel0=false;
 bool sel1=false;
 bool sel2=false;
+bool sel0pt=false;
+bool sel1pt=false;
+bool sel2pt=false;
 
 const auto topjets = event.topjets;
 
@@ -114,10 +147,18 @@ if (topjets->size()>1)
     if (getMaxCSV(topjets->at(1))>0.890) nbtag++;
 }
 
+bool ptcond = false;
+if (topjets->size()>1)
+{
+    ptcond = topjets->at(0).pt()>400 && topjets->at(1).pt()>400;
+}
 
 sel0 = toptag_requirement;
 sel1 = toptag_requirement && (nbtag>0);
 sel2 = toptag_requirement && (nbtag>1);
+sel0pt = sel0 && ptcond;
+sel1pt = sel1 && ptcond;
+sel2pt = sel2 && ptcond;
 
 h_nocuts->fill(event);
 
@@ -184,6 +225,77 @@ if (sel2)
         }
     }
 }
+
+
+
+//ptcut
+//0
+if (sel0pt)
+{
+    h_sel0pt->fill(event);
+    if (Mu_trigger)
+    {
+        h_den_mu0pt->fill(event);
+        if (HT_trigger)
+        {
+            h_num_mu0pt->fill(event);
+        }
+    }
+    if (HT650_trigger)
+    {
+        h_den_ht0pt->fill(event);
+        if (HT_trigger)
+        {
+            h_num_ht0pt->fill(event);
+        }
+    }
+}
+//1
+if (sel1pt)
+{
+    h_sel1pt->fill(event);
+    if (Mu_trigger)
+    {
+        h_den_mu1pt->fill(event);
+        if (HT_trigger)
+        {
+            h_num_mu1pt->fill(event);
+        }
+    }
+    if (HT650_trigger)
+    {
+        h_den_ht1pt->fill(event);
+        if (HT_trigger)
+        {
+            h_num_ht1pt->fill(event);
+        }
+    }
+}
+//2
+if (sel2pt)
+{
+    h_sel2pt->fill(event);
+    if (Mu_trigger)
+    {
+        h_den_mu2pt->fill(event);
+        if (HT_trigger)
+        {
+            h_num_mu2pt->fill(event);
+        }
+    }
+    if (HT650_trigger)
+    {
+        h_den_ht2pt->fill(event);
+        if (HT_trigger)
+        {
+            h_num_ht2pt->fill(event);
+        }
+    }
+}
+
+
+
+
 
     return false;
 }
