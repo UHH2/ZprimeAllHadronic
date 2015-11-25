@@ -73,4 +73,8 @@ public:
     virtual void fill(const uhh2::Event & ev) override;
     virtual ~TriggerHists();
 private:
+    Event::Handle<float> h_ht;
+    Event::Handle<float> h_htca8;
+    Event::Handle<float> h_pt1ca8;
+    Event::Handle<float> h_pt2ca8;
 };

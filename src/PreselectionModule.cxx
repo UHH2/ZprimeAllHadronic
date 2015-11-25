@@ -33,6 +33,7 @@ private:
 
     std::unique_ptr<TopJetCorrector> topjetcorrector;
     std::unique_ptr<SubJetCorrector> subjetcorrector;
+    std::unique_ptr<JetCorrector> jetcorrector;
    
     unique_ptr<AnalysisModule> common_modules_with_lumi_sel;
     
@@ -48,20 +49,21 @@ PreselectionModule::PreselectionModule(Context & ctx){
     commonObjectCleaning->set_jet_id(AndId<Jet>(JetPFID(JetPFID::WP_LOOSE), PtEtaCut(30.0,2.4)));
     //commonObjectCleaning->set_electron_id(AndId<Electron>(ElectronID_Spring15_25ns_medium_noIso,PtEtaCut(20.0, 2.1)));
     //commonObjectCleaning->set_muon_id(AndId<Muon>(MuonIDTight(),PtEtaCut(20.0, 2.1)));
-    //commonObjectCleaning->switch_jetlepcleaner(true);
+    commonObjectCleaning->switch_jetlepcleaner(true);
     commonObjectCleaning->switch_jetPtSorter(true);
     commonObjectCleaning->init(ctx);
     common_modules_with_lumi_sel.reset(commonObjectCleaning);
 
     bool is_mc = ctx.get("dataset_type") == "MC";
-
     if (is_mc)
     {
+        jetcorrector.reset(new JetCorrector(JERFiles::Summer15_25ns_L123_AK4PFchs_MC));
         topjetcorrector.reset(new TopJetCorrector(JERFiles::Summer15_25ns_L123_AK8PFchs_MC));
         subjetcorrector.reset(new SubJetCorrector(JERFiles::Summer15_25ns_L123_AK4PFchs_MC));
     }
     else
     {
+        jetcorrector.reset(new JetCorrector(JERFiles::Summer15_25ns_L123_AK4PFchs_DATA));
         topjetcorrector.reset(new TopJetCorrector(JERFiles::Summer15_25ns_L123_AK8PFchs_DATA));
         subjetcorrector.reset(new SubJetCorrector(JERFiles::Summer15_25ns_L123_AK4PFchs_DATA));
     }
@@ -92,18 +94,18 @@ else
     ti_HT=event.get_trigger_index("HLT_PFHT800Emu_v*");
 
 bool HT_trigger = event.passes_trigger(ti_HT);
-//float HT=getHT50(event);
-//bool HT_cut= HT>850;
+float HT=getHT50(event);
+bool HT_cut= HT>850.0;
 //if (!(HT_trigger && HT>850.0)) return false;
 
 
 bool Nfatjets=false;
 if (event.topjets->size()>1)
 {
-    if (event.topjets->at(0).pt()>400.0 && event.topjets->at(1).pt()>400.0) Nfatjets=true;
+    if (TopJetPt(event.topjets->at(0))>400.0 && TopJetPt(event.topjets->at(1))>300.0) Nfatjets=true;
 }
-cout<<HT_trigger<<Nfatjets;
-//bool preselection = HT_trigger && HT_cut && Nfatjets;
+//cout<<HT_trigger<<Nfatjets;
+bool preselection = HT_trigger && HT_cut && Nfatjets;
 
 
 bool is_allhad=false;
@@ -182,6 +184,7 @@ bool is_allhad=false;
 
     topjetcorrector->process(event);
     subjetcorrector->process(event);
+    jetcorrector->process(event);
 
 
 
@@ -196,7 +199,7 @@ bool is_allhad=false;
 
 
 
-    return true;
+    return preselection;
 }
 
 // as we want to run the ExampleCycleNew directly with AnalysisModuleRunner,

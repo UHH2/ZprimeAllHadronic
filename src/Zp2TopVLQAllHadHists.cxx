@@ -948,13 +948,20 @@ SelectionHists::~SelectionHists(){}
 TriggerHists::TriggerHists(Context & ctx, const string & dirname): Hists(ctx, dirname){
   book<TH1F>("HT", ";HT_{50};Events", 200, 0, 10000);
   book<TH1F>("HTCA8", ";HT_{CA8};Events", 200, 0, 10000);
+  book<TH1F>("pt1", ";leading topjet p_{T};Events", 200, 0, 4000);
+  book<TH1F>("pt2", ";subleading topjet p_{T};Events", 200, 0, 4000);
+  h_ht=ctx.get_handle<float>("ht");
+  h_htca8=ctx.get_handle<float>("htca8");
+  h_pt1ca8=ctx.get_handle<float>("pt1ca8");
+  h_pt2ca8=ctx.get_handle<float>("pt2ca8");
+
 }
 void TriggerHists::fill(const Event & event){
   double weight = event.weight;
-  double HT50=getHT50(event);
-  double HTCA8=getHTCA8(event);
-  hist("HT")->Fill(HT50,weight);
-  hist("HTCA8")->Fill(HTCA8,weight);
+  hist("HT")->Fill(event.get(h_ht),weight);
+  hist("HTCA8")->Fill(event.get(h_htca8),weight);
+  hist("pt1")->Fill(event.get(h_pt1ca8),weight);
+  hist("pt2")->Fill(event.get(h_pt2ca8),weight);
 }
 TriggerHists::~TriggerHists(){
 

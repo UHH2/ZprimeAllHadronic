@@ -71,7 +71,7 @@ def getEff(name,den_input,num_input,rebin=0,xtitle='',ytitle=''):
     error_bars.GetYaxis().SetTitle(ytitle)
   error_bars.SetTitle('')
   error_bars.Draw('AP')
-  c.SaveAs('pdf/'+name+'.pdf')
+  #c.SaveAs('pdf/'+name+'.pdf')
   c.Write(name+'_Canvas')
   error_bars.Write(name)
 
