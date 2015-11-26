@@ -628,8 +628,8 @@ BackgroundHists::~BackgroundHists(){
 
 
 SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx, dirname){
-  h_topjetsAK8 = ctx.get_handle<std::vector<TopJet> >("patJetsAk8CHSJetsSoftDropPacked_daughters");
-  h_topjetsCA15 = ctx.get_handle<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked_daughters");
+  //h_topjetsAK8 = ctx.get_handle<std::vector<TopJet> >("patJetsAk8CHSJetsSoftDropPacked_daughters");
+  //h_topjetsCA15 = ctx.get_handle<std::vector<TopJet> >("patJetsCa15CHSJetsFilteredPacked_daughters");
 
   book<TH1F>("N_toptags", ";N_{toptags};Events", 10, 0, 10);
   book<TH1F>("N_wtags", ";N_{wtags};Events", 10, 0, 10);
@@ -680,6 +680,7 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("step1_tpt", ";step1: pt t candidate;Events", 300, 0, 3000);
   book<TH1F>("step2_bcsv", ";step2: csv b candidate;Events", 100, 0, 1);
   book<TH1F>("step2_wpt", ";step2: pt w candidate;Events", 300, 0, 3000);
+  book<TH1F>("step2_drbw", ";#Delta R(b,W);Events", 500, 0, 5);
   book<TH1F>("step3_tprimemass", ";step3: mass tprime candidate;Events", 300, 0, 3000);
   book<TH1F>("step3_tprimept", ";step3: pt tprime candidate;Events", 300, 0, 3000);
   book<TH1F>("step4_zprimemass", ";step4: mass zprime candidate;Events", 300, 0, 3000);
@@ -693,7 +694,7 @@ void SelectionHists::fill(const Event & event){
   
   //get extra jet collections
   //const auto jetsAK8 = &event.get(h_jetsAK8);
-  const auto topjetsAK8 = &event.get(h_topjetsAK8);
+  //const auto topjetsAK8 = &event.get(h_topjetsAK8);
   //const auto topjetsCA15 = &event.get(h_topjetsCA15);
 
   int N_toptags=0;
@@ -707,7 +708,7 @@ void SelectionHists::fill(const Event & event){
   hist("N_toptags")->Fill(N_toptags,weight);
 
   int N_wtags=0;
-  for(auto topjet : *topjetsAK8)
+  for(auto topjet : *event.topjets)
     {
         if (WTag(topjet))
         {
@@ -736,6 +737,9 @@ void SelectionHists::fill(const Event & event){
       }
     }
   hist("N_subjetbtags")->Fill(N_subjetbtags,weight);
+
+if (!event.isRealData)
+{
 
   GenParticle the_gen_top,the_gen_tprime,the_gen_w,the_gen_b;
   bool has_gen_top=false,has_gen_tprime=false,has_gen_w=false,has_gen_b=false;
@@ -847,7 +851,7 @@ void SelectionHists::fill(const Event & event){
 
   if (has_gen_w)
   {
-    for(auto topjet : *topjetsAK8)
+    for(auto topjet : *event.topjets)
     {
       if (deltaR(the_gen_w,topjet)<0.8)
       {
@@ -874,7 +878,7 @@ void SelectionHists::fill(const Event & event){
     }
   }
 
-
+}
 
     TopJet the_top;
     bool has_the_top=false;
@@ -894,15 +898,15 @@ void SelectionHists::fill(const Event & event){
     if (has_the_top)
     {
         bool found=false;
-        for(auto topjet : *topjetsAK8)
+        for(auto topjet : *event.topjets)
         {
-            if(deltaR(topjet,the_top)>0.8 && !found)
+            if(deltaR(topjet,the_top)>0.1 && !found)
             {
               hist("step1_wmass")->Fill(TopJetMass(topjet),weight);
               hist("step1_wnsub")->Fill(TopJetNsub2(topjet),weight);
               found=true;
             }
-            if (WTag(topjet)&&deltaR(topjet,the_top)>0.8)
+            if (WTag(topjet)&&deltaR(topjet,the_top)>0.1)
             {
                 the_w=topjet;
                 has_the_w=true;
@@ -923,17 +927,18 @@ void SelectionHists::fill(const Event & event){
               hist("step2_bcsv")->Fill(jet.btag_combinedSecondaryVertex(),weight);
               found=true;
             }
-            if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8 && jet.pt()>200.0)
+            if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8 && jet.pt()>100.0)
             {
                 the_b=jet;
                 has_the_b=true;
+                hist("step2_drbw")->Fill(deltaR(the_b,the_w),weight);
                 hist("step3_tprimemass")->Fill(TprimeMass(the_w,the_b),weight);
                 hist("step3_tprimept")->Fill(TprimePt(the_w,the_b),weight);
                 break;
             }
         }
     }
-    if (has_the_b && has_the_w && has_the_top && TprimeMass(the_w,the_b)>700.0)
+    if (has_the_b && has_the_w && has_the_top && TprimeMass(the_w,the_b)>400.0)
     {
       hist("step4_zprimemass")->Fill(ZprimeMassVLQ(the_top,the_w,the_b),weight);
       if (getMaxCSV(the_top)>0.890) hist("step4_zprimemassbtag")->Fill(ZprimeMassVLQ(the_top,the_w,the_b),weight);

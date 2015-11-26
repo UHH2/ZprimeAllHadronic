@@ -183,19 +183,6 @@ float deltaPhi(Particle j1,Particle j2)
     return fabs(deltaphi);
 }
 
-bool TopTag(TopJet topjet)
-{
-  if(TopJetPt(topjet)<400.0) return false;
-  //number of subjets requirement
-  if(topjet.subjets().size()<3) return false;
-  //mass requirement
-  auto mjet = TopJetMass(topjet);
-  if(mjet<140 || mjet>250) return false;
-  //minimum pairwise mass requirement
-  if (getMmin(topjet)<50) return false;
-
-  return true;
-}
 
 bool AntiTopTag(TopJet topjet)
 {
@@ -362,9 +349,25 @@ void uncorrect_topjets(const Event & event){
     }
 }
 
+bool TopTag(TopJet topjet)
+{
+  if(TopJetPt(topjet)<400.0) return false;
+  //number of subjets requirement
+  //if(topjet.subjets().size()<3) return false;
+  //mass requirement
+  auto mjet = TopJetMass(topjet);
+  if(mjet<110 || mjet>210) return false;
+  //minimum pairwise mass requirement
+  //if (getMmin(topjet)<50) return false;
+  //nsubjettiness requirement
+  if (TopJetNsub(topjet)>0.86) return false;
+  return true;
+}
+
 bool WTag(TopJet topjet)
 {
-  return TopJetMass(topjet)>60.0 && TopJetMass(topjet)<100.0 && TopJetNsub2(topjet)<0.6 && TopJetPt(topjet)>200.0;
+  auto mjet = TopJetMass(topjet);
+  return mjet>65.0 && mjet<105.0 && TopJetNsub2(topjet)<0.6 && TopJetPt(topjet)>200.0;
 }
 
 bool SDTopTag::operator()(const TopJet & topjet, const uhh2::Event &) const {

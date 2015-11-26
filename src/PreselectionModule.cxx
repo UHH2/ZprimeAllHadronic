@@ -38,7 +38,7 @@ private:
     unique_ptr<AnalysisModule> common_modules_with_lumi_sel;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-    std::unique_ptr<Hists> h_nocuts, h_allhad, h_nocutssub, h_allhadsub;//h_nocorr, h_nocorr_gen, h_nocuts, h_nocuts_gen, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection0,h_selection1,h_selection2,h_selection,h_selection_gen,h_preselection_gen,h_ww,h_tv,h_tev;
+    std::unique_ptr<Hists> h_nocuts, h_allhad, h_nocutssub, h_allhadsub, h_pre, h_preallhad;//h_nocorr, h_nocorr_gen, h_nocuts, h_nocuts_gen, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection0,h_selection1,h_selection2,h_selection,h_selection_gen,h_preselection_gen,h_ww,h_tv,h_tev;
 };
 
 
@@ -74,6 +74,8 @@ PreselectionModule::PreselectionModule(Context & ctx){
     h_allhad.reset(new SelectionHists(ctx, "AllHad"));
     h_nocutssub.reset(new Zp2TopVLQAllHadHists(ctx, "NoCutsSub"));
     h_allhadsub.reset(new Zp2TopVLQAllHadHists(ctx, "AllHadSub"));
+    h_pre.reset(new SelectionHists(ctx, "Preselection"));
+    h_preallhad.reset(new SelectionHists(ctx, "PreselectionAllHad"));
 
 
     
@@ -102,14 +104,15 @@ bool HT_cut= HT>850.0;
 bool Nfatjets=false;
 if (event.topjets->size()>1)
 {
-    if (TopJetPt(event.topjets->at(0))>400.0 && TopJetPt(event.topjets->at(1))>300.0) Nfatjets=true;
+    if (TopJetPt(event.topjets->at(0))>400.0 && TopJetPt(event.topjets->at(1))>200.0 && TopJetMass(event.topjets->at(0))>60.0 && TopJetMass(event.topjets->at(1))>60.0) Nfatjets=true;
 }
 //cout<<HT_trigger<<Nfatjets;
 bool preselection = HT_trigger && HT_cut && Nfatjets;
 
 
 bool is_allhad=false;
-
+if (!event.isRealData)
+{
   GenParticle the_gen_top,the_gen_tprime,the_gen_w,the_gen_b,the_gen_tw,the_gen_tb;
   bool has_gen_top=false,has_gen_tprime=false,has_gen_w=false,has_gen_b=false,has_gen_tw=false,has_gen_tb=false;
   for (auto genp : *event.genparticles)
@@ -179,7 +182,7 @@ bool is_allhad=false;
     }
   }
 
-
+}
 
 
     topjetcorrector->process(event);
@@ -191,10 +194,12 @@ bool is_allhad=false;
 
     h_nocuts->fill(event);
     h_nocutssub->fill(event);
+    if (preselection) h_pre->fill(event);
     if (is_allhad)
     {
     h_allhad->fill(event);
     h_allhadsub->fill(event);
+    if (preselection) h_preallhad->fill(event);
     }
 
 

@@ -190,7 +190,7 @@ uhh2::Event::TriggerIndex ti_HT;
 if (event.isRealData)
     ti_HT=event.get_trigger_index("HLT_PFHT800_v*");
 else
-    ti_HT=event.get_trigger_index("HLT_PFHT800Emu_v*");//
+    ti_HT=event.get_trigger_index("HLT_PFHT800Emu_v*");
 
 bool HT_trigger = event.passes_trigger(ti_HT);
 
@@ -198,7 +198,7 @@ uhh2::Event::TriggerIndex ti_HT650=event.get_trigger_index("HLT_PFHT650_v*");
 bool HT650_trigger = event.passes_trigger(ti_HT650);
 
 
-uhh2::Event::TriggerIndex ti_subht=event.get_trigger_index("HLT_AK8PFHT650_TrimR0p1PT0p03Mass50_v*");
+uhh2::Event::TriggerIndex ti_subht=event.get_trigger_index("HLT_AK8PFHT700_TrimR0p1PT0p03Mass50_v*");
 bool subht_trigger = event.passes_trigger(ti_subht);
 
 uhh2::Event::TriggerIndex ti_subpt=event.get_trigger_index("HLT_AK8PFJet360_TrimMass30_v*");
