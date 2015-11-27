@@ -62,6 +62,7 @@ def getEff(name,den_input,num_input,rebin=0,xtitle='',ytitle=''):
     error_bars.GetYaxis().SetTitle(num.GetYaxis().GetTitle())
   else:
     error_bars.GetYaxis().SetTitle(ytitle)
+  error_bars.GetXaxis().SetRangeUser(400,2000)
   error_bars.SetLineColor(kBlack)
   error_bars.SetMaximum(1.01)
   error_bars.SetMinimum(0.)
@@ -110,7 +111,7 @@ def getSF(name,den_data_input,num_data_input,den_mc_input,num_mc_input,rebin=0,x
   num_data.SetTitle('')
   num_data.GetXaxis().SetRangeUser(0,2500)
   num_data.Draw('HIST')
-  c.SaveAs('pdf/'+name+'.pdf')
+  #c.SaveAs('pdf/'+name+'.pdf')
   c.Write(name+'_Canvas')
   num_data.Write(name)
 
@@ -138,7 +139,7 @@ def getEffSF(name,data_file,mc_file,folder_postfix,histo_name,den_custom='',num_
       #minx=0,maxx=0,rebin=1,miny=0,maxy=0,
       textsizefactor=0.7)
 
-paths=['mu0','mu1','mu2','ht0','ht1','ht2']
+paths=['mu0','mu1','mu2','ht0','ht1','ht2','mu0pt','mu1pt','mu2pt','ht0pt','ht1pt','ht2pt']
 
 for i in paths:
   if 'mu' in i:
@@ -148,6 +149,14 @@ for i in paths:
     getEffSF('muqcd',datamu_file,qcd_file,i,'HTCA8')
     getEffSF('muttbar',datamu_file,ttbar_file,i,'HTCA8')
     getEffSF('muqcdttbar',datamu_file,mc_file,i,'HTCA8')
+
+    getEffSF('muqcd_subht',datamu_file,qcd_file,i,'HTCA8','','num_'+i+'_subht'+'/HTCA8')
+    getEffSF('muttbar_subht',datamu_file,ttbar_file,i,'HTCA8','','num_'+i+'_subht'+'/HTCA8')
+    getEffSF('muqcdttbar_subht',datamu_file,mc_file,i,'HTCA8','','num_'+i+'_subht'+'/HTCA8')
+    getEffSF('muqcd_subpt',datamu_file,qcd_file,i,'HTCA8','','num_'+i+'_subpt'+'/HTCA8')
+    getEffSF('muttbar_subpt',datamu_file,ttbar_file,i,'HTCA8','','num_'+i+'_subpt'+'/HTCA8')
+    getEffSF('muqcdttbar_subpt',datamu_file,mc_file,i,'HTCA8','','num_'+i+'_subpt'+'/HTCA8')
+
   else:
     # getEffSF('htqcd',dataht_file,qcd_file,i,'HT')
     # getEffSF('htttbar',dataht_file,ttbar_file,i,'HT')
@@ -155,6 +164,13 @@ for i in paths:
     getEffSF('htqcd',dataht_file,qcd_file,i,'HTCA8')
     getEffSF('htttbar',dataht_file,ttbar_file,i,'HTCA8')
     getEffSF('htqcdttbar',dataht_file,mc_file,i,'HTCA8')
+
+    getEffSF('htqcd_subht',dataht_file,qcd_file,i,'HTCA8','','num_'+i+'_subht'+'/HTCA8')
+    getEffSF('htttbar_subht',dataht_file,ttbar_file,i,'HTCA8','','num_'+i+'_subht'+'/HTCA8')
+    getEffSF('htqcdttbar_subht',dataht_file,mc_file,i,'HTCA8','','num_'+i+'_subht'+'/HTCA8')
+    getEffSF('htqcd_subpt',dataht_file,qcd_file,i,'HTCA8','','num_'+i+'_subpt'+'/HTCA8')
+    getEffSF('htttbar_subpt',dataht_file,ttbar_file,i,'HTCA8','','num_'+i+'_subpt'+'/HTCA8')
+    getEffSF('htqcdttbar_subpt',dataht_file,mc_file,i,'HTCA8','','num_'+i+'_subpt'+'/HTCA8')
 
   
 # getEff('DATA',data_file.Get('Denom/HT'),data_file.Get('Num/HT'),2)

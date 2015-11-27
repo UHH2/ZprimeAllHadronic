@@ -136,13 +136,13 @@ def domistag(infile,outfile,mistag_den,mistag_num,outname):
   slice_and_save(outname,den_histo,outfile)
 
 
-def make_plot(name, ttbar_file, qcd_file, signal_files, histo, histo_qcd='',histo_signal='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,logy=False):
+def make_plot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_qcd='',histo_signal='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,logy=False):
   c=TCanvas(name,'',600,600)
   c.SetLeftMargin(0.15)#
   c.SetRightMargin(0.05)#
   c.SetBottomMargin(0.1)
   c.SetTopMargin(0.25)
-  latex=TLatex(0.65,0.70,'13 TeV, 5 fb^{-1} ')
+  latex=TLatex(0.6,0.70,'13 TeV, 2.46 fb^{-1}')
   latex.SetNDC(1)
   latex.SetTextFont(42)
   legend=TLegend(0.0,0.75,0.99,1.04)
@@ -156,20 +156,22 @@ def make_plot(name, ttbar_file, qcd_file, signal_files, histo, histo_qcd='',hist
   legend.SetFillColor(0)
   legend.SetFillStyle(0)
   stack=THStack(name+'_stack','')
-  ttbar_histo=ttbar_file.Get(histo)
+  data_histo=data_file.Get(histo).Clone()
+  data_histo.Rebin(rebin)
+  ttbar_histo=ttbar_file.Get(histo).Clone()
   ttbar_histo.Rebin(rebin)
   if histo_qcd=='':
-    qcd_histo=qcd_file.Get(histo)
+    qcd_histo=qcd_file.Get(histo).Clone()
   else:
-    qcd_histo=qcd_file.Get(histo_qcd)
+    qcd_histo=qcd_file.Get(histo_qcd).Clone()
   qcd_histo.Rebin(rebin)
   signal_histos=[]
-  colors=[28,9,8]
+  colors=[28,9,8,2,3,4,5,6,7]+[i for i in range(30,50)]
   for i in range(len(signal_files)):
     if histo_signal=='':
-      signal_histos.append(signal_files[i].Get(histo))
+      signal_histos.append(signal_files[i].Get(histo).Clone())
     else:
-      signal_histos.append(signal_files[i].Get(histo_signal))
+      signal_histos.append(signal_files[i].Get(histo_signal).Clone())
     signal_histos[i].SetLineWidth(3)
     signal_histos[i].SetLineStyle(1)
     signal_histos[i].SetLineColor(colors[i])
@@ -178,8 +180,11 @@ def make_plot(name, ttbar_file, qcd_file, signal_files, histo, histo_qcd='',hist
   qcd_histo.SetFillColor(kYellow)
   ttbar_histo.SetLineColor(kRed)
   qcd_histo.SetLineColor(kYellow)
+  data_histo.SetLineColor(kBlack)
   ttbar_histo.SetMarkerColor(kRed)
   qcd_histo.SetMarkerColor(kYellow)
+  data_histo.SetMarkerColor(kBlack)
+  data_histo.SetLineWidth(3)
   legend.AddEntry(ttbar_histo,'t#bar{t}','f')
   legend.AddEntry(qcd_histo,'QCD from MC','f')
   legend.AddEntry(signal_histos[0],"Z'(2TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW 1pb",'l')
@@ -218,9 +223,16 @@ def make_plot(name, ttbar_file, qcd_file, signal_files, histo, histo_qcd='',hist
   if maxy!=0 or miny!=0:
     stack.SetMinimum(miny)
     stack.SetMaximum(maxy)
+  else:
+    if logy:
+      stack.SetMaximum(stack.GetMaximum()*100)
+      stack.SetMinimum(0.1)
+    else:
+      stack.SetMaximum(stack.GetMaximum()*1.5)
   for i in range(len(signal_files)):
     signal_histos[i].Draw('samehist')
+  data_histo.Draw('SAME')
   legend.Draw()
   latex.Draw()
   c.SaveAs('pdf/'+name+'.pdf')
-  c.SaveAs('pdf/'+name+'.png')
+  #c.SaveAs('pdf/'+name+'.png')
