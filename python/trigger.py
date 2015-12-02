@@ -122,22 +122,22 @@ def getEffSF(name,data_file,mc_file,folder_postfix,histo_name,den_custom='',num_
     den=den_custom
   if num_custom!='':
     num=num_custom
-  getEff(name+'_eff_data_'+folder_postfix+'_'+histo_name,data_file.Get(den).Clone(),data_file.Get(num),2)
-  getEff(name+'_eff_mc_'+folder_postfix+'_'+histo_name,mc_file.Get(den),mc_file.Get(num),2)
+  getEff(name+'_eff_data_'+folder_postfix+'_'+histo_name,data_file.Get(den).Clone(),data_file.Get(num),1)
+  getEff(name+'_eff_mc_'+folder_postfix+'_'+histo_name,mc_file.Get(den),mc_file.Get(num),1)
   getSF(name+'_sf_'+folder_postfix+'_'+histo_name,data_file.Get(den),
                              data_file.Get(num),
                              mc_file.Get(den),
-                             mc_file.Get(num),2)
-  compare(
-      name=name+'_'+folder_postfix+'_'+histo_name+'_DATAMC',
-      file_list=[outfile,outfile],
-      name_list=[name+'_eff_data_'+folder_postfix+'_'+histo_name,name+'_eff_mc_'+folder_postfix+'_'+histo_name],
-      legend_list=['DATA','MC'],
-      drawoption='AP',
-      xtitle='HT [GeV]',
-      ytitle='Trigger efficiency',
-      #minx=0,maxx=0,rebin=1,miny=0,maxy=0,
-      textsizefactor=0.7)
+                             mc_file.Get(num),1)
+  # compare(
+  #     name=name+'_'+folder_postfix+'_'+histo_name+'_DATAMC',
+  #     file_list=[outfile,outfile],
+  #     name_list=[name+'_eff_data_'+folder_postfix+'_'+histo_name,name+'_eff_mc_'+folder_postfix+'_'+histo_name],
+  #     legend_list=['DATA','MC'],
+  #     drawoption='AP',
+  #     xtitle='HT [GeV]',
+  #     ytitle='Trigger efficiency',
+  #     #minx=0,maxx=0,rebin=1,miny=0,maxy=0,
+  #     textsizefactor=0.7)
 
 paths=['mu0','mu1','mu2','ht0','ht1','ht2','mu0pt','mu1pt','mu2pt','ht0pt','ht1pt','ht2pt']
 
@@ -149,13 +149,44 @@ for i in paths:
     getEffSF('muqcd',datamu_file,qcd_file,i,'HTCA8')
     getEffSF('muttbar',datamu_file,ttbar_file,i,'HTCA8')
     getEffSF('muqcdttbar',datamu_file,mc_file,i,'HTCA8')
+    compare(
+      name='mu_'+i+'_HTCA8_DATAMC',
+      file_list=[outfile,outfile,outfile,outfile],
+      name_list=['muqcd_eff_data_'+i+'_HTCA8','muqcd_eff_mc_'+i+'_HTCA8','muttbar_eff_mc_'+i+'_HTCA8','muqcdttbar_eff_mc_'+i+'_HTCA8'],
+      legend_list=['DATA','MC QCD','MC TTbar','MC QCD+TTbar'],
+      drawoption='AP',
+      xtitle='HT_{CA8} [GeV]',
+      ytitle='Trigger efficiency',
+      #minx=0,maxx=1600,miny=0.3,maxy=1.1,rebin=1,
+      textsizefactor=0.7)
 
     getEffSF('muqcd_subht',datamu_file,qcd_file,i,'HTCA8','','num_'+i+'_subht'+'/HTCA8')
     getEffSF('muttbar_subht',datamu_file,ttbar_file,i,'HTCA8','','num_'+i+'_subht'+'/HTCA8')
     getEffSF('muqcdttbar_subht',datamu_file,mc_file,i,'HTCA8','','num_'+i+'_subht'+'/HTCA8')
+    compare(
+      name='mu_subht_'+i+'_HTCA8_DATAMC',
+      file_list=[outfile,outfile,outfile,outfile],
+      name_list=['muqcd_subht_eff_data_'+i+'_HTCA8','muqcd_subht_eff_mc_'+i+'_HTCA8','muttbar_subht_eff_mc_'+i+'_HTCA8','muqcdttbar_subht_eff_mc_'+i+'_HTCA8'],
+      legend_list=['DATA','MC QCD','MC TTbar','MC QCD+TTbar'],
+      drawoption='AP',
+      xtitle='HT_{CA8} [GeV]',
+      ytitle='Trigger efficiency',
+      #minx=0,maxx=0,rebin=1,miny=0,maxy=0,
+      textsizefactor=0.7)
+
     getEffSF('muqcd_subpt',datamu_file,qcd_file,i,'HTCA8','','num_'+i+'_subpt'+'/HTCA8')
     getEffSF('muttbar_subpt',datamu_file,ttbar_file,i,'HTCA8','','num_'+i+'_subpt'+'/HTCA8')
     getEffSF('muqcdttbar_subpt',datamu_file,mc_file,i,'HTCA8','','num_'+i+'_subpt'+'/HTCA8')
+    compare(
+      name='mu_subpt_'+i+'_HTCA8_DATAMC',
+      file_list=[outfile,outfile,outfile,outfile],
+      name_list=['muqcd_subpt_eff_data_'+i+'_HTCA8','muqcd_subpt_eff_mc_'+i+'_HTCA8','muttbar_subpt_eff_mc_'+i+'_HTCA8','muqcdttbar_subpt_eff_mc_'+i+'_HTCA8'],
+      legend_list=['DATA','MC QCD','MC TTbar','MC QCD+TTbar'],
+      drawoption='AP',
+      xtitle='HT_{CA8} [GeV]',
+      ytitle='Trigger efficiency',
+      #minx=0,maxx=0,rebin=1,miny=0,maxy=0,
+      textsizefactor=0.7)
 
   else:
     # getEffSF('htqcd',dataht_file,qcd_file,i,'HT')
@@ -164,13 +195,44 @@ for i in paths:
     getEffSF('htqcd',dataht_file,qcd_file,i,'HTCA8')
     getEffSF('htttbar',dataht_file,ttbar_file,i,'HTCA8')
     getEffSF('htqcdttbar',dataht_file,mc_file,i,'HTCA8')
+    compare(
+      name='ht_'+i+'_HTCA8_DATAMC',
+      file_list=[outfile,outfile,outfile,outfile],
+      name_list=['htqcd_eff_data_'+i+'_HTCA8','htqcd_eff_mc_'+i+'_HTCA8','htttbar_eff_mc_'+i+'_HTCA8','htqcdttbar_eff_mc_'+i+'_HTCA8'],
+      legend_list=['DATA','MC QCD','MC TTbar','MC QCD+TTbar'],
+      drawoption='AP',
+      xtitle='HT_{CA8} [GeV]',
+      ytitle='Trigger efficiency',
+      #minx=0,maxx=0,rebin=1,miny=0,maxy=0,
+      textsizefactor=0.7)
 
     getEffSF('htqcd_subht',dataht_file,qcd_file,i,'HTCA8','','num_'+i+'_subht'+'/HTCA8')
     getEffSF('htttbar_subht',dataht_file,ttbar_file,i,'HTCA8','','num_'+i+'_subht'+'/HTCA8')
     getEffSF('htqcdttbar_subht',dataht_file,mc_file,i,'HTCA8','','num_'+i+'_subht'+'/HTCA8')
+    compare(
+      name='ht_subht_'+i+'_HTCA8_DATAMC',
+      file_list=[outfile,outfile,outfile,outfile],
+      name_list=['htqcd_subht_eff_data_'+i+'_HTCA8','htqcd_subht_eff_mc_'+i+'_HTCA8','htttbar_subht_eff_mc_'+i+'_HTCA8','htqcdttbar_subht_eff_mc_'+i+'_HTCA8'],
+      legend_list=['DATA','MC QCD','MC TTbar','MC QCD+TTbar'],
+      drawoption='AP',
+      xtitle='HT_{CA8} [GeV]',
+      ytitle='Trigger efficiency',
+      #minx=0,maxx=0,rebin=1,miny=0,maxy=0,
+      textsizefactor=0.7)
+
     getEffSF('htqcd_subpt',dataht_file,qcd_file,i,'HTCA8','','num_'+i+'_subpt'+'/HTCA8')
     getEffSF('htttbar_subpt',dataht_file,ttbar_file,i,'HTCA8','','num_'+i+'_subpt'+'/HTCA8')
     getEffSF('htqcdttbar_subpt',dataht_file,mc_file,i,'HTCA8','','num_'+i+'_subpt'+'/HTCA8')
+    compare(
+      name='ht_subpt_'+i+'_HTCA8_DATAMC',
+      file_list=[outfile,outfile,outfile,outfile],
+      name_list=['htqcd_subpt_eff_data_'+i+'_HTCA8','htqcd_subpt_eff_mc_'+i+'_HTCA8','htttbar_subpt_eff_mc_'+i+'_HTCA8','htqcdttbar_subpt_eff_mc_'+i+'_HTCA8'],
+      legend_list=['DATA','MC QCD','MC TTbar','MC QCD+TTbar'],
+      drawoption='AP',
+      xtitle='HT_{CA8} [GeV]',
+      ytitle='Trigger efficiency',
+      #minx=0,maxx=0,rebin=1,miny=0,maxy=0,
+      textsizefactor=0.7)
 
   
 # getEff('DATA',data_file.Get('Denom/HT'),data_file.Get('Num/HT'),2)

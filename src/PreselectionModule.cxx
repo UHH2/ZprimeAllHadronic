@@ -49,8 +49,8 @@ PreselectionModule::PreselectionModule(Context & ctx){
     commonObjectCleaning->set_jet_id(AndId<Jet>(JetPFID(JetPFID::WP_LOOSE), PtEtaCut(30.0,2.4)));
     //commonObjectCleaning->set_electron_id(AndId<Electron>(ElectronID_Spring15_25ns_medium_noIso,PtEtaCut(20.0, 2.1)));
     //commonObjectCleaning->set_muon_id(AndId<Muon>(MuonIDTight(),PtEtaCut(20.0, 2.1)));
-    commonObjectCleaning->switch_jetlepcleaner(true);
-    commonObjectCleaning->switch_jetPtSorter(true);
+    //commonObjectCleaning->switch_jetlepcleaner(true);
+    //commonObjectCleaning->switch_jetPtSorter(true);
     commonObjectCleaning->init(ctx);
     common_modules_with_lumi_sel.reset(commonObjectCleaning);
 

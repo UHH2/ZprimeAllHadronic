@@ -349,25 +349,48 @@ void uncorrect_topjets(const Event & event){
     }
 }
 
+  // //pt requirement
+  // if(TopJetPt(topjet)<400.0) return false;
+  // //mass requirement
+  // auto mjet = TopJetMass(topjet);
+  // if(mjet<110 || mjet>210) return false;
+  // //nsubjettiness requirement
+  // if (TopJetNsub(topjet)>0.86) return false;
+  // return true;
+
 bool TopTag(TopJet topjet)
 {
-  if(TopJetPt(topjet)<400.0) return false;
-  //number of subjets requirement
-  //if(topjet.subjets().size()<3) return false;
-  //mass requirement
   auto mjet = TopJetMass(topjet);
-  if(mjet<110 || mjet>210) return false;
-  //minimum pairwise mass requirement
-  //if (getMmin(topjet)<50) return false;
-  //nsubjettiness requirement
-  if (TopJetNsub(topjet)>0.86) return false;
-  return true;
+  return TopJetPt(topjet)>400.0 && mjet>110.0 && mjet<210.0 && TopJetNsub(topjet)<0.86;
+}
+
+bool AntiTopTag_mass(TopJet topjet)
+{
+  auto mjet = TopJetMass(topjet);
+  return TopJetPt(topjet)>400.0 && (mjet<110.0 || mjet>210.0) && TopJetNsub(topjet)<0.86;
+}
+bool AntiTopTag_nsub(TopJet topjet)
+{
+  auto mjet = TopJetMass(topjet);
+  return TopJetPt(topjet)>400.0 && mjet>110.0 && mjet<210.0 && TopJetNsub(topjet)>0.86;
 }
 
 bool WTag(TopJet topjet)
 {
   auto mjet = TopJetMass(topjet);
   return mjet>65.0 && mjet<105.0 && TopJetNsub2(topjet)<0.6 && TopJetPt(topjet)>200.0;
+}
+
+bool AntiWTag_mass(TopJet topjet)
+{
+  auto mjet = TopJetMass(topjet);
+  return (mjet<65.0 || mjet>105.0) && TopJetNsub2(topjet)<0.6 && TopJetPt(topjet)>200.0;
+}
+
+bool AntiWTag_nsub(TopJet topjet)
+{
+  auto mjet = TopJetMass(topjet);
+  return mjet>65.0 && mjet<105.0 && TopJetNsub2(topjet)>0.6 && TopJetPt(topjet)>200.0;
 }
 
 bool SDTopTag::operator()(const TopJet & topjet, const uhh2::Event &) const {
