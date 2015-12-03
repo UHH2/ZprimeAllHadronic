@@ -1123,14 +1123,9 @@ void SelectionHists::fill(const Event & event){
 
 
 
-  hist("wmass")->Fill(,weight);
-  hist("wpt")->Fill(,weight);
-  hist("wnsub")->Fill(,weight);
 
-  hist("toppt")->Fill(,weight);
-  hist("topmass")->Fill(,weight);
-  hist("topnsub")->Fill(,weight);
-  hist("topcsv")->Fill(,weight);
+
+
 
 
 
@@ -1145,6 +1140,34 @@ void SelectionHists::fill(const Event & event){
   //toptag+wtag
   TopJet the_top, the_w;
   Jet the_b;
+
+  if(TopTag(event.topjets->at(0))
+  {
+    hist("wmass")->Fill(event.topjets->at(1),weight);
+    hist("wpt")->Fill(event.topjets->at(1),weight);
+    hist("wnsub")->Fill(event.topjets->at(1),weight);
+  }
+  if(TopTag(event.topjets->at(1))
+  {
+    hist("wmass")->Fill(event.topjets->at(0),weight);
+    hist("wpt")->Fill(event.topjets->at(0),weight);
+    hist("wnsub")->Fill(event.topjets->at(0),weight);
+  }
+  if(WTag(event.topjets->at(0))
+  {
+    hist("toppt")->Fill(event.topjets->at(1),weight);
+    hist("topmass")->Fill(event.topjets->at(1),weight);
+    hist("topnsub")->Fill(event.topjets->at(1),weight);
+    hist("topcsv")->Fill(event.topjets->at(1),weight);
+  }
+  if(WTag(event.topjets->at(1))
+  {
+    hist("toppt")->Fill(event.topjets->at(0),weight);
+    hist("topmass")->Fill(event.topjets->at(0),weight);
+    hist("topnsub")->Fill(event.topjets->at(0),weight);
+    hist("topcsv")->Fill(event.topjets->at(0),weight);
+  }
+
   bool has_tw=false;
   bool has_twb=false;
   if (TopTag(event.topjets->at(0))&&WTag(event.topjets->at(1)))
@@ -1166,7 +1189,7 @@ void SelectionHists::fill(const Event & event){
         break;
   }
 
-  if (has_twb){ hist("dRtW")->Fill(deltaR(the_top,the_w),weight);
+  if (has_tw){ hist("dRtW")->Fill(deltaR(the_top,the_w),weight);
                 hist("toppt_wpt")->Fill(TopJetPt(the_top)-TopJetPt(the_w),weight);}
   
   if (has_twb)
