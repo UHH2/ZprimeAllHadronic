@@ -72,9 +72,10 @@ outfile=TFile('outfile.root','RECREATE')
 
 #merge
 force=False
-qcd_filename=hadd(path,filename_base,qcd_names,'qcd_added',force)
-ttbar_filename=hadd(path,filename_base,ttbar_names,'ttbar_added',force)
-data_filename=hadd(path,filename_base,data_names,'data_added',force)
+merge=False
+qcd_filename=hadd(path,filename_base,qcd_names,'qcd_added',force,merge)
+ttbar_filename=hadd(path,filename_base,ttbar_names,'ttbar_added',force,merge)
+data_filename=hadd(path,filename_base,data_names,'data_added',force,merge)
 #open files
 qcd_file=TFile(qcd_filename,'READ')
 ttbar_file=TFile(ttbar_filename,'READ')
@@ -107,9 +108,33 @@ for i in ['step1_wmass','step1_wnsub','step1_tcsv','step1_tpt','step2_bcsv','ste
 		maxratio=0,
 		logy=False,
         xtitle='',
-        ytitle='',
+        ytitle='Events',
         textsizefactor=1,
         signal_legend=signalWB_legendnames
+        )
+
+	make_ratioplot(
+		name=i+'2',
+		ttbar_file=ttbar_file,
+		qcd_file=qcd_file,
+		data_file=data_file,
+		signal_files=signal_files,
+		histo='Preselection/'+i, 
+		histo_qcd='Preselection/'+i,
+		histo_signal='Preselection/'+i,
+		rebin=rebinna,
+		minx=0,
+		maxx=0,
+		miny=0,
+		maxy=0,
+		minratio=0,
+		maxratio=0,
+		logy=False,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalWB_legendnames,
+        separate_legend=True
         )
 	
 outfile.Close()

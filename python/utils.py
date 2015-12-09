@@ -1,4 +1,4 @@
-from ROOT import TFile,TCanvas,gROOT,gStyle,TLegend,TGraphAsymmErrors,THStack,TIter,kRed,kYellow,kGray,kBlack,TLatex
+from ROOT import TFile,TCanvas,gROOT,gStyle,TLegend,TGraphAsymmErrors,THStack,TIter,kRed,kYellow,kGray,kBlack,TLatex,kOrange,kAzure,TLine
 from os import system
 from sys import argv
 from os import mkdir
@@ -91,13 +91,14 @@ def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE'
   c.SaveAs('pdf/'+name+'.pdf')
   #c.SaveAs(folder+name+'.png')
 
-def hadd(path_base,name_base,inputlist,outputname,force=True):
+def hadd(path_base,name_base,inputlist,outputname,force=True,merge=True):
   command_list='hadd -f '+path_base+outputname+'.root'#-v 0
   if not force:
     command_list='hadd '+path_base+outputname+'.root'#-v 0
   for i in inputlist:
     command_list+=' '+path_base+name_base+i+'.root'
-  system(command_list)
+  if merge:
+    system(command_list)
   return path_base+outputname+'.root'
 
 def doeff(filename, histoname_den, histoname_num, histoname_out, outfile,rebin=1):
@@ -239,8 +240,14 @@ def make_plot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_
 
 us='_'
 def make_ratioplot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_qcd='',histo_signal='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,
-                    xtitle='',ytitle='',textsizefactor=1,signal_legend=[]):
-  canvas=TCanvas(name,'',0,0,600,600)
+                    xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False):
+  
+  ###canvas setting up
+  canvas=0
+  if separate_legend:
+    canvas=TCanvas(name,'',0,0,600,600)
+  else:
+    canvas=TCanvas(name,'',0,0,600,900)
   canvas.Divide(1,2)
   top_pad=canvas.GetPad(1)
   bottom_pad=canvas.GetPad(2)
@@ -248,18 +255,202 @@ def make_ratioplot(name, ttbar_file, qcd_file, data_file, signal_files, histo, h
   bottom_pad.SetPad( 0.0, 0.0, 1.0, 0.30 )
   top_pad.SetLeftMargin(0.15)
   top_pad.SetRightMargin(0.05)
-  top_pad.SetTopMargin(0.10)
+  if separate_legend:
+    top_pad.SetTopMargin(0.10)
+  else:
+    top_pad.SetTopMargin(0.25)
   top_pad.SetBottomMargin(0.0)
   bottom_pad.SetLeftMargin(0.15)
   bottom_pad.SetRightMargin(0.05)
   bottom_pad.SetTopMargin(0.0)
   bottom_pad.SetBottomMargin(0.45)
-  latex=TLatex(0.6,0.70,'13 TeV, 2.46 fb^{-1}')
+  charsize=0
+  offset=0
+  if separate_legend:
+    charsize=0.07
+    offset=1.
+  else:
+    charsize=0.05
+    offset=1.4
+  pullcharsize=charsize*0.7/0.3
+  pulloffset=offset*0.3/0.7
+
+  ###latex label
+  latex=0
+  if separate_legend:
+    latex=TLatex(0.62,0.83,'13 TeV, 2.46 fb^{-1}')
+  else:
+    latex=TLatex(0.6,0.7,'13 TeV, 2.46 fb^{-1}')
+  latex.SetTextSize(charsize)
   latex.SetNDC(1)
   latex.SetTextFont(42)
 
+  ###legend setting up
+  legend=TLegend(0.0,0.75,0.99,1.04)
+  legend.SetNColumns(2)
+  legend.SetHeader('')
+  #legend.SetTextSize(0.03)
+  legend.SetBorderSize(0)
+  legend.SetTextFont(42)
+  legend.SetLineColor(1)
+  legend.SetLineStyle(1)
+  legend.SetLineWidth(1)
+  legend.SetFillColor(0)
+  legend.SetFillStyle(0)
+
+  ###data
+  data_histo=data_file.Get(histo).Clone()
+  data_histo.Rebin(rebin)
+  data_histo.SetMarkerColor(kBlack)
+  data_histo.SetLineWidth(3)
+  data_histo.SetLineColor(kBlack)
+  legend.AddEntry(data_histo,'Data','lep')
+
+  ###mc stack
+  stack=THStack(name+'_stack','')
+  ttbar_histo=ttbar_file.Get(histo).Clone()
+  ttbar_histo.Rebin(rebin)
+  if histo_qcd=='':
+    qcd_histo=qcd_file.Get(histo).Clone()
+  else:
+    qcd_histo=qcd_file.Get(histo_qcd).Clone()
+  qcd_histo.Rebin(rebin)
+  ttbar_histo.SetFillColor(kAzure)
+  ttbar_histo.SetLineColor(kAzure)
+  ttbar_histo.SetMarkerColor(kAzure)
+  legend.AddEntry(ttbar_histo,'t#bar{t}','f')
+  qcd_histo.SetFillColor(kOrange)
+  qcd_histo.SetLineColor(kOrange)
+  qcd_histo.SetMarkerColor(kOrange)
+  legend.AddEntry(qcd_histo,'QCD from MC','f')
+  stack.Add(ttbar_histo)
+  stack.Add(qcd_histo)
+  
+  ###signal setting up
+  signal_histos=[]
+  colors=[30,40,41,42,43,44,45,46,47,48,49]
+  if signal_colors!=[]:
+    colors=signal_colors
+  for i in range(len(signal_files)):
+    if histo_signal=='':
+      signal_histos.append(signal_files[i].Get(histo).Clone())
+    else:
+      signal_histos.append(signal_files[i].Get(histo_signal).Clone())
+    signal_histos[i].SetLineWidth(3)
+    signal_histos[i].SetLineStyle(1)
+    signal_histos[i].SetLineColor(colors[i])
+    signal_histos[i].SetMarkerColor(colors[i])
+    signal_histos[i].Rebin(rebin)
+    legend.AddEntry(signal_histos[i],signal_legend[i],'l')
+
+  ###mc shape line
+  sum_mc=ttbar_histo.Clone(histo+'tmp')
+  sum_mc.Add(qcd_histo)
+  sum_mc.SetLineColor(kBlack)
+  sum_mc.SetFillStyle(0)
+  ttbar_line=ttbar_histo.Clone()
+  ttbar_line.SetLineColor(kBlack)
+  ttbar_line.SetFillStyle(0)
+
+  ###mc errors
+  err=TGraphAsymmErrors(sum_mc)
+  err.SetFillStyle(3145)
+  err.SetFillColor(kGray)
+  
+  ###pull distribution
+  pull=data_histo.Clone()
+  pull.Add(sum_mc,-1)
+  for i in range(pull.GetNbinsX()+2):
+    if pull.GetBinError(i)!=0:
+      pull.SetBinContent(i,pull.GetBinContent(i)/pull.GetBinError(i))
+    else:
+      pull.SetBinContent(i,0)
+  pull.SetFillColor(kOrange+7)
+
+  ###drawing top
+  top_pad.cd()
+  stack.Draw('hist')
+  stack.GetXaxis().SetTitle('')
+  stack.GetYaxis().SetTitle(ytitle)
+  stack.GetYaxis().SetLabelSize(charsize)
+  stack.GetYaxis().SetTitleSize(charsize)
+  stack.GetYaxis().SetTitleOffset(offset)
+  stack.GetXaxis().SetLabelSize(0)
+  stack.GetXaxis().SetTitleSize(0)
+  stack.GetXaxis().SetTitleOffset(100)
+  stack.GetXaxis().SetLabelOffset(100)
+  if minx!=0 or maxx!=0:
+    stack.GetXaxis().SetRangeUser(minx,maxx)
+  else:
+    stack.GetXaxis().SetRangeUser(0,4000)
+  if miny!=0 or maxy!=0:
+    stack.SetMaximum(maxy)
+    stack.SetMinimum(miny)
+  else:
+    if logy:
+      stack.SetMaximum(stack.GetMaximum()*100)
+      stack.SetMinimum(0.2)
+    else:
+      stack.SetMaximum(stack.GetMaximum()*1.5)
+      stack.SetMinimum(0.01)
+  err.Draw('2')
+  sum_mc.Draw('samehist')
+  ttbar_line.Draw('samehist')
+  for i in signal_histos:
+    i.Draw('samehist')
+  data_histo.Draw('SAME')
+  if not separate_legend:
+    legend.Draw()
+  latex.Draw()
+
+  ###drawing bottom
+  bottom_pad.cd()
+  pull.SetStats(0)
+  pull.SetTitle('')
+  pull.Draw('hist')
+  if minx!=0 or maxx!=0:
+    pull.GetXaxis().SetRangeUser(minx,maxx)
+  pull.GetYaxis().SetLabelSize(pullcharsize)
+  pull.GetYaxis().SetTitleSize(pullcharsize)
+  pull.GetYaxis().SetTitleOffset(pulloffset)
+  pull.GetXaxis().SetLabelSize(pullcharsize)
+  pull.GetXaxis().SetTitleSize(pullcharsize)
+  pull.GetXaxis().SetTitleOffset(1.3)
+  pull.GetYaxis().SetTitle('#frac{Data-MC}{#sigma}')#'(Data-MC)/#sigma'
+  if xtitle!='':
+    pull.GetXaxis().SetTitle(xtitle)
+  if fixratio:
+    pull.GetYaxis().SetRangeUser(-5.1,5.1)
+  pull.GetYaxis().SetNdivisions(3,2,0)
+  pull.GetXaxis().SetNdivisions(10,5,0)
+  #pull.GetXaxis().SetRangeUser(pull.GetXaxis().GetXmin(),pull.GetXaxis().GetXmax()*zf)
+  line1=TLine(pull.GetXaxis().GetXmin(),0.0,pull.GetXaxis().GetXmax(),0.0)
+  line1.SetLineStyle(2)
+  line1.SetLineWidth(3)
+
+  line1.Draw()
+
+
+  ###saving
   canvas.SaveAs('pdf/'+name+'.pdf')
-  canvas.Write()
+  if outfile!=0:
+      canvas.Write()
+
+
+
+  ###separate legend
+  if separate_legend:
+    legendcanvas=TCanvas(name+'_legend','',0,0,600,600)
+    legendcanvas.cd()
+    legend.SetNColumns(1)
+    legend.SetX1(0.0)
+    legend.SetX2(1.0)
+    legend.SetY1(0.0)
+    legend.SetY2(1.0)
+    legend.Draw()
+    legendcanvas.SaveAs('pdf/'+name+'_legend.pdf')
+    if outfile!=0:
+      legendcanvas.Write()
   
 
 #   def make_plot_old(histo_name,folder=htfolder,override=False,ttbar1=0,ttbar2=0,bkg1=0,bkg2=0,data1=0,data2=0,err1=0,err2=0): 
