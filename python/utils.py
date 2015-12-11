@@ -240,7 +240,7 @@ def make_plot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_
 
 us='_'
 def make_ratioplot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_qcd='',histo_signal='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,
-                    xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False):
+                    xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False, signal_zoom=1):
   
   ###canvas setting up
   canvas=0
@@ -341,6 +341,8 @@ def make_ratioplot(name, ttbar_file, qcd_file, data_file, signal_files, histo, h
     signal_histos[i].SetLineColor(colors[i])
     signal_histos[i].SetMarkerColor(colors[i])
     signal_histos[i].Rebin(rebin)
+    if signal_zoom!=1:
+      signal_histos[i].Scale(signal_zoom)
     legend.AddEntry(signal_histos[i],signal_legend[i],'l')
 
   ###mc shape line
@@ -381,8 +383,8 @@ def make_ratioplot(name, ttbar_file, qcd_file, data_file, signal_files, histo, h
   stack.GetXaxis().SetLabelOffset(100)
   if minx!=0 or maxx!=0:
     stack.GetXaxis().SetRangeUser(minx,maxx)
-  else:
-    stack.GetXaxis().SetRangeUser(0,4000)
+  #else:
+  #  stack.GetXaxis().SetRangeUser(0,4000)
   if miny!=0 or maxy!=0:
     stack.SetMaximum(maxy)
     stack.SetMinimum(miny)
@@ -420,8 +422,8 @@ def make_ratioplot(name, ttbar_file, qcd_file, data_file, signal_files, histo, h
   if xtitle!='':
     pull.GetXaxis().SetTitle(xtitle)
   if fixratio:
-    pull.GetYaxis().SetRangeUser(-5.1,5.1)
-  pull.GetYaxis().SetNdivisions(3,2,0)
+    pull.GetYaxis().SetRangeUser(-3.9,3.9)
+  pull.GetYaxis().SetNdivisions(4,2,0)
   pull.GetXaxis().SetNdivisions(10,5,0)
   #pull.GetXaxis().SetRangeUser(pull.GetXaxis().GetXmin(),pull.GetXaxis().GetXmax()*zf)
   line1=TLine(pull.GetXaxis().GetXmin(),0.0,pull.GetXaxis().GetXmax(),0.0)

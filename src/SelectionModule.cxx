@@ -45,26 +45,27 @@ private:
 SelectionModule::SelectionModule(Context & ctx){
   
     CommonModules* commonObjectCleaning = new CommonModules();
-    commonObjectCleaning->set_jet_id(AndId<Jet>(JetPFID(JetPFID::WP_LOOSE), PtEtaCut(30.0,2.4)));
+    //commonObjectCleaning->set_jet_id(AndId<Jet>(JetPFID(JetPFID::WP_LOOSE), PtEtaCut(30.0,2.4)));
     //commonObjectCleaning->set_electron_id(AndId<Electron>(ElectronID_Spring15_25ns_medium_noIso,PtEtaCut(20.0, 2.1)));
     //commonObjectCleaning->set_muon_id(AndId<Muon>(MuonIDTight(),PtEtaCut(20.0, 2.1)));
     //commonObjectCleaning->switch_jetlepcleaner(true);
     //commonObjectCleaning->switch_jetPtSorter(true);
+    commonObjectCleaning->disable_jersmear();
     commonObjectCleaning->init(ctx);
     common_modules_with_lumi_sel.reset(commonObjectCleaning);
 
     bool is_mc = ctx.get("dataset_type") == "MC";
     if (is_mc)
     {
-        jetcorrector.reset(new JetCorrector(JERFiles::Summer15_25ns_L123_AK4PFchs_MC));
-        topjetcorrector.reset(new TopJetCorrector(JERFiles::Summer15_25ns_L123_AK8PFchs_MC));
-        subjetcorrector.reset(new SubJetCorrector(JERFiles::Summer15_25ns_L123_AK4PFchs_MC));
+        jetcorrector.reset(new JetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK4PFchs_MC));
+        topjetcorrector.reset(new TopJetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK8PFchs_MC));
+        subjetcorrector.reset(new SubJetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK4PFchs_MC));
     }
     else
     {
-        jetcorrector.reset(new JetCorrector(JERFiles::Summer15_25ns_L123_AK4PFchs_DATA));
-        topjetcorrector.reset(new TopJetCorrector(JERFiles::Summer15_25ns_L123_AK8PFchs_DATA));
-        subjetcorrector.reset(new SubJetCorrector(JERFiles::Summer15_25ns_L123_AK4PFchs_DATA));
+        jetcorrector.reset(new JetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK4PFchs_DATA));
+        topjetcorrector.reset(new TopJetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK8PFchs_DATA));
+        subjetcorrector.reset(new SubJetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK4PFchs_DATA));
     }
 
     h_selection.reset(new SelectionHists(ctx, "Selection"));

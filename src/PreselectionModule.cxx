@@ -57,15 +57,15 @@ PreselectionModule::PreselectionModule(Context & ctx){
     bool is_mc = ctx.get("dataset_type") == "MC";
     if (is_mc)
     {
-        jetcorrector.reset(new JetCorrector(JERFiles::Summer15_25ns_L123_AK4PFchs_MC));
-        topjetcorrector.reset(new TopJetCorrector(JERFiles::Summer15_25ns_L123_AK8PFchs_MC));
-        subjetcorrector.reset(new SubJetCorrector(JERFiles::Summer15_25ns_L123_AK4PFchs_MC));
+        jetcorrector.reset(new JetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK4PFchs_MC));
+        topjetcorrector.reset(new TopJetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK8PFchs_MC));
+        subjetcorrector.reset(new SubJetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK4PFchs_MC));
     }
     else
     {
-        jetcorrector.reset(new JetCorrector(JERFiles::Summer15_25ns_L123_AK4PFchs_DATA));
-        topjetcorrector.reset(new TopJetCorrector(JERFiles::Summer15_25ns_L123_AK8PFchs_DATA));
-        subjetcorrector.reset(new SubJetCorrector(JERFiles::Summer15_25ns_L123_AK4PFchs_DATA));
+        jetcorrector.reset(new JetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK4PFchs_DATA));
+        topjetcorrector.reset(new TopJetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK8PFchs_DATA));
+        subjetcorrector.reset(new SubJetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK4PFchs_DATA));
     }
 
     
@@ -94,20 +94,25 @@ if (event.isRealData)
     ti_HT=event.get_trigger_index("HLT_PFHT800_v*");
 else
     ti_HT=event.get_trigger_index("HLT_PFHT800Emu_v*");
-
 bool HT_trigger = event.passes_trigger(ti_HT);
+
+uhh2::Event::TriggerIndex ti_subht=event.get_trigger_index("HLT_AK8PFHT700_TrimR0p1PT0p03Mass50_v*");
+bool Trim_trigger = event.passes_trigger(ti_subht);
+
+
 float HT=getHT50(event);
 bool HT_cut= HT>850.0;
+bool Trim_cut= HT>750.0;
 //if (!(HT_trigger && HT>850.0)) return false;
 
 
 bool Nfatjets=false;
 if (event.topjets->size()>1)
 {
-    if (TopJetPt(event.topjets->at(0))>400.0 && TopJetPt(event.topjets->at(1))>200.0 && TopJetMass(event.topjets->at(0))>60.0 && TopJetMass(event.topjets->at(1))>60.0) Nfatjets=true;
+    if (TopJetPt(event.topjets->at(0))>200.0/*400.0*/ && TopJetPt(event.topjets->at(1))>200.0 && TopJetMass(event.topjets->at(0))>60.0 && TopJetMass(event.topjets->at(1))>60.0) Nfatjets=true;
 }
 //cout<<HT_trigger<<Nfatjets;
-bool preselection = HT_trigger && HT_cut && Nfatjets;
+bool preselection = ( (HT_trigger && HT_cut) || (Trim_trigger && Trim_cut) ) && Nfatjets;
 
 
 bool is_allhad=false;

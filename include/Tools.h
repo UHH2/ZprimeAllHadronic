@@ -23,6 +23,7 @@ float getHTCA8(const Event & event);
 float getMaxTopJetPt(const Event & event);
 float getMaxTopJetMass(const Event & event);
 float TopJetMass(TopJet topjet);
+float JetMass(Jet jet);
 float TopJetPt(TopJet topjet);
 float TopJetMass2(Particle topjet);
 float TopJetPt2(Particle topjet);

@@ -30,6 +30,13 @@ float TopJetMass(TopJet topjet)
   else return allsubjets.M();
 }
 
+float JetMass(Jet jet)
+{
+  LorentzVector v4=jet.v4();
+  if(!v4.isTimelike()) return 0.0;
+  else return v4.M();
+}
+
 float TopJetMass2(Particle topjet)
 {
   if (topjet.v4().isTimelike()) return topjet.v4().M();
