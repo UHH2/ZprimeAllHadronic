@@ -74,8 +74,10 @@ def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE'
       histo_list[i].GetXaxis().SetTitleSize(charsize)
       histo_list[i].GetXaxis().SetTitleOffset(0.95)
       # if useOutfile:
-      histo_list[i].GetXaxis().SetTitle(xtitle)
-      histo_list[i].GetYaxis().SetTitle(ytitle)
+      if xtitle!='':
+        histo_list[i].GetXaxis().SetTitle(xtitle)
+      if ytitle!='':  
+        histo_list[i].GetYaxis().SetTitle(ytitle)
       if maxx!=0 or minx!=0:
         histo_list[i].GetXaxis().SetRangeUser(minx,maxx)
       #   histo_list[i].GetYaxis().SetTitle('Efficiency')
@@ -239,8 +241,9 @@ def make_plot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_
   #c.SaveAs('pdf/'+name+'.png')
 
 us='_'
-def make_ratioplot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_qcd='',histo_signal='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,
-                    xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False, signal_zoom=1):
+def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[], histo=0, histo_qcd='',histo_signal='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,
+                    xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False, signal_zoom=1,normalize=False,
+                    ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='Data'):
   
   ###canvas setting up
   canvas=0
@@ -304,26 +307,33 @@ def make_ratioplot(name, ttbar_file, qcd_file, data_file, signal_files, histo, h
   data_histo.SetMarkerColor(kBlack)
   data_histo.SetLineWidth(3)
   data_histo.SetLineColor(kBlack)
-  legend.AddEntry(data_histo,'Data','lep')
+  if normalize:
+      data_histo.Scale(1.0/(data_histo.Integral()+0.00000001))
+  legend.AddEntry(data_histo,data_legend,'lep')
 
   ###mc stack
   stack=THStack(name+'_stack','')
-  ttbar_histo=ttbar_file.Get(histo).Clone()
-  ttbar_histo.Rebin(rebin)
+  
   if histo_qcd=='':
     qcd_histo=qcd_file.Get(histo).Clone()
   else:
     qcd_histo=qcd_file.Get(histo_qcd).Clone()
   qcd_histo.Rebin(rebin)
-  ttbar_histo.SetFillColor(kAzure)
-  ttbar_histo.SetLineColor(kAzure)
-  ttbar_histo.SetMarkerColor(kAzure)
-  legend.AddEntry(ttbar_histo,'t#bar{t}','f')
+  ttbar_histo=0
+  if ttbar_file!=0:
+    ttbar_histo=ttbar_file.Get(histo).Clone()
+    ttbar_histo.Rebin(rebin)
+    ttbar_histo.SetFillColor(kAzure)
+    ttbar_histo.SetLineColor(kAzure)
+    ttbar_histo.SetMarkerColor(kAzure)
+    stack.Add(ttbar_histo)
+    legend.AddEntry(ttbar_histo,ttbar_legend,'f')
   qcd_histo.SetFillColor(kOrange)
   qcd_histo.SetLineColor(kOrange)
   qcd_histo.SetMarkerColor(kOrange)
-  legend.AddEntry(qcd_histo,'QCD from MC','f')
-  stack.Add(ttbar_histo)
+  legend.AddEntry(qcd_histo,qcd_legend,'f')
+  if normalize:
+      qcd_histo.Scale(1.0/(qcd_histo.Integral()+0.00000001))
   stack.Add(qcd_histo)
   
   ###signal setting up
@@ -346,13 +356,16 @@ def make_ratioplot(name, ttbar_file, qcd_file, data_file, signal_files, histo, h
     legend.AddEntry(signal_histos[i],signal_legend[i],'l')
 
   ###mc shape line
-  sum_mc=ttbar_histo.Clone(histo+'tmp')
-  sum_mc.Add(qcd_histo)
+  sum_mc=qcd_histo.Clone(histo+'tmp')
+  if ttbar_file!=0:
+    sum_mc.Add(ttbar_histo)
   sum_mc.SetLineColor(kBlack)
   sum_mc.SetFillStyle(0)
-  ttbar_line=ttbar_histo.Clone()
-  ttbar_line.SetLineColor(kBlack)
-  ttbar_line.SetFillStyle(0)
+  ttbar_line=0
+  if ttbar_file!=0:
+    ttbar_line=ttbar_histo.Clone()
+    ttbar_line.SetLineColor(kBlack)
+    ttbar_line.SetFillStyle(0)
 
   ###mc errors
   err=TGraphAsymmErrors(sum_mc)
@@ -397,7 +410,8 @@ def make_ratioplot(name, ttbar_file, qcd_file, data_file, signal_files, histo, h
       stack.SetMinimum(0.01)
   err.Draw('2')
   sum_mc.Draw('samehist')
-  ttbar_line.Draw('samehist')
+  if ttbar_file!=0:
+    ttbar_line.Draw('samehist')
   for i in signal_histos:
     i.Draw('samehist')
   data_histo.Draw('SAME')

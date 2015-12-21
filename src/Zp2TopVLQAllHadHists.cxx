@@ -1015,6 +1015,9 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("N_toptags", ";N_{toptags};Events", 10, 0, 10);
   book<TH1F>("N_wtags", ";N_{wtags};Events", 10, 0, 10);
   book<TH1F>("N_btags", ";N_{btags};Events", 10, 0, 10);
+  book<TH1F>("N_btags_good", ";N_{btags};Events", 10, 0, 10);
+  book<TH1F>("N_btags_ttbarCR", ";N_{btags};Events", 10, 0, 10);
+  book<TH1F>("N_btags_good_ttbarCR", ";N_{btags};Events", 10, 0, 10);
   book<TH1F>("N_subjetbtags", ";N_{subjetbtags};Events", 10, 0, 10);
 
   book<TH1F>("bmass", ";m_{b};Events", 200, 0, 100);
@@ -1034,6 +1037,16 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("dRbW", ";#Delta R(b,W);Events", 500, 0, 5);
   book<TH1F>("dRtW", ";#Delta R(top,W);Events", 500, 0, 5);
   book<TH1F>("dRtTp", ";#Delta R(top,T');Events", 500, 0, 5);
+  book<TH1F>("dRbTp", ";#Delta R(b,T');Events", 500, 0, 5);
+  book<TH1F>("dRWTp", ";#Delta R(W,T');Events", 500, 0, 5);
+
+  book<TH1F>("dRbtGEN", ";#Delta R(b,top);Events", 500, 0, 5);
+  book<TH1F>("dRbWGEN", ";#Delta R(b,W);Events", 500, 0, 5);
+  book<TH1F>("dRtWGEN", ";#Delta R(top,W);Events", 500, 0, 5);
+  book<TH1F>("dRtTpGEN", ";#Delta R(top,T');Events", 500, 0, 5);
+  book<TH1F>("dRbTpGEN", ";#Delta R(b,T');Events", 500, 0, 5);
+  book<TH1F>("dRWTpGEN", ";#Delta R(W,T');Events", 500, 0, 5);
+
 
   book<TH1F>("ht", ";HT;Events", 300, 0, 3000);
   book<TH1F>("htca8", ";HT_{CA8};Events", 300, 0, 3000);
@@ -1054,11 +1067,19 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("zprimemassbmass", ";m_{Z'};Events", 300, 0, 3000);
   book<TH1F>("zprimemassnobmass", ";m_{Z'};Events", 300, 0, 3000);
 
+  book<TH1F>("ht_twbSR", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("ht_twbSRbtag", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("ht_twbSRnobtag", ";m_{Z'};Events", 300, 0, 3000);
+
   book<TH1F>("ttbarCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
   book<TH1F>("ttbarCR_zprimemassbtag", ";m_{Z'};Events", 300, 0, 3000);
-
   book<TH1F>("lowmassCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
   book<TH1F>("lowmassCR_zprimemassbtag", ";m_{Z'};Events", 300, 0, 3000);
+
+  book<TH1F>("ttbarCR_zprimemass_low", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("ttbarCR_zprimemassbtag_low", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("lowmassCR_zprimemass_low", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("lowmassCR_zprimemassbtag_low", ";m_{Z'};Events", 300, 0, 3000);
 
   book<TH1F>("antitopmassCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
   book<TH1F>("antitopnsubCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
@@ -1068,11 +1089,76 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("antibptCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
   book<TH1F>("antibmassCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
 
+  book<TH1F>("antitopmassCRmass_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antitopnsubCRmass_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antiwmassCRmass_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antiwnsubCRmass_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antibcsvCRmass_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antibptCRmass_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antibmassCRmass_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+
+  book<TH1F>("antitopmassCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antitopnsubCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antiwmassCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antiwnsubCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antibcsvCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antibptCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antibmassCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+
 }
 
 void SelectionHists::fill(const Event & event){
     double weight = event.weight;
   
+//gen part
+
+has_twb_gen=false;
+float dRbt=0;
+float dRbW=0;
+float dRtW=0;
+float dRtTp=0;
+float dRbTp=0;
+float dRWTp=0;
+if (!event.isRealData)
+{
+  GenParticle the_gen_top,the_gen_tprime,the_gen_w,the_gen_b;
+  bool has_gen_top=false,has_gen_tprime=false,has_gen_w=false,has_gen_b=false;
+  for (auto genp : *event.genparticles)
+  {
+
+    if (abs(genp.pdgId()) == 6)
+    {
+      has_gen_top=true;
+      the_gen_top=genp;
+    }
+    if (abs(genp.pdgId()) == 8000001)
+    {
+      has_gen_tprime=true;
+      the_gen_tprime=genp;
+      auto pthe_gen_w = genp.daughter(event.genparticles, 1);
+      auto pthe_gen_b = genp.daughter(event.genparticles, 2);
+      if (pthe_gen_w && pthe_gen_b)
+      {
+        the_gen_w=*pthe_gen_w;
+        the_gen_b=*pthe_gen_b;
+        if(abs(the_gen_w.pdgId()) != 24) std::swap(the_gen_w, the_gen_b);
+        if(abs(the_gen_w.pdgId()) == 24) has_gen_w=true;
+        if(abs(the_gen_b.pdgId()) == 5) has_gen_b=true;
+      } 
+    }
+  }
+  if (has_gen_top && has_gen_b && has_gen_w && has_gen_tprime)
+  {
+    has_twb_gen=true;
+    dRbt=deltaR(the_gen_b,the_gen_top);
+    dRbW=deltaR(the_gen_b,the_gen_w);
+    dRtW=deltaR(the_gen_top,the_gen_w);
+    dRtTp=deltaR(the_gen_top,the_gen_tprime);
+    dRbTp=deltaR(the_gen_b,the_gen_tprime);
+    dRWTp=deltaR(the_gen_w,the_gen_tprime);
+  }
+}
+
 
   int N_toptags=0;
   for(auto topjet : *event.topjets)
@@ -1104,6 +1190,16 @@ void SelectionHists::fill(const Event & event){
     }
   hist("N_btags")->Fill(N_bjets,weight);
 
+  int N_bjets_good=0;
+  for(auto jet : *event.jets)
+    {
+      if (jet.btag_combinedSecondaryVertex()>0.890 &&deltaR(jet,event.topjets->at(0))>0.8 &&deltaR(jet,event.topjets->at(1))>0.8)
+      {
+          N_bjets_good++;
+      }
+    }
+  hist("N_btags_good")->Fill(N_bjets_good,weight);
+
 
   int N_subjetbtags=0;
   for(auto topjet : *event.topjets)
@@ -1125,6 +1221,7 @@ void SelectionHists::fill(const Event & event){
   //toptag+wtag
   TopJet the_top, the_w;
   Jet the_b;
+  Jet the_b_low;
 
   // if(TopTag(event.topjets->at(0)))
   // {
@@ -1155,6 +1252,7 @@ void SelectionHists::fill(const Event & event){
 
   bool has_tw=false;
   bool has_twb=false;
+  bool has_twb_low=false;
   if (TopTag(event.topjets->at(0))&&WTag(event.topjets->at(1)))
   {
     the_top=event.topjets->at(0);
@@ -1171,6 +1269,12 @@ void SelectionHists::fill(const Event & event){
   if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
   {
         the_b=jet; has_twb=true;
+        break;
+  }
+  if (has_tw) for(auto jet : *event.jets)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>50.0)
+  {
+        the_b_low=jet; has_twb_low=true;
         break;
   }
 
@@ -1193,6 +1297,7 @@ void SelectionHists::fill(const Event & event){
 
       hist("dRbt")->Fill(deltaR(the_b,the_top),weight);
       hist("dRbW")->Fill(deltaR(the_b,the_w),weight);
+
       hist("toppt_wbpt")->Fill(TopJetPt(the_top)-TprimePt(the_w,the_b),weight);
       LorentzVector tprime_v4(0,0,0,0);
       //for(auto subjet : the_top.subjets()) tprime_v4 += subjet.v4();
@@ -1201,7 +1306,20 @@ void SelectionHists::fill(const Event & event){
       Particle the_tp;
       the_tp.set_v4(tprime_v4);
       hist("dRtTp")->Fill(deltaR(the_top,the_tp),weight);
-      hist("ht_twb")->Fill(TopJetPt(the_top)+TopJetPt(the_w)+the_b.pt(),weight);
+      float ht_twb = TopJetPt(the_top)+TopJetPt(the_w)+the_b.pt();
+      hist("ht_twb")->Fill(ht_twb,weight);
+
+      hist("dRbTp")->Fill(deltaR(the_b,the_tp),weight);
+      hist("dRWTp")->Fill(deltaR(the_w,the_tp),weight);
+      if (has_twb_gen)
+      {
+        hist("dRtWGEN")->Fill(dRtW,weight);
+        hist("dRbtGEN")->Fill(dRbt,weight);
+        hist("dRbWGEN")->Fill(dRbW,weight);
+        hist("dRtTpGEN")->Fill(dRtTp,weight);
+        hist("dRbTpGEN")->Fill(dRbTp,weight);
+        hist("dRWTpGEN")->Fill(dRWTp,weight);
+      }
       float tprimemass=TprimeMass(the_w,the_b);
       float zprimemass=ZprimeMassVLQ(the_top,the_w,the_b);
       float topmaxcsv=getMaxCSV(the_top);
@@ -1214,21 +1332,47 @@ void SelectionHists::fill(const Event & event){
       if (tprimemass>500.0)
       {
         hist("zprimemass")->Fill(zprimemass,weight);
+        hist("ht_twbSR")->Fill(ht_twb,weight);
         hist("zprimept")->Fill(ZprimePtVLQ(the_top,the_w,the_b),weight);
-        if (topmaxcsv>0.890) hist("zprimemassbtag")->Fill(zprimemass,weight);
-        else hist("zprimemassnobtag")->Fill(zprimemass,weight);
+        if (topmaxcsv>0.890)
+        {
+          hist("zprimemassbtag")->Fill(zprimemass,weight);
+          hist("ht_twbSRbtag")->Fill(ht_twb,weight);
+        }
+        else
+        {
+          hist("zprimemassnobtag")->Fill(zprimemass,weight);
+          hist("ht_twbSRnobtag")->Fill(ht_twb,weight);
+        }
         if (bmass<10.0) hist("zprimemassbmass")->Fill(zprimemass,weight);
         else hist("zprimemassnobmass")->Fill(zprimemass,weight);
       }
       if (tprimemass>140.0 && tprimemass<250.0)
       {
         hist("ttbarCR_zprimemass")->Fill(zprimemass,weight);
+        hist("N_btags_ttbarCR")->Fill(N_bjets,weight);
+        hist("N_btags_good_ttbarCR")->Fill(N_bjets_good,weight);
         if (topmaxcsv>0.890) hist("ttbarCR_zprimemassbtag")->Fill(zprimemass,weight);
       }
       if (tprimemass>250.0 && tprimemass<500.0)
       {
         hist("lowmassCR_zprimemass")->Fill(zprimemass,weight);
         if (topmaxcsv>0.890) hist("lowmassCR_zprimemassbtag")->Fill(zprimemass,weight);
+      }
+  }
+  if (has_twb_low)
+  {
+      float zprimemass=ZprimeMassVLQ(the_top,the_w,the_b_low);
+      float tprimemass=TprimeMass(the_w,the_b_low);
+      if (tprimemass>140.0 && tprimemass<250.0)
+      {
+        hist("ttbarCR_zprimemass_low")->Fill(zprimemass,weight);
+        if (topmaxcsv>0.890) hist("ttbarCR_zprimemassbtag_low")->Fill(zprimemass,weight);
+      }
+      if (tprimemass>250.0 && tprimemass<500.0)
+      {
+        hist("lowmassCR_zprimemass_low")->Fill(zprimemass,weight);
+        if (topmaxcsv>0.890) hist("lowmassCR_zprimemassbtag_low")->Fill(zprimemass,weight);
       }
   }
 
@@ -1266,16 +1410,28 @@ void SelectionHists::fill(const Event & event){
   }
 
   if (AntiTopTag_mass(event.topjets->at(probe_index))&&WTag(event.topjets->at(tag_index))&&has_antitopwb )
-  hist("antitopmassCR_zprimemass")->Fill(ZprimeMassVLQ(event.topjets->at(probe_index),event.topjets->at(tag_index),the_b_antitopw),weight);
+  {
+    float zprimemass=ZprimeMassVLQ(event.topjets->at(probe_index),event.topjets->at(tag_index),the_b_antitopw);
+    hist("antitopmassCR_zprimemass")->Fill(,weight);
+  }
 
   if (AntiTopTag_nsub(event.topjets->at(probe_index))&&WTag(event.topjets->at(tag_index))&&has_antitopwb )
-  hist("antitopnsubCR_zprimemass")->Fill(ZprimeMassVLQ(event.topjets->at(probe_index),event.topjets->at(tag_index),the_b_antitopw),weight);
+  {
+    float zprimemass=ZprimeMassVLQ(event.topjets->at(probe_index),event.topjets->at(tag_index),the_b_antitopw);
+    hist("antitopnsubCR_zprimemass")->Fill(,weight);
+  }
 
   if (AntiWTag_mass(event.topjets->at(probe_index))&&TopTag(event.topjets->at(tag_index))&&has_topantiwb )
-  hist("antiwmassCR_zprimemass")->Fill(ZprimeMassVLQ(event.topjets->at(tag_index),event.topjets->at(probe_index),the_b_topantiw),weight);
+  {
+    float zprimemass=
+    hist("antiwmassCR_zprimemass")->Fill(ZprimeMassVLQ(event.topjets->at(tag_index),event.topjets->at(probe_index),the_b_topantiw),weight);
+  }
 
   if (AntiWTag_nsub(event.topjets->at(probe_index))&&TopTag(event.topjets->at(tag_index))&&has_topantiwb )
-  hist("antiwnsubCR_zprimemass")->Fill(ZprimeMassVLQ(event.topjets->at(tag_index),event.topjets->at(probe_index),the_b_topantiw),weight);
+  {
+    float zprimemass=
+    hist("antiwnsubCR_zprimemass")->Fill(ZprimeMassVLQ(event.topjets->at(tag_index),event.topjets->at(probe_index),the_b_topantiw),weight);
+  }
 
 
   Jet the_b_antibcsv;

@@ -400,6 +400,30 @@ bool AntiWTag_nsub(TopJet topjet)
   return mjet>65.0 && mjet<105.0 && TopJetNsub2(topjet)>0.6 && TopJetPt(topjet)>200.0;
 }
 
+
+
+bool SemiTopTag_mass(TopJet topjet)
+{
+  auto mjet = TopJetMass(topjet);
+  return TopJetPt(topjet)>400.0 && mjet>110.0 && mjet<210.0;
+}
+bool SemiTopTag_nsub(TopJet topjet)
+{
+  auto mjet = TopJetMass(topjet);
+  return TopJetPt(topjet)>400.0 && TopJetNsub(topjet)<0.86;
+}
+bool SemiWTag_mass(TopJet topjet)
+{
+  auto mjet = TopJetMass(topjet);
+  return mjet>65.0 && mjet<105.0 && TopJetPt(topjet)>200.0;
+}
+bool SemiWTag_nsub(TopJet topjet)
+{
+  auto mjet = TopJetMass(topjet);
+  return TopJetNsub2(topjet)<0.6 && TopJetPt(topjet)>200.0;
+}
+
+
 bool SDTopTag::operator()(const TopJet & topjet, const uhh2::Event &) const {
     
     float mjet = TopJetMass(topjet);
