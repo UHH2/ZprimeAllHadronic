@@ -90,18 +90,21 @@ for i in signalWB_names:
 
 rebinna=10
 
-for i in ["N_toptags",  "N_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR"
-  "bmass",  "bpt",  "bcsv",
+for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
+  "bmass",  "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
   "wmass",  "wpt",  "wnsub",
   "toppt",  "topmass",  "topnsub",  "topcsv",
   "dRbt",  "dRbW",  "dRtW",  "dRtTp",
   "ht",  "htca8",  "ht_twb",  "npv",  "nevt",
-  "toppt_wpt",  "toppt_wbpt",
-  "tprimemass",  "tprimept",
+  "toppt_wpt",  "toppt_wbpt","ht_twbSR","ht_twbSRbtag","ht_twbSRnobtag",
+  "tprimemass",  "tprimept","Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub",
   "zprimemass",  "zprimept",  "zprimemassbtag",  "zprimemassnobtag",  "zprimemassbmass",  "zprimemassnobmass",
   "ttbarCR_zprimemass",  "ttbarCR_zprimemassbtag","ttbarCR_zprimemass_low",  "ttbarCR_zprimemassbtag_low",
   "lowmassCR_zprimemass",  "lowmassCR_zprimemassbtag","lowmassCR_zprimemass_low",  "lowmassCR_zprimemassbtag_low",
-  "antitopmassCR_zprimemass",  "antitopnsubCR_zprimemass",  "antiwmassCR_zprimemass",  "antiwnsubCR_zprimemass",  "antibcsvCR_zprimemass",  "antibptCR_zprimemass",  "antibmassCR_zprimemass"]:
+  "antitopmassCR_zprimemass",  "antitopnsubCR_zprimemass",  "antiwmassCR_zprimemass",  "antiwnsubCR_zprimemass",  "antibcsvCR_zprimemass",  "antibptCR_zprimemass",  "antibmassCR_zprimemass",
+"antitopmassCRmass_zprimemass",  "antitopnsubCRmass_zprimemass",  "antiwmassCRmass_zprimemass",  "antiwnsubCRmass_zprimemass",  "antibcsvCRmass_zprimemass",  "antibptCRmass_zprimemass",  "antibmassCRmass_zprimemass",
+"antitopmassCRbtag_zprimemass",  "antitopnsubCRbtag_zprimemass",  "antiwmassCRbtag_zprimemass",  "antiwnsubCRbtag_zprimemass",  "antibcsvCRbtag_zprimemass",  "antibptCRbtag_zprimemass",  "antibmassCRbtag_zprimemass"
+  ]:
 #i=''
 	minx=0
 	maxx=0
@@ -139,7 +142,12 @@ for i in [
   "zprimemass",  "zprimemassbtag",  "zprimemassnobtag",  "zprimemassbmass",  "zprimemassnobmass",
   "ttbarCR_zprimemass",  "ttbarCR_zprimemassbtag",
   "lowmassCR_zprimemass",  "lowmassCR_zprimemassbtag",
-  "antitopmassCR_zprimemass",  "antitopnsubCR_zprimemass",  "antiwmassCR_zprimemass",  "antiwnsubCR_zprimemass",  "antibcsvCR_zprimemass",  "antibptCR_zprimemass",  "antibmassCR_zprimemass"]:
+  "antitopmassCR_zprimemass",  "antitopnsubCR_zprimemass",  "antiwmassCR_zprimemass",  "antiwnsubCR_zprimemass",  "antibcsvCR_zprimemass",  "antibptCR_zprimemass",  "antibmassCR_zprimemass",
+"ttbarCR_zprimemass_low", "ttbarCR_zprimemassbtag_low", "lowmassCR_zprimemass_low", "lowmassCR_zprimemassbtag_low", 
+ "antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
+ "antibcsvCRmass_zprimemass", "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
+ "antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
+ "antibcsvCRbtag_zprimemass", "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass"]:
 	minx=0
 	maxx=0
 	if i=='topmass':
@@ -179,7 +187,12 @@ for i in [
   "zprimemass",  "zprimemassbtag",  "zprimemassnobtag",  "zprimemassbmass",  "zprimemassnobmass",
   "ttbarCR_zprimemass",  "ttbarCR_zprimemassbtag",
   "lowmassCR_zprimemass",  "lowmassCR_zprimemassbtag",
-  "antitopmassCR_zprimemass",  "antitopnsubCR_zprimemass",  "antiwmassCR_zprimemass",  "antiwnsubCR_zprimemass",  "antibcsvCR_zprimemass",  "antibptCR_zprimemass",  "antibmassCR_zprimemass"]:
+  "antitopmassCR_zprimemass",  "antitopnsubCR_zprimemass",  "antiwmassCR_zprimemass",  "antiwnsubCR_zprimemass",  "antibcsvCR_zprimemass",  "antibptCR_zprimemass",  "antibmassCR_zprimemass",
+  "ttbarCR_zprimemass_low", "ttbarCR_zprimemassbtag_low", "lowmassCR_zprimemass_low", "lowmassCR_zprimemassbtag_low", 
+ "antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
+ "antibcsvCRmass_zprimemass", "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
+ "antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
+ "antibcsvCRbtag_zprimemass", "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass"]:
 	minx=0
 	maxx=0
 	if i=='topmass':
@@ -277,7 +290,7 @@ for i in range(len(signalWB_names)):
 
 	compare(name=signalWB_names[i]+'dRtTSAME',
 		file_list=[signal_files[i],signal_files[i]],
-		name_list=['Selection/dRtTp','Selection/dRtTGEN'],
+		name_list=['Selection/dRtTp','Selection/dRtTpGEN'],
 		legend_list=['RECO','GEN'],
 		normalize=True,drawoption='hE',
 		xtitle='',ytitle='',

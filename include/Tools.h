@@ -58,6 +58,7 @@ LorentzVector getAK4FromTopJet(const Event & event, TopJet t, unsigned int njets
 float TopJetMassAK4(const Event & event, TopJet t, unsigned int njets, float r);
 float ZprimeMassAK4(const Event & event, TopJet t1, TopJet t2, unsigned int njets, float r);
 void uncorrect_topjets(const Event & event);
+std::pair<TopJet, TopJet> findTopWpair(	bool (*ttag)(TopJet), bool (*wtag)(TopJet), TopJet first, TopJet second);
 
 struct HigherPt {
     bool operator() (const Particle& j1, const Particle& j2) const {

@@ -1014,6 +1014,9 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
 
   book<TH1F>("N_toptags", ";N_{toptags};Events", 10, 0, 10);
   book<TH1F>("N_wtags", ";N_{wtags};Events", 10, 0, 10);
+  book<TH1F>("Pos_toptags", ";Pos_{toptags};Events", 10, 0, 10);
+  book<TH1F>("Pos_wtags", ";Pos_{wtags};Events", 10, 0, 10);
+
   book<TH1F>("N_btags", ";N_{btags};Events", 10, 0, 10);
   book<TH1F>("N_btags_good", ";N_{btags};Events", 10, 0, 10);
   book<TH1F>("N_btags_ttbarCR", ";N_{btags};Events", 10, 0, 10);
@@ -1023,6 +1026,8 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("bmass", ";m_{b};Events", 200, 0, 100);
   book<TH1F>("bpt", ";p_{T,b};Events", 200, 0, 1000);
   book<TH1F>("bcsv", ";CSV_{b};Events", 101, 0, 1.01);
+  book<TH1F>("csv_pthighest", ";CSV_{b};Events", 101, 0, 1.01);
+  book<TH1F>("csv_csvhighest", ";CSV_{b};Events", 101, 0, 1.01);
 
   book<TH1F>("wmass", ";m_{W};Events", 200, 0, 1000);
   book<TH1F>("wpt", ";p_{t,W};Events", 400, 0, 2000);
@@ -1032,6 +1037,11 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("topmass", ";m_{top};Events", 400, 0, 2000);
   book<TH1F>("topnsub", ";#tau_{3}/#tau_{2}(top);Events", 101, 0, 1.01);
   book<TH1F>("topcsv", ";CSV_{top};Events", 101, 0, 1.01);
+
+  book<TH1F>("Nm1wmass", ";m_{W};Events", 200, 0, 1000);
+  book<TH1F>("Nm1wnsub", ";#tau_{2}/#tau_{1}(W);Events", 101, 0, 1.01);
+  book<TH1F>("Nm1topmass", ";m_{top};Events", 400, 0, 2000);
+  book<TH1F>("Nm1topnsub", ";#tau_{3}/#tau_{2}(top);Events", 101, 0, 1.01);
 
   book<TH1F>("dRbt", ";#Delta R(b,top);Events", 500, 0, 5);
   book<TH1F>("dRbW", ";#Delta R(b,W);Events", 500, 0, 5);
@@ -1112,7 +1122,7 @@ void SelectionHists::fill(const Event & event){
   
 //gen part
 
-has_twb_gen=false;
+bool has_twb_gen=false;
 float dRbt=0;
 float dRbW=0;
 float dRtW=0;
@@ -1169,6 +1179,17 @@ if (!event.isRealData)
         }
     }
   hist("N_toptags")->Fill(N_toptags,weight);
+  for(unsigned int i=0; i<event.topjets->size(); i++)
+  {
+        if (TopTag(event.topjets->at(i)))
+        {
+            hist("Pos_toptags")->Fill(i,weight);
+        }
+        if (WTag(event.topjets->at(i)))
+        {
+            hist("Pos_wtags")->Fill(i,weight);
+        }
+  }
 
   int N_wtags=0;
   for(auto topjet : *event.topjets)
@@ -1278,6 +1299,50 @@ if (!event.isRealData)
         break;
   }
 
+  float maxjetpt=-1;
+  Jet the_maxjetpt;
+  float maxjetcsv=-1;
+  Jet the_maxjetcsv;
+  if (has_tw) for(auto jet : *event.jets)
+  if (deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>50.0)
+  {
+        if (jet.pt()>maxjetpt)
+        {
+          maxjetpt=jet.pt();
+          the_maxjetpt=jet;
+        }
+        if (jet.btag_combinedSecondaryVertex()>maxjetcsv)
+        {
+          maxjetcsv=jet.btag_combinedSecondaryVertex();
+          the_maxjetcsv=jet;
+        }
+  }
+  if (maxjetpt>-0.5)
+  {
+      hist("csv_pthighest")->Fill(the_maxjetpt.btag_combinedSecondaryVertex(),weight);
+  }
+  if (maxjetcsv>-0.5)
+  {
+      hist("csv_csvhighest")->Fill(the_maxjetcsv.btag_combinedSecondaryVertex(),weight);
+  }
+
+
+  std::pair<TopJet, TopJet> SemiTopTag_mass_Wtag = findTopWpair( SemiTopTag_mass, WTag, event.topjets->at(0), event.topjets->at(1));
+  if (!(SemiTopTag_mass_Wtag.first.pt()==SemiTopTag_mass_Wtag.second.pt()))
+    if(TprimeMass(SemiTopTag_mass_Wtag.second,the_b)>500)
+      hist("Nm1topnsub")->Fill(TopJetNsub(SemiTopTag_mass_Wtag.first),weight);
+  std::pair<TopJet, TopJet> SemiTopTag_nsub_Wtag = findTopWpair( SemiTopTag_nsub, WTag, event.topjets->at(0), event.topjets->at(1));
+  if (!(SemiTopTag_nsub_Wtag.first.pt()==SemiTopTag_nsub_Wtag.second.pt()))
+    if(TprimeMass(SemiTopTag_nsub_Wtag.second,the_b)>500)
+      hist("Nm1topmass")->Fill(TopJetMass(SemiTopTag_nsub_Wtag.first),weight);
+  std::pair<TopJet, TopJet> TopTag_SemiWtag_mass = findTopWpair( TopTag, SemiWTag_mass, event.topjets->at(0), event.topjets->at(1));
+  if (!(TopTag_SemiWtag_mass.first.pt()==TopTag_SemiWtag_mass.second.pt()))
+    if(TprimeMass(TopTag_SemiWtag_mass.second,the_b)>500)
+      hist("Nm1wnsub")->Fill(TopJetNsub2(TopTag_SemiWtag_mass.second),weight);
+  std::pair<TopJet, TopJet> TopTag_SemiWtag_nsub = findTopWpair( TopTag, SemiWTag_nsub, event.topjets->at(0), event.topjets->at(1));
+  if (!(TopTag_SemiWtag_nsub.first.pt()==TopTag_SemiWtag_nsub.second.pt()))
+    if(TprimeMass(TopTag_SemiWtag_nsub.second,the_b)>500)
+      hist("Nm1wmass")->Fill(TopJetMass(TopTag_SemiWtag_nsub.second),weight);
   // if (has_tw){ hist("dRtW")->Fill(deltaR(the_top,the_w),weight);
   //               hist("toppt_wpt")->Fill(TopJetPt(the_top)-TopJetPt(the_w),weight);}
   
@@ -1362,6 +1427,7 @@ if (!event.isRealData)
   }
   if (has_twb_low)
   {
+      float topmaxcsv=getMaxCSV(the_top);
       float zprimemass=ZprimeMassVLQ(the_top,the_w,the_b_low);
       float tprimemass=TprimeMass(the_w,the_b_low);
       if (tprimemass>140.0 && tprimemass<250.0)
@@ -1412,25 +1478,57 @@ if (!event.isRealData)
   if (AntiTopTag_mass(event.topjets->at(probe_index))&&WTag(event.topjets->at(tag_index))&&has_antitopwb )
   {
     float zprimemass=ZprimeMassVLQ(event.topjets->at(probe_index),event.topjets->at(tag_index),the_b_antitopw);
-    hist("antitopmassCR_zprimemass")->Fill(,weight);
+    hist("antitopmassCR_zprimemass")->Fill(zprimemass,weight);
+    if (TprimeMass(event.topjets->at(tag_index),the_b_antitopw)>500.0)
+    {
+      hist("antitopmassCRmass_zprimemass")->Fill(zprimemass,weight);
+      if (getMaxCSV(event.topjets->at(probe_index))>0.890)
+      {
+        hist("antitopmassCRbtag_zprimemass")->Fill(zprimemass,weight);
+      }
+    }
   }
 
   if (AntiTopTag_nsub(event.topjets->at(probe_index))&&WTag(event.topjets->at(tag_index))&&has_antitopwb )
   {
     float zprimemass=ZprimeMassVLQ(event.topjets->at(probe_index),event.topjets->at(tag_index),the_b_antitopw);
-    hist("antitopnsubCR_zprimemass")->Fill(,weight);
+    hist("antitopnsubCR_zprimemass")->Fill(zprimemass,weight);
+    if (TprimeMass(event.topjets->at(tag_index),the_b_antitopw)>500.0)
+    {
+      hist("antitopmassCRmass_zprimemass")->Fill(zprimemass,weight);
+      if (getMaxCSV(event.topjets->at(probe_index))>0.890)
+      {
+        hist("antitopmassCRbtag_zprimemass")->Fill(zprimemass,weight);
+      }
+    }
   }
 
   if (AntiWTag_mass(event.topjets->at(probe_index))&&TopTag(event.topjets->at(tag_index))&&has_topantiwb )
   {
-    float zprimemass=
-    hist("antiwmassCR_zprimemass")->Fill(ZprimeMassVLQ(event.topjets->at(tag_index),event.topjets->at(probe_index),the_b_topantiw),weight);
+    float zprimemass=ZprimeMassVLQ(event.topjets->at(tag_index),event.topjets->at(probe_index),the_b_topantiw);
+    hist("antiwmassCR_zprimemass")->Fill(zprimemass,weight);
+    if (TprimeMass(event.topjets->at(probe_index),the_b_topantiw)>500.0)
+    {
+      hist("antitopmassCRmass_zprimemass")->Fill(zprimemass,weight);
+      if (getMaxCSV(event.topjets->at(tag_index))>0.890)
+      {
+        hist("antitopmassCRbtag_zprimemass")->Fill(zprimemass,weight);
+      }
+    }
   }
 
   if (AntiWTag_nsub(event.topjets->at(probe_index))&&TopTag(event.topjets->at(tag_index))&&has_topantiwb )
   {
-    float zprimemass=
-    hist("antiwnsubCR_zprimemass")->Fill(ZprimeMassVLQ(event.topjets->at(tag_index),event.topjets->at(probe_index),the_b_topantiw),weight);
+    float zprimemass=ZprimeMassVLQ(event.topjets->at(tag_index),event.topjets->at(probe_index),the_b_topantiw);
+    hist("antiwnsubCR_zprimemass")->Fill(zprimemass,weight);
+    if (TprimeMass(event.topjets->at(probe_index),the_b_topantiw)>500.0)
+    {
+      hist("antitopmassCRmass_zprimemass")->Fill(zprimemass,weight);
+      if (getMaxCSV(event.topjets->at(tag_index))>0.890)
+      {
+        hist("antitopmassCRbtag_zprimemass")->Fill(zprimemass,weight);
+      }
+    }
   }
 
 
@@ -1442,7 +1540,19 @@ if (!event.isRealData)
         the_b_antibcsv=jet; has_twantibcsv=true;
         break;
   }
-  if (has_twantibcsv) hist("antibcsvCR_zprimemass")->Fill(ZprimeMassVLQ(the_top,the_w,the_b_antibcsv),weight);
+  if (has_twantibcsv)
+  {
+    float zprimemass=ZprimeMassVLQ(the_top,the_w,the_b_antibcsv);
+    hist("antibcsvCR_zprimemass")->Fill(zprimemass,weight);
+    if (TprimeMass(the_w,the_b_antibcsv)>500.0)
+    {
+      hist("antibcsvCRmass_zprimemass")->Fill(zprimemass,weight);
+      if (getMaxCSV(the_top)>0.890)
+      {
+        hist("antibcsvCRbtag_zprimemass")->Fill(zprimemass,weight);
+      }
+    }
+  }
 
   Jet the_b_antibpt;
   bool has_twantibpt=false;
@@ -1452,7 +1562,19 @@ if (!event.isRealData)
         the_b_antibpt=jet; has_twantibpt=true;
         break;
   }
-  if (has_twantibpt) hist("antibptCR_zprimemass")->Fill(ZprimeMassVLQ(the_top,the_w,the_b_antibpt),weight);
+  if (has_twantibpt)
+  {
+    float zprimemass=ZprimeMassVLQ(the_top,the_w,the_b_antibpt);
+    hist("antibptCR_zprimemass")->Fill(zprimemass,weight);
+    if (TprimeMass(the_w,the_b_antibpt)>500.0)
+    {
+      hist("antibptCRmass_zprimemass")->Fill(zprimemass,weight);
+      if (getMaxCSV(the_top)>0.890)
+      {
+        hist("antibptCRbtag_zprimemass")->Fill(zprimemass,weight);
+      }
+    }
+  }
 
   Jet the_b_antibmass;
   bool has_twantibmass=false;
@@ -1462,7 +1584,19 @@ if (!event.isRealData)
         the_b_antibmass=jet; has_twantibmass=true;
         break;
   }
-  if (has_twantibmass) hist("antibmassCR_zprimemass")->Fill(ZprimeMassVLQ(the_top,the_w,the_b_antibmass),weight);
+  if (has_twantibmass)
+  {
+      float zprimemass=ZprimeMassVLQ(the_top,the_w,the_b_antibmass);
+      hist("antibmassCR_zprimemass")->Fill(zprimemass,weight);
+      if (TprimeMass(the_w,the_b_antibmass)>500.0)
+      {
+        hist("antibmassCRmass_zprimemass")->Fill(zprimemass,weight);
+        if (getMaxCSV(the_top)>0.890)
+        {
+          hist("antibmassCRbtag_zprimemass")->Fill(zprimemass,weight);
+        }
+      }
+  }
 
 }
 

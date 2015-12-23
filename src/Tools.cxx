@@ -409,7 +409,7 @@ bool SemiTopTag_mass(TopJet topjet)
 }
 bool SemiTopTag_nsub(TopJet topjet)
 {
-  auto mjet = TopJetMass(topjet);
+  //auto mjet = TopJetMass(topjet);
   return TopJetPt(topjet)>400.0 && TopJetNsub(topjet)<0.86;
 }
 bool SemiWTag_mass(TopJet topjet)
@@ -419,10 +419,18 @@ bool SemiWTag_mass(TopJet topjet)
 }
 bool SemiWTag_nsub(TopJet topjet)
 {
-  auto mjet = TopJetMass(topjet);
+  //auto mjet = TopJetMass(topjet);
   return TopJetNsub2(topjet)<0.6 && TopJetPt(topjet)>200.0;
 }
 
+std::pair<TopJet, TopJet> findTopWpair( bool (*ttag)(TopJet), bool (*wtag)(TopJet), TopJet first, TopJet second)
+{
+
+if (ttag(first) && wtag(second)) return std::make_pair( first, second );
+else if (ttag(second) && wtag(first)) return std::make_pair( second, first );
+return std::make_pair( first, first );
+
+}
 
 bool SDTopTag::operator()(const TopJet & topjet, const uhh2::Event &) const {
     
