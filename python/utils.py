@@ -40,7 +40,7 @@ def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE'
   the_maxy=0
   for i in range(len(name_list)):
     # tfile_list.append(TFile(file_list[i],'READ'))
-    histo_list.append(file_list[i].Get(name_list[i]))
+    histo_list.append(file_list[i].Get(name_list[i]).Clone())
     if normalize:
       histo_list[-1].Scale(1.0/(histo_list[-1].Integral()+0.00000001))
     if not histo_list[-1].ClassName()=='TGraphAsymmErrors':

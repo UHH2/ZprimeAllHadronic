@@ -19,10 +19,10 @@ signalHT_names=[
 'MC.ZpToTpT_TpToHT_MZp1500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp900Nar_LH',
 'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_LH',
-'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_RH',
-'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Wid_LH',
+#'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_RH',
+#'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Wid_LH',
 'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1500Nar_LH',
-'MC.ZpToTpT_TpToHT_MZp2000Wid_MTp1200Nar_LH',
+#'MC.ZpToTpT_TpToHT_MZp2000Wid_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToHT_MZp2500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToHT_MZp2500Nar_MTp1500Nar_LH']
 signalZT_names=[
@@ -31,10 +31,10 @@ signalZT_names=[
 'MC.ZpToTpT_TpToZT_MZp1500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp900Nar_LH',
 'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_LH',
-'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_RH',
-'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Wid_LH',
+#'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_RH',
+#'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Wid_LH',
 'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1500Nar_LH',
-'MC.ZpToTpT_TpToZT_MZp2000Wid_MTp1200Nar_LH',
+#'MC.ZpToTpT_TpToZT_MZp2000Wid_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToZT_MZp2500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToZT_MZp2500Nar_MTp1500Nar_LH']
 signalWB_names=[
@@ -62,7 +62,7 @@ signalWB_legendnames=[
 "Z'(2.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
 "Z'(2.5TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
 ]
-signal_names=signalWB_names+signalHT_names+signalZT_names
+#signal_names=signalWB_names+signalHT_names+signalZT_names
 qcd_names=['MC.QCD_HT500to700','MC.QCD_HT700to1000','MC.QCD_HT1000to1500','MC.QCD_HT1500to2000','MC.QCD_HT2000toInf']
 ttbar_names=['MC.TTbar']
 ttbarhigh_names=['MC.TT_Mtt0700to1000','MC.TT_Mtt1000toINFT']
@@ -88,7 +88,8 @@ for i in signalWB_names:
 for i in signalWB_names:
 	signal_files_pre.append(TFile(prepath+filename_base+i+root,'READ'))
 
-rebinna=10
+
+
 
 for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
   "bmass",  "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
@@ -106,11 +107,29 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
 "antitopmassCRbtag_zprimemass",  "antitopnsubCRbtag_zprimemass",  "antiwmassCRbtag_zprimemass",  "antiwnsubCRbtag_zprimemass",  "antibcsvCRbtag_zprimemass",  "antibptCRbtag_zprimemass",  "antibmassCRbtag_zprimemass"
   ]:
 #i=''
+	rebinna=10
+	signalzoom=2
 	minx=0
 	maxx=0
-	if i=='topmass':
-		minx=100
+	if 'topmass' in i and '_' not in i:
+		minx=50
 		maxx=300
+	if 'wmass' in i and '_' not in i:
+		minx=50
+		maxx=300
+	if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR","bcsv","csv_pthighest","csv_csvhighest", "topcsv",]:
+		rebinna=1
+	if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub",]:
+		rebinna =2
+	if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
+  "bmass",  "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
+  "wmass",  "wpt",  "wnsub",
+  "toppt",  "topmass",  "topnsub",  "topcsv",
+  "dRbt",  "dRbW",  "dRtW",  "dRtTp",
+  "ht",  "htca8",  "ht_twb",  "npv",  "nevt",]:
+  		signalzoom=100
+  	if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub"]:
+  		signalzoom=20
 	make_ratioplot(
 		name=i,
 		ttbar_file=ttbar_file,
@@ -133,7 +152,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
         textsizefactor=1,
         signal_legend=signalWB_legendnames,
         separate_legend=True,
-        signal_zoom=2,
+        signal_zoom=signalzoom,
         fixratio=True,
         #signal_colors=[1,2,3,1,2,3,1,2]
         )
@@ -148,11 +167,12 @@ for i in [
  "antibcsvCRmass_zprimemass", "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
  "antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
  "antibcsvCRbtag_zprimemass", "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass"]:
+ 	rebinna=10
 	minx=0
 	maxx=0
-	if i=='topmass':
-		minx=100
-		maxx=300
+	# if i=='topmass':
+	# 	minx=100
+	# 	maxx=300
 	make_ratioplot(
 		name='SR_vs_'+i,
 		ttbar_file=0,
@@ -193,11 +213,12 @@ for i in [
  "antibcsvCRmass_zprimemass", "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
  "antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
  "antibcsvCRbtag_zprimemass", "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass"]:
+ 	rebinna=10
 	minx=0
 	maxx=0
-	if i=='topmass':
-		minx=100
-		maxx=300
+	# if i=='topmass':
+	# 	minx=100
+	# 	maxx=300
 	make_ratioplot(
 		name='SRbtag_vs_'+i,
 		ttbar_file=0,
@@ -229,7 +250,7 @@ for i in [
         )
 
 for i in range(len(signalWB_names)):
-	
+	rebinna=10
 	compare(name=signalWB_names[i]+'dRbW',
 		file_list=[signal_files[i],signal_files_pre[i]],
 		name_list=['Selection/dRbW','NoCuts/dRbW'],
@@ -237,7 +258,7 @@ for i in range(len(signalWB_names)):
 		normalize=True,drawoption='hE',
 		xtitle='',ytitle='',
 		minx=0,maxx=0,
-		rebin=10,
+		rebin=rebinna,
 		miny=0,maxy=0,
 		textsizefactor=1,logy=False)
 
@@ -248,7 +269,7 @@ for i in range(len(signalWB_names)):
 		normalize=True,drawoption='hE',
 		xtitle='',ytitle='',
 		minx=0,maxx=0,
-		rebin=10,
+		rebin=rebinna,
 		miny=0,maxy=0,
 		textsizefactor=1,logy=False)
 
@@ -259,7 +280,7 @@ for i in range(len(signalWB_names)):
 		normalize=True,drawoption='hE',
 		xtitle='',ytitle='',
 		minx=0,maxx=0,
-		rebin=10,
+		rebin=rebinna,
 		miny=0,maxy=0,
 		textsizefactor=1,logy=False)
 
@@ -270,7 +291,7 @@ for i in range(len(signalWB_names)):
 		normalize=True,drawoption='hE',
 		xtitle='',ytitle='',
 		minx=0,maxx=0,
-		rebin=10,
+		rebin=rebinna,
 		miny=0,maxy=0,
 		textsizefactor=1,logy=False)
 
@@ -284,7 +305,7 @@ for i in range(len(signalWB_names)):
 		normalize=True,drawoption='hE',
 		xtitle='',ytitle='',
 		minx=0,maxx=0,
-		rebin=10,
+		rebin=rebinna,
 		miny=0,maxy=0,
 		textsizefactor=1,logy=False)
 
@@ -295,7 +316,7 @@ for i in range(len(signalWB_names)):
 		normalize=True,drawoption='hE',
 		xtitle='',ytitle='',
 		minx=0,maxx=0,
-		rebin=10,
+		rebin=rebinna,
 		miny=0,maxy=0,
 		textsizefactor=1,logy=False)
 
@@ -306,7 +327,7 @@ for i in range(len(signalWB_names)):
 		normalize=True,drawoption='hE',
 		xtitle='',ytitle='',
 		minx=0,maxx=0,
-		rebin=10,
+		rebin=rebinna,
 		miny=0,maxy=0,
 		textsizefactor=1,logy=False)
 
@@ -317,9 +338,48 @@ for i in range(len(signalWB_names)):
 		normalize=True,drawoption='hE',
 		xtitle='',ytitle='',
 		minx=0,maxx=0,
-		rebin=10,
+		rebin=rebinna,
 		miny=0,maxy=0,
 		textsizefactor=1,logy=False)
+
+outfile.Close()
+
+dotheta=True
+if dotheta:
+	rebinna=10
+	thetafile=TFile('theta.root','RECREATE')
+	thetafile.cd()
+	allhad2btag__qcd=qcd_file.Get('Selection/zprimemassbtag').Clone()
+	allhad1btag__qcd=qcd_file.Get('Selection/zprimemassnobtag').Clone()
+	allhad2btag__ttbar=ttbar_file.Get('Selection/zprimemassbtag').Clone()
+	allhad1btag__ttbar=ttbar_file.Get('Selection/zprimemassnobtag').Clone()
+	allhad2btag__DATA=data_file.Get('Selection/zprimemassbtag').Clone()
+	allhad1btag__DATA=data_file.Get('Selection/zprimemassnobtag').Clone()
+	allhad2btag__qcd.Rebin(rebinna)
+	allhad1btag__qcd.Rebin(rebinna)
+	allhad2btag__ttbar.Rebin(rebinna)
+	allhad1btag__ttbar.Rebin(rebinna)
+	allhad2btag__DATA.Rebin(rebinna)
+	allhad1btag__DATA.Rebin(rebinna)
+	allhad2btag__qcd.Write('allhad2btag__qcd')
+	allhad1btag__qcd.Write('allhad1btag__qcd')
+	allhad2btag__ttbar.Write('allhad2btag__ttbar')
+	allhad1btag__ttbar.Write('allhad1btag__ttbar')
+	allhad2btag__DATA.Write('allhad2btag__DATA')
+	allhad1btag__DATA.Write('allhad1btag__DATA')
+	signal_filesWB=[]
+	signal_filesZT=[]
+	signal_filesHT=[]
+	for i in signalWB_names:
+		signal_filesWB.append(TFile(path+filename_base+i+root,'READ'))
+	for i in signalZT_names:
+		signal_filesZT.append(TFile(path+filename_base+i+root,'READ'))
+	for i in signalHT_names:
+		signal_filesHT.append(TFile(path+filename_base+i+root,'READ'))
+	nscan=10
+	for masspoint in range(len(signalWB_names)):
+		for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]:
+			
 
 
 # for i in ['step1_wmass','step1_wnsub','step1_tcsv','step1_tpt','step2_bcsv','step2_wpt','step3_tprimemass','step3_tprimept','step4_zprimemass','step4_zprimemassbtag','step4_zprimemassbtagnsub']:
@@ -373,4 +433,3 @@ for i in range(len(signalWB_names)):
 #         separate_legend=True
 #         )
 	
-outfile.Close()

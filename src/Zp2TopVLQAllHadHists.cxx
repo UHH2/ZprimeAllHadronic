@@ -1326,22 +1326,28 @@ if (!event.isRealData)
       hist("csv_csvhighest")->Fill(the_maxjetcsv.btag_combinedSecondaryVertex(),weight);
   }
 
-
+  Jet the_unselected_b;
+  for(auto jet : *event.jets)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,event.topjets->at(0))>0.8 &&deltaR(jet,event.topjets->at(1))>0.8 && jet.pt()>100.0)
+  {
+        the_unselected_b=jet;
+        break;
+  }
   std::pair<TopJet, TopJet> SemiTopTag_mass_Wtag = findTopWpair( SemiTopTag_mass, WTag, event.topjets->at(0), event.topjets->at(1));
   if (!(SemiTopTag_mass_Wtag.first.pt()==SemiTopTag_mass_Wtag.second.pt()))
-    if(TprimeMass(SemiTopTag_mass_Wtag.second,the_b)>500)
+    if(TprimeMass(SemiTopTag_mass_Wtag.second,the_unselected_b)>500)
       hist("Nm1topnsub")->Fill(TopJetNsub(SemiTopTag_mass_Wtag.first),weight);
   std::pair<TopJet, TopJet> SemiTopTag_nsub_Wtag = findTopWpair( SemiTopTag_nsub, WTag, event.topjets->at(0), event.topjets->at(1));
   if (!(SemiTopTag_nsub_Wtag.first.pt()==SemiTopTag_nsub_Wtag.second.pt()))
-    if(TprimeMass(SemiTopTag_nsub_Wtag.second,the_b)>500)
+    if(TprimeMass(SemiTopTag_nsub_Wtag.second,the_unselected_b)>500)
       hist("Nm1topmass")->Fill(TopJetMass(SemiTopTag_nsub_Wtag.first),weight);
   std::pair<TopJet, TopJet> TopTag_SemiWtag_mass = findTopWpair( TopTag, SemiWTag_mass, event.topjets->at(0), event.topjets->at(1));
   if (!(TopTag_SemiWtag_mass.first.pt()==TopTag_SemiWtag_mass.second.pt()))
-    if(TprimeMass(TopTag_SemiWtag_mass.second,the_b)>500)
+    if(TprimeMass(TopTag_SemiWtag_mass.second,the_unselected_b)>500)
       hist("Nm1wnsub")->Fill(TopJetNsub2(TopTag_SemiWtag_mass.second),weight);
   std::pair<TopJet, TopJet> TopTag_SemiWtag_nsub = findTopWpair( TopTag, SemiWTag_nsub, event.topjets->at(0), event.topjets->at(1));
   if (!(TopTag_SemiWtag_nsub.first.pt()==TopTag_SemiWtag_nsub.second.pt()))
-    if(TprimeMass(TopTag_SemiWtag_nsub.second,the_b)>500)
+    if(TprimeMass(TopTag_SemiWtag_nsub.second,the_unselected_b)>500)
       hist("Nm1wmass")->Fill(TopJetMass(TopTag_SemiWtag_nsub.second),weight);
   // if (has_tw){ hist("dRtW")->Fill(deltaR(the_top,the_w),weight);
   //               hist("toppt_wpt")->Fill(TopJetPt(the_top)-TopJetPt(the_w),weight);}
