@@ -62,6 +62,35 @@ signalWB_legendnames=[
 "Z'(2.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
 "Z'(2.5TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
 ]
+
+signal_Zp_masses=[
+"1p5",
+"1p5",
+"1p5",
+"2",
+"2",
+#"2",
+#"2",
+"2",
+#"2",
+"2p5",
+"2p5",
+]
+
+signal_Tp_masses=[
+"0p7",
+"0p9",
+"1p2",
+"0p9",
+"1p2",
+#1p2",
+#1p2",
+"1p5",
+#"1p2",
+"1p2",
+"1p5",
+]
+
 #signal_names=signalWB_names+signalHT_names+signalZT_names
 qcd_names=['MC.QCD_HT500to700','MC.QCD_HT700to1000','MC.QCD_HT1000to1500','MC.QCD_HT1500to2000','MC.QCD_HT2000toInf']
 ttbar_names=['MC.TTbar']
@@ -347,26 +376,8 @@ outfile.Close()
 dotheta=True
 if dotheta:
 	rebinna=10
-	thetafile=TFile('theta.root','RECREATE')
-	thetafile.cd()
-	allhad2btag__qcd=qcd_file.Get('Selection/zprimemassbtag').Clone()
-	allhad1btag__qcd=qcd_file.Get('Selection/zprimemassnobtag').Clone()
-	allhad2btag__ttbar=ttbar_file.Get('Selection/zprimemassbtag').Clone()
-	allhad1btag__ttbar=ttbar_file.Get('Selection/zprimemassnobtag').Clone()
-	allhad2btag__DATA=data_file.Get('Selection/zprimemassbtag').Clone()
-	allhad1btag__DATA=data_file.Get('Selection/zprimemassnobtag').Clone()
-	allhad2btag__qcd.Rebin(rebinna)
-	allhad1btag__qcd.Rebin(rebinna)
-	allhad2btag__ttbar.Rebin(rebinna)
-	allhad1btag__ttbar.Rebin(rebinna)
-	allhad2btag__DATA.Rebin(rebinna)
-	allhad1btag__DATA.Rebin(rebinna)
-	allhad2btag__qcd.Write('allhad2btag__qcd')
-	allhad1btag__qcd.Write('allhad1btag__qcd')
-	allhad2btag__ttbar.Write('allhad2btag__ttbar')
-	allhad1btag__ttbar.Write('allhad1btag__ttbar')
-	allhad2btag__DATA.Write('allhad2btag__DATA')
-	allhad1btag__DATA.Write('allhad1btag__DATA')
+	u='_'
+	uu='__'
 	signal_filesWB=[]
 	signal_filesZT=[]
 	signal_filesHT=[]
@@ -377,8 +388,92 @@ if dotheta:
 	for i in signalHT_names:
 		signal_filesHT.append(TFile(path+filename_base+i+root,'READ'))
 	nscan=10
-	for masspoint in range(len(signalWB_names)):
-		for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]:
+	counter=1
+	filecounter=1
+	onebtag='Selection/zprimemassnobtag'
+	twobtags='Selection/zprimemassbtag'
+	for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]:
+		filename_postfix=u+str(filecounter)+u+str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')
+		thetafile=TFile('theta/theta'+filename_postfix+'.root','RECREATE')
+		thetafile.cd()
+		allhad2btag__qcd=qcd_file.Get(twobtags).Clone()
+		allhad1btag__qcd=qcd_file.Get(onebtag).Clone()
+		allhad2btag__ttbar=ttbar_file.Get(twobtags).Clone()
+		allhad1btag__ttbar=ttbar_file.Get(onebtag).Clone()
+		allhad2btag__DATA=data_file.Get(twobtags).Clone()
+		allhad1btag__DATA=data_file.Get(onebtag).Clone()
+		allhad2btag__qcd.Rebin(rebinna)
+		allhad1btag__qcd.Rebin(rebinna)
+		allhad2btag__ttbar.Rebin(rebinna)
+		allhad1btag__ttbar.Rebin(rebinna)
+		allhad2btag__DATA.Rebin(rebinna)
+		allhad1btag__DATA.Rebin(rebinna)
+		allhad2btag__qcd.Write('allhad2btag__qcd')
+		allhad1btag__qcd.Write('allhad1btag__qcd')
+		allhad2btag__ttbar.Write('allhad2btag__ttbar')
+		allhad1btag__ttbar.Write('allhad1btag__ttbar')
+		allhad2btag__DATA.Write('allhad2btag__DATA')
+		allhad1btag__DATA.Write('allhad1btag__DATA')
+
+		for masspoint in range(len(signalWB_names)):
+			allhad2btag__signalWB=signal_filesWB[masspoint].Get(twobtags).Clone()
+			allhad2btag__signalZT=signal_filesZT[masspoint].Get(twobtags).Clone()
+			allhad2btag__signalHT=signal_filesHT[masspoint].Get(twobtags).Clone()
+			#allhad2btag__signalWB.Sumw2()
+			#allhad2btag__signalZT.Sumw2()
+			#allhad2btag__signalHT.Sumw2()
+			allhad2btag__signalWB.Scale(triplet[0])
+			allhad2btag__signalHT.Scale(triplet[1])
+			allhad2btag__signalZT.Scale(triplet[2])
+			allhad2btag__signal=allhad2btag__signalWB
+			allhad2btag__signal.Add(allhad2btag__signalHT)
+			allhad2btag__signal.Add(allhad2btag__signalZT)
+			allhad2btag__signal.Rebin(rebinna)
+
+			allhad1btag__signalWB=signal_filesWB[masspoint].Get(onebtag).Clone()
+			allhad1btag__signalZT=signal_filesZT[masspoint].Get(onebtag).Clone()
+			allhad1btag__signalHT=signal_filesHT[masspoint].Get(onebtag).Clone()
+			#allhad1btag__signalWB.Sumw2()
+			#allhad1btag__signalZT.Sumw2()
+			#allhad1btag__signalHT.Sumw2()
+			allhad1btag__signalWB.Scale(triplet[0])
+			allhad1btag__signalHT.Scale(triplet[1])
+			allhad1btag__signalZT.Scale(triplet[2])
+			allhad1btag__signal=allhad1btag__signalWB
+			allhad1btag__signal.Add(allhad1btag__signalHT)
+			allhad1btag__signal.Add(allhad1btag__signalZT)
+			allhad1btag__signal.Rebin(rebinna)
+
+			allhad2btag__signal.Write('allhad2btag__signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
+				str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p'))
+			allhad1btag__signal.Write('allhad1btag__signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
+				str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p'))
+			counter+=1
+		thetafile.Close()
+		theta_config = open('theta/model'+filename_postfix+'.py','w')
+		theta_config.write("def get_model():\n\
+    model = build_model_from_rootfile('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/python/theta/theta"+filename_postfix+".root', include_mc_uncertainties = True)#mc uncertainties=true\n\
+    model.fill_histogram_zerobins()\n\
+    model.set_signal_processes('signal*')\n\
+    model.add_lognormal_uncertainty('ttbar_rate', 0.15, 'ttbar')\n\
+    model.add_lognormal_uncertainty('qcd_rate', 0.15, 'qcd')\n\
+    for p in model.processes:\n\
+        if p == 'qcd': continue\n\
+        model.add_lognormal_uncertainty('lumi', 0.026, p)\n\
+        if 'signal' in p:\n\
+            model.add_lognormal_uncertainty(p+'_rate', 0.15, p)\n\
+    return model\n\
+model = get_model()\n\
+model_summary(model)\n\
+options = Options()\n\
+options.set('main', 'n_threads', '20')\n\
+plot_exp, plot_obs = asymptotic_cls_limits(model,use_data=False,options=options)#bayesian_limits ,what='expected'\n\
+plot_exp.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/python/theta/limits_exp"+filename_postfix+".txt')\n\
+#plot_obs.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/python/theta/limits_obs"+filename_postfix+".txt')\n\
+report.write_html('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/python/theta/htmlout"+filename_postfix+"')")
+		filecounter+=1
+
+
 			
 
 
