@@ -407,7 +407,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
       stack.SetMinimum(0.2)
     else:
       stack.SetMaximum(stack.GetMaximum()*1.5)
-      stack.SetMinimum(0.01)
+      stack.SetMinimum(0.001)
   err.Draw('2')
   sum_mc.Draw('samehist')
   if ttbar_file!=0:

@@ -1,11 +1,41 @@
-from ROOT import TFile,TCanvas,gROOT,gStyle
+from ROOT import TFile,TCanvas,gROOT,gStyle,TGraph2D,TH2F,TPolyLine,TPolyLine3D,TLine,TGraph,TPad,TColor
 from os import system
 from sys import argv
 from os import mkdir
 from os.path import exists
+from array import array
 
 from utils import compare,hadd,doeff,make_plot,make_ratioplot
 gROOT.SetBatch()
+
+
+def set_palette(name='', ncontours=999):
+    """Set a color palette from a given RGB list
+    stops, red, green and blue should all be lists of the same length
+    see set_decent_colors for an example"""
+
+    if name == "gray" or name == "grayscale":
+        stops = [0.00, 0.34, 0.61, 0.84, 1.00]
+        red   = [1.00, 0.84, 0.61, 0.34, 0.00]
+        green = [1.00, 0.84, 0.61, 0.34, 0.00]
+        blue  = [1.00, 0.84, 0.61, 0.34, 0.00]
+    # elif name == "whatever":
+        # (define more palettes)
+    else:
+        # default palette, looks cool
+        stops = [0.00, 0.34, 0.61, 0.84, 1.00]
+        red   = [0.00, 0.00, 0.87, 1.00, 0.51]
+        green = [0.00, 0.81, 1.00, 0.20, 0.00]
+        blue  = [0.51, 1.00, 0.12, 0.00, 0.00]
+
+    s = array('d', stops)
+    r = array('d', red)
+    g = array('d', green)
+    b = array('d', blue)
+
+    npoints = len(s)
+    TColor.CreateGradientColorTable(npoints, s, r, g, b, ncontours)
+    gStyle.SetNumberContours(ncontours)
 
 signalHT_names=[
 'MC.ZpToTpT_TpToHT_MZp1500Nar_MTp700Nar_LH',
@@ -79,127 +109,103 @@ if doresults:
 	nscan=10
 	counter=1
 	filecounter=1
-	outfile-TFile('results.root','RECREATE')
+	outfile=TFile('results.root','RECREATE')
 	outfile.cd()
 
 	values = [[[] for i in range(3)] for i in range(len(signalWB_names))]
 
 	for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]:
 		filename_postfix=u+str(filecounter)+u+str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')
-		theta_exp_result = open('theta/limits_exp_'+filename_postfix+'.pytxt','r')
-
-
+		theta_exp_result = open('theta/limits_exp'+filename_postfix+'.txt','r')
+		theta_exp_lines=theta_exp_result.readlines()
 		for masspoint in range(len(signalWB_names)):
 			values[masspoint][0].append(triplet[0])
 			values[masspoint][1].append(triplet[1])
-			values[masspoint][2].append()
-
-			allhad2btag__signalWB=signal_filesWB[masspoint].Get(twobtags).Clone()
-			allhad2btag__signalZT=signal_filesZT[masspoint].Get(twobtags).Clone()
-			allhad2btag__signalHT=signal_filesHT[masspoint].Get(twobtags).Clone()
-			#allhad2btag__signalWB.Sumw2()
-			#allhad2btag__signalZT.Sumw2()
-			#allhad2btag__signalHT.Sumw2()
-			allhad2btag__signalWB.Scale(triplet[0])
-			allhad2btag__signalHT.Scale(triplet[1])
-			allhad2btag__signalZT.Scale(triplet[2])
-			allhad2btag__signal=allhad2btag__signalWB
-			allhad2btag__signal.Add(allhad2btag__signalHT)
-			allhad2btag__signal.Add(allhad2btag__signalZT)
-			allhad2btag__signal.Rebin(rebinna)
-
-			allhad1btag__signalWB=signal_filesWB[masspoint].Get(onebtag).Clone()
-			allhad1btag__signalZT=signal_filesZT[masspoint].Get(onebtag).Clone()
-			allhad1btag__signalHT=signal_filesHT[masspoint].Get(onebtag).Clone()
-			#allhad1btag__signalWB.Sumw2()
-			#allhad1btag__signalZT.Sumw2()
-			#allhad1btag__signalHT.Sumw2()
-			allhad1btag__signalWB.Scale(triplet[0])
-			allhad1btag__signalHT.Scale(triplet[1])
-			allhad1btag__signalZT.Scale(triplet[2])
-			allhad1btag__signal=allhad1btag__signalWB
-			allhad1btag__signal.Add(allhad1btag__signalHT)
-			allhad1btag__signal.Add(allhad1btag__signalZT)
-			allhad1btag__signal.Rebin(rebinna)
-
-			allhad2btag__signal.Write('allhad2btag__signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
-				str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p'))
-			allhad1btag__signal.Write('allhad1btag__signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
-				str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p'))
+			this_line=filter(None, theta_exp_lines[masspoint+1].split(' '))
+			assert(int(this_line[0])==counter)
+			values[masspoint][2].append(float(this_line[1]))
 			counter+=1
-		theta_exp_result.Close()
+		theta_exp_result.close()
 		
 
 		filecounter+=1
 
 plots=[]
+# for masspoint in range(len(signalWB_names)):
+# 	name=signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]
+# 	p=TGraph2D(name,";T' #rightarrow bW branching fraction;T' #rightarrow tH branching fraction;Cross section limit (pb)",len(values[masspoint][0]),array('d',values[masspoint][0]),array('d',values[masspoint][1]),array('d',values[masspoint][2]) )
+# 	c=TCanvas(name+u+'c')#,'',600,600)
+# 	c.SetRightMargin(0.15)
+# 	p.SetMargin(0.1)
+	
+# 	# plots[-1].GetXaxis().SetTitle("T' #rightarrow bW branching fraction")
+# 	# plots[-1].GetYaxis().SetTitle("T' #rightarrow tH branching fraction")
+# 	#p.GetZaxis().SetRangeUser(0.1,5.5)
+# 	p.SetMinimum(0.2)
+# 	p.SetMaximum(5.5)
+# 	p.GetZaxis().SetMoreLogLabels(1)
+
+# 	p.Draw('colz')
+# 	#p.GetZaxis().SetRangeUser(0.1,5.5)
+# 	#p.SetMinimum(0.1)
+# 	#p.SetMaximum(5.5)
+# 	#c.Update()
+# 	p.Write()
+# 	plots.append(p)
+
+# 	c.SetLogz(1)
+# 	c.SaveAs('pdf/'+name+'.pdf')
+gStyle.SetPalette(55)
+gStyle.SetNumberContours(99)#999
+#set_palette('',99)
+
 for masspoint in range(len(signalWB_names)):
-	plots.append(TGraph2D())
+	name=signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+'_v2'
+	p=TH2F(name,'',11,-0.05,1.05,11,-0.05,1.05)
+	c=TCanvas(name+u+'c')#,'',600,600)
+	c.SetRightMargin(0.15)
+	p.GetXaxis().SetTitle("T' #rightarrow bW branching fraction")
+	p.GetXaxis().SetRangeUser(0,1)
+	p.GetYaxis().SetTitle("T' #rightarrow tH branching fraction")
+	p.GetZaxis().SetTitle("Cross section limit (pb)")
+	for i in range(len(values[masspoint][0])):
+		p.Fill(values[masspoint][0][i],values[masspoint][1][i],values[masspoint][2][i])
+	p.SetMinimum(0.2)
+	p.SetMaximum(5.5)
+	p.GetZaxis().SetMoreLogLabels(1)
+	p.SetStats(0)
 
+	p.Draw('cont4z')
+	p.Write()
+	plots.append(p)
+	xx=array('d',[-0.05,1.04,1.04])
+	yy=array('d',[1.04,1.04,-0.05])
+	
+	null = TPad("null","",0,0,1,1)
+   	null.SetFillStyle(0)
+   	null.SetFrameFillStyle(0)
+   	null.Draw()
+   	null.cd()
 
-limits_exp_10_0p0_0p9_0p1.txt
-limits_exp_11_0p0_1p0_0p0.txt
-limits_exp_12_0p1_0p0_0p9.txt
-limits_exp_13_0p1_0p1_0p8.txt
-limits_exp_14_0p1_0p2_0p7.txt
-limits_exp_15_0p1_0p3_0p6.txt
-limits_exp_16_0p1_0p4_0p5.txt
-limits_exp_17_0p1_0p5_0p4.txt
-limits_exp_18_0p1_0p6_0p3.txt
-limits_exp_19_0p1_0p7_0p2.txt
-limits_exp_1_0p0_0p0_1p0.txt
-limits_exp_20_0p1_0p8_0p1.txt
-limits_exp_21_0p1_0p9_0p0.txt
-limits_exp_22_0p2_0p0_0p8.txt
-limits_exp_23_0p2_0p1_0p7.txt
-limits_exp_24_0p2_0p2_0p6.txt
-limits_exp_25_0p2_0p3_0p5.txt
-limits_exp_26_0p2_0p4_0p4.txt
-limits_exp_27_0p2_0p5_0p3.txt
-limits_exp_28_0p2_0p6_0p2.txt
-limits_exp_29_0p2_0p7_0p1.txt
-limits_exp_2_0p0_0p1_0p9.txt
-limits_exp_30_0p2_0p8_0p0.txt
-limits_exp_31_0p3_0p0_0p7.txt
-limits_exp_32_0p3_0p1_0p6.txt
-limits_exp_33_0p3_0p2_0p5.txt
-limits_exp_34_0p3_0p3_0p4.txt
-limits_exp_35_0p3_0p4_0p3.txt
-limits_exp_36_0p3_0p5_0p2.txt
-limits_exp_37_0p3_0p6_0p1.txt
-limits_exp_38_0p3_0p7_0p0.txt
-limits_exp_39_0p4_0p0_0p6.txt
-limits_exp_3_0p0_0p2_0p8.txt
-limits_exp_40_0p4_0p1_0p5.txt
-limits_exp_41_0p4_0p2_0p4.txt
-limits_exp_42_0p4_0p3_0p3.txt
-limits_exp_43_0p4_0p4_0p2.txt
-limits_exp_44_0p4_0p5_0p1.txt
-limits_exp_45_0p4_0p6_0p0.txt
-limits_exp_46_0p5_0p0_0p5.txt
-limits_exp_47_0p5_0p1_0p4.txt
-limits_exp_48_0p5_0p2_0p3.txt
-limits_exp_49_0p5_0p3_0p2.txt
-limits_exp_4_0p0_0p3_0p7.txt
-limits_exp_50_0p5_0p4_0p1.txt
-limits_exp_51_0p5_0p5_0p0.txt
-limits_exp_52_0p6_0p0_0p4.txt
-limits_exp_53_0p6_0p1_0p3.txt
-limits_exp_54_0p6_0p2_0p2.txt
-limits_exp_55_0p6_0p3_0p1.txt
-limits_exp_56_0p6_0p4_0p0.txt
-limits_exp_57_0p7_0p0_0p3.txt
-limits_exp_58_0p7_0p1_0p2.txt
-limits_exp_59_0p7_0p2_0p1.txt
-limits_exp_5_0p0_0p4_0p6.txt
-limits_exp_60_0p7_0p3_0p0.txt
-limits_exp_61_0p8_0p0_0p2.txt
-limits_exp_62_0p8_0p1_0p1.txt
-limits_exp_63_0p8_0p2_0p0.txt
-limits_exp_64_0p9_0p0_0p1.txt
-limits_exp_65_0p9_0p1_0p0.txt
-limits_exp_66_1p0_0p0_0p0.txt
-limits_exp_6_0p0_0p5_0p5.txt
-limits_exp_7_0p0_0p6_0p4.txt
-limits_exp_8_0p0_0p7_0p3.txt
-limits_exp_9_0p0_0p8_0p2.txt
+   	bm = c.GetBottomMargin()
+   	lm = c.GetLeftMargin()
+   	rm = c.GetRightMargin()
+   	to = c.GetTopMargin()
+   	x1 = p.GetXaxis().GetXmin()
+   	yf = p.GetYaxis().GetXmin()
+   	x2 = p.GetXaxis().GetXmax()
+   	y2 = p.GetYaxis().GetXmax()
+
+   	Xa = (x2-x1)/(1-lm-rm)-(x2-x1)
+   	Ya = (y2-yf)/(1-bm-to)-(y2-yf)
+   	LM = Xa*(lm/(lm+rm))
+   	RM = Xa*(rm/(lm+rm))
+   	BM = Ya*(bm/(bm+to))
+   	TM = Ya*(to/(bm+to))
+   	null.Range(x1-LM,yf-BM,x2+RM,y2+TM)
+	tri=TPolyLine(3,xx,yy)
+	tri.SetFillColor(0)
+	tri.Draw('f')
+	c.SetLogz(1)
+	c.SaveAs('pdf/'+name+'.pdf')
+outfile.Close()

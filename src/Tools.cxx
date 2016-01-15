@@ -385,7 +385,7 @@ bool AntiTopTag_nsub(TopJet topjet)
 bool WTag(TopJet topjet)
 {
   auto mjet = TopJetMass(topjet);
-  return mjet>65.0 && mjet<105.0 && TopJetNsub2(topjet)<0.6 && TopJetPt(topjet)>200.0;
+  return mjet>70.0 && mjet<100.0 && TopJetNsub2(topjet)<0.6 && TopJetPt(topjet)>200.0;//65 105
 }
 
 bool AntiWTag_mass(TopJet topjet)

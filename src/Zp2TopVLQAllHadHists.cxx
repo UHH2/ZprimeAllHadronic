@@ -1115,6 +1115,14 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("antibptCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
   book<TH1F>("antibmassCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
 
+  book<TH1F>("antitopmassCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antitopnsubCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antiwmassCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antiwnsubCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antibcsvCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antibptCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antibmassCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+
 }
 
 void SelectionHists::fill(const Event & event){
@@ -1214,7 +1222,7 @@ if (!event.isRealData)
   int N_bjets_good=0;
   for(auto jet : *event.jets)
     {
-      if (jet.btag_combinedSecondaryVertex()>0.890 &&deltaR(jet,event.topjets->at(0))>0.8 &&deltaR(jet,event.topjets->at(1))>0.8)
+      if (jet.btag_combinedSecondaryVertex()>0.890 &&deltaR(jet,event.topjets->at(0))>0.6 &&deltaR(jet,event.topjets->at(1))>0.6)
       {
           N_bjets_good++;
       }
@@ -1287,13 +1295,13 @@ if (!event.isRealData)
     has_tw=true;
   }
   if (has_tw) for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.6 &&deltaR(jet,the_w)>0.6 && jet.pt()>100.0)
   {
         the_b=jet; has_twb=true;
         break;
   }
   if (has_tw) for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>50.0)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.6 &&deltaR(jet,the_w)>0.6 && jet.pt()>50.0)
   {
         the_b_low=jet; has_twb_low=true;
         break;
@@ -1304,7 +1312,7 @@ if (!event.isRealData)
   float maxjetcsv=-1;
   Jet the_maxjetcsv;
   if (has_tw) for(auto jet : *event.jets)
-  if (deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>50.0)
+  if (deltaR(jet,the_top)>0.6 &&deltaR(jet,the_w)>0.6 && jet.pt()>50.0)
   {
         if (jet.pt()>maxjetpt)
         {
@@ -1328,7 +1336,7 @@ if (!event.isRealData)
 
   Jet the_unselected_b;
   for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,event.topjets->at(0))>0.8 &&deltaR(jet,event.topjets->at(1))>0.8 && jet.pt()>100.0)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,event.topjets->at(0))>0.6 &&deltaR(jet,event.topjets->at(1))>0.6 && jet.pt()>100.0)
   {
         the_unselected_b=jet;
         break;
@@ -1466,7 +1474,7 @@ if (!event.isRealData)
   Jet the_b_antitopw;
   bool has_antitopwb=false;
   for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,event.topjets->at(probe_index))>0.8&&deltaR(jet,event.topjets->at(tag_index))>0.8 && jet.pt()>100.0)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,event.topjets->at(probe_index))>0.6&&deltaR(jet,event.topjets->at(tag_index))>0.6 && jet.pt()>100.0)
   {
         the_b_antitopw=jet; has_antitopwb=true;
         break;
@@ -1475,7 +1483,7 @@ if (!event.isRealData)
   Jet the_b_topantiw;
   bool has_topantiwb=false;
   for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,event.topjets->at(tag_index))>0.8&&deltaR(jet,event.topjets->at(probe_index))>0.8 && jet.pt()>100.0)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,event.topjets->at(tag_index))>0.6&&deltaR(jet,event.topjets->at(probe_index))>0.6 && jet.pt()>100.0)
   {
         the_b_topantiw=jet; has_topantiwb=true;
         break;
@@ -1492,6 +1500,10 @@ if (!event.isRealData)
       {
         hist("antitopmassCRbtag_zprimemass")->Fill(zprimemass,weight);
       }
+      else
+      {
+        hist("antitopmassCRnobtag_zprimemass")->Fill(zprimemass,weight);
+      }
     }
   }
 
@@ -1501,10 +1513,14 @@ if (!event.isRealData)
     hist("antitopnsubCR_zprimemass")->Fill(zprimemass,weight);
     if (TprimeMass(event.topjets->at(tag_index),the_b_antitopw)>500.0)
     {
-      hist("antitopmassCRmass_zprimemass")->Fill(zprimemass,weight);
+      hist("antitopnsubCRmass_zprimemass")->Fill(zprimemass,weight);
       if (getMaxCSV(event.topjets->at(probe_index))>0.890)
       {
-        hist("antitopmassCRbtag_zprimemass")->Fill(zprimemass,weight);
+        hist("antitopnsubCRbtag_zprimemass")->Fill(zprimemass,weight);
+      }
+      else
+      {
+        hist("antitopnsubCRnobtag_zprimemass")->Fill(zprimemass,weight);
       }
     }
   }
@@ -1515,10 +1531,14 @@ if (!event.isRealData)
     hist("antiwmassCR_zprimemass")->Fill(zprimemass,weight);
     if (TprimeMass(event.topjets->at(probe_index),the_b_topantiw)>500.0)
     {
-      hist("antitopmassCRmass_zprimemass")->Fill(zprimemass,weight);
+      hist("antiwmassCRmass_zprimemass")->Fill(zprimemass,weight);
       if (getMaxCSV(event.topjets->at(tag_index))>0.890)
       {
-        hist("antitopmassCRbtag_zprimemass")->Fill(zprimemass,weight);
+        hist("antiwmassCRbtag_zprimemass")->Fill(zprimemass,weight);
+      }
+      else
+      {
+        hist("antiwmassCRnobtag_zprimemass")->Fill(zprimemass,weight);
       }
     }
   }
@@ -1529,10 +1549,14 @@ if (!event.isRealData)
     hist("antiwnsubCR_zprimemass")->Fill(zprimemass,weight);
     if (TprimeMass(event.topjets->at(probe_index),the_b_topantiw)>500.0)
     {
-      hist("antitopmassCRmass_zprimemass")->Fill(zprimemass,weight);
+      hist("antiwnsubCRmass_zprimemass")->Fill(zprimemass,weight);
       if (getMaxCSV(event.topjets->at(tag_index))>0.890)
       {
-        hist("antitopmassCRbtag_zprimemass")->Fill(zprimemass,weight);
+        hist("antiwnsubCRbtag_zprimemass")->Fill(zprimemass,weight);
+      }
+      else
+      {
+        hist("antiwnsubCRnobtag_zprimemass")->Fill(zprimemass,weight);
       }
     }
   }
@@ -1541,7 +1565,7 @@ if (!event.isRealData)
   Jet the_b_antibcsv;
   bool has_twantibcsv=false;
   if (has_tw) for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()<0.890&&deltaR(jet,the_top)>0.8&&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
+  if (jet.btag_combinedSecondaryVertex()<0.890&&deltaR(jet,the_top)>0.6&&deltaR(jet,the_w)>0.6 && jet.pt()>100.0)
   {
         the_b_antibcsv=jet; has_twantibcsv=true;
         break;
@@ -1557,13 +1581,17 @@ if (!event.isRealData)
       {
         hist("antibcsvCRbtag_zprimemass")->Fill(zprimemass,weight);
       }
+      else
+      {
+        hist("antibcsvCRnobtag_zprimemass")->Fill(zprimemass,weight);
+      }
     }
   }
 
   Jet the_b_antibpt;
   bool has_twantibpt=false;
   if (has_tw) for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8&&deltaR(jet,the_w)>0.8 && jet.pt()<100.0)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.6&&deltaR(jet,the_w)>0.6 && jet.pt()<100.0)
   {
         the_b_antibpt=jet; has_twantibpt=true;
         break;
@@ -1579,13 +1607,17 @@ if (!event.isRealData)
       {
         hist("antibptCRbtag_zprimemass")->Fill(zprimemass,weight);
       }
+      else
+      {
+        hist("antibptCRnobtag_zprimemass")->Fill(zprimemass,weight);
+      }
     }
   }
 
   Jet the_b_antibmass;
   bool has_twantibmass=false;
   if (has_tw) for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8&&deltaR(jet,the_w)>0.8 && jet.pt()>100.0&&JetMass(jet)>10.0)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.6&&deltaR(jet,the_w)>0.6 && jet.pt()>100.0&&JetMass(jet)>10.0)
   {
         the_b_antibmass=jet; has_twantibmass=true;
         break;
@@ -1600,6 +1632,10 @@ if (!event.isRealData)
         if (getMaxCSV(the_top)>0.890)
         {
           hist("antibmassCRbtag_zprimemass")->Fill(zprimemass,weight);
+        }
+        else
+        {
+          hist("antibmassCRnobtag_zprimemass")->Fill(zprimemass,weight);
         }
       }
   }
