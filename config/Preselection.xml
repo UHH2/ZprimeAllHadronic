@@ -10,6 +10,9 @@
 <!ENTITY MC_TT_Mtt0700to1000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TT_Mtt0700to1000.xml">
 <!ENTITY MC_TT_Mtt1000toINFT SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TT_Mtt1000toINFT.xml">
 
+<!ENTITY MC_TTbarScaleUp SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TTbarScaleUp.xml">
+<!ENTITY MC_TTbarScaleDown SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TTbarScaleDown.xml">
+
 <!ENTITY MC_QCD_HT500to700 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_QCD_HT500to700.xml">
 <!ENTITY MC_QCD_HT700to1000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_QCD_HT700to1000.xml">
 <!ENTITY MC_QCD_HT1000to1500 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_QCD_HT1000to1500.xml">
@@ -87,6 +90,18 @@
     
     <InputData Lumi="20.578" NEventsMax="-1" Type="MC" Version="TT_Mtt1000toINFT" Cacheable="True">
         &MC_TT_Mtt1000toINFT;
+        <InputTree Name="AnalysisTree" />
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> -->
+
+<!--     <InputData Lumi="11896.0" NEventsMax="-1" Type="MC" Version="TTbarScaleUp" Cacheable="True">
+        &MC_TTbarScaleUp;
+        <InputTree Name="AnalysisTree" />
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
+    
+    <InputData Lumi="11824.2" NEventsMax="-1" Type="MC" Version="TTbarScaleDown" Cacheable="True">
+        &MC_TTbarScaleDown;
         <InputTree Name="AnalysisTree" />
         <OutputTree Name="AnalysisTree" /> 
     </InputData> -->

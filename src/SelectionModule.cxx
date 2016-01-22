@@ -13,6 +13,8 @@
 #include "UHH2/common/include/TopJetIds.h"
 #include "UHH2/common/include/NSelections.h"
 #include "UHH2/common/include/CommonModules.h"
+#include "UHH2/common/include/JetHists.h"
+#include "UHH2/common/include/MCWeight.h"
 
 using namespace std;
 using namespace uhh2;
@@ -35,10 +37,10 @@ private:
     std::unique_ptr<SubJetCorrector> subjetcorrector;
     std::unique_ptr<JetCorrector> jetcorrector;
    
-    unique_ptr<AnalysisModule> common_modules_with_lumi_sel;
+    unique_ptr<AnalysisModule> common_modules_with_lumi_sel, btagwAK4, btagwAK8;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-    std::unique_ptr<Hists> h_selection, h_selectionallhad;
+    std::unique_ptr<Hists> h_selection, h_selectionallhad,h_btageffAK4,h_btageffAK8;
 };
 
 
@@ -70,6 +72,10 @@ SelectionModule::SelectionModule(Context & ctx){
 
     h_selection.reset(new SelectionHists(ctx, "Selection"));
     h_selectionallhad.reset(new SelectionHists(ctx, "SelectionAllHad"));
+    h_btageffAK4.reset(new BTagMCEfficiencyHists(ctx, "BTagMCEfficiencyHistsAK4",CSVBTag::WP_MEDIUM,"jets"));
+    h_btageffAK8.reset(new BTagMCEfficiencyHists(ctx, "BTagMCEfficiencyHistsAK8",CSVBTag::WP_MEDIUM,"topjets"));
+    //btagwAK4.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "jets"));
+    //btagwAK8.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "topjets"));
 }
 
 
@@ -159,6 +165,12 @@ if (!event.isRealData)
     jetcorrector->process(event);
 
     h_selection->fill(event);
+    h_btageffAK4->fill(event);
+    h_btageffAK8->fill(event);
+
+    //btagwAK4->process(event);
+    //btagwAK8->process(event);
+
     if (is_allhad)
     {
     h_selectionallhad->fill(event);

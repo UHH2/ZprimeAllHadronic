@@ -1123,6 +1123,18 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("antibptCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
   book<TH1F>("antibmassCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
 
+  book<TH1F>("bkg1", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("bkg2", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("bkg12", ";m_{Z'};Events", 300, 0, 3000);
+
+  book<TH1F>("bkg1up", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("bkg2up", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("bkg12up", ";m_{Z'};Events", 300, 0, 3000);
+
+  book<TH1F>("bkg1down", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("bkg2down", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("bkg12down", ";m_{Z'};Events", 300, 0, 3000);
+
 }
 
 void SelectionHists::fill(const Event & event){
@@ -1222,7 +1234,7 @@ if (!event.isRealData)
   int N_bjets_good=0;
   for(auto jet : *event.jets)
     {
-      if (jet.btag_combinedSecondaryVertex()>0.890 &&deltaR(jet,event.topjets->at(0))>0.6 &&deltaR(jet,event.topjets->at(1))>0.6)
+      if (jet.btag_combinedSecondaryVertex()>0.890 &&deltaR(jet,event.topjets->at(0))>0.8 &&deltaR(jet,event.topjets->at(1))>0.8)
       {
           N_bjets_good++;
       }
@@ -1295,13 +1307,13 @@ if (!event.isRealData)
     has_tw=true;
   }
   if (has_tw) for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.6 &&deltaR(jet,the_w)>0.6 && jet.pt()>100.0)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
   {
         the_b=jet; has_twb=true;
         break;
   }
   if (has_tw) for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.6 &&deltaR(jet,the_w)>0.6 && jet.pt()>50.0)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>50.0)
   {
         the_b_low=jet; has_twb_low=true;
         break;
@@ -1312,7 +1324,7 @@ if (!event.isRealData)
   float maxjetcsv=-1;
   Jet the_maxjetcsv;
   if (has_tw) for(auto jet : *event.jets)
-  if (deltaR(jet,the_top)>0.6 &&deltaR(jet,the_w)>0.6 && jet.pt()>50.0)
+  if (deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>50.0)
   {
         if (jet.pt()>maxjetpt)
         {
@@ -1336,7 +1348,7 @@ if (!event.isRealData)
 
   Jet the_unselected_b;
   for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,event.topjets->at(0))>0.6 &&deltaR(jet,event.topjets->at(1))>0.6 && jet.pt()>100.0)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,event.topjets->at(0))>0.8 &&deltaR(jet,event.topjets->at(1))>0.8 && jet.pt()>100.0)
   {
         the_unselected_b=jet;
         break;
@@ -1474,7 +1486,7 @@ if (!event.isRealData)
   Jet the_b_antitopw;
   bool has_antitopwb=false;
   for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,event.topjets->at(probe_index))>0.6&&deltaR(jet,event.topjets->at(tag_index))>0.6 && jet.pt()>100.0)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,event.topjets->at(probe_index))>0.8&&deltaR(jet,event.topjets->at(tag_index))>0.8 && jet.pt()>100.0)
   {
         the_b_antitopw=jet; has_antitopwb=true;
         break;
@@ -1483,7 +1495,7 @@ if (!event.isRealData)
   Jet the_b_topantiw;
   bool has_topantiwb=false;
   for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,event.topjets->at(tag_index))>0.6&&deltaR(jet,event.topjets->at(probe_index))>0.6 && jet.pt()>100.0)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,event.topjets->at(tag_index))>0.8&&deltaR(jet,event.topjets->at(probe_index))>0.8 && jet.pt()>100.0)
   {
         the_b_topantiw=jet; has_topantiwb=true;
         break;
@@ -1565,7 +1577,7 @@ if (!event.isRealData)
   Jet the_b_antibcsv;
   bool has_twantibcsv=false;
   if (has_tw) for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()<0.890&&deltaR(jet,the_top)>0.6&&deltaR(jet,the_w)>0.6 && jet.pt()>100.0)
+  if (jet.btag_combinedSecondaryVertex()<0.890&&deltaR(jet,the_top)>0.8&&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
   {
         the_b_antibcsv=jet; has_twantibcsv=true;
         break;
@@ -1577,21 +1589,33 @@ if (!event.isRealData)
     if (TprimeMass(the_w,the_b_antibcsv)>500.0)
     {
       hist("antibcsvCRmass_zprimemass")->Fill(zprimemass,weight);
+      hist("bkg12")->Fill(zprimemass,weight*QCDWeight( zprimemass, "mean", "nominal"));
+      hist("bkg12up")->Fill(zprimemass,weight*QCDWeight( zprimemass, "mean", "up"));
+      hist("bkg12down")->Fill(zprimemass,weight*QCDWeight( zprimemass, "mean", "down"));
       if (getMaxCSV(the_top)>0.890)
       {
         hist("antibcsvCRbtag_zprimemass")->Fill(zprimemass,weight);
+        hist("bkg2")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2", "nominal"));
+        hist("bkg2up")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2", "up"));
+        hist("bkg2down")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2", "down"));
       }
       else
       {
         hist("antibcsvCRnobtag_zprimemass")->Fill(zprimemass,weight);
+        hist("bkg1")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1", "nominal"));
+        hist("bkg1up")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1", "up"));
+        hist("bkg1down")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1", "down"));
       }
     }
   }
 
+
+
+
   Jet the_b_antibpt;
   bool has_twantibpt=false;
   if (has_tw) for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.6&&deltaR(jet,the_w)>0.6 && jet.pt()<100.0)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8&&deltaR(jet,the_w)>0.8 && jet.pt()<100.0)
   {
         the_b_antibpt=jet; has_twantibpt=true;
         break;
@@ -1617,7 +1641,7 @@ if (!event.isRealData)
   Jet the_b_antibmass;
   bool has_twantibmass=false;
   if (has_tw) for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.6&&deltaR(jet,the_w)>0.6 && jet.pt()>100.0&&JetMass(jet)>10.0)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8&&deltaR(jet,the_w)>0.8 && jet.pt()>100.0&&JetMass(jet)>10.0)
   {
         the_b_antibmass=jet; has_twantibmass=true;
         break;

@@ -37,6 +37,21 @@
         <OutputTree Name="AnalysisTree" /> 
     </InputData>
 
+<!--     <InputData Lumi="11896.0" NEventsMax="-1" Type="MC" Version="TTbarScaleUp" Cacheable="True">
+        <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.TTbarScaleUp.root" Lumi="0.0"/>
+        <InputTree Name="AnalysisTree" />
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>
+
+    <InputData Lumi="11824.2" NEventsMax="-1" Type="MC" Version="TTbarScaleDown" Cacheable="True">
+        <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.TTbarScaleDown.root" Lumi="0.0"/>
+        <InputTree Name="AnalysisTree" />
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> -->
+
+
+
+
     <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_05Oct2015_v1" Cacheable="True">
         <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.DATA.JetHT_Run2015D_05Oct2015_v1.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" />
@@ -304,11 +319,25 @@
             <Item Name="lumi_file" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/Latest_2015_Silver_JSON.root" />
             <Item Name="lumihists_lumi_per_bin" Value="0.2"/>
 
-            <Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/marchesi/PUData/25ns_v2/MyDataPileupHistogram.root" />
-            <Item Name="pileup_directory_25ns" Value="/nfs/dust/cms/user/nowatsd/PUHistogram-25ns-v2/Pileup.MC.TTbar.root"/>
+            <Item Name="pileup_directory_data" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/MyDataPileupHistogram_JSON_Silver.root" />
+            <Item Name="pileup_directory" Value="/nfs/dust/cms/user/nowatsd/PUHistogram-25ns-v2/Pileup.MC.TTbar.root"/>
 
             <Item Name="use_sframe_weight" Value="false" />
             
+            <!-- systematics -->
+
+            <!-- jec jer -->
+            <Item Name="jecsmear_direction" Value="nominal" /> <!-- nominal up down -->
+            <Item Name="jersmear_direction" Value="nominal" /> <!-- nominal up down -->
+
+            <!-- pileup -->
+            <Item Name="pileup_directory_data_up" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/MyDataPileupHistogram_JSON_Silver_up.root" />
+            <Item Name="pileup_directory_data_down" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/MyDataPileupHistogram_JSON_Silver_down.root" />
+
+            <!-- btag -->
+            <Item Name="MCBtagEfficiencies" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/BTagMCEfficiencyHists.root" />
+            <Item Name="BTagCalibration" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/CSVv2.csv" />
+
             <!-- the class name of the AnalysisModule subclasses to run: -->
             <Item Name="AnalysisModule" Value="SelectionModule" /> 
             

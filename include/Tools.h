@@ -9,8 +9,11 @@
 #include "UHH2/common/include/JetCorrections.h"
 #include "UHH2/JetMETObjects/interface/FactorizedJetCorrector.h"
 #include "UHH2/common/include/TopJetIds.h"
+#include "UHH2/common/include/TTbarGen.h"
+#include <string>
 
 using namespace uhh2;
+using namespace std;
 bool TopTag(TopJet topjet);
 bool WTag(TopJet topjet);
 bool AntiTopTag(TopJet topjet);
@@ -65,6 +68,9 @@ struct HigherPt {
         return j1.pt() > j2.pt();
     };
 };
+
+float QCDWeight(float mzp, string mode = "mean", string syst = "nominal");
+float TTbarWeight(Event & event, string syst = "nominal");
 //enum E_BtagType {
 //    e_CSVT, /**< Combined Secondary Vertex tagger, tight working point */
 //    e_CSVM, /**< Combined Secondary Vertex tagger, medium working point */

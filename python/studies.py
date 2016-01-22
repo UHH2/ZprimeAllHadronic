@@ -117,9 +117,6 @@ for i in signalWB_names:
 for i in signalWB_names:
 	signal_files_pre.append(TFile(prepath+filename_base+i+root,'READ'))
 
-
-
-
 for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
   "bmass",  "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
   "wmass",  "wpt",  "wnsub",
@@ -133,8 +130,9 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
   "lowmassCR_zprimemass",  "lowmassCR_zprimemassbtag","lowmassCR_zprimemass_low",  "lowmassCR_zprimemassbtag_low",
   "antitopmassCR_zprimemass",  "antitopnsubCR_zprimemass",  "antiwmassCR_zprimemass",  "antiwnsubCR_zprimemass",  "antibcsvCR_zprimemass",  "antibptCR_zprimemass",  "antibmassCR_zprimemass",
 "antitopmassCRmass_zprimemass",  "antitopnsubCRmass_zprimemass",  "antiwmassCRmass_zprimemass",  "antiwnsubCRmass_zprimemass",  "antibcsvCRmass_zprimemass",  "antibptCRmass_zprimemass",  "antibmassCRmass_zprimemass",
-"antitopmassCRbtag_zprimemass",  "antitopnsubCRbtag_zprimemass",  "antiwmassCRbtag_zprimemass",  "antiwnsubCRbtag_zprimemass",  "antibcsvCRbtag_zprimemass",  "antibptCRbtag_zprimemass",  "antibmassCRbtag_zprimemass"
-  ]:
+"antitopmassCRbtag_zprimemass",  "antitopnsubCRbtag_zprimemass",  "antiwmassCRbtag_zprimemass",  "antiwnsubCRbtag_zprimemass",  "antibcsvCRbtag_zprimemass",  "antibptCRbtag_zprimemass",  "antibmassCRbtag_zprimemass",
+"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass",  "antibcsvCRnobtag_zprimemass",  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
+"bkg1","bkg2","bkg12","bkg1up","bkg2up","bkg12up","bkg1down","bkg2down","bkg12down",]:
 #i=''
 	rebinna=10
 	signalzoom=2
@@ -195,7 +193,10 @@ for i in [
  "antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
  "antibcsvCRmass_zprimemass", "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
  "antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
- "antibcsvCRbtag_zprimemass", "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass"]:
+ "antibcsvCRbtag_zprimemass", "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
+"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass",
+  "antibcsvCRnobtag_zprimemass",  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
+  "bkg1","bkg2","bkg12","bkg1up","bkg2up","bkg12up","bkg1down","bkg2down","bkg12down",]:
  	rebinna=10
 	minx=0
 	maxx=0
@@ -242,7 +243,8 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio_SR_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	ratio_to_fit.Fit('pol1')
+	ratio_to_fit.Fit('pol1','','',900,3000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
 	ratio_to_fit.Draw()
 	ratio_to_fit.Write()
 	ratioc.Write()
@@ -290,7 +292,8 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio_SRdata_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	ratio_to_fit.Fit('pol1')
+	ratio_to_fit.Fit('pol1','','',900,3000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
 	ratio_to_fit.Draw()
 	ratio_to_fit.Write()
 	ratioc.Write()
@@ -305,7 +308,10 @@ for i in [
  "antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
  "antibcsvCRmass_zprimemass", "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
  "antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
- "antibcsvCRbtag_zprimemass", "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass"]:
+ "antibcsvCRbtag_zprimemass", "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
+"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass", 
+ "antibcsvCRnobtag_zprimemass",  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
+ "bkg1","bkg2","bkg12","bkg1up","bkg2up","bkg12up","bkg1down","bkg2down","bkg12down",]:
  	rebinna=10
 	minx=0
 	maxx=0
@@ -353,7 +359,8 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio_SRbtag_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	ratio_to_fit.Fit('pol1')
+	ratio_to_fit.Fit('pol1','','',900,3000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
 	ratio_to_fit.Draw()
 	ratio_to_fit.Write()
 	ratioc.Write()
@@ -402,11 +409,130 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio_SRbtagdata_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	ratio_to_fit.Fit('pol1')
+	ratio_to_fit.Fit('pol1','','',900,3000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
 	ratio_to_fit.Draw()
 	ratio_to_fit.Write()
 	ratioc.Write()
 	ratioc.SaveAs('pdf/ratio_SRbtagdata_vs_'+i+'_c.pdf')
+
+
+for i in [
+  "zprimemass",  "zprimemassbtag",  "zprimemassnobtag",  "zprimemassbmass",  "zprimemassnobmass",
+  "ttbarCR_zprimemass",  "ttbarCR_zprimemassbtag",
+  "lowmassCR_zprimemass",  "lowmassCR_zprimemassbtag",
+  "antitopmassCR_zprimemass",  "antitopnsubCR_zprimemass",  "antiwmassCR_zprimemass",  "antiwnsubCR_zprimemass",  "antibcsvCR_zprimemass",  "antibptCR_zprimemass",  "antibmassCR_zprimemass",
+  "ttbarCR_zprimemass_low", "ttbarCR_zprimemassbtag_low", "lowmassCR_zprimemass_low", "lowmassCR_zprimemassbtag_low", 
+ "antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
+ "antibcsvCRmass_zprimemass", "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
+ "antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
+ "antibcsvCRbtag_zprimemass", "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
+"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass", 
+ "antibcsvCRnobtag_zprimemass",  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
+ "bkg1","bkg2","bkg12","bkg1up","bkg2up","bkg12up","bkg1down","bkg2down","bkg12down",]:
+ 	rebinna=10
+	minx=0
+	maxx=0
+	# if i=='topmass':
+	# 	minx=100
+	# 	maxx=300
+	make_ratioplot(
+		name='SRnobtag_vs_'+i,
+		ttbar_file=0,
+		qcd_file=qcd_file,
+		data_file=qcd_file,
+		signal_files=[],
+		histo='Selection/zprimemassnobtag', 
+		histo_qcd='Selection/'+i,
+		histo_signal='Selection/'+i,
+		rebin=rebinna,
+		minx=minx,
+		maxx=maxx,
+		miny=0,
+		maxy=0,
+		minratio=0,
+		maxratio=0,
+		logy=False,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalWB_legendnames,
+        separate_legend=True,
+        signal_zoom=2,
+        fixratio=True,
+        normalize=True,
+        qcd_legend='Control region (QCD MC)',
+        data_legend='Signal region (QCD MC)'
+        #signal_colors=[1,2,3,1,2,3,1,2]
+        )
+
+	gStyle.SetOptFit(1111)
+	ratio_to_fit=qcd_file.Get('Selection/zprimemassnobtag').Clone('ratio_SRnobtag_vs_'+i)
+	denominator_CR=qcd_file.Get('Selection/'+i).Clone()
+	outfile.cd()
+	ratio_to_fit.Rebin(30)
+	denominator_CR.Rebin(30)
+	ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
+	denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
+	ratio_to_fit.Divide(denominator_CR)
+	ratioc=TCanvas('ratio_SRnobtag_vs_'+i+'_c')
+	ratio_to_fit.Draw()
+	ratio_to_fit.Fit('pol1','','',900,3000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
+	ratio_to_fit.Draw()
+	ratio_to_fit.Write()
+	ratioc.Write()
+	ratioc.SaveAs('pdf/ratio_SRnobtag_vs_'+i+'_c.pdf')
+
+	make_ratioplot(
+		name='SRnobtagdata_vs_'+i,
+		ttbar_file=0,
+		qcd_file=data_file,
+		data_file=data_file,
+		signal_files=[],
+		histo='Selection/zprimemassnobtag', 
+		histo_qcd='Selection/'+i,
+		histo_signal='Selection/'+i,
+		rebin=rebinna,
+		minx=minx,
+		maxx=maxx,
+		miny=0,
+		maxy=0,
+		minratio=0,
+		maxratio=0,
+		logy=False,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalWB_legendnames,
+        separate_legend=True,
+        signal_zoom=2,
+        fixratio=True,
+        normalize=True,
+        qcd_legend='Control region (QCD MC)',
+        data_legend='Signal region (QCD MC)'
+        #signal_colors=[1,2,3,1,2,3,1,2]
+        )
+
+	gStyle.SetOptFit(1111)
+	ratio_to_fit=data_file.Get('Selection/zprimemassnobtag').Clone('ratio_SRnobtagdata_vs_'+i)
+	denominator_CR=data_file.Get('Selection/'+i).Clone()
+	outfile.cd()
+	ratio_to_fit.Add(ttbar_file.Get('Selection/zprimemassnobtag'),-1.0)
+	denominator_CR.Add(ttbar_file.Get('Selection/'+i),-1.0)
+	ratio_to_fit.Rebin(30)
+	denominator_CR.Rebin(30)
+	ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
+	denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
+	ratio_to_fit.Divide(denominator_CR)
+	ratioc=TCanvas('ratio_SRnobtagdata_vs_'+i+'_c')
+	ratio_to_fit.Draw()
+	ratio_to_fit.Fit('pol1','','',900,3000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
+	ratio_to_fit.Draw()
+	ratio_to_fit.Write()
+	ratioc.Write()
+	ratioc.SaveAs('pdf/ratio_SRnobtagdata_vs_'+i+'_c.pdf')
 
 
 for i in range(len(signalWB_names)):
@@ -658,4 +784,31 @@ report.write_html('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15
 #         signal_legend=signalWB_legendnames,
 #         separate_legend=True
 #         )
+
+qcdsfbtag=qcd_file.Get("Selection/zprimemassbtag").Integral()/qcd_file.Get("Selection/antibcsvCRbtag_zprimemass").Integral()
+qcdsfnobtag=qcd_file.Get("Selection/zprimemassnobtag").Integral()/qcd_file.Get("Selection/antibcsvCRnobtag_zprimemass").Integral()
+print 'btag',qcdsfbtag
+print 'nobtag',qcdsfnobtag
+
+compare(name='qcdcorrsystbtag',
+		file_list=[qcd_file,qcd_file,qcd_file],
+		name_list=['Selection/bkg2','Selection/bkg2up','Selection/bkg2down'],
+		legend_list=['nominal','up - weight applied twice','down - no weight applied'],
+		normalize=True,drawoption='hE',
+		xtitle='',ytitle='',
+		minx=0,maxx=0,
+		rebin=10,
+		miny=0,maxy=0,
+		textsizefactor=1,logy=False)
+
+compare(name='qcdcorrsystnobtag',
+		file_list=[qcd_file,qcd_file,qcd_file],
+		name_list=['Selection/bkg1','Selection/bkg1up','Selection/bkg1down'],
+		legend_list=['nominal','up - weight applied twice','down - no weight applied'],
+		normalize=True,drawoption='hE',
+		xtitle='',ytitle='',
+		minx=0,maxx=0,
+		rebin=10,
+		miny=0,maxy=0,
+		textsizefactor=1,logy=False)
 	

@@ -391,13 +391,13 @@ bool WTag(TopJet topjet)
 bool AntiWTag_mass(TopJet topjet)
 {
   auto mjet = TopJetMass(topjet);
-  return (mjet<65.0 || mjet>105.0) && TopJetNsub2(topjet)<0.6 && TopJetPt(topjet)>200.0;
+  return (mjet<70.0 || mjet>100.0) && TopJetNsub2(topjet)<0.6 && TopJetPt(topjet)>200.0;
 }
 
 bool AntiWTag_nsub(TopJet topjet)
 {
   auto mjet = TopJetMass(topjet);
-  return mjet>65.0 && mjet<105.0 && TopJetNsub2(topjet)>0.6 && TopJetPt(topjet)>200.0;
+  return mjet>70.0 && mjet<100.0 && TopJetNsub2(topjet)>0.6 && TopJetPt(topjet)>200.0;
 }
 
 
@@ -415,7 +415,7 @@ bool SemiTopTag_nsub(TopJet topjet)
 bool SemiWTag_mass(TopJet topjet)
 {
   auto mjet = TopJetMass(topjet);
-  return mjet>65.0 && mjet<105.0 && TopJetPt(topjet)>200.0;
+  return mjet>70.0 && mjet<100.0 && TopJetPt(topjet)>200.0;
 }
 bool SemiWTag_nsub(TopJet topjet)
 {
@@ -430,6 +430,68 @@ if (ttag(first) && wtag(second)) return std::make_pair( first, second );
 else if (ttag(second) && wtag(first)) return std::make_pair( second, first );
 return std::make_pair( first, first );
 
+}
+
+float QCDWeight(float mzp, string mode, string syst)
+{
+ float weight = 1.0;
+ if (mode=="mean")
+ {
+  weight = 1.481 - 0.0002841 *mzp;
+ }
+ if (mode=="1")
+ {
+  weight = 1.341 - 0.0002038 *mzp;
+ }
+ if (mode=="2")
+ {
+  weight = 1.832 - 0.0005024 *mzp;
+ }
+ if (syst=="nominal")
+  {
+    //event.weight *= weight;
+    return weight;
+  }
+  if (syst=="up")
+  {
+    //event.weight *= weight*weight;
+    return weight*weight;
+  }
+  if (syst=="down")
+  {
+    return 1.0;
+  }
+  return 1.0;
+}
+
+float TTbarWeight(Event & event, string syst)
+{
+
+  TTbarGen ttbargen(*event.genparticles, false);
+  if (ttbargen.DecayChannel()==TTbarGen::e_notfound)
+  {
+    cout<<"ttbargen not found"; return 1.0;
+  }
+  // float N=1.0;
+  // float alpha=0.0007;
+  // float sigmaN=0.1;
+  // float sigmaAlpha=0.0001;
+  float weight= 1.0*exp(-0.0007*0.5*(ttbargen.Top().pt()+ttbargen.Antitop().pt()));
+  if (syst=="nominal")
+  {
+    event.weight *= weight;
+    return weight;
+  }
+  if (syst=="up")
+  {
+    event.weight *= weight*weight;
+    return weight*weight;
+  }
+  if (syst=="down")
+  {
+    return 1.0;
+  }
+  return 1.0;
 }
 
 bool SDTopTag::operator()(const TopJet & topjet, const uhh2::Event &) const {

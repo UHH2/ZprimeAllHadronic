@@ -171,7 +171,9 @@ for masspoint in range(len(signalWB_names)):
 	for i in range(len(values[masspoint][0])):
 		p.Fill(values[masspoint][0][i],values[masspoint][1][i],values[masspoint][2][i])
 	p.SetMinimum(0.2)
-	p.SetMaximum(5.5)
+	p.SetMaximum(6.0)
+	#p.SetMinimum(min(values[masspoint][2]))
+	#p.SetMaximum(max(values[masspoint][2]))
 	p.GetZaxis().SetMoreLogLabels(1)
 	p.SetStats(0)
 
@@ -205,7 +207,12 @@ for masspoint in range(len(signalWB_names)):
    	null.Range(x1-LM,yf-BM,x2+RM,y2+TM)
 	tri=TPolyLine(3,xx,yy)
 	tri.SetFillColor(0)
+	#p.Draw('atext')
 	tri.Draw('f')
+	gStyle.SetPaintTextFormat('4.2f')
+	p.SetMarkerSize(1.8)
+	#p.SetMarkerColor(14)
+	#p.Draw('atext45 same')
 	c.SetLogz(1)
 	c.SaveAs('pdf/'+name+'.pdf')
 outfile.Close()
