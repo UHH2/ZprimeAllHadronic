@@ -241,8 +241,8 @@ def make_plot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_
   #c.SaveAs('pdf/'+name+'.png')
 
 us='_'
-def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[], histo=0, histo_qcd='',histo_signal='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,
-                    xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False, signal_zoom=1,normalize=False,
+def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[], histo=0, histo_qcd='',histo_signal='',histo_ttbar='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,
+                    xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False, signal_zoom=1, qcd_zoom=1, ttbar_zoom=1,normalize=False,
                     ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='Data'):
   
   ###canvas setting up
@@ -321,19 +321,36 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   qcd_histo.Rebin(rebin)
   ttbar_histo=0
   if ttbar_file!=0:
-    ttbar_histo=ttbar_file.Get(histo).Clone()
+    if histo_ttbar=='':
+      ttbar_histo=ttbar_file.Get(histo).Clone()
+    else:
+      ttbar_histo=ttbar_file.Get(histo_ttbar).Clone()
     ttbar_histo.Rebin(rebin)
     ttbar_histo.SetFillColor(kAzure)
     ttbar_histo.SetLineColor(kAzure)
     ttbar_histo.SetMarkerColor(kAzure)
-    stack.Add(ttbar_histo)
+    if ttbar_zoom!=1:
+      ttbar_histo.Scale(ttbar_zoom)
+    
     legend.AddEntry(ttbar_histo,ttbar_legend,'f')
   qcd_histo.SetFillColor(kOrange)
   qcd_histo.SetLineColor(kOrange)
   qcd_histo.SetMarkerColor(kOrange)
+  if qcd_zoom!=1:
+      qcd_histo.Scale(qcd_zoom)
   legend.AddEntry(qcd_histo,qcd_legend,'f')
+  sum_mc=qcd_histo.Clone(histo+'tmp')
+  if ttbar_file!=0:
+    sum_mc.Add(ttbar_histo)
   if normalize:
+    if ttbar_file==0:
       qcd_histo.Scale(1.0/(qcd_histo.Integral()+0.00000001))
+    else:
+      qcd_histo.Scale(1.0/(sum_mc.Integral()+0.00000001))
+      ttbar_histo.Scale(1.0/(sum_mc.Integral()+0.00000001))
+      sum_mc.Scale(1.0/(sum_mc.Integral()+0.00000001))
+  if ttbar_file!=0:
+    stack.Add(ttbar_histo)
   stack.Add(qcd_histo)
   
   ###signal setting up
@@ -353,12 +370,11 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
     signal_histos[i].Rebin(rebin)
     if signal_zoom!=1:
       signal_histos[i].Scale(signal_zoom)
+    if normalize:
+      signal_histos[i].Scale(1.0/(signal_histos[i].Integral()+0.00000001))
     legend.AddEntry(signal_histos[i],signal_legend[i],'l')
 
   ###mc shape line
-  sum_mc=qcd_histo.Clone(histo+'tmp')
-  if ttbar_file!=0:
-    sum_mc.Add(ttbar_histo)
   sum_mc.SetLineColor(kBlack)
   sum_mc.SetFillStyle(0)
   ttbar_line=0

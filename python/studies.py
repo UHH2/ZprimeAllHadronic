@@ -132,7 +132,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
 "antitopmassCRmass_zprimemass",  "antitopnsubCRmass_zprimemass",  "antiwmassCRmass_zprimemass",  "antiwnsubCRmass_zprimemass",  "antibcsvCRmass_zprimemass",  "antibptCRmass_zprimemass",  "antibmassCRmass_zprimemass",
 "antitopmassCRbtag_zprimemass",  "antitopnsubCRbtag_zprimemass",  "antiwmassCRbtag_zprimemass",  "antiwnsubCRbtag_zprimemass",  "antibcsvCRbtag_zprimemass",  "antibptCRbtag_zprimemass",  "antibmassCRbtag_zprimemass",
 "antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass",  "antibcsvCRnobtag_zprimemass",  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
-"bkg1","bkg2","bkg12","bkg1up","bkg2up","bkg12up","bkg1down","bkg2down","bkg12down",]:
+"bkg1","bkg2","bkg12","bkg1up","bkg2up","bkg12up","bkg1down","bkg2down","bkg12down","tprimemass_res", "zprimemassbtag_res", "zprimemassnobtag_res"]:
 #i=''
 	rebinna=10
 	signalzoom=2
@@ -628,7 +628,7 @@ for i in range(len(signalWB_names)):
 		miny=0,maxy=0,
 		textsizefactor=1,logy=False)
 
-outfile.Close()
+
 
 dotheta=True
 if dotheta:
@@ -785,10 +785,88 @@ report.write_html('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15
 #         separate_legend=True
 #         )
 
-qcdsfbtag=qcd_file.Get("Selection/zprimemassbtag").Integral()/qcd_file.Get("Selection/antibcsvCRbtag_zprimemass").Integral()
-qcdsfnobtag=qcd_file.Get("Selection/zprimemassnobtag").Integral()/qcd_file.Get("Selection/antibcsvCRnobtag_zprimemass").Integral()
+qcdbkgbtag=data_file.Get("Selection/bkg2").Clone('qcdbkgbtag')
+qcdbkgnobtag=data_file.Get("Selection/bkg1").Clone('qcdbkgnobtag')
+blow=qcdbkgbtag.GetXaxis().FindFixBin(900.0)
+bhigh=qcdbkgbtag.GetXaxis().FindFixBin(3000.0)
+qcdsfbtag=qcd_file.Get("Selection/zprimemassbtag").Integral(blow,bhigh)/qcd_file.Get("Selection/antibcsvCRbtag_zprimemass").Integral(blow,bhigh)
+qcdsfnobtag=qcd_file.Get("Selection/zprimemassnobtag").Integral(blow,bhigh)/qcd_file.Get("Selection/antibcsvCRnobtag_zprimemass").Integral(blow,bhigh)
 print 'btag',qcdsfbtag
 print 'nobtag',qcdsfnobtag
+dratiobtag=data_file.Get("Selection/zprimemassbtag").Clone()
+dratiobtag.Add(ttbar_file.Get("Selection/zprimemassbtag"),-1.0)
+qcdsfbtag2=dratiobtag.Integral(blow,bhigh)/qcdbkgbtag.Integral(blow,bhigh)
+drationobtag=data_file.Get("Selection/zprimemassnobtag").Clone()
+drationobtag.Add(ttbar_file.Get("Selection/zprimemassnobtag"),-1.0)
+qcdsfnobtag2=drationobtag.Integral(blow,bhigh)/qcdbkgnobtag.Integral(blow,bhigh)
+print 'btag2',qcdsfbtag2
+print 'nobtag2',qcdsfnobtag2
+
+
+
+qcdbkgbtag.Add(ttbar_file.Get("Selection/bkg2").Clone(),-1.0)
+qcdbkgbtag.Scale(qcdsfbtag2)
+qcdbkgnobtag.Add(ttbar_file.Get("Selection/bkg1").Clone(),-1.0)
+qcdbkgnobtag.Scale(qcdsfnobtag2)
+outfile.cd()
+qcdbkgbtag.Write()
+qcdbkgnobtag.Write()
+rebinna=10
+signalzoom=2
+minx=0
+maxx=0
+make_ratioplot(
+		name='2_btag',
+		ttbar_file=ttbar_file,
+		qcd_file=outfile,
+		data_file=data_file,
+		signal_files=signal_files,
+		histo="Selection/zprimemassbtag", 
+		histo_qcd='qcdbkgbtag',
+		histo_signal="Selection/zprimemassbtag",
+		rebin=rebinna,
+		minx=minx,
+		maxx=maxx,
+		miny=0,
+		maxy=0,
+		minratio=0,
+		maxratio=0,
+		logy=False,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalWB_legendnames,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        fixratio=True,
+        #signal_colors=[1,2,3,1,2,3,1,2]
+        )
+make_ratioplot(
+		name='1_btag',
+		ttbar_file=ttbar_file,
+		qcd_file=outfile,
+		data_file=data_file,
+		signal_files=signal_files,
+		histo="Selection/zprimemassnobtag", 
+		histo_qcd='qcdbkgnobtag',
+		histo_signal="Selection/zprimemassnobtag",
+		rebin=rebinna,
+		minx=minx,
+		maxx=maxx,
+		miny=0,
+		maxy=0,
+		minratio=0,
+		maxratio=0,
+		logy=False,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalWB_legendnames,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        fixratio=True,
+        #signal_colors=[1,2,3,1,2,3,1,2]
+        )
 
 compare(name='qcdcorrsystbtag',
 		file_list=[qcd_file,qcd_file,qcd_file],
@@ -811,4 +889,129 @@ compare(name='qcdcorrsystnobtag',
 		rebin=10,
 		miny=0,maxy=0,
 		textsizefactor=1,logy=False)
+
+
+#signal contamination
+qcd1=qcd_file.Get("Selection/zprimemassnobtag").Clone()
+ttbar1=ttbar_file.Get("Selection/zprimemassnobtag").Clone()
+qcd2=qcd_file.Get("Selection/zprimemassbtag").Clone()
+ttbar2=ttbar_file.Get("Selection/zprimemassbtag").Clone()
+
+qcd1b=qcd_file.Get("Selection/antibcsvCRnobtag_zprimemass").Clone()
+ttbar1b=ttbar_file.Get("Selection/antibcsvCRnobtag_zprimemass").Clone()
+qcd2b=qcd_file.Get("Selection/antibcsvCRbtag_zprimemass").Clone()
+ttbar2b=ttbar_file.Get("Selection/antibcsvCRbtag_zprimemass").Clone()
+
+qcd1bk=qcd_file.Get("Selection/bkg1").Clone()
+ttbar1bk=ttbar_file.Get("Selection/bkg1").Clone()
+qcd2bk=qcd_file.Get("Selection/bkg2").Clone()
+ttbar2bk=ttbar_file.Get("Selection/bkg2").Clone()
+
+den1=qcd1.Integral(blow,bhigh)+ttbar1.Integral(blow,bhigh)
+den2=qcd2.Integral(blow,bhigh)+ttbar2.Integral(blow,bhigh)
+den1b=qcd1b.Integral(blow,bhigh)+ttbar1b.Integral(blow,bhigh)
+den2b=qcd2b.Integral(blow,bhigh)+ttbar2b.Integral(blow,bhigh)
+den1bk=qcd1bk.Integral(blow,bhigh)+ttbar1bk.Integral(blow,bhigh)
+den2bk=qcd2bk.Integral(blow,bhigh)+ttbar2bk.Integral(blow,bhigh)
+for masspoint in range(len(signalWB_names)):
+	signal1=signal_filesWB[masspoint].Get("Selection/zprimemassnobtag").Clone()
+	signal2=signal_filesWB[masspoint].Get("Selection/zprimemassbtag").Clone()
+	signal1b=signal_filesWB[masspoint].Get("Selection/antibcsvCRnobtag_zprimemass").Clone()
+	signal2b=signal_filesWB[masspoint].Get("Selection/antibcsvCRbtag_zprimemass").Clone()
+	signal1bk=signal_filesWB[masspoint].Get("Selection/bkg1").Clone()
+	signal2bk=signal_filesWB[masspoint].Get("Selection/bkg2").Clone()
+	num1=signal1.Integral(blow,bhigh)
+	num2=signal2.Integral(blow,bhigh)
+	num1b=signal1b.Integral(blow,bhigh)
+	num2b=signal2b.Integral(blow,bhigh)
+	num1bk=signal1bk.Integral(blow,bhigh)
+	num2bk=signal2bk.Integral(blow,bhigh)
+#	if masspoint in [0,3,6]:
+
+
+	print signalWB_names[masspoint], num1/den1, num2/den2, num1b/den1b, num2b/den2b, num1bk/den1bk, num2bk/den2bk
+
+# resized_bkg1=qcd_file.Get("Selection/bkg1").Clone('resized_bkg1')
+# resized_bkg2=qcd_file.Get("Selection/bkg2").Clone('resized_bkg2')
+#resize
+for masspoint in [0,3,6]:
+	# resized_sgn1=signal_filesWB[masspoint].Get("Selection/bkg1").Clone('resized_sgn1_'+str(masspoint))
+	# resized_sgn2=signal_filesWB[masspoint].Get("Selection/bkg2").Clone('resized_sgn2_'+str(masspoint))
+	# signal1b=signal_filesWB[masspoint].Get("Selection/antibcsvCRnobtag_zprimemass").Clone()
+	# signal2b=signal_filesWB[masspoint].Get("Selection/antibcsvCRbtag_zprimemass").Clone()
+
+	make_ratioplot(
+		name='signal_injection2_'+str(masspoint),
+		ttbar_file=signal_files[masspoint],
+		qcd_file=qcd_file,
+		data_file=qcd_file,
+		signal_files=[signal_files[masspoint]],
+		histo="Selection/zprimemassbtag", 
+		histo_qcd='Selection/bkg2',
+		histo_ttbar='Selection/bkg2',
+		histo_signal="Selection/zprimemassbtag",
+		rebin=rebinna,
+		minx=minx,
+		maxx=maxx,
+		miny=0,
+		maxy=0,
+		minratio=0,
+		maxratio=0,
+		logy=False,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=[signalWB_legendnames[masspoint]],
+        separate_legend=False,
+        signal_zoom=1,
+        ttbar_zoom=den2/den2bk,
+        qcd_zoom=den2/den2bk,
+        fixratio=True,
+        ttbar_legend='signal in bkg estimate (MC)',qcd_legend='background estimate (MC)', data_legend='observed background (MC)',
+        normalize=False
+        #signal_colors=[1,2,3,1,2,3,1,2]
+        )
+
+	make_ratioplot(
+		name='signal_injection1_'+str(masspoint),
+		ttbar_file=signal_files[masspoint],
+		qcd_file=qcd_file,
+		data_file=qcd_file,
+		signal_files=[signal_files[masspoint]],
+		histo="Selection/zprimemassnobtag", 
+		histo_qcd='Selection/bkg1',
+		histo_ttbar='Selection/bkg1',
+		histo_signal="Selection/zprimemassnobtag",
+		rebin=rebinna,
+		minx=minx,
+		maxx=maxx,
+		miny=0,
+		maxy=0,
+		minratio=0,
+		maxratio=0,
+		logy=False,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=[signalWB_legendnames[masspoint]],
+        separate_legend=False,
+        signal_zoom=1,
+        ttbar_zoom=den1/den1bk,
+        qcd_zoom=den1/den1bk,
+        fixratio=True,
+        ttbar_legend='signal in bkg estimate (MC)',qcd_legend='background estimate (MC)', data_legend='observed background (MC)',
+        normalize=False
+        #signal_colors=[1,2,3,1,2,3,1,2]
+        )
+
+# TTBARsr1+QCDbkg1+SGNbkg1
+# QCDbkg1+SGNbkg1
+# QCDbkg1
+# QCDsr1
+# QCDsr1+SGNsr1
+# QCDsr1+SGNsr1+TTBARsr1
+
+
+
+outfile.Close()
 	

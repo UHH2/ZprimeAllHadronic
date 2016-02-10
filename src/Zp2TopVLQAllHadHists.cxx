@@ -1077,6 +1077,10 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("zprimemassbmass", ";m_{Z'};Events", 300, 0, 3000);
   book<TH1F>("zprimemassnobmass", ";m_{Z'};Events", 300, 0, 3000);
 
+  book<TH1F>("tprimemass_res", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("zprimemassbtag_res", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("zprimemassnobtag_res", ";m_{Z'};Events", 300, 0, 3000);
+
   book<TH1F>("ht_twbSR", ";m_{Z'};Events", 300, 0, 3000);
   book<TH1F>("ht_twbSRbtag", ";m_{Z'};Events", 300, 0, 3000);
   book<TH1F>("ht_twbSRnobtag", ";m_{Z'};Events", 300, 0, 3000);
@@ -1260,8 +1264,8 @@ if (!event.isRealData)
 //selection
 
   //toptag+wtag
-  TopJet the_top, the_w;
-  Jet the_b;
+  TopJet the_top, the_w, the_w2;
+  Jet the_b, the_b2;
   Jet the_b_low;
 
   // if(TopTag(event.topjets->at(0)))
@@ -1294,6 +1298,7 @@ if (!event.isRealData)
   bool has_tw=false;
   bool has_twb=false;
   bool has_twb_low=false;
+  bool has_ww=false;
   if (TopTag(event.topjets->at(0))&&WTag(event.topjets->at(1)))
   {
     the_top=event.topjets->at(0);
@@ -1306,6 +1311,72 @@ if (!event.isRealData)
     the_w=event.topjets->at(0);
     has_tw=true;
   }
+  else if(WTag(event.topjets->at(1))&&WTag(event.topjets->at(0)))
+  {
+    the_w=event.topjets->at(0);
+    the_w2=event.topjets->at(1);
+    has_ww=true;
+  }
+  ///////////////////RESOLVED ANALYSIS
+  if (has_ww)
+  {
+    bool has_b=false;
+    bool has_b2=false;
+    bool duebtag=false;
+    for(auto jet : *event.jets)
+      if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_w)>0.8 &&deltaR(jet,the_w2)>0.8 && jet.pt()>50.0)
+      {
+        the_b=jet; has_b=true; break;
+      }  
+    if (has_b) for(auto jet : *event.jets)
+      if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_w)>0.8 &&deltaR(jet,the_w2)>0.8 && jet.pt()>50.0 && fabs(jet.eta()-the_b.eta())>0.01)
+      {
+        
+        the_b2=jet; has_b2=true; duebtag=true; break;
+      }
+    if (has_b && !has_b2) for(auto jet : *event.jets)
+      if (deltaR(jet,the_w)>0.8 &&deltaR(jet,the_w2)>0.8 && jet.pt()>50.0 && fabs(jet.eta()-the_b.eta())>0.01)
+      {
+        
+        the_b2=jet; has_b2=true; break;
+      }
+    if (has_b && has_b2)
+    {
+      std::vector<TopJet> TopW =    {the_w,  the_w2, the_w,  the_w2};
+      std::vector<TopJet> TprimeW = {the_w2, the_w,  the_w2, the_w};
+      std::vector<Jet> TopB =       {the_b,  the_b2, the_b2, the_b};
+      std::vector<Jet> TprimeB =    {the_b2, the_b,  the_b,  the_b2};
+      float biggestTprimeMass=-1;
+      bool found=false;
+      unsigned int index=0;
+      for(unsigned int i=0;i<TopW.size();i++)
+      {
+        float TopMass=TprimeMass(TopW[i],TopB[i]);
+        float TprimeMass2=TprimeMass(TprimeW[i],TprimeB[i]);
+        if (TopMass>140.0 && TopMass<250.0 && TprimeMass2>biggestTprimeMass)
+        {
+          found=true;
+          biggestTprimeMass=TprimeMass2;
+          index=i;
+        }
+      }
+      if (found)
+      {
+        float TprimeMass2=TprimeMass(TprimeW[index],TprimeB[index]);
+        hist("tprimemass_res")->Fill(TprimeMass2,weight);
+        if (TprimeMass2>500.0)
+        {
+          float ZprimeMass=ZprimeMassResVLQ(TprimeW[index],TopW[index],TprimeB[index],TopB[index]);
+          if (duebtag) hist("zprimemassbtag_res")->Fill(ZprimeMass,weight);
+          else hist("zprimemassnobtag_res")->Fill(ZprimeMass,weight);
+        }
+
+      }
+    } 
+
+  }
+  //end of resolved analysis
+
   if (has_tw) for(auto jet : *event.jets)
   if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
   {
@@ -1576,7 +1647,7 @@ if (!event.isRealData)
 
   Jet the_b_antibcsv;
   bool has_twantibcsv=false;
-  if (has_tw) for(auto jet : *event.jets)
+  if (has_tw && !has_twb) for(auto jet : *event.jets)
   if (jet.btag_combinedSecondaryVertex()<0.890&&deltaR(jet,the_top)>0.8&&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
   {
         the_b_antibcsv=jet; has_twantibcsv=true;

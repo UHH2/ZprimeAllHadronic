@@ -68,6 +68,18 @@ float ZprimeMassVLQ(TopJet t1, TopJet t2, Jet t3)
   if(!allsubjets.isTimelike()) return 0.0;
   else return allsubjets.M();
 }
+
+float ZprimeMassResVLQ(TopJet t1, TopJet t2, Jet t3, Jet t4)
+{
+  LorentzVector allsubjets(0,0,0,0);
+  for(auto subjet : t1.subjets()) allsubjets += subjet.v4();
+  for(auto subjet : t2.subjets()) allsubjets += subjet.v4();
+  allsubjets += t3.v4();
+  allsubjets += t4.v4();
+  if(!allsubjets.isTimelike()) return 0.0;
+  else return allsubjets.M();
+}
+
 float ZprimePtVLQ(TopJet t1, TopJet t2, Jet t3)
 {
   LorentzVector allsubjets(0,0,0,0);
@@ -400,7 +412,17 @@ bool AntiWTag_nsub(TopJet topjet)
   return mjet>70.0 && mjet<100.0 && TopJetNsub2(topjet)>0.6 && TopJetPt(topjet)>200.0;
 }
 
+bool TopTag_nopt(TopJet topjet)
+{
+  auto mjet = TopJetMass(topjet);
+  return mjet>110.0 && mjet<210.0 && TopJetNsub(topjet)<0.86;
+}
 
+bool WTag_nopt(TopJet topjet)
+{
+  auto mjet = TopJetMass(topjet);
+  return mjet>70.0 && mjet<100.0 && TopJetNsub2(topjet)<0.6;//65 105
+}
 
 bool SemiTopTag_mass(TopJet topjet)
 {
@@ -437,15 +459,15 @@ float QCDWeight(float mzp, string mode, string syst)
  float weight = 1.0;
  if (mode=="mean")
  {
-  weight = 1.481 - 0.0002841 *mzp;
+  weight = 1.414 - 0.0002473 *mzp;
  }
  if (mode=="1")
  {
-  weight = 1.341 - 0.0002038 *mzp;
+  weight = 1.339 - 0.0002029 *mzp;
  }
  if (mode=="2")
  {
-  weight = 1.832 - 0.0005024 *mzp;
+  weight = 1.846 - 0.0005092 *mzp;
  }
  if (syst=="nominal")
   {

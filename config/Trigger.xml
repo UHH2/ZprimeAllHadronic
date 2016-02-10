@@ -38,8 +38,8 @@
     <Library Name="libSUHH2Zp2TopVLQAllHad"/>
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/miniaodv2/" PostFix="" TargetLumi="2460" >
-   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="48" OutputDirectory="/nfs/dust/cms/user/usaiem/miniaodv2/" PostFix="" TargetLumi="2460" >  -->
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/miniaodv2/" PostFix="" TargetLumi="2460" > -->
+   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="48" OutputDirectory="/nfs/dust/cms/user/usaiem/miniaodv2/" PostFix="" TargetLumi="2460" > 
 
 
    
@@ -138,8 +138,8 @@
             <Item Name="lumi_file" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/Latest_2015_Silver_JSON.root" />
             <Item Name="lumihists_lumi_per_bin" Value="0.2"/>
 
-            <Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/marchesi/PUData/25ns_v2/MyDataPileupHistogram.root" />
-            <Item Name="pileup_directory_25ns" Value="/nfs/dust/cms/user/nowatsd/PUHistogram-25ns-v2/Pileup.MC.TTbar.root"/>
+            <Item Name="pileup_directory_data" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/MyDataPileupHistogram_JSON_Silver.root" />
+            <Item Name="pileup_directory" Value="/nfs/dust/cms/user/nowatsd/PUHistogram-25ns-v2/Pileup.MC.TTbar.root"/>
 
             <Item Name="use_sframe_weight" Value="false" />
             

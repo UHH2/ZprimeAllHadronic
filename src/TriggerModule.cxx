@@ -221,27 +221,62 @@ bool sel2pt=false;
 
 
 
-const TopJetId topjetID = SDTopTag(SDTopTag::WP::Mis10);
+//const TopJetId topjetID = SDTopTag(SDTopTag::WP::Mis10);
 //const TopJetId topjetID = SDTopTag(SDTopTag::WP::Mis1b);
 
-bool toptag_requirement=false;
-int nbtag=0;
-if (topjets->size()>1)
+// selection
+TopJet the_top, the_w;
+Jet the_b;
+  bool has_tw=false;
+  bool has_twb=false;
+  if (topjets->size()>1)
+ {
+  if (TopTag_nopt(event.topjets->at(0))&&WTag_nopt(event.topjets->at(1)))
+  {
+    the_top=event.topjets->at(0);
+    the_w=event.topjets->at(1);
+    has_tw=true;
+  }
+  else if(TopTag_nopt(event.topjets->at(1))&&WTag_nopt(event.topjets->at(0)))
+  {
+    the_top=event.topjets->at(1);
+    the_w=event.topjets->at(0);
+    has_tw=true;
+  }
+  if (has_tw) for(auto jet : *event.jets)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
+  {
+        the_b=jet; has_twb=true;
+        break;
+  }
+}
+  
+
+// bool toptag_requirement=false;
+// int nbtag=0;
+// if (topjets->size()>1)
+// {
+//     toptag_requirement = topjetID(topjets->at(0),event)&&topjetID(topjets->at(1),event);
+//     if (getMaxCSV(topjets->at(0))>0.890) nbtag++;
+//     if (getMaxCSV(topjets->at(1))>0.890) nbtag++;
+// }
+
+
+bool btag2=false;
+if (has_twb)
 {
-    toptag_requirement = topjetID(topjets->at(0),event)&&topjetID(topjets->at(1),event);
-    if (getMaxCSV(topjets->at(0))>0.890) nbtag++;
-    if (getMaxCSV(topjets->at(1))>0.890) nbtag++;
+    btag2=getMaxCSV(the_top)>0.890;
 }
 
 bool ptcond = false;
-if (topjets->size()>1)
+if (has_tw)
 {
-    ptcond = TopJetPt(topjets->at(0))>400 && TopJetPt(topjets->at(1))>400;
+    ptcond = TopJetPt(the_top)>400 && TopJetPt(the_w)>200;
 }
 
-sel0 = toptag_requirement;
-sel1 = toptag_requirement && (nbtag>0);
-sel2 = toptag_requirement && (nbtag>1);
+sel0 = has_tw;
+sel1 = has_twb;
+sel2 = has_twb && btag2;
 sel0pt = sel0 && ptcond;
 sel1pt = sel1 && ptcond;
 sel2pt = sel2 && ptcond;
