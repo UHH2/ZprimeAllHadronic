@@ -516,6 +516,41 @@ float TTbarWeight(Event & event, string syst)
   return 1.0;
 }
 
+float TopTagSF(Event & event, TopJet jet, string procname)
+{
+  float sf=0.816535;
+  float error=0.0700101;
+  if (jet.pt()>550.0)
+  {
+    sf=0.983997;
+    error=0.162987;
+  }
+  if(!event.isRealData)
+  {
+    if (contains(procname,'TSFUP') return sf+error;
+    if (contains(procname,'TSFDOWN') return sf-error;
+    return sf;
+  }
+  else return 1.0;
+}
+float WTagSF(Event & event, TopJet jet, string procname)
+{
+  float sf=0.87;
+  float error=0.17;
+  if(!event.isRealData)
+  {
+    if (contains(procname,'WSFUP') return sf+error;
+    if (contains(procname,'WSFDOWN') return sf-error;
+    return sf;
+  }
+  else return 1.0;
+}
+
+bool contains(string s, string substring)
+{
+ return s.find(substring)!=string::npos; 
+}
+
 bool SDTopTag::operator()(const TopJet & topjet, const uhh2::Event &) const {
     
     float mjet = TopJetMass(topjet);

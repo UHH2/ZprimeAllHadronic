@@ -56,6 +56,21 @@
 <!ENTITY MC_ZpToTpT_TpToZT_MZp2500Nar_MTp1200Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_ZpToTpT_TpToZT_MZp2500Nar_MTp1200Nar_LH.xml">
 <!ENTITY MC_ZpToTpT_TpToZT_MZp2500Nar_MTp1500Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_ZpToTpT_TpToZT_MZp2500Nar_MTp1500Nar_LH.xml">
 
+
+
+  <!ENTITY MC_TpTp_M-1000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TpTp_M-1000.xml">
+  <!ENTITY MC_TpTp_M-1100 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TpTp_M-1100.xml">
+  <!ENTITY MC_TpTp_M-1200 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TpTp_M-1200.xml">
+  <!ENTITY MC_TpTp_M-1300 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TpTp_M-1300.xml">
+  <!ENTITY MC_TpTp_M-1400 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TpTp_M-1400.xml">
+  <!ENTITY MC_TpTp_M-1500 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TpTp_M-1500.xml">
+  <!ENTITY MC_TpTp_M-1600 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TpTp_M-1600.xml">
+  <!ENTITY MC_TpTp_M-1700 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TpTp_M-1700.xml">
+  <!ENTITY MC_TpTp_M-1800 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TpTp_M-1800.xml">
+  <!ENTITY MC_TpTp_M-700 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TpTp_M-700.xml">
+  <!ENTITY MC_TpTp_M-800 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TpTp_M-800.xml">
+  <!ENTITY MC_TpTp_M-900 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/datasets/RunII_25ns_v2/MC_TpTp_M-900.xml">
+
 ]
 >
 
@@ -106,7 +121,7 @@
         <OutputTree Name="AnalysisTree" /> 
     </InputData> -->
 
-    <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_05Oct2015_v1" Cacheable="True">
+<!--     <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_05Oct2015_v1" Cacheable="True">
         &JetHT_Run2015D_05Oct2015_v1;
         <InputTree Name="AnalysisTree" />
         <OutputTree Name="AnalysisTree" /> 
@@ -114,6 +129,79 @@
 
     <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_PromptReco_v4" Cacheable="True">
         &JetHT_Run2015D_PromptReco_v4;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData>  -->
+
+
+  <InputData Lumi="828307" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1000" Cacheable="True">
+        &MC_TpTp_M-1000;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="829820" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1100" Cacheable="True">
+        &MC_TpTp_M-1100;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="810030" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1200" Cacheable="True">
+        &MC_TpTp_M-1200;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="801209" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1300" Cacheable="True">
+        &MC_TpTp_M-1300;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="829514" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1400" Cacheable="True">
+        &MC_TpTp_M-1400;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="819520" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1500" Cacheable="True">
+        &MC_TpTp_M-1500;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="795680" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1600" Cacheable="True">
+        &MC_TpTp_M-1600;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="812556" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1700" Cacheable="True">
+        &MC_TpTp_M-1700;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="829846" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1800" Cacheable="True">
+        &MC_TpTp_M-1800;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="819831" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-700" Cacheable="True">
+        &MC_TpTp_M-700;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="818690" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-800" Cacheable="True">
+        &MC_TpTp_M-800;
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="829837" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-900" Cacheable="True">
+        &MC_TpTp_M-900;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
     </InputData> 
@@ -378,6 +466,10 @@
 
             <Item Name="use_sframe_weight" Value="false" />
             
+            <!-- jec jer -->
+            <Item Name="jecsmear_direction" Value="nominal" /> <!-- nominal up down -->
+            <Item Name="jersmear_direction" Value="nominal" /> <!-- nominal up down -->
+
             <!-- the class name of the AnalysisModule subclasses to run: -->
             <Item Name="AnalysisModule" Value="PreselectionModule" /> 
             

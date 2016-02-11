@@ -952,28 +952,29 @@ if (!event.isRealData)
             }
         }
     }
-    float tprimemass=TprimeMass(the_w,the_b);
-    float zprimemass=ZprimeMassVLQ(the_top,the_w,the_b);
-    float topmaxcsv=getMaxCSV(the_top);
+    
     if (has_the_b && has_the_w && has_the_top)
     {
+      float tprimemass=TprimeMass(the_w,the_b);
+    float zprimemass=ZprimeMassVLQ(the_top,the_w,the_b);
+    float topmaxcsv=getMaxCSV(the_top);
       if (tprimemass>500.0)
       {
         hist("step4_zprimemass")->Fill(zprimemass,weight);
         if (topmaxcsv>0.890) hist("step4_zprimemassbtag")->Fill(zprimemass,weight);
-        if (topmaxcsv>0.890 && TopJetNsub(the_top)<0.7) hist("step4_zprimemassbtagnsub")->Fill(zprimemass,weight);
+        //if (topmaxcsv>0.890 && TopJetNsub(the_top)<0.7) hist("step4_zprimemassbtagnsub")->Fill(zprimemass,weight);
       }
       if (tprimemass>140.0 && tprimemass<250.0)
       {
         hist("step4_zprimemass")->Fill(zprimemass,weight);
         if (topmaxcsv>0.890) hist("ttbarSR_zprimemassbtag")->Fill(zprimemass,weight);
-        if (topmaxcsv>0.890 && TopJetNsub(the_top)<0.7) hist("ttbarSR_zprimemassbtagnsub")->Fill(zprimemass,weight);
+        //if (topmaxcsv>0.890 && TopJetNsub(the_top)<0.7) hist("ttbarSR_zprimemassbtagnsub")->Fill(zprimemass,weight);
       }
       if (tprimemass>250.0 && tprimemass<500.0)
       {
         hist("step4_zprimemass")->Fill(zprimemass,weight);
         if (topmaxcsv>0.890) hist("lowmassSR_zprimemassbtag")->Fill(zprimemass,weight);
-        if (topmaxcsv>0.890 && TopJetNsub(the_top)<0.7) hist("lowmassSR_zprimemassbtagnsub")->Fill(zprimemass,weight);
+        //if (topmaxcsv>0.890 && TopJetNsub(the_top)<0.7) hist("lowmassSR_zprimemassbtagnsub")->Fill(zprimemass,weight);
       }
 
     }

@@ -300,6 +300,85 @@
 
 
 
+
+
+
+  <InputData Lumi="828307" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1000" Cacheable="True">
+        <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.MC_TpTp_M-1000.root" Lumi="0.0"/>
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="829820" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1100" Cacheable="True">
+        <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.MC_TpTp_M-1100.root" Lumi="0.0"/>
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="810030" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1200" Cacheable="True">
+        <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.MC_TpTp_M-1200.root" Lumi="0.0"/>
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="801209" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1300" Cacheable="True">
+        <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.MC_TpTp_M-1300.root" Lumi="0.0"/>
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="829514" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1400" Cacheable="True">
+        <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.MC_TpTp_M-1400.root" Lumi="0.0"/>
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="819520" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1500" Cacheable="True">
+        <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.MC_TpTp_M-1500.root" Lumi="0.0"/>
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="795680" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1600" Cacheable="True">
+        <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.MC_TpTp_M-1600.root" Lumi="0.0"/>
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="812556" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1700" Cacheable="True">
+        <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.MC_TpTp_M-1700.root" Lumi="0.0"/>
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="829846" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1800" Cacheable="True">
+        <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.MC_TpTp_M-1800.root" Lumi="0.0"/>
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="819831" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-700" Cacheable="True">
+        <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.MC_TpTp_M-700.root" Lumi="0.0"/>
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="818690" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-800" Cacheable="True">
+        <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.MC_TpTp_M-800.root" Lumi="0.0"/>
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+  <InputData Lumi="829837" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-900" Cacheable="True">
+        <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.MC_TpTp_M-900.root" Lumi="0.0"/>
+        <InputTree Name="AnalysisTree" /> 
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> 
+
+
+
+
+
             
         <UserConfig>
             <!-- define which collections to read from the input. Only specify what you need to save I/O time -->
@@ -324,19 +403,41 @@
 
             <Item Name="use_sframe_weight" Value="false" />
             
-            <!-- systematics -->
+            <!--//// systematics -->
 
-            <!-- jec jer -->
+            <!--//// jec jer -->
             <Item Name="jecsmear_direction" Value="nominal" /> <!-- nominal up down -->
             <Item Name="jersmear_direction" Value="nominal" /> <!-- nominal up down -->
 
-            <!-- pileup -->
+            <!--//// pileup -->
             <Item Name="pileup_directory_data_up" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/MyDataPileupHistogram_JSON_Silver_up.root" />
             <Item Name="pileup_directory_data_down" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/MyDataPileupHistogram_JSON_Silver_down.root" />
+            <!-- event.set(h_pu_weight_up_, weight_up);
+            event.set(h_pu_weight_down_, weight_down); -->
 
-            <!-- btag -->
+
+            <!--//// btag -->
             <Item Name="MCBtagEfficiencies" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/BTagMCEfficiencyHists.root" />
             <Item Name="BTagCalibration" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/CSVv2.csv" />
+
+            <!--//// pdf -->
+            <!-- tbd -->
+
+            <!--//// mu r/f -->
+            <!-- <Item Name="ScaleVariationMuR" Value="up" /> -->
+            <!-- <Item Name="ScaleVariationMuR" Value="up" /> -->
+
+            <!--//// top/w tag -->
+            <!-- set by process name -->
+
+            <!--//// lumi -->
+            <!-- flat -->
+
+            <!--//// trigger -->
+            <!-- flat -->
+
+            <!--//// ttbar pt reweight -->
+            <!-- ??? -->
 
             <!-- the class name of the AnalysisModule subclasses to run: -->
             <Item Name="AnalysisModule" Value="SelectionModule" /> 

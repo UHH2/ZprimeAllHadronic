@@ -37,7 +37,7 @@ private:
     std::unique_ptr<SubJetCorrector> subjetcorrector;
     std::unique_ptr<JetCorrector> jetcorrector;
    
-    unique_ptr<AnalysisModule> common_modules_with_lumi_sel, btagwAK4, btagwAK8;
+    unique_ptr<AnalysisModule> common_modules_with_lumi_sel, btagwAK4, btagwAK8, scalevar;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
     std::unique_ptr<Hists> h_selection, h_selectionallhad,h_btageffAK4,h_btageffAK8;
@@ -76,6 +76,7 @@ SelectionModule::SelectionModule(Context & ctx){
     h_btageffAK8.reset(new BTagMCEfficiencyHists(ctx, "BTagMCEfficiencyHistsAK8",CSVBTag::WP_MEDIUM,"topjets"));
     //btagwAK4.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "jets"));
     //btagwAK8.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "topjets"));
+    scalevar.reset(new MCScaleVariation(ctx));
 }
 
 
@@ -170,6 +171,7 @@ if (!event.isRealData)
 
     //btagwAK4->process(event);
     //btagwAK8->process(event);
+    scalevar->process(event);
 
     if (is_allhad)
     {

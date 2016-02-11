@@ -51,6 +51,7 @@ PreselectionModule::PreselectionModule(Context & ctx){
     //commonObjectCleaning->set_muon_id(AndId<Muon>(MuonIDTight(),PtEtaCut(20.0, 2.1)));
     //commonObjectCleaning->switch_jetlepcleaner(true);
     //commonObjectCleaning->switch_jetPtSorter(true);
+    commonObjectCleaning->disable_jersmear();
     commonObjectCleaning->init(ctx);
     common_modules_with_lumi_sel.reset(commonObjectCleaning);
 
@@ -70,12 +71,12 @@ PreselectionModule::PreselectionModule(Context & ctx){
 
     
 
-    h_nocuts.reset(new SelectionHists(ctx, "NoCuts"));
-    h_allhad.reset(new SelectionHists(ctx, "AllHad"));
+    h_nocuts.reset(new PreselectionHists(ctx, "NoCuts"));
+    h_allhad.reset(new PreselectionHists(ctx, "AllHad"));
     h_nocutssub.reset(new Zp2TopVLQAllHadHists(ctx, "NoCutsSub"));
     h_allhadsub.reset(new Zp2TopVLQAllHadHists(ctx, "AllHadSub"));
-    h_pre.reset(new SelectionHists(ctx, "Preselection"));
-    h_preallhad.reset(new SelectionHists(ctx, "PreselectionAllHad"));
+    h_pre.reset(new PreselectionHists(ctx, "Preselection"));
+    h_preallhad.reset(new PreselectionHists(ctx, "PreselectionAllHad"));
 
 
     
