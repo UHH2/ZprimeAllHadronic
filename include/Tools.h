@@ -66,8 +66,8 @@ float ZprimeMassAK4(const Event & event, TopJet t1, TopJet t2, unsigned int njet
 void uncorrect_topjets(const Event & event);
 std::pair<TopJet, TopJet> findTopWpair(	bool (*ttag)(TopJet), bool (*wtag)(TopJet), TopJet first, TopJet second);
 
-float TopTagSF(Event & event, TopJet jet, string procname);
-float WTagSF(Event & event, TopJet jet, string procname);
+float TopTagSF(Event & event, TopJet jet, int sys);
+float WTagSF(Event & event, TopJet jet, int sys);
 bool contains(string s, string substring);
 
 struct HigherPt {

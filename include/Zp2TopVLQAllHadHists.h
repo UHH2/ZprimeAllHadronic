@@ -48,6 +48,9 @@ public:
     virtual void fill(const uhh2::Event & ev) override;
     virtual ~SelectionHists();
 private:
+    int top_sys;
+    int w_sys;
+    int pu_sys;
 };
 
 class MistagAndShapeHists: public uhh2::Hists {

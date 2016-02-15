@@ -31,7 +31,6 @@ public:
     virtual bool process(Event & event) override;
 
 private:
-    
 
     std::unique_ptr<TopJetCorrector> topjetcorrector;
     std::unique_ptr<SubJetCorrector> subjetcorrector;
@@ -74,8 +73,8 @@ SelectionModule::SelectionModule(Context & ctx){
     h_selectionallhad.reset(new SelectionHists(ctx, "SelectionAllHad"));
     h_btageffAK4.reset(new BTagMCEfficiencyHists(ctx, "BTagMCEfficiencyHistsAK4",CSVBTag::WP_MEDIUM,"jets"));
     h_btageffAK8.reset(new BTagMCEfficiencyHists(ctx, "BTagMCEfficiencyHistsAK8",CSVBTag::WP_MEDIUM,"topjets"));
-    //btagwAK4.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "jets"));
-    //btagwAK8.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "topjets"));
+    btagwAK4.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "jets","central","mujets","comb","MCBtagEfficienciesAK4"));
+    btagwAK8.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "topjets","central","mujets","comb","MCBtagEfficienciesAK8"));
     scalevar.reset(new MCScaleVariation(ctx));
 }
 
@@ -169,8 +168,8 @@ if (!event.isRealData)
     h_btageffAK4->fill(event);
     h_btageffAK8->fill(event);
 
-    //btagwAK4->process(event);
-    //btagwAK8->process(event);
+    btagwAK4->process(event);
+    btagwAK8->process(event);
     scalevar->process(event);
 
     if (is_allhad)

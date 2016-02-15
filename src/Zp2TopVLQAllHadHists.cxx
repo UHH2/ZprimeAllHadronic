@@ -1140,10 +1140,23 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("bkg2down", ";m_{Z'};Events", 300, 0, 3000);
   book<TH1F>("bkg12down", ";m_{Z'};Events", 300, 0, 3000);
 
+  string version=ctx.get("dataset_version", "<not set>");
+  top_sys=0;
+  w_sys=0;
+  pu_sys=0;
+  if (contains(procname,"TSFUP")) top_sys=1;
+  if (contains(procname,"TSFDOWN")) top_sys=-1;
+  if (contains(procname,"WSFUP")) w_sys=1;
+  if (contains(procname,"WSFDOWN")) w_sys=-1;
+  if (contains(procname,"PUUP")) pu_sys=1;
+  if (contains(procname,"PUDOWN")) pu_sys=-1;
+
 }
 
 void SelectionHists::fill(const Event & event){
     double weight = event.weight;
+    if (pu_sys==1) weight=event.weight_up;
+    else if (pu_sys==-1) weight=event.weight_down;
   
 //gen part
 
@@ -1321,6 +1334,7 @@ if (!event.isRealData)
   ///////////////////RESOLVED ANALYSIS
   if (has_ww)
   {
+    float additional_weight=WTagSF(event, the_w, w_sys)*WTagSF(event, the_w2, w_sys);
     bool has_b=false;
     bool has_b2=false;
     bool duebtag=false;
@@ -1364,12 +1378,12 @@ if (!event.isRealData)
       if (found)
       {
         float TprimeMass2=TprimeMass(TprimeW[index],TprimeB[index]);
-        hist("tprimemass_res")->Fill(TprimeMass2,weight);
+        hist("tprimemass_res")->Fill(TprimeMass2,weight*additional_weight);
         if (TprimeMass2>500.0)
         {
           float ZprimeMass=ZprimeMassResVLQ(TprimeW[index],TopW[index],TprimeB[index],TopB[index]);
-          if (duebtag) hist("zprimemassbtag_res")->Fill(ZprimeMass,weight);
-          else hist("zprimemassnobtag_res")->Fill(ZprimeMass,weight);
+          if (duebtag) hist("zprimemassbtag_res")->Fill(ZprimeMass,weight*additional_weight);
+          else hist("zprimemassnobtag_res")->Fill(ZprimeMass,weight*additional_weight);
         }
 
       }
@@ -1377,6 +1391,22 @@ if (!event.isRealData)
 
   }
   //end of resolved analysis
+
+  float additional_weight=1.0;
+  if (has_tw)
+  {
+    additional_weight=WTagSF(event, the_w, w_sys)*TopTagSF(event, the_top, top_sys);
+    weight=weight*additional_weight;
+  }
+  else
+  {
+    //partial weights
+    if (TopTag(event.topjets->at(0))) weight=weight*TopTagSF(event, event.topjets->at(0)), top_sys);
+    if (TopTag(event.topjets->at(1))) weight=weight*TopTagSF(event, event.topjets->at(1)), top_sys);
+    if (WTag(event.topjets->at(0))) weight=weight*WTagSF(event, event.topjets->at(0)), w_sys);
+    if (WTag(event.topjets->at(1))) weight=weight*WTagSF(event, event.topjets->at(1)), w_sys);
+
+  }
 
   if (has_tw) for(auto jet : *event.jets)
   if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)

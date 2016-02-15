@@ -516,7 +516,7 @@ float TTbarWeight(Event & event, string syst)
   return 1.0;
 }
 
-float TopTagSF(Event & event, TopJet jet, string procname)
+float TopTagSF(Event & event, TopJet jet, int sys)
 {
   float sf=0.816535;
   float error=0.0700101;
@@ -527,20 +527,24 @@ float TopTagSF(Event & event, TopJet jet, string procname)
   }
   if(!event.isRealData)
   {
-    if (contains(procname,'TSFUP') return sf+error;
-    if (contains(procname,'TSFDOWN') return sf-error;
+    // if (contains(procname,"TSFUP")) return sf+error;
+    // if (contains(procname,"TSFDOWN")) return sf-error;
+    if (sys==1) return sf+error;
+    if (sys==-1) return sf-error;
     return sf;
   }
   else return 1.0;
 }
-float WTagSF(Event & event, TopJet jet, string procname)
+float WTagSF(Event & event, TopJet jet, int sys)
 {
   float sf=0.87;
   float error=0.17;
   if(!event.isRealData)
   {
-    if (contains(procname,'WSFUP') return sf+error;
-    if (contains(procname,'WSFDOWN') return sf-error;
+    // if (contains(procname,"WSFUP")) return sf+error;
+    // if (contains(procname,"WSFDOWN")) return sf-error;
+    if (sys==1) return sf+error;
+    if (sys==-1) return sf-error;
     return sf;
   }
   else return 1.0;
