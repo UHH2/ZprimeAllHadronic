@@ -66,8 +66,8 @@ float ZprimeMassAK4(const Event & event, TopJet t1, TopJet t2, unsigned int njet
 void uncorrect_topjets(const Event & event);
 std::pair<TopJet, TopJet> findTopWpair(	bool (*ttag)(TopJet), bool (*wtag)(TopJet), TopJet first, TopJet second);
 
-float TopTagSF(Event & event, TopJet jet, int sys);
-float WTagSF(Event & event, TopJet jet, int sys);
+float TopTagSF(const Event & event, TopJet jet, int sys);
+float WTagSF(const Event & event, TopJet jet, int sys);
 bool contains(string s, string substring);
 
 struct HigherPt {
@@ -77,7 +77,7 @@ struct HigherPt {
 };
 
 float QCDWeight(float mzp, string mode = "mean", string syst = "nominal");
-float TTbarWeight(Event & event, string syst = "nominal");
+float TTbarWeight(const Event & event, int syst = 0);
 //enum E_BtagType {
 //    e_CSVT, /**< Combined Secondary Vertex tagger, tight working point */
 //    e_CSVM, /**< Combined Secondary Vertex tagger, medium working point */

@@ -50,7 +50,8 @@ public:
 private:
     int top_sys;
     int w_sys;
-    int pu_sys;
+    //int pu_sys;
+    int ttbar_sys;
 };
 
 class MistagAndShapeHists: public uhh2::Hists {

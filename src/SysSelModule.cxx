@@ -53,7 +53,7 @@ SysSelModule::SysSelModule(Context & ctx){
     //commonObjectCleaning->switch_jetlepcleaner(true);
     //commonObjectCleaning->switch_jetPtSorter(true);
     commonObjectCleaning->disable_jersmear();
-    commonObjectCleaning->init(ctx);
+    commonObjectCleaning->init(ctx,"");
     common_modules_with_lumi_sel.reset(commonObjectCleaning);
 
     bool is_mc = ctx.get("dataset_type") == "MC";

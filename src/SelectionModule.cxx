@@ -46,13 +46,18 @@ private:
 SelectionModule::SelectionModule(Context & ctx){
   
     CommonModules* commonObjectCleaning = new CommonModules();
+    string version=ctx.get("dataset_version", "<not set>");
     //commonObjectCleaning->set_jet_id(AndId<Jet>(JetPFID(JetPFID::WP_LOOSE), PtEtaCut(30.0,2.4)));
     //commonObjectCleaning->set_electron_id(AndId<Electron>(ElectronID_Spring15_25ns_medium_noIso,PtEtaCut(20.0, 2.1)));
     //commonObjectCleaning->set_muon_id(AndId<Muon>(MuonIDTight(),PtEtaCut(20.0, 2.1)));
     //commonObjectCleaning->switch_jetlepcleaner(true);
     //commonObjectCleaning->switch_jetPtSorter(true);
     commonObjectCleaning->disable_jersmear();
-    commonObjectCleaning->init(ctx);
+    string pu_sys="";
+    if (contains(version,"PUUP")) pu_sys="up";
+    if (contains(version,"PUDOWN")) pu_sys="down";
+    //if (pu_sys=="") commonObjectCleaning->init(ctx);
+    /*else */commonObjectCleaning->init(ctx,pu_sys);
     common_modules_with_lumi_sel.reset(commonObjectCleaning);
 
     bool is_mc = ctx.get("dataset_type") == "MC";
@@ -73,8 +78,17 @@ SelectionModule::SelectionModule(Context & ctx){
     h_selectionallhad.reset(new SelectionHists(ctx, "SelectionAllHad"));
     h_btageffAK4.reset(new BTagMCEfficiencyHists(ctx, "BTagMCEfficiencyHistsAK4",CSVBTag::WP_MEDIUM,"jets"));
     h_btageffAK8.reset(new BTagMCEfficiencyHists(ctx, "BTagMCEfficiencyHistsAK8",CSVBTag::WP_MEDIUM,"topjets"));
-    btagwAK4.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "jets","central","mujets","comb","MCBtagEfficienciesAK4"));
-    btagwAK8.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "topjets","central","mujets","comb","MCBtagEfficienciesAK8"));
+    
+    //btag SF and systematics
+    string sysAK4="central";
+    if (contains(version,"BAK4SFUP")) sysAK4="up";
+    if (contains(version,"BAK4SFDOWN")) sysAK4="down";
+    string sysAK8="central";
+    if (contains(version,"BAK8SFUP")) sysAK8="up";
+    if (contains(version,"BAK8SFDOWN")) sysAK8="down";
+    btagwAK4.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "jets",sysAK4,"mujets","comb","MCBtagEfficienciesAK4"));
+    btagwAK8.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "topjets",sysAK8,"mujets","comb","MCBtagEfficienciesAK8"));
+
     scalevar.reset(new MCScaleVariation(ctx));
 }
 

@@ -1143,21 +1143,26 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   string version=ctx.get("dataset_version", "<not set>");
   top_sys=0;
   w_sys=0;
-  pu_sys=0;
-  if (contains(procname,"TSFUP")) top_sys=1;
-  if (contains(procname,"TSFDOWN")) top_sys=-1;
-  if (contains(procname,"WSFUP")) w_sys=1;
-  if (contains(procname,"WSFDOWN")) w_sys=-1;
-  if (contains(procname,"PUUP")) pu_sys=1;
-  if (contains(procname,"PUDOWN")) pu_sys=-1;
+  //pu_sys=0;
+  ttbar_sys=0;
+
+  if (contains(version,"TTBARUP")&&contains(version,"TTbar")) ttbar_sys=1;
+  if (contains(version,"TTBARDOWN")&&contains(version,"TTbar")) ttbar_sys=-1;
+
+  if (contains(version,"TSFUP")) top_sys=1;
+  if (contains(version,"TSFDOWN")) top_sys=-1;
+  if (contains(version,"WSFUP")) w_sys=1;
+  if (contains(version,"WSFDOWN")) w_sys=-1;
+  //if (contains(version,"PUUP")) pu_sys=1;
+  //if (contains(version,"PUDOWN")) pu_sys=-1;
 
 }
 
 void SelectionHists::fill(const Event & event){
     double weight = event.weight;
-    if (pu_sys==1) weight=event.weight_up;
-    else if (pu_sys==-1) weight=event.weight_down;
-  
+    //if (pu_sys==1) weight=event.weight_pu_up;
+    //else if (pu_sys==-1) weight=event.weight_pu_down;
+    weight=weight*TTbarWeight(event,ttbar_sys);
 //gen part
 
 bool has_twb_gen=false;
@@ -1401,10 +1406,10 @@ if (!event.isRealData)
   else
   {
     //partial weights
-    if (TopTag(event.topjets->at(0))) weight=weight*TopTagSF(event, event.topjets->at(0)), top_sys);
-    if (TopTag(event.topjets->at(1))) weight=weight*TopTagSF(event, event.topjets->at(1)), top_sys);
-    if (WTag(event.topjets->at(0))) weight=weight*WTagSF(event, event.topjets->at(0)), w_sys);
-    if (WTag(event.topjets->at(1))) weight=weight*WTagSF(event, event.topjets->at(1)), w_sys);
+    if (TopTag(event.topjets->at(0))) weight=weight*TopTagSF(event, event.topjets->at(0), top_sys);
+    if (TopTag(event.topjets->at(1))) weight=weight*TopTagSF(event, event.topjets->at(1), top_sys);
+    if (WTag(event.topjets->at(0))) weight=weight*WTagSF(event, event.topjets->at(0), w_sys);
+    if (WTag(event.topjets->at(1))) weight=weight*WTagSF(event, event.topjets->at(1), w_sys);
 
   }
 

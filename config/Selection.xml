@@ -408,22 +408,23 @@
             <!--//// jec jer -->
             <Item Name="jecsmear_direction" Value="nominal" /> <!-- nominal up down -->
             <Item Name="jersmear_direction" Value="nominal" /> <!-- nominal up down -->
+            <!-- to be changed here -->
 
             <!--//// pileup -->
             <Item Name="pileup_directory_data_up" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/MyDataPileupHistogram_JSON_Silver_up.root" />
             <Item Name="pileup_directory_data_down" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/MyDataPileupHistogram_JSON_Silver_down.root" />
-            <!-- event.set(h_pu_weight_up_, weight_up);
-            event.set(h_pu_weight_down_, weight_down); -->
-
+            <!--set by process name -->
 
             <!--//// btag -->
             <Item Name="MCBtagEfficienciesAK4" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/BTagMCEfficiencyHistsAK4.root" />
             <Item Name="MCBtagEfficienciesAK8" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/BTagMCEfficiencyHistsAK8.root" />
             <Item Name="BTagCalibration" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/CSVv2.csv" />
+            <!--set by process name -->
 
             <!--//// mu r/f -->
             <!-- <Item Name="ScaleVariationMuR" Value="up" /> -->
             <!-- <Item Name="ScaleVariationMuR" Value="up" /> -->
+            <!-- to be changed here -->
 
             <!--//// pdf -->
             <!-- tbd -->

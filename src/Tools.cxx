@@ -486,7 +486,7 @@ float QCDWeight(float mzp, string mode, string syst)
   return 1.0;
 }
 
-float TTbarWeight(Event & event, string syst)
+float TTbarWeight(const Event & event, int syst)
 {
 
   TTbarGen ttbargen(*event.genparticles, false);
@@ -494,29 +494,29 @@ float TTbarWeight(Event & event, string syst)
   {
     cout<<"ttbargen not found"; return 1.0;
   }
-  // float N=1.0;
-  // float alpha=0.0007;
-  // float sigmaN=0.1;
-  // float sigmaAlpha=0.0001;
-  float weight= 1.0*exp(-0.0007*0.5*(ttbargen.Top().pt()+ttbargen.Antitop().pt()));
-  if (syst=="nominal")
+  // float N=1.07;
+  // float alpha=0.0013;
+  // float sigmaN=0.06;
+  // float sigmaAlpha=0.0002;
+  float weight= 1.07*exp(-0.0013*0.5*(ttbargen.Top().pt()+ttbargen.Antitop().pt()));
+  if (syst==0)
   {
-    event.weight *= weight;
+    //event.weight *= weight;
     return weight;
   }
-  if (syst=="up")
+  if (syst==1)
   {
-    event.weight *= weight*weight;
+    //event.weight *= weight*weight;
     return weight*weight;
   }
-  if (syst=="down")
+  if (syst==-1)
   {
     return 1.0;
   }
   return 1.0;
 }
 
-float TopTagSF(Event & event, TopJet jet, int sys)
+float TopTagSF(const Event & event, TopJet jet, int sys)
 {
   float sf=0.816535;
   float error=0.0700101;
@@ -535,7 +535,7 @@ float TopTagSF(Event & event, TopJet jet, int sys)
   }
   else return 1.0;
 }
-float WTagSF(Event & event, TopJet jet, int sys)
+float WTagSF(const Event & event, TopJet jet, int sys)
 {
   float sf=0.87;
   float error=0.17;
