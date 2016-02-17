@@ -107,7 +107,7 @@ if (!common_modules_with_lumi_sel->process(event)) {
     has_tw=true;
   }
   if (has_tw) for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
+  if (/*jet.btag_combinedSecondaryVertex()>0.890&&*/deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
   {
         the_b=jet; has_twb=true;
         break;

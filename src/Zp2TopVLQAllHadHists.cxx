@@ -640,24 +640,42 @@ PreselectionHists::PreselectionHists(Context & ctx, const string & dirname): His
   book<TH1F>("pTtprime", ";p_{T} T' gen;Events", 300, 0, 3000);
   book<TH1F>("pTb", ";p_{T} b gen;Events", 300, 0, 3000);
   book<TH1F>("pTw", ";p_{T} W gen;Events", 300, 0, 3000);
+  book<TH1F>("pTtb", ";p_{T} b from t gen;Events", 300, 0, 3000);
+  book<TH1F>("pTtw", ";p_{T} W from t gen;Events", 300, 0, 3000);
   book<TH1F>("pTzprime", ";p_{T} Z' gen;Events", 300, 0, 3000);
 
   book<TH1F>("ptop", ";p top gen;Events", 300, 0, 3000);
   book<TH1F>("ptprime", ";p T' gen;Events", 300, 0, 3000);
   book<TH1F>("pb", ";p b gen;Events", 300, 0, 3000);
   book<TH1F>("pw", ";p W gen;Events", 300, 0, 3000);
+  book<TH1F>("ptb", ";p b from t gen;Events", 300, 0, 3000);
+  book<TH1F>("ptw", ";p W from t gen;Events", 300, 0, 3000);
   book<TH1F>("pzprime", ";p Z' gen;Events", 300, 0, 3000);
 
   book<TH1F>("mtop", ";M top gen;Events", 300, 0, 3000);
   book<TH1F>("mtprime", ";M T' gen;Events", 300, 0, 3000);
   book<TH1F>("mb", ";M b gen;Events", 300, 0, 3000);
   book<TH1F>("mw", ";M W gen;Events", 300, 0, 3000);
+  book<TH1F>("mtb", ";M b from t gen;Events", 300, 0, 3000);
+  book<TH1F>("mtw", ";M W from t gen;Events", 300, 0, 3000);
   book<TH1F>("mzprime", ";M Z' gen;Events", 300, 0, 3000);
 
   book<TH1F>("dRbW", ";#Delta R(b,W);Events", 500, 0, 5);
   book<TH1F>("dRtT", ";#Delta R(t,T');Events", 500, 0, 5);
   book<TH1F>("dRbt", ";#Delta R(b,t);Events", 500, 0, 5);
   book<TH1F>("dRtW", ";#Delta R(t,W);Events", 500, 0, 5);
+  book<TH1F>("dR_tb_tW", ";#Delta R(b from t, W from t);Events", 500, 0, 5);
+  book<TH1F>("dR_tb_W", ";#Delta R(b from t, W from t);Events", 500, 0, 5);
+  book<TH1F>("dR_tb_b", ";#Delta R(b from t, W from t);Events", 500, 0, 5);
+  book<TH1F>("dR_b_tW", ";#Delta R(b from t, W from t);Events", 500, 0, 5);
+  book<TH1F>("dR_W_tW", ";#Delta R(b from t, W from t);Events", 500, 0, 5);
+
+  book<TH1F>("dR_W1_b1", ";#Delta R(b1, W1);Events", 500, 0, 5);
+  book<TH1F>("dR_W2_b2", ";#Delta R(b2, W2);Events", 500, 0, 5);
+  book<TH1F>("dR_W1_W2", ";#Delta R(W1, W2);Events", 500, 0, 5);
+  book<TH1F>("dR_b1_b2", ";#Delta R(b1, b2);Events", 500, 0, 5);
+  book<TH1F>("dR_W1_b2", ";#Delta R(b2, W1);Events", 500, 0, 5);
+  book<TH1F>("dR_W2_b1", ";#Delta R(W2, b1);Events", 500, 0, 5);
 
   book<TH1F>("pT_closest_topjet_to_top", ";pT closest topjet to top;Events", 300, 0, 3000);
   book<TH1F>("mass_closest_topjet_to_top", ";mass closest topjet to top;Events", 100, 0, 1000);
@@ -673,6 +691,31 @@ PreselectionHists::PreselectionHists(Context & ctx, const string & dirname): His
 
   book<TH1F>("pT_closest_bjet_to_b", ";pT closest bjet to b;Events", 300, 0, 3000);
   book<TH1F>("csv_closest_bjet_to_b", ";csv closest bjet to b;Events", 100, 0, 1);
+
+
+  book<TH1F>("pT_closest_wjet_to_tw", ";pT closest wjet to w from t;Events", 300, 0, 3000);
+  book<TH1F>("mass_closest_wjet_to_tw", ";mass closest wjet to w from t;Events", 100, 0, 1000);
+  book<TH1F>("nsub_closest_wjet_to_tw", ";tau32 closest wjet to w from t;Events", 100, 0, 1);
+
+  book<TH1F>("pT_closest_bjet_to_tb", ";pT closest bjet to b from t;Events", 300, 0, 3000);
+  book<TH1F>("csv_closest_bjet_to_tb", ";csv closest bjet to b from t;Events", 100, 0, 1);
+
+
+
+  book<TH1F>("pT_closest_wjet_to_w1", ";pT closest wjet to w;Events", 300, 0, 3000);
+  book<TH1F>("mass_closest_wjet_to_w1", ";mass closest wjet to w;Events", 100, 0, 1000);
+  book<TH1F>("nsub_closest_wjet_to_w1", ";tau32 closest wjet to w;Events", 100, 0, 1);
+
+  book<TH1F>("pT_closest_bjet_to_b1", ";pT closest bjet to b;Events", 300, 0, 3000);
+  book<TH1F>("csv_closest_bjet_to_b1", ";csv closest bjet to b;Events", 100, 0, 1);
+
+  book<TH1F>("pT_closest_wjet_to_w2", ";pT closest wjet to w;Events", 300, 0, 3000);
+  book<TH1F>("mass_closest_wjet_to_w2", ";mass closest wjet to w;Events", 100, 0, 1000);
+  book<TH1F>("nsub_closest_wjet_to_w2", ";tau32 closest wjet to w;Events", 100, 0, 1);
+
+  book<TH1F>("pT_closest_bjet_to_b2", ";pT closest bjet to b;Events", 300, 0, 3000);
+  book<TH1F>("csv_closest_bjet_to_b2", ";csv closest bjet to b;Events", 100, 0, 1);
+
 
   book<TH1F>("step1_wmass", ";step1: mass w candidate;Events", 100, 0, 1000);
   book<TH1F>("step1_wnsub", ";step1: nsub w candidate;Events", 100, 0, 1);
@@ -749,8 +792,8 @@ void PreselectionHists::fill(const Event & event){
 if (!event.isRealData)
 {
 
-  GenParticle the_gen_top,the_gen_tprime,the_gen_w,the_gen_b;
-  bool has_gen_top=false,has_gen_tprime=false,has_gen_w=false,has_gen_b=false;
+  GenParticle the_gen_top,the_gen_tprime,the_gen_w,the_gen_b,the_gen_tw,the_gen_tb,the_gen_w1,the_gen_b1,the_gen_w2,the_gen_b2;
+  bool has_gen_top=false,has_gen_tprime=false,has_gen_w=false,has_gen_b=false,has_gen_tw=false,has_gen_tb=false,has_gen_w1=false,has_gen_b1=false,has_gen_w2=false,has_gen_b2=false;
   for (auto genp : *event.genparticles)
   {
 
@@ -768,6 +811,32 @@ if (!event.isRealData)
       hist("mtop")->Fill(genp.v4().M(),weight);
       has_gen_top=true;
       the_gen_top=genp;
+
+      auto pthe_gen_w = genp.daughter(event.genparticles, 1);
+      auto pthe_gen_b = genp.daughter(event.genparticles, 2);
+      if (pthe_gen_w && pthe_gen_b)
+      {
+        the_gen_tw=*pthe_gen_w;
+        the_gen_tb=*pthe_gen_b;
+        if(abs(the_gen_tw.pdgId()) != 24)
+        {
+          std::swap(the_gen_tw, the_gen_tb);
+        }
+        if(abs(the_gen_tw.pdgId()) == 24)
+        {
+          hist("pTtw")->Fill(the_gen_tw.pt(),weight);
+          hist("ptw")->Fill(the_gen_tw.v4().P(),weight);
+          hist("mtw")->Fill(the_gen_tw.v4().M(),weight);
+          has_gen_tw=true;
+        }
+        if(abs(the_gen_tb.pdgId()) == 5)
+        {
+          hist("pTtb")->Fill(the_gen_tb.pt(),weight);
+          hist("ptb")->Fill(the_gen_tb.v4().P(),weight);
+          hist("mtb")->Fill(the_gen_tb.v4().M(),weight);
+          has_gen_tb=true;
+        }
+      }
     }
     if (abs(genp.pdgId()) == 8000001)
     {
@@ -792,6 +861,16 @@ if (!event.isRealData)
           hist("pw")->Fill(the_gen_w.v4().P(),weight);
           hist("mw")->Fill(the_gen_w.v4().M(),weight);
           has_gen_w=true;
+          if(genp.pdgId()>0)
+          {
+            the_gen_w1=the_gen_w;
+            has_gen_w1=true;
+          }
+          else
+          {
+            the_gen_w2=the_gen_w;
+            has_gen_w2=true;
+          }
         }
         if(abs(the_gen_b.pdgId()) == 5)
         {
@@ -799,6 +878,16 @@ if (!event.isRealData)
           hist("pb")->Fill(the_gen_b.v4().P(),weight);
           hist("mb")->Fill(the_gen_b.v4().M(),weight);
           has_gen_b=true;
+          if(genp.pdgId()>0)
+          {
+            the_gen_b1=the_gen_b;
+            has_gen_b1=true;
+          }
+          else
+          {
+            the_gen_b2=the_gen_b;
+            has_gen_b2=true;
+          }
         }
       } 
     }
@@ -825,7 +914,60 @@ if (!event.isRealData)
     hist("dRtW")->Fill(deltaR(the_gen_top,the_gen_w),weight);
   }
 
-  TopJet the_closest_top,the_closest_w,the_closest_tprime; Jet the_closest_b;
+
+  if (has_gen_tb && has_gen_tw)
+  {
+    hist("dR_tb_tW")->Fill(deltaR(the_gen_tb,the_gen_tw),weight);
+  }
+  if (has_gen_tb && has_gen_w)
+  {
+    hist("dR_tb_W")->Fill(deltaR(the_gen_tb,the_gen_w),weight);
+  }
+  if (has_gen_tb && has_gen_b)
+  {
+    hist("dR_tb_b")->Fill(deltaR(the_gen_tb,the_gen_b),weight);
+  }
+  if (has_gen_b && has_gen_tw)
+  {
+    hist("dR_b_tW")->Fill(deltaR(the_gen_b,the_gen_tw),weight);
+  }
+  if (has_gen_w && has_gen_tw)
+  {
+    hist("dR_W_tW")->Fill(deltaR(the_gen_w,the_gen_tw),weight);
+  }
+
+  
+  if (has_gen_w1 && has_gen_b1)
+  {
+    hist("dR_W1_b1")->Fill(deltaR(the_gen_w1,the_gen_b1),weight);
+  }
+
+  if (has_gen_w2 && has_gen_b2)
+  {
+    hist("dR_W2_b2")->Fill(deltaR(the_gen_w2,the_gen_b2),weight);
+  }
+
+  if (has_gen_w1 && has_gen_w2)
+  {
+    hist("dR_W1_W2")->Fill(deltaR(the_gen_w1,the_gen_w2),weight);
+  }
+
+  if (has_gen_b1 && has_gen_b2)
+  {
+    hist("dR_b1_b2")->Fill(deltaR(the_gen_b1,the_gen_b2),weight);
+  }
+
+  if (has_gen_w1 && has_gen_b2)
+  {
+    hist("dR_W1_b2")->Fill(deltaR(the_gen_w1,the_gen_b2),weight);
+  }
+
+  if (has_gen_w2 && has_gen_b1)
+  {
+    hist("dR_W2_b1")->Fill(deltaR(the_gen_w2,the_gen_b1),weight);
+  }
+
+  TopJet the_closest_top,the_closest_w,the_closest_w1,the_closest_w2,the_closest_tw,the_closest_tprime; Jet the_closest_b,the_closest_b1,the_closest_b2,the_closest_tb;
   //bool has_closest_top=false,has_closest_w=false,has_closest_b=false,has_closest_tprime=false;
   if (has_gen_top)
   {
@@ -886,7 +1028,106 @@ if (!event.isRealData)
     }
   }
 
+
+
+
+  if (has_gen_tw)
+  {
+    for(auto topjet : *event.topjets)
+    {
+      if (deltaR(the_gen_tw,topjet)<0.8)
+      {
+        hist("pT_closest_wjet_to_tw")->Fill(TopJetPt(topjet),weight);
+        hist("mass_closest_wjet_to_tw")->Fill(TopJetMass(topjet),weight);
+        hist("nsub_closest_wjet_to_tw")->Fill(TopJetNsub2(topjet),weight);
+        //has_closest_w=true;
+        the_closest_tw=topjet;
+      }
+    }
+  }
+
+    if (has_gen_tb)
+  {
+    for(auto jet : *event.jets)
+    {
+      if (deltaR(the_gen_tb,jet)<0.4)
+      {
+        hist("pT_closest_bjet_to_tb")->Fill(jet.pt(),weight);
+        hist("csv_closest_bjet_to_tb")->Fill(jet.btag_combinedSecondaryVertex(),weight);
+        //has_closest_b=true;
+        the_closest_tb=jet;
+      }
+    }
+  }
+
+
+
+if (has_gen_w1)
+  {
+    for(auto topjet : *event.topjets)
+    {
+      if (deltaR(the_gen_w1,topjet)<0.8)
+      {
+        hist("pT_closest_wjet_to_w1")->Fill(TopJetPt(topjet),weight);
+        hist("mass_closest_wjet_to_w1")->Fill(TopJetMass(topjet),weight);
+        hist("nsub_closest_wjet_to_w1")->Fill(TopJetNsub2(topjet),weight);
+        //has_closest_w=true;
+        the_closest_w1=topjet;
+      }
+    }
+  }
+
+    if (has_gen_b1)
+  {
+    for(auto jet : *event.jets)
+    {
+      if (deltaR(the_gen_b1,jet)<0.4)
+      {
+        hist("pT_closest_bjet_to_b1")->Fill(jet.pt(),weight);
+        hist("csv_closest_bjet_to_b1")->Fill(jet.btag_combinedSecondaryVertex(),weight);
+        //has_closest_b=true;
+        the_closest_b1=jet;
+      }
+    }
+  }
+
+  if (has_gen_w2)
+  {
+    for(auto topjet : *event.topjets)
+    {
+      if (deltaR(the_gen_w2,topjet)<0.8)
+      {
+        hist("pT_closest_wjet_to_w2")->Fill(TopJetPt(topjet),weight);
+        hist("mass_closest_wjet_to_w2")->Fill(TopJetMass(topjet),weight);
+        hist("nsub_closest_wjet_to_w2")->Fill(TopJetNsub2(topjet),weight);
+        //has_closest_w=true;
+        the_closest_w2=topjet;
+      }
+    }
+  }
+
+  if (has_gen_b2)
+  {
+    for(auto jet : *event.jets)
+    {
+      if (deltaR(the_gen_b2,jet)<0.4)
+      {
+        hist("pT_closest_bjet_to_b2")->Fill(jet.pt(),weight);
+        hist("csv_closest_bjet_to_b2")->Fill(jet.btag_combinedSecondaryVertex(),weight);
+        //has_closest_b=true;
+        the_closest_b2=jet;
+      }
+    }
+  }
+
 }
+
+
+
+
+
+
+
 
 
 

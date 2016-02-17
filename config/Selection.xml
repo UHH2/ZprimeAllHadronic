@@ -15,8 +15,8 @@
     <Library Name="libSUHH2Zp2TopVLQAllHad"/>
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
-   <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/preselection/" PostFix="" TargetLumi="2460" > -->
-   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="48" OutputDirectory="/nfs/dust/cms/user/usaiem/selection/" PostFix="" TargetLumi="2460" > 
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/preselection/" PostFix="" TargetLumi="2460" >
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="48" OutputDirectory="/nfs/dust/cms/user/usaiem/selection/" PostFix="" TargetLumi="2460" >  -->
 
 
     <InputData Lumi="116421.0" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="True">
@@ -52,7 +52,7 @@
 
 
 
-    <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_05Oct2015_v1" Cacheable="True">
+<!--     <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_05Oct2015_v1" Cacheable="True">
         <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.DATA.JetHT_Run2015D_05Oct2015_v1.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" />
         <OutputTree Name="AnalysisTree" /> 
@@ -62,7 +62,7 @@
         <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.DATA.JetHT_Run2015D_PromptReco_v4.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
-    </InputData> 
+    </InputData>  -->
 
 
 
@@ -422,8 +422,8 @@
             <!--set by process name -->
 
             <!--//// mu r/f -->
-            <!-- <Item Name="ScaleVariationMuR" Value="up" /> -->
-            <!-- <Item Name="ScaleVariationMuR" Value="up" /> -->
+            <Item Name="ScaleVariationMuR" Value="mean" />
+            <Item Name="ScaleVariationMuF" Value="mean" />
             <!-- to be changed here -->
 
             <!--//// pdf -->

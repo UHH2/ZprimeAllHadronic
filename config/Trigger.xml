@@ -44,7 +44,7 @@
 
    
 
-<InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_05Oct2015_v1" Cacheable="True">
+<!-- <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_05Oct2015_v1" Cacheable="True">
     &JetHT_Run2015D_05Oct2015_v1;
     <InputTree Name="AnalysisTree" /> 
 </InputData>
@@ -62,7 +62,7 @@
 <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="SingleMuon_Run2015D_PromptReco_v4" Cacheable="True">
     &SingleMuon_Run2015D_PromptReco_v4;
     <InputTree Name="AnalysisTree" /> 
-</InputData>
+</InputData> -->
 
 
 
@@ -142,6 +142,10 @@
             <Item Name="pileup_directory" Value="/nfs/dust/cms/user/nowatsd/PUHistogram-25ns-v2/Pileup.MC.TTbar.root"/>
 
             <Item Name="use_sframe_weight" Value="false" />
+
+            <!--//// jec jer -->
+            <Item Name="jecsmear_direction" Value="nominal" /> <!-- nominal up down -->
+            <Item Name="jersmear_direction" Value="nominal" /> <!-- nominal up down -->
             
             <!-- the class name of the AnalysisModule subclasses to run: -->
             <Item Name="AnalysisModule" Value="TriggerModule" /> 

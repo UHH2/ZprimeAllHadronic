@@ -488,17 +488,17 @@ float QCDWeight(float mzp, string mode, string syst)
 
 float TTbarWeight(const Event & event, int syst)
 {
-
+  if (event.isRealData) return 1.0;
   TTbarGen ttbargen(*event.genparticles, false);
   if (ttbargen.DecayChannel()==TTbarGen::e_notfound)
   {
     cout<<"ttbargen not found"; return 1.0;
   }
-  // float N=1.07;
-  // float alpha=0.0013;
-  // float sigmaN=0.06;
-  // float sigmaAlpha=0.0002;
-  float weight= 1.07*exp(-0.0013*0.5*(ttbargen.Top().pt()+ttbargen.Antitop().pt()));
+  // float N=0.92;
+  // float alpha=-0.00096;
+  // float sigmaN=0.17;
+  // float sigmaAlpha=0.00020;
+  float weight= 0.92*exp(-0.00096*0.5*(ttbargen.Top().pt()+ttbargen.Antitop().pt()));
   if (syst==0)
   {
     //event.weight *= weight;
