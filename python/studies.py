@@ -1,4 +1,4 @@
-from ROOT import TFile,TCanvas,gROOT,gStyle,TLegend,TGraphAsymmErrors
+from ROOT import TFile,TCanvas,gROOT,gStyle,TLegend,TGraphAsymmErrors,kGreen,kOrange,kSpring,kAzure
 from os import system
 from sys import argv
 from os import mkdir
@@ -10,6 +10,7 @@ gROOT.SetBatch()
 #setup
 path='/nfs/dust/cms/user/usaiem/selection/'
 prepath='/nfs/dust/cms/user/usaiem/preselection/'
+prepath2='/nfs/dust/cms/user/usaiem/preselection2/'
 # path2='/nfs/dust/cms/user/usaiem/phys14-2/'
 root='.root'
 filename_base='uhh2.AnalysisModuleRunner.'
@@ -49,6 +50,49 @@ signalWB_names=[
 #'MC.ZpToTpT_TpToWB_MZp2000Wid_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH']
+signalTT_names=[
+'MC.MC_TpTp_M-1000',
+'MC.MC_TpTp_M-1100',
+'MC.MC_TpTp_M-1200',
+'MC.MC_TpTp_M-1300',
+'MC.MC_TpTp_M-1400',
+'MC.MC_TpTp_M-1500',
+'MC.MC_TpTp_M-1600',
+'MC.MC_TpTp_M-1700',
+'MC.MC_TpTp_M-1800',
+'MC.MC_TpTp_M-700',
+'MC.MC_TpTp_M-800',
+'MC.MC_TpTp_M-900'
+]
+signalTT_legendnames=[
+"T'T' 1000 GeV",
+"T'T' 1100 GeV",
+"T'T' 1200 GeV",
+"T'T' 1300 GeV",
+"T'T' 1400 GeV",
+"T'T' 1500 GeV",
+"T'T' 1600 GeV",
+"T'T' 1700 GeV",
+"T'T' 1800 GeV",
+"T'T' 700 GeV",
+"T'T' 800 GeV",
+"T'T' 900 GeV"
+]
+signalTT_masses=[
+'1',
+'1p1',
+'1p2',
+'1p3',
+'1p4',
+'1p5',
+'1p6',
+'1p7',
+'1p8',
+'0p7',
+'0p8',
+'0p9'
+]
+
 signalWB_legendnames=[
 "Z'(1.5TeV)#rightarrowT't, T'(0.7TeV)#rightarrowbW",
 "Z'(1.5TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
@@ -91,6 +135,94 @@ signal_Tp_masses=[
 "1p5",
 ]
 
+
+
+
+# signalHT_names=[
+# 'MC.ZpToTpT_TpToHT_MZp1500Nar_MTp700Nar_LH',
+# #'MC.ZpToTpT_TpToHT_MZp1500Nar_MTp900Nar_LH',
+# #'MC.ZpToTpT_TpToHT_MZp1500Nar_MTp1200Nar_LH',
+# 'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp900Nar_LH',
+# #'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_LH',
+# #'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_RH',
+# #'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Wid_LH',
+# #'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1500Nar_LH',
+# #'MC.ZpToTpT_TpToHT_MZp2000Wid_MTp1200Nar_LH',
+# 'MC.ZpToTpT_TpToHT_MZp2500Nar_MTp1200Nar_LH',
+# #'MC.ZpToTpT_TpToHT_MZp2500Nar_MTp1500Nar_LH'
+# ]
+# signalZT_names=[
+# 'MC.ZpToTpT_TpToZT_MZp1500Nar_MTp700Nar_LH',
+# #'MC.ZpToTpT_TpToZT_MZp1500Nar_MTp900Nar_LH',
+# #'MC.ZpToTpT_TpToZT_MZp1500Nar_MTp1200Nar_LH',
+# 'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp900Nar_LH',
+# #'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_LH',
+# #'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_RH',
+# #'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Wid_LH',
+# #'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1500Nar_LH',
+# #'MC.ZpToTpT_TpToZT_MZp2000Wid_MTp1200Nar_LH',
+# 'MC.ZpToTpT_TpToZT_MZp2500Nar_MTp1200Nar_LH',
+# #'MC.ZpToTpT_TpToZT_MZp2500Nar_MTp1500Nar_LH'
+# ]
+# signalWB_names=[
+# 'MC.ZpToTpT_TpToWB_MZp1500Nar_MTp700Nar_LH',
+# #'MC.ZpToTpT_TpToWB_MZp1500Nar_MTp900Nar_LH',
+# #'MC.ZpToTpT_TpToWB_MZp1500Nar_MTp1200Nar_LH',
+# 'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp900Nar_LH',
+# #'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_LH',
+# #'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_RH',
+# #'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Wid_LH',
+# #'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1500Nar_LH',
+# #'MC.ZpToTpT_TpToWB_MZp2000Wid_MTp1200Nar_LH',
+# 'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1200Nar_LH',
+# #'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH'
+# ]
+# signalWB_legendnames=[
+# "Z'(1.5TeV)#rightarrowT't, T'(0.7TeV)#rightarrowbW",
+# #"Z'(1.5TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
+# #"Z'(1.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
+# "Z'(2TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
+# #"Z'(2TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
+# #"Z'(2TeV)#rightarrowT't, T'(1.2TeV,RH)#rightarrowbW 1pb",
+# #"Z'(2TeV)#rightarrowT't, T'(1.2TeV,Wide)#rightarrowbW 1pb",
+# #"Z'(2TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
+# #"Z'(2TeV,Wide)#rightarrowT't, T'(1.2TeV)#rightarrowbW 1pb",
+# "Z'(2.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
+# #"Z'(2.5TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
+# ]
+
+# signal_Zp_masses=[
+# "1p5",
+# #"1p5",
+# #"1p5",
+# "2",
+# #"2",
+# #"2",
+# #"2",
+# #"2",
+# #"2",
+# "2p5",
+# #"2p5",
+# ]
+
+# signal_Tp_masses=[
+# "0p7",
+# #"0p9",
+# #"1p2",
+# "0p9",
+# #"1p2",
+# #1p2",
+# #1p2",
+# #"1p5",
+# #"1p2",
+# "1p2",
+# #"1p5",
+# ]
+
+
+
+
+
 #signal_names=signalWB_names+signalHT_names+signalZT_names
 qcd_names=['MC.QCD_HT500to700','MC.QCD_HT700to1000','MC.QCD_HT1000to1500','MC.QCD_HT1500to2000','MC.QCD_HT2000toInf']
 ttbar_names=['MC.TTbar']
@@ -116,6 +248,9 @@ for i in signalWB_names:
 	signal_files.append(TFile(path+filename_base+i+root,'READ'))
 for i in signalWB_names:
 	signal_files_pre.append(TFile(prepath+filename_base+i+root,'READ'))
+signalTT_files=[]
+for i in signalTT_names:
+	signalTT_files.append(TFile(prepath2+filename_base+i+root,'READ'))
 
 for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
   "bmass",  "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
@@ -139,10 +274,10 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
 	minx=0
 	maxx=0
 	if 'topmass' in i and '_' not in i:
-		minx=50
+		minx=60
 		maxx=300
 	if 'wmass' in i and '_' not in i:
-		minx=50
+		minx=60
 		maxx=300
 	if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR","bcsv","csv_pthighest","csv_csvhighest", "topcsv",]:
 		rebinna=1
@@ -156,6 +291,8 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
   "ht",  "htca8",  "ht_twb",  "npv",  "nevt",]:
   		signalzoom=100
   	if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub"]:
+  		signalzoom=20
+  	if i in ["tprimemass"]:
   		signalzoom=20
 	make_ratioplot(
 		name=i,
@@ -173,7 +310,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
 		maxy=0,
 		minratio=0,
 		maxratio=0,
-		logy=False,
+		logy=True,
         xtitle='',
         ytitle='Events',
         textsizefactor=1,
@@ -181,7 +318,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
         separate_legend=True,
         signal_zoom=signalzoom,
         fixratio=True,
-        #signal_colors=[1,2,3,1,2,3,1,2]
+        signal_colors=[kOrange+10,kAzure+1,kSpring-6]
         )
 
 for i in [
@@ -203,7 +340,7 @@ for i in [
 	# if i=='topmass':
 	# 	minx=100
 	# 	maxx=300
-	make_ratioplot(
+	make_ratioplot2(
 		name='SR_vs_'+i,
 		ttbar_file=0,
 		qcd_file=qcd_file,
@@ -250,7 +387,7 @@ for i in [
 	ratioc.Write()
 	ratioc.SaveAs('pdf/ratio_SR_vs_'+i+'_c.pdf')
 
-	make_ratioplot(
+	make_ratioplot2(
 		name='SRdata_vs_'+i,
 		ttbar_file=0,
 		qcd_file=data_file,
@@ -318,7 +455,7 @@ for i in [
 	# if i=='topmass':
 	# 	minx=100
 	# 	maxx=300
-	make_ratioplot(
+	make_ratioplot2(
 		name='SRbtag_vs_'+i,
 		ttbar_file=0,
 		qcd_file=qcd_file,
@@ -366,7 +503,7 @@ for i in [
 	ratioc.Write()
 	ratioc.SaveAs('pdf/ratio_SRbtag_vs_'+i+'_c.pdf')
 
-	make_ratioplot(
+	make_ratioplot2(
 		name='SRbtagdata_vs_'+i,
 		ttbar_file=0,
 		qcd_file=data_file,
@@ -436,7 +573,7 @@ for i in [
 	# if i=='topmass':
 	# 	minx=100
 	# 	maxx=300
-	make_ratioplot(
+	make_ratioplot2(
 		name='SRnobtag_vs_'+i,
 		ttbar_file=0,
 		qcd_file=qcd_file,
@@ -461,7 +598,7 @@ for i in [
         signal_zoom=2,
         fixratio=True,
         normalize=True,
-        qcd_legend='Control region (QCD MC)',
+        qcd_legend='Corrected sideband region (QCD MC)',
         data_legend='Signal region (QCD MC)'
         #signal_colors=[1,2,3,1,2,3,1,2]
         )
@@ -484,7 +621,7 @@ for i in [
 	ratioc.Write()
 	ratioc.SaveAs('pdf/ratio_SRnobtag_vs_'+i+'_c.pdf')
 
-	make_ratioplot(
+	make_ratioplot2(
 		name='SRnobtagdata_vs_'+i,
 		ttbar_file=0,
 		qcd_file=data_file,
@@ -534,6 +671,45 @@ for i in [
 	ratioc.Write()
 	ratioc.SaveAs('pdf/ratio_SRnobtagdata_vs_'+i+'_c.pdf')
 
+
+for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
+  "ptop",  "ptprime",  "pb",  "pw",  "ptb",  "ptw",  "pzprime",
+  "mtop",  "mtprime",  "mb",  "mw",  "mtb",  "mtw",  "mzprime",
+  "dRbW",  "dRtT",  "dRbt",  "dRtW",  "dR_tb_tW",  "dR_tb_W",  "dR_tb_b",  "dR_b_tW",  "dR_W_tW",
+  "dR_W1_b1",  "dR_W2_b2",  "dR_W1_W2",  "dR_b1_b2",  "dR_W1_b2",  "dR_W2_b1",
+  "pT_closest_topjet_to_top",  "mass_closest_topjet_to_top",  "nsub_closest_topjet_to_top",
+  "pT_closest_topjet_to_tprime",  "mass_closest_topjet_to_tprime",  "nsub_closest_topjet_to_tprime",
+  "pT_closest_wjet_to_w",  "mass_closest_wjet_to_w",  "nsub_closest_wjet_to_w",
+  "pT_closest_bjet_to_b",  "csv_closest_bjet_to_b",
+
+  "pT_closest_wjet_to_tw",  "mass_closest_wjet_to_tw",  "nsub_closest_wjet_to_tw",
+  "pT_closest_bjet_to_tb",  "csv_closest_bjet_to_tb",
+
+  "pT_closest_wjet_to_w1",  "mass_closest_wjet_to_w1",  "nsub_closest_wjet_to_w1",
+  "pT_closest_bjet_to_b1",  "csv_closest_bjet_to_b1",
+  "pT_closest_wjet_to_w2",  "mass_closest_wjet_to_w2",  "nsub_closest_wjet_to_w2",
+  "pT_closest_bjet_to_b2",  "csv_closest_bjet_to_b2"]:
+  rebinna=10
+  compare(name='GEN_'+i,#signalWB_names[i]+'dRbW',
+		file_list=signal_files,#[signal_files[i],signal_files_pre[i]],
+		name_list=['NoCuts/'+i]*len(signal_files),
+		legend_list=signalWB_legendnames,
+		normalize=True,drawoption='hE',
+		xtitle='',ytitle='',
+		minx=0,maxx=0,
+		rebin=rebinna,
+		miny=0,maxy=0,
+		textsizefactor=1,logy=False)
+  compare(name='GEN_'+i,#signalWB_names[i]+'dRbW',
+		file_list=signalTT_files,#[signal_files[i],signal_files_pre[i]],
+		name_list=['NoCuts/'+i]*len(signal_files),
+		legend_list=signalWB_legendnames,
+		normalize=True,drawoption='hE',
+		xtitle='',ytitle='',
+		minx=0,maxx=0,
+		rebin=rebinna,
+		miny=0,maxy=0,
+		textsizefactor=1,logy=False)
 
 for i in range(len(signalWB_names)):
 	rebinna=10
@@ -812,7 +988,7 @@ outfile.cd()
 qcdbkgbtag.Write()
 qcdbkgnobtag.Write()
 rebinna=10
-signalzoom=2
+signalzoom=1
 minx=0
 maxx=0
 make_ratioplot(
@@ -831,15 +1007,16 @@ make_ratioplot(
 		maxy=0,
 		minratio=0,
 		maxratio=0,
-		logy=False,
+		logy=True,
         xtitle='',
         ytitle='Events',
         textsizefactor=1,
         signal_legend=signalWB_legendnames,
         separate_legend=True,
         signal_zoom=signalzoom,
+        qcd_legend='QCD from sideband',
         fixratio=True,
-        #signal_colors=[1,2,3,1,2,3,1,2]
+        signal_colors=[kOrange+10,kAzure+1,kSpring-6]
         )
 make_ratioplot(
 		name='1_btag',
@@ -857,15 +1034,16 @@ make_ratioplot(
 		maxy=0,
 		minratio=0,
 		maxratio=0,
-		logy=False,
+		logy=True,
         xtitle='',
         ytitle='Events',
         textsizefactor=1,
         signal_legend=signalWB_legendnames,
         separate_legend=True,
         signal_zoom=signalzoom,
+        qcd_legend='QCD from sideband',
         fixratio=True,
-        #signal_colors=[1,2,3,1,2,3,1,2]
+        signal_colors=[kOrange+10,kAzure+1,kSpring-6]
         )
 
 compare(name='qcdcorrsystbtag',
@@ -934,7 +1112,7 @@ for masspoint in range(len(signalWB_names)):
 # resized_bkg1=qcd_file.Get("Selection/bkg1").Clone('resized_bkg1')
 # resized_bkg2=qcd_file.Get("Selection/bkg2").Clone('resized_bkg2')
 #resize
-for masspoint in [0,3,6]:
+for masspoint in [0,1,2]:#[0,3,6]:
 	# resized_sgn1=signal_filesWB[masspoint].Get("Selection/bkg1").Clone('resized_sgn1_'+str(masspoint))
 	# resized_sgn2=signal_filesWB[masspoint].Get("Selection/bkg2").Clone('resized_sgn2_'+str(masspoint))
 	# signal1b=signal_filesWB[masspoint].Get("Selection/antibcsvCRnobtag_zprimemass").Clone()

@@ -111,7 +111,7 @@ def getSF(name,den_data_input,num_data_input,den_mc_input,num_mc_input,rebin=0,x
   num_data.SetTitle('')
   num_data.GetXaxis().SetRangeUser(0,2500)
   num_data.Draw('HIST')
-  #c.SaveAs('pdf/'+name+'.pdf')
+  c.SaveAs('pdf/'+name+'.pdf')
   c.Write(name+'_Canvas')
   num_data.Write(name)
 
@@ -143,9 +143,9 @@ paths=['mu0','mu1','mu2','ht0','ht1','ht2','mu0pt','mu1pt','mu2pt','ht0pt','ht1p
 
 for i in paths:
   if 'mu' in i:
-    # getEffSF('muqcd',datamu_file,qcd_file,i,'HT')
-    # getEffSF('muttbar',datamu_file,ttbar_file,i,'HT')
-    # getEffSF('muqcdttbar',datamu_file,mc_file,i,'HT')
+    getEffSF('muqcd',datamu_file,qcd_file,i,'HT')
+    getEffSF('muttbar',datamu_file,ttbar_file,i,'HT')
+    getEffSF('muqcdttbar',datamu_file,mc_file,i,'HT')
     getEffSF('muqcd',datamu_file,qcd_file,i,'HTCA8')
     getEffSF('muttbar',datamu_file,ttbar_file,i,'HTCA8')
     getEffSF('muqcdttbar',datamu_file,mc_file,i,'HTCA8')
@@ -156,6 +156,16 @@ for i in paths:
       legend_list=['DATA','MC QCD','MC TTbar','MC QCD+TTbar'],
       drawoption='AP',
       xtitle='HT_{CA8} [GeV]',
+      ytitle='Trigger efficiency',
+      #minx=0,maxx=1600,miny=0.3,maxy=1.1,rebin=1,
+      textsizefactor=0.7)
+    compare(
+      name='mu_'+i+'_HT_DATAMC',
+      file_list=[outfile,outfile,outfile,outfile],
+      name_list=['muqcd_eff_data_'+i+'_HT','muqcd_eff_mc_'+i+'_HT','muttbar_eff_mc_'+i+'_HT','muqcdttbar_eff_mc_'+i+'_HT'],
+      legend_list=['DATA','MC QCD','MC TTbar','MC QCD+TTbar'],
+      drawoption='AP',
+      xtitle='HT [GeV]',
       ytitle='Trigger efficiency',
       #minx=0,maxx=1600,miny=0.3,maxy=1.1,rebin=1,
       textsizefactor=0.7)
@@ -189,9 +199,9 @@ for i in paths:
       textsizefactor=0.7)
 
   else:
-    # getEffSF('htqcd',dataht_file,qcd_file,i,'HT')
-    # getEffSF('htttbar',dataht_file,ttbar_file,i,'HT')
-    # getEffSF('htqcdttbar',dataht_file,mc_file,i,'HT')
+    getEffSF('htqcd',dataht_file,qcd_file,i,'HT')
+    getEffSF('htttbar',dataht_file,ttbar_file,i,'HT')
+    getEffSF('htqcdttbar',dataht_file,mc_file,i,'HT')
     getEffSF('htqcd',dataht_file,qcd_file,i,'HTCA8')
     getEffSF('htttbar',dataht_file,ttbar_file,i,'HTCA8')
     getEffSF('htqcdttbar',dataht_file,mc_file,i,'HTCA8')
@@ -202,6 +212,16 @@ for i in paths:
       legend_list=['DATA','MC QCD','MC TTbar','MC QCD+TTbar'],
       drawoption='AP',
       xtitle='HT_{CA8} [GeV]',
+      ytitle='Trigger efficiency',
+      #minx=0,maxx=0,rebin=1,miny=0,maxy=0,
+      textsizefactor=0.7)
+    compare(
+      name='ht_'+i+'_HT_DATAMC',
+      file_list=[outfile,outfile,outfile,outfile],
+      name_list=['htqcd_eff_data_'+i+'_HT','htqcd_eff_mc_'+i+'_HT','htttbar_eff_mc_'+i+'_HT','htqcdttbar_eff_mc_'+i+'_HT'],
+      legend_list=['DATA','MC QCD','MC TTbar','MC QCD+TTbar'],
+      drawoption='AP',
+      xtitle='HT [GeV]',
       ytitle='Trigger efficiency',
       #minx=0,maxx=0,rebin=1,miny=0,maxy=0,
       textsizefactor=0.7)

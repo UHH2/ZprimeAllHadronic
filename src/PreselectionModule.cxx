@@ -216,3 +216,4 @@ if (!event.isRealData)
 // as we want to run the ExampleCycleNew directly with AnalysisModuleRunner,
 // make sure the PreselectionModule is found by class name. This is ensured by this macro:
 UHH2_REGISTER_ANALYSIS_MODULE(PreselectionModule)
+
