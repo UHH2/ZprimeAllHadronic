@@ -1369,6 +1369,11 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("antibptCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
   book<TH1F>("antibmassCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
 
+  book<TH1F>("antibcsvlooseCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antibcsvlooseCRmass_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antibcsvlooseCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antibcsvlooseCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+
   book<TH1F>("bkg1", ";m_{Z'};Events", 300, 0, 3000);
   book<TH1F>("bkg2", ";m_{Z'};Events", 300, 0, 3000);
   book<TH1F>("bkg12", ";m_{Z'};Events", 300, 0, 3000);
@@ -1580,23 +1585,24 @@ if (!event.isRealData)
   ///////////////////RESOLVED ANALYSIS
   if (has_ww)
   {
+    float DELTA_R=0.1;
     float additional_weight=WTagSF(event, the_w, w_sys)*WTagSF(event, the_w2, w_sys);
     bool has_b=false;
     bool has_b2=false;
     bool duebtag=false;
     for(auto jet : *event.jets)
-      if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_w)>0.8 &&deltaR(jet,the_w2)>0.8 && jet.pt()>50.0)
+      if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_w)>DELTA_R &&deltaR(jet,the_w2)>DELTA_R && jet.pt()>50.0)
       {
         the_b=jet; has_b=true; break;
       }  
     if (has_b) for(auto jet : *event.jets)
-      if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_w)>0.8 &&deltaR(jet,the_w2)>0.8 && jet.pt()>50.0 && fabs(jet.eta()-the_b.eta())>0.01)
+      if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_w)>DELTA_R &&deltaR(jet,the_w2)>DELTA_R && jet.pt()>50.0 && fabs(jet.eta()-the_b.eta())>0.01)
       {
         
         the_b2=jet; has_b2=true; duebtag=true; break;
       }
     if (has_b && !has_b2) for(auto jet : *event.jets)
-      if (deltaR(jet,the_w)>0.8 &&deltaR(jet,the_w2)>0.8 && jet.pt()>50.0 && fabs(jet.eta()-the_b.eta())>0.01)
+      if (deltaR(jet,the_w)>DELTA_R &&deltaR(jet,the_w2)>DELTA_R && jet.pt()>50.0 && fabs(jet.eta()-the_b.eta())>0.01)
       {
         
         the_b2=jet; has_b2=true; break;
@@ -1637,6 +1643,104 @@ if (!event.isRealData)
 
   }
   //end of resolved analysis
++  ///////////////////TpTp ANALYSIS
+if (has_ww)
+{
+  float DELTA_R=0.8
+  float additional_weight=WTagSF(event, the_w, w_sys)*WTagSF(event, the_w2, w_sys);
+  bool has_b=false;
+  bool has_b2=false;
+  bool duebtag=false;
+  for(auto jet : *event.jets)
+    if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_w)>DELTA_R &&deltaR(jet,the_w2)>DELTA_R && jet.pt()>50.0)
+    {
+      the_b=jet; has_b=true; break;
+    }  
+  if (has_b) for(auto jet : *event.jets)
+    if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_w)>DELTA_R &&deltaR(jet,the_w2)>DELTA_R && jet.pt()>50.0 && fabs(jet.eta()-the_b.eta())>0.01)
+    {
+      
+      the_b2=jet; has_b2=true; duebtag=true; break;
+    }
+  if (has_b && !has_b2) for(auto jet : *event.jets)
+    if (deltaR(jet,the_w)>DELTA_R &&deltaR(jet,the_w2)>DELTA_R && jet.pt()>50.0 && fabs(jet.eta()-the_b.eta())>0.01)
+    {
+      
+      the_b2=jet; has_b2=true; break;
+    }
+
+
+
+
+
+
+  //T'T'
+  if (has_b && has_b2)
+  {
+    std::vector<TopJet> TpW  =   {the_w,  the_w2, the_w,  the_w2};
+    std::vector<TopJet> TpW2 =   {the_w2, the_w,  the_w2, the_w};
+    std::vector<Jet> TpB     =   {the_b,  the_b2, the_b2, the_b};
+    std::vector<Jet> TpB2    =   {the_b2, the_b,  the_b,  the_b2};
+    bool found=false;
+    float biggestTpMass=-1;
+    unsigned int index=0;
+    for(unsigned int i=0;i<TpW.size();i++)
+    {
+      float TpMass=TprimeMass(TpW[i],TpB[i]);
+      float TpMass2=TprimeMass(TpW2[i],TpB2[i]);
+      if(TpMass>500.0 && TpMass2>500.0 && std::max({TpMass,TpMass2})>biggestTpMass)
+      {
+        found=true;
+ 
+      }
+    }
+  }
+
+
+
+
+
+
+
+  if (has_b && has_b2)
+  {
+    std::vector<TopJet> TopW =    {the_w,  the_w2, the_w,  the_w2};
+    std::vector<TopJet> TprimeW = {the_w2, the_w,  the_w2, the_w};
+    std::vector<Jet> TopB =       {the_b,  the_b2, the_b2, the_b};
+    std::vector<Jet> TprimeB =    {the_b2, the_b,  the_b,  the_b2};
+    float biggestTprimeMass=-1;
+    bool found=false;
+    unsigned int index=0;
+    for(unsigned int i=0;i<TopW.size();i++)
+    {
+      float TopMass=TprimeMass(TopW[i],TopB[i]);
+      float TprimeMass2=TprimeMass(TprimeW[i],TprimeB[i]);
+      if (TopMass>140.0 && TopMass<250.0 && TprimeMass2>biggestTprimeMass)
+      {
+        found=true;
+        biggestTprimeMass=TprimeMass2;
+        index=i;
+      }
+    }
+    if (found)
+    {
+      float TprimeMass2=TprimeMass(TprimeW[index],TprimeB[index]);
+      hist("tprimemass_res")->Fill(TprimeMass2,weight*additional_weight);
+      if (TprimeMass2>500.0)
+      {
+        float ZprimeMass=ZprimeMassResVLQ(TprimeW[index],TopW[index],TprimeB[index],TopB[index]);
+        if (duebtag) hist("zprimemassbtag_res")->Fill(ZprimeMass,weight*additional_weight);
+        else hist("zprimemassnobtag_res")->Fill(ZprimeMass,weight*additional_weight);
+      }
+ 
+    }
+  }
+ 
+}
+//end of TpTp analysis
+ 
+
+
 
   float additional_weight=1.0;
   if (has_tw)
@@ -1957,6 +2061,34 @@ if (!event.isRealData)
     }
   }
 
+
+
+
+  Jet the_b_antibcsvloose;
+  bool has_twantibcsvloose=false;
+  if (has_tw && !has_twb) for(auto jet : *event.jets)
+  if (jet.btag_combinedSecondaryVertex()<0.605&&deltaR(jet,the_top)>0.8&&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
+  {
+        the_b_antibcsvloose=jet; has_twantibcsvloose=true;
+        break;
+  }
+  if (has_twantibcsvloose)
+  {
+    float zprimemass=ZprimeMassVLQ(the_top,the_w,the_b_antibcsvloose);
+    hist("antibcsvlooseCR_zprimemass")->Fill(zprimemass,weight);
+    if (TprimeMass(the_w,the_b_antibcsvloose)>500.0)
+    {
+      hist("antibcsvlooseCRmass_zprimemass")->Fill(zprimemass,weight);
+      if (getMaxCSV(the_top)>0.890)
+      {
+        hist("antibcsvlooseCRbtag_zprimemass")->Fill(zprimemass,weight);
+      }
+      else
+      {
+        hist("antibcsvlooseCRnobtag_zprimemass")->Fill(zprimemass,weight);
+      }
+    }
+  }
 
 
 
