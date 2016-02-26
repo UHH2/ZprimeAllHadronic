@@ -138,88 +138,6 @@ signal_Tp_masses=[
 
 
 
-<<<<<<< HEAD
-# signalHT_names=[
-# 'MC.ZpToTpT_TpToHT_MZp1500Nar_MTp700Nar_LH',
-# #'MC.ZpToTpT_TpToHT_MZp1500Nar_MTp900Nar_LH',
-# #'MC.ZpToTpT_TpToHT_MZp1500Nar_MTp1200Nar_LH',
-# 'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp900Nar_LH',
-# #'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_LH',
-# #'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_RH',
-# #'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Wid_LH',
-# #'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1500Nar_LH',
-# #'MC.ZpToTpT_TpToHT_MZp2000Wid_MTp1200Nar_LH',
-# 'MC.ZpToTpT_TpToHT_MZp2500Nar_MTp1200Nar_LH',
-# #'MC.ZpToTpT_TpToHT_MZp2500Nar_MTp1500Nar_LH'
-# ]
-# signalZT_names=[
-# 'MC.ZpToTpT_TpToZT_MZp1500Nar_MTp700Nar_LH',
-# #'MC.ZpToTpT_TpToZT_MZp1500Nar_MTp900Nar_LH',
-# #'MC.ZpToTpT_TpToZT_MZp1500Nar_MTp1200Nar_LH',
-# 'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp900Nar_LH',
-# #'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_LH',
-# #'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_RH',
-# #'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Wid_LH',
-# #'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1500Nar_LH',
-# #'MC.ZpToTpT_TpToZT_MZp2000Wid_MTp1200Nar_LH',
-# 'MC.ZpToTpT_TpToZT_MZp2500Nar_MTp1200Nar_LH',
-# #'MC.ZpToTpT_TpToZT_MZp2500Nar_MTp1500Nar_LH'
-# ]
-# signalWB_names=[
-# 'MC.ZpToTpT_TpToWB_MZp1500Nar_MTp700Nar_LH',
-# #'MC.ZpToTpT_TpToWB_MZp1500Nar_MTp900Nar_LH',
-# #'MC.ZpToTpT_TpToWB_MZp1500Nar_MTp1200Nar_LH',
-# 'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp900Nar_LH',
-# #'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_LH',
-# #'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_RH',
-# #'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Wid_LH',
-# #'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1500Nar_LH',
-# #'MC.ZpToTpT_TpToWB_MZp2000Wid_MTp1200Nar_LH',
-# 'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1200Nar_LH',
-# #'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH'
-# ]
-# signalWB_legendnames=[
-# "Z'(1.5TeV)#rightarrowT't, T'(0.7TeV)#rightarrowbW",
-# #"Z'(1.5TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
-# #"Z'(1.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
-# "Z'(2TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
-# #"Z'(2TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
-# #"Z'(2TeV)#rightarrowT't, T'(1.2TeV,RH)#rightarrowbW 1pb",
-# #"Z'(2TeV)#rightarrowT't, T'(1.2TeV,Wide)#rightarrowbW 1pb",
-# #"Z'(2TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
-# #"Z'(2TeV,Wide)#rightarrowT't, T'(1.2TeV)#rightarrowbW 1pb",
-# "Z'(2.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
-# #"Z'(2.5TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
-# ]
-
-# signal_Zp_masses=[
-# "1p5",
-# #"1p5",
-# #"1p5",
-# "2",
-# #"2",
-# #"2",
-# #"2",
-# #"2",
-# #"2",
-# "2p5",
-# #"2p5",
-# ]
-
-# signal_Tp_masses=[
-# "0p7",
-# #"0p9",
-# #"1p2",
-# "0p9",
-# #"1p2",
-# #1p2",
-# #1p2",
-# #"1p5",
-# #"1p2",
-# "1p2",
-# #"1p5",
-# ]
-=======
 signalHT_names_short=[
 'MC.ZpToTpT_TpToHT_MZp1500Nar_MTp700Nar_LH',
 #'MC.ZpToTpT_TpToHT_MZp1500Nar_MTp900Nar_LH',
@@ -300,7 +218,6 @@ signal_Tp_masses_short=[
 "1p2",
 #"1p5",
 ]
->>>>>>> cd1fca452e8a015b85fa0f9a194f8dbdb91ace00
 
 
 
@@ -335,16 +252,11 @@ for i in signalWB_names_short:
 for i in signalWB_names:
 	signal_files_pre.append(TFile(prepath+filename_base+i+root,'READ'))
 signalTT_files=[]
-<<<<<<< HEAD
-for i in signalTT_names:
-	signalTT_files.append(TFile(prepath2+filename_base+i+root,'READ'))
-=======
 signal_files_pre2=[]
 for i in signalTT_names:
 	signalTT_files.append(TFile(prepath2+filename_base+i+root,'READ'))
 for i in signalWB_names:
 	signal_files_pre2.append(TFile(prepath2+filename_base+i+root,'READ'))
->>>>>>> cd1fca452e8a015b85fa0f9a194f8dbdb91ace00
 
 for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
   "bmass",  "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
@@ -785,13 +697,8 @@ for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
   "pT_closest_bjet_to_b2",  "csv_closest_bjet_to_b2"]:
   rebinna=10
   compare(name='GEN_'+i,#signalWB_names[i]+'dRbW',
-<<<<<<< HEAD
-		file_list=signal_files,#[signal_files[i],signal_files_pre[i]],
-		name_list=['NoCuts/'+i]*len(signal_files),
-=======
 		file_list=signal_files_pre2,#[signal_files[i],signal_files_pre[i]],
 		name_list=['NoCuts/'+i]*len(signal_files_pre2),
->>>>>>> cd1fca452e8a015b85fa0f9a194f8dbdb91ace00
 		legend_list=signalWB_legendnames,
 		normalize=True,drawoption='hE',
 		xtitle='',ytitle='',
@@ -799,17 +706,10 @@ for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
 		rebin=rebinna,
 		miny=0,maxy=0,
 		textsizefactor=1,logy=False)
-<<<<<<< HEAD
-  compare(name='GEN_'+i,#signalWB_names[i]+'dRbW',
-		file_list=signalTT_files,#[signal_files[i],signal_files_pre[i]],
-		name_list=['NoCuts/'+i]*len(signal_files),
-		legend_list=signalWB_legendnames,
-=======
   compare(name='GENTT_'+i,#signalWB_names[i]+'dRbW',
 		file_list=signalTT_files,#[signal_files[i],signal_files_pre[i]],
 		name_list=['NoCuts/'+i]*len(signal_files),
 		legend_list=signalTT_legendnames,
->>>>>>> cd1fca452e8a015b85fa0f9a194f8dbdb91ace00
 		normalize=True,drawoption='hE',
 		xtitle='',ytitle='',
 		minx=0,maxx=0,
@@ -1218,7 +1118,7 @@ for masspoint in range(len(signalWB_names)):
 # resized_bkg1=qcd_file.Get("Selection/bkg1").Clone('resized_bkg1')
 # resized_bkg2=qcd_file.Get("Selection/bkg2").Clone('resized_bkg2')
 #resize
-for masspoint in [0,1,2]:#[0,3,6]:
+for masspoint in [0,3,6]:
 	# resized_sgn1=signal_filesWB[masspoint].Get("Selection/bkg1").Clone('resized_sgn1_'+str(masspoint))
 	# resized_sgn2=signal_filesWB[masspoint].Get("Selection/bkg2").Clone('resized_sgn2_'+str(masspoint))
 	# signal1b=signal_filesWB[masspoint].Get("Selection/antibcsvCRnobtag_zprimemass").Clone()
@@ -1257,7 +1157,12 @@ for masspoint in [0,1,2]:#[0,3,6]:
         )
 
 	make_ratioplot(
-		name='signal_injection1_'+str(masspoint),ttbar_file=signal_files[masspoint],qcd_file=qcd_file,data_file=qcd_file,signal_files=[signal_files[masspoint]],histo="Selection/zprimemassnobtag",histo_qcd='Selection/bkg1',histo_ttbar='Selection/bkg1',histo_signal="Selection/zprimemassnobtag",rebin=rebinna,minx=minx,maxx=maxx,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,xtitle='',ytitle='Events',textsizefactor=1,signal_legend=[signalWB_legendnames[masspoint]],separate_legend=False,signal_zoom=1,ttbar_zoom=den1/den1bk,qcd_zoom=den1/den1bk,fixratio=True,ttbar_legend='signal in bkg estimate (MC)',qcd_legend='background estimate (MC)',data_legend="observed background (MC)",normalize=False)
+		name='signal_injection1_'+str(masspoint),ttbar_file=signal_files[masspoint],
+		qcd_file=qcd_file,data_file=qcd_file,signal_files=[signal_files[masspoint]],
+		histo="Selection/zprimemassnobtag",histo_qcd='Selection/bkg1',
+		histo_ttbar='Selection/bkg1',histo_signal="Selection/zprimemassnobtag",
+		rebin=rebinna,minx=minx,maxx=maxx,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,xtitle='',ytitle='Events',textsizefactor=1,signal_legend=[signalWB_legendnames[masspoint]],separate_legend=False,signal_zoom=1,ttbar_zoom=den1/den1bk,qcd_zoom=den1/den1bk,fixratio=True,ttbar_legend='signal in bkg estimate (MC)',qcd_legend='background estimate (MC)',data_legend="observed background (MC)",normalize=False)
 		
 		#)
-outfile.Close()                                                                                                                                  
+outfile.Close()
+                                                                                                                                   
