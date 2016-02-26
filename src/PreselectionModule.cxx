@@ -113,7 +113,7 @@ if (event.topjets->size()>1)
     if (TopJetPt(event.topjets->at(0))>200.0/*400.0*/ && TopJetPt(event.topjets->at(1))>200.0 && TopJetMass(event.topjets->at(0))>60.0 && TopJetMass(event.topjets->at(1))>60.0) Nfatjets=true;
 }
 //cout<<HT_trigger<<Nfatjets;
-bool preselection = ( (HT_trigger && HT_cut) || (Trim_trigger && Trim_cut) ) && Nfatjets;
+bool preselection = ( (HT_trigger && HT_cut) /*|| (Trim_trigger && Trim_cut) */) && Nfatjets;
 
 
 bool is_allhad=false;
@@ -215,4 +215,4 @@ if (!event.isRealData)
 
 // as we want to run the ExampleCycleNew directly with AnalysisModuleRunner,
 // make sure the PreselectionModule is found by class name. This is ensured by this macro:
-UHH2_REGISTER_ANALYSIS_MODULE(PreselectionModule)
+UHH2_REGISTER_ANALYSIS_MODULE(PreselectionModu
