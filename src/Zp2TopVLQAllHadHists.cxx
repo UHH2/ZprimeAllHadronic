@@ -1386,6 +1386,68 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("bkg2down", ";m_{Z'};Events", 300, 0, 3000);
   book<TH1F>("bkg12down", ";m_{Z'};Events", 300, 0, 3000);
 
+  //TpTp
+  book<TH1F>("TT1btag_tprimemass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag_tprimemass1", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag_tprimemass2", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag_tprimept", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag_tprimept1", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag_tprimept2", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag_mass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag_dmass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag_dmassomass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag_htak8", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag_smass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag_pt", ";m_{T'};Events", 300, 0, 3000);
+
+  book<TH1F>("TT2btag_tprimemass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag_tprimemass1", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag_tprimemass2", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag_tprimept", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag_tprimept1", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag_tprimept2", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag_mass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag_dmass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag_dmassomass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag_htak8", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag_smass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag_pt", ";m_{T'};Events", 300, 0, 3000);
+
+  book<TH1F>("TT1btag1Tp_tprimemass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag1Tp_tprimemass1", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag1Tp_tprimemass2", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag1Tp_tprimept", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag1Tp_tprimept1", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag1Tp_tprimept2", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag1Tp_mass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag1Tp_dmass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag1Tp_dmassomass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag1Tp_htak8", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag1Tp_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag1Tp_smass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag1Tp_pt", ";m_{T'};Events", 300, 0, 3000);
+
+  book<TH1F>("TT2btag1Tp_tprimemass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag1Tp_tprimemass1", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag1Tp_tprimemass2", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag1Tp_tprimept", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag1Tp_tprimept1", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag1Tp_tprimept2", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag1Tp_mass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag1Tp_dmass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag1Tp_dmassomass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag1Tp_htak8", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag1Tp_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag1Tp_smass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag1Tp_pt", ";m_{T'};Events", 300, 0, 3000);
+
+  // book<TH1F>("TT_", ";m_{T'};Events", 300, 0, 3000);
+  // book<TH1F>("TT_", ";m_{T'};Events", 300, 0, 3000);
+  // book<TH1F>("TT_", ";m_{T'};Events", 300, 0, 3000);
+
+
   string version=ctx.get("dataset_version", "<not set>");
   top_sys=0;
   w_sys=0;
@@ -1643,11 +1705,11 @@ if (!event.isRealData)
 
   }
   //end of resolved analysis
-+  ///////////////////TpTp ANALYSIS
+///////////////////TpTp ANALYSIS
 if (has_ww)
 {
-  float DELTA_R=0.8
-  float additional_weight=WTagSF(event, the_w, w_sys)*WTagSF(event, the_w2, w_sys);
+  float DELTA_R=0.8;
+  //float additional_weight=WTagSF(event, the_w, w_sys)*WTagSF(event, the_w2, w_sys);
   bool has_b=false;
   bool has_b2=false;
   bool duebtag=false;
@@ -1691,50 +1753,74 @@ if (has_ww)
       if(TpMass>500.0 && TpMass2>500.0 && std::max({TpMass,TpMass2})>biggestTpMass)
       {
         found=true;
- 
-      }
-    }
-  }
-
-
-
-
-
-
-
-  if (has_b && has_b2)
-  {
-    std::vector<TopJet> TopW =    {the_w,  the_w2, the_w,  the_w2};
-    std::vector<TopJet> TprimeW = {the_w2, the_w,  the_w2, the_w};
-    std::vector<Jet> TopB =       {the_b,  the_b2, the_b2, the_b};
-    std::vector<Jet> TprimeB =    {the_b2, the_b,  the_b,  the_b2};
-    float biggestTprimeMass=-1;
-    bool found=false;
-    unsigned int index=0;
-    for(unsigned int i=0;i<TopW.size();i++)
-    {
-      float TopMass=TprimeMass(TopW[i],TopB[i]);
-      float TprimeMass2=TprimeMass(TprimeW[i],TprimeB[i]);
-      if (TopMass>140.0 && TopMass<250.0 && TprimeMass2>biggestTprimeMass)
-      {
-        found=true;
-        biggestTprimeMass=TprimeMass2;
+        biggestTpMass=TpMass;
         index=i;
       }
     }
-    if (found)
-    {
-      float TprimeMass2=TprimeMass(TprimeW[index],TprimeB[index]);
-      hist("tprimemass_res")->Fill(TprimeMass2,weight*additional_weight);
-      if (TprimeMass2>500.0)
-      {
-        float ZprimeMass=ZprimeMassResVLQ(TprimeW[index],TopW[index],TprimeB[index],TopB[index]);
-        if (duebtag) hist("zprimemassbtag_res")->Fill(ZprimeMass,weight*additional_weight);
-        else hist("zprimemassnobtag_res")->Fill(ZprimeMass,weight*additional_weight);
-      }
- 
-    }
+    cout<<index<<found<<duebtag;
+  //   if (found)
+  //   {
+  //     float TpMass=TprimeMass(TpW[index],TpB[index]);
+  //     float TpMass2=TprimeMass(TpW2[index],TpB2[index]);
+  // hist("TT1btag_tprimemass")->Fill(,weight*additional_weight);
+  // hist("TT1btag_tprimemass1")->Fill(,weight*additional_weight);
+  // hist("TT1btag_tprimemass2")->Fill(,weight*additional_weight);
+  // hist("TT1btag_tprimept")->Fill(,weight*additional_weight);
+  // hist("TT1btag_tprimept1")->Fill(,weight*additional_weight);
+  // hist("TT1btag_tprimept2")->Fill(,weight*additional_weight);
+  // hist("TT1btag_mass")->Fill(,weight*additional_weight);
+  // hist("TT1btag_dmass")->Fill(,weight*additional_weight);
+  // hist("TT1btag_dmassomass")->Fill(,weight*additional_weight);
+  // hist("TT1btag_htak8")->Fill(,weight*additional_weight);
+  // hist("TT1btag_htak8ak4")->Fill(,weight*additional_weight);
+  // hist("TT1btag_smass")->Fill(,weight*additional_weight);
+  // hist("TT1btag_pt")->Fill(,weight*additional_weight);
+  //   }
+  //   else
+  //   {
+
+  //   }
   }
+
+
+
+
+
+
+
+  // if (has_b && has_b2)
+  // {
+  //   std::vector<TopJet> TopW =    {the_w,  the_w2, the_w,  the_w2};
+  //   std::vector<TopJet> TprimeW = {the_w2, the_w,  the_w2, the_w};
+  //   std::vector<Jet> TopB =       {the_b,  the_b2, the_b2, the_b};
+  //   std::vector<Jet> TprimeB =    {the_b2, the_b,  the_b,  the_b2};
+  //   float biggestTprimeMass=-1;
+  //   bool found=false;
+  //   unsigned int index=0;
+  //   for(unsigned int i=0;i<TopW.size();i++)
+  //   {
+  //     float TopMass=TprimeMass(TopW[i],TopB[i]);
+  //     float TprimeMass2=TprimeMass(TprimeW[i],TprimeB[i]);
+  //     if (TopMass>140.0 && TopMass<250.0 && TprimeMass2>biggestTprimeMass)
+  //     {
+  //       found=true;
+  //       biggestTprimeMass=TprimeMass2;
+  //       index=i;
+  //     }
+  //   }
+  //   if (found)
+  //   {
+  //     float TprimeMass2=TprimeMass(TprimeW[index],TprimeB[index]);
+  //     hist("tprimemass_res")->Fill(TprimeMass2,weight*additional_weight);
+  //     if (TprimeMass2>500.0)
+  //     {
+  //       float ZprimeMass=ZprimeMassResVLQ(TprimeW[index],TopW[index],TprimeB[index],TopB[index]);
+  //       if (duebtag) hist("zprimemassbtag_res")->Fill(ZprimeMass,weight*additional_weight);
+  //       else hist("zprimemassnobtag_res")->Fill(ZprimeMass,weight*additional_weight);
+  //     }
+ 
+  //   }
+  // }
  
 }
 //end of TpTp analysis

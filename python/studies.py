@@ -4,7 +4,7 @@ from sys import argv
 from os import mkdir
 from os.path import exists
 
-from utils import compare,hadd,doeff,make_plot,make_ratioplot,make_ratioplot2
+from utils import compare,hadd,doeff,make_plot,make_ratioplot,make_ratioplot2,make_comp
 gROOT.SetBatch()
 
 #setup
@@ -1164,4 +1164,9 @@ for masspoint in [0,3,6]:
 		rebin=rebinna,minx=minx,maxx=maxx,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,xtitle='',ytitle='Events',textsizefactor=1,signal_legend=[signalWB_legendnames[masspoint]],separate_legend=False,signal_zoom=1,ttbar_zoom=den1/den1bk,qcd_zoom=den1/den1bk,fixratio=True,ttbar_legend='signal in bkg estimate (MC)',qcd_legend='background estimate (MC)',data_legend="observed background (MC)",normalize=False)
 		
 		#)
+
+
+######systematics compare
+make_comp(data_file.Get("Selection/bkg1"),data_file.Get("Selection/bkg1up"),data_file.Get("Selection/bkg1down"),'SYS_bkg',10)
+
 outfile.Close()

@@ -97,13 +97,13 @@ else
     ti_HT=event.get_trigger_index("HLT_PFHT800Emu_v*");
 bool HT_trigger = event.passes_trigger(ti_HT);
 
-uhh2::Event::TriggerIndex ti_subht=event.get_trigger_index("HLT_AK8PFHT700_TrimR0p1PT0p03Mass50_v*");
-bool Trim_trigger = event.passes_trigger(ti_subht);
+// uhh2::Event::TriggerIndex ti_subht=event.get_trigger_index("HLT_AK8PFHT700_TrimR0p1PT0p03Mass50_v*");
+// bool Trim_trigger = event.passes_trigger(ti_subht);
 
 
 float HT=getHT50(event);
 bool HT_cut= HT>850.0;
-bool Trim_cut= HT>750.0;
+// bool Trim_cut= HT>750.0;
 //if (!(HT_trigger && HT>850.0)) return false;
 
 
