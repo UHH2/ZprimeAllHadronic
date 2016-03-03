@@ -9,8 +9,9 @@ systypes={'mur':'_MUR',
           'toptag':'_TSF',
           'wtag':'_WSF',
           'pdf':'_PDF',
+          'mean':''
           }
-systype_list=['mur','muf','jec','jer','pu','btag','subjetbtag','ttbar','toptag','wtag','pdf']
+systype_list=['mean','mur','muf','jec','jer','pu','btag','subjetbtag','ttbar','toptag','wtag','pdf']
 model=open('../config/Model.xml','r')
 for systype in systype_list:
 	for side in ['UP','DOWN']:
@@ -20,14 +21,29 @@ for systype in systype_list:
 			newline=line
 			if '@@@' in line:
 				newline=line.replace('@@@',systypes[systype]+side)
-			elif systype=='jec' and '$$$JEC' in line:
+			elif systype=='jec' and 'jecsmear_direction' in line:
 				newline=line.replace('nominal',side.lower())
-			elif systype=='jer' and '$$$JER' in line:
+			elif systype=='jer' and 'jersmear_direction' in line:
 				newline=line.replace('nominal',side.lower())
-			elif systype=='mur' and '$$$MUR' in line:
+			elif systype=='mur' and 'ScaleVariationMuR' in line:
 				newline=line.replace('mean',side.lower())
-			elif systype=='muf' and '$$$MUF' in line:
+			elif systype=='muf' and 'ScaleVariationMuF' in line:
 				newline=line.replace('mean',side.lower())
+
+			elif systype=='btag' and 'btagging_sys' in line:
+				newline=line.replace('central',side.lower())
+			elif systype=='subjetbtag' and 'subjetbtag_sys' in line:
+				newline=line.replace('central',side.lower())
+			elif systype=='pu' and 'pileup_sys' in line:
+				newline=line.replace('mean',side.lower())
+			elif systype=='ttbar' and 'ttbar_sys' in line:
+				newline=line.replace('mean',side.lower())
+			elif systype=='toptag' and 'toptag_sys' in line:
+				newline=line.replace('mean',side.lower())
+			elif systype=='wtag' and 'wtag_sys' in line:
+				newline=line.replace('mean',side.lower())
+
+
 			sysconfig.write(newline)
 		model.close()
 		sysconfig.close()

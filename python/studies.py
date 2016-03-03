@@ -1168,5 +1168,41 @@ for masspoint in [0,3,6]:
 
 ######systematics compare
 make_comp(data_file.Get("Selection/bkg1"),data_file.Get("Selection/bkg1up"),data_file.Get("Selection/bkg1down"),'SYS_bkg',10)
+syspath='/nfs/dust/cms/user/usaiem/sys/'
+systypes={'mur':'_MUR',
+          'muf':'_MUF',
+          'jec':'_JEC',
+          'jer':'_JER',
+          'pu':'_PU',
+          'btag':'_BAK4SF',
+          'subjetbtag':'_BAK8SF',
+          'ttbar':'_TTBAR',
+          'toptag':'_TSF',
+          'wtag':'_WSF',
+          'pdf':'_PDF',
+          'mean':''
+          }
+ttbar_string='MC.TTbar'
+up='UP'
+down='DOWN'
+ttbar_MURUP=TFile(syspath+filename_base+ttbar_string+systypes['mur']+up+root)
+ttbar_MURDOWN=TFile(syspath+filename_base+ttbar_string+systypes['mur']+down+root)
+ttbar_MUFUP=TFile(syspath+filename_base+ttbar_string+systypes['muf']+up+root)
+ttbar_MUFDOWN=TFile(syspath+filename_base+ttbar_string+systypes['muf']+down+root)
+ttbar_mean=TFile(syspath+filename_base+ttbar_string+systypes['mean']+up+root)
+ttbar_JECUP=TFile(syspath+filename_base+ttbar_string+systypes['jec']+up+root)
+ttbar_JECDOWN=TFile(syspath+filename_base+ttbar_string+systypes['jec']+down+root)
+ttbar_JERUP=TFile(syspath+filename_base+ttbar_string+systypes['jer']+up+root)
+ttbar_JERDOWN=TFile(syspath+filename_base+ttbar_string+systypes['jer']+down+root)
+sr1name="Selection/zprimemassnobtag"
+sr2name="Selection/zprimemassbtag"
+make_comp(ttbar_mean.Get(sr1name),ttbar_MURUP.Get(sr1name),ttbar_MURDOWN.Get(sr1name),'SYS_mur1',10)
+make_comp(ttbar_mean.Get(sr2name),ttbar_MURUP.Get(sr2name),ttbar_MURDOWN.Get(sr2name),'SYS_mur2',10)
+make_comp(ttbar_mean.Get(sr1name),ttbar_MUFUP.Get(sr1name),ttbar_MUFDOWN.Get(sr1name),'SYS_muf1',10)
+make_comp(ttbar_mean.Get(sr2name),ttbar_MUFUP.Get(sr2name),ttbar_MUFDOWN.Get(sr2name),'SYS_muf2',10)
+make_comp(ttbar_mean.Get(sr1name),ttbar_JECUP.Get(sr1name),ttbar_JECDOWN.Get(sr1name),'SYS_jec1',10)
+make_comp(ttbar_mean.Get(sr2name),ttbar_JECUP.Get(sr2name),ttbar_JECDOWN.Get(sr2name),'SYS_jec2',10)
+make_comp(ttbar_mean.Get(sr1name),ttbar_JERUP.Get(sr1name),ttbar_JERDOWN.Get(sr1name),'SYS_jer1',10)
+make_comp(ttbar_mean.Get(sr2name),ttbar_JERUP.Get(sr2name),ttbar_JERDOWN.Get(sr2name),'SYS_jer2',10)
 
 outfile.Close()

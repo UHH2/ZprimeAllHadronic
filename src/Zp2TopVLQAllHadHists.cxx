@@ -1758,28 +1758,28 @@ if (has_ww)
       }
     }
     cout<<index<<found<<duebtag;
-    if (found)
-    {
-      float TpMass=TprimeMass(TpW[index],TpB[index]);
-      float TpMass2=TprimeMass(TpW2[index],TpB2[index]);
-  hist("TT1btag_tprimemass")->Fill(,weight*additional_weight);
-  hist("TT1btag_tprimemass1")->Fill(,weight*additional_weight);
-  hist("TT1btag_tprimemass2")->Fill(,weight*additional_weight);
-  hist("TT1btag_tprimept")->Fill(,weight*additional_weight);
-  hist("TT1btag_tprimept1")->Fill(,weight*additional_weight);
-  hist("TT1btag_tprimept2")->Fill(,weight*additional_weight);
-  hist("TT1btag_mass")->Fill(,weight*additional_weight);
-  hist("TT1btag_dmass")->Fill(,weight*additional_weight);
-  hist("TT1btag_dmassomass")->Fill(,weight*additional_weight);
-  hist("TT1btag_htak8")->Fill(,weight*additional_weight);
-  hist("TT1btag_htak8ak4")->Fill(,weight*additional_weight);
-  hist("TT1btag_smass")->Fill(,weight*additional_weight);
-  hist("TT1btag_pt")->Fill(,weight*additional_weight);
-    }
-    else
-    {
+  //   if (found)
+  //   {
+  //     float TpMass=TprimeMass(TpW[index],TpB[index]);
+  //     float TpMass2=TprimeMass(TpW2[index],TpB2[index]);
+  // hist("TT1btag_tprimemass")->Fill(,weight*additional_weight);
+  // hist("TT1btag_tprimemass1")->Fill(,weight*additional_weight);
+  // hist("TT1btag_tprimemass2")->Fill(,weight*additional_weight);
+  // hist("TT1btag_tprimept")->Fill(,weight*additional_weight);
+  // hist("TT1btag_tprimept1")->Fill(,weight*additional_weight);
+  // hist("TT1btag_tprimept2")->Fill(,weight*additional_weight);
+  // hist("TT1btag_mass")->Fill(,weight*additional_weight);
+  // hist("TT1btag_dmass")->Fill(,weight*additional_weight);
+  // hist("TT1btag_dmassomass")->Fill(,weight*additional_weight);
+  // hist("TT1btag_htak8")->Fill(,weight*additional_weight);
+  // hist("TT1btag_htak8ak4")->Fill(,weight*additional_weight);
+  // hist("TT1btag_smass")->Fill(,weight*additional_weight);
+  // hist("TT1btag_pt")->Fill(,weight*additional_weight);
+  //   }
+  //   else
+  //   {
 
-    }
+  //   }
   }
 
 

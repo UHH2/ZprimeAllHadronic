@@ -492,7 +492,7 @@ float TTbarWeight(const Event & event, int syst)
   TTbarGen ttbargen(*event.genparticles, false);
   if (ttbargen.DecayChannel()==TTbarGen::e_notfound)
   {
-    cout<<"ttbargen not found"; return 1.0;
+    /*cout<<"ttbargen not found";*/ return 1.0;
   }
   // float N=0.92;
   // float alpha=-0.00096;

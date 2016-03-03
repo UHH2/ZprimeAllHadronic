@@ -54,6 +54,7 @@ SelectionModule::SelectionModule(Context & ctx){
     //commonObjectCleaning->switch_jetPtSorter(true);
     commonObjectCleaning->disable_jersmear();
     string pu_sys="";
+    
     if (contains(version,"PUUP")) pu_sys="up";
     if (contains(version,"PUDOWN")) pu_sys="down";
     //if (pu_sys=="") commonObjectCleaning->init(ctx);
@@ -80,7 +81,7 @@ SelectionModule::SelectionModule(Context & ctx){
     h_btageffAK8.reset(new BTagMCEfficiencyHists(ctx, "BTagMCEfficiencyHistsAK8",CSVBTag::WP_MEDIUM,"topjets"));
     
     //btag SF and systematics
-    string sysAK4="central";
+    string sysAK4=ctx.get("dataset_version", "<not set>");;
     if (contains(version,"BAK4SFUP")) sysAK4="up";
     if (contains(version,"BAK4SFDOWN")) sysAK4="down";
     string sysAK8="central";
@@ -177,14 +178,15 @@ if (!event.isRealData)
     topjetcorrector->process(event);
     subjetcorrector->process(event);
     jetcorrector->process(event);
-
-    h_selection->fill(event);
+   
     h_btageffAK4->fill(event);
     h_btageffAK8->fill(event);
 
     btagwAK4->process(event);
     btagwAK8->process(event);
     scalevar->process(event);
+
+    h_selection->fill(event);
 
     if (is_allhad)
     {

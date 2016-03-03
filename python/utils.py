@@ -805,7 +805,10 @@ def make_ratioplot2(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[]
 
 
 
-def make_comp(mean_histo,up_histo,down_histo,cname,rebin=1):
+def make_comp(mean_histo_orig,up_histo_orig,down_histo_orig,cname,rebin=1):
+    mean_histo=mean_histo_orig.Clone()
+    up_histo=up_histo_orig.Clone()
+    down_histo=down_histo_orig.Clone()
     legend=TLegend(0.65,0.5,0.945,0.895,cname)
     legend.SetFillColor(kWhite)
     legend.SetBorderSize(0)
@@ -850,9 +853,10 @@ def make_comp(mean_histo,up_histo,down_histo,cname,rebin=1):
     mean_histo.Rebin(rebin)
     up_histo.Rebin(rebin)
     down_histo.Rebin(rebin)
+    up_histo.SetMaximum(max(up_histo.GetMaximum(),down_histo.GetMaximum(),mean_histo.GetMaximum())*1.2)
     up_histo.Draw('histo')
-    down_histo.Draw('histoSAME')
     mean_histo.Draw('histoSAME')
+    down_histo.Draw('histoSAME')
     legend.AddEntry(mean_histo,'normal','l')
     legend.AddEntry(up_histo,'up','l')
     legend.AddEntry(down_histo,'down','l')
