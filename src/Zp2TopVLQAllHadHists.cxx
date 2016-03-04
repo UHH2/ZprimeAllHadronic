@@ -1449,18 +1449,21 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
 
 
   string version=ctx.get("dataset_version", "<not set>");
+  string s_top_sys=ctx.get("toptag_sys", "mean");
+  string s_w_sys=ctx.get("wtag_sys", "mean");
+  string s_ttbar_sys=ctx.get("ttbar_sys", "mean");
   top_sys=0;
   w_sys=0;
   //pu_sys=0;
   ttbar_sys=0;
 
-  if (contains(version,"TTBARUP")&&contains(version,"TTbar")) ttbar_sys=1;
-  if (contains(version,"TTBARDOWN")&&contains(version,"TTbar")) ttbar_sys=-1;
+  if (s_ttbar_sys=="up"&&contains(version,"TTbar")) ttbar_sys=1;
+  if (s_ttbar_sys=="down"&&contains(version,"TTbar")) ttbar_sys=-1;
 
-  if (contains(version,"TSFUP")) top_sys=1;
-  if (contains(version,"TSFDOWN")) top_sys=-1;
-  if (contains(version,"WSFUP")) w_sys=1;
-  if (contains(version,"WSFDOWN")) w_sys=-1;
+  if (s_top_sys=="up") top_sys=1;
+  if (s_top_sys=="down") top_sys=-1;
+  if (s_w_sys=="up") w_sys=1;
+  if (s_w_sys=="down") w_sys=-1;
   //if (contains(version,"PUUP")) pu_sys=1;
   //if (contains(version,"PUDOWN")) pu_sys=-1;
 
@@ -1739,10 +1742,10 @@ if (has_ww)
   //T'T'
   if (has_b && has_b2)
   {
-    std::vector<TopJet> TpW  =   {the_w,  the_w2, the_w,  the_w2};
-    std::vector<TopJet> TpW2 =   {the_w2, the_w,  the_w2, the_w};
-    std::vector<Jet> TpB     =   {the_b,  the_b2, the_b2, the_b};
-    std::vector<Jet> TpB2    =   {the_b2, the_b,  the_b,  the_b2};
+    std::vector<TopJet> TpW  =   {the_w,  /*the_w2,*/ the_w/*,  the_w2*/};
+    std::vector<TopJet> TpW2 =   {the_w2, /*the_w,*/  the_w2/*, the_w*/};
+    std::vector<Jet> TpB     =   {the_b,  /*the_b2,*/ the_b2/*, the_b*/};
+    std::vector<Jet> TpB2    =   {the_b2, /*the_b,*/  the_b/*,  the_b2*/};
     bool found=false;
     float biggestTpMass=-1;
     unsigned int index=0;
@@ -1758,31 +1761,41 @@ if (has_ww)
       }
     }
     cout<<index<<found<<duebtag;
-  //   if (found)
-  //   {
-  //     float TpMass=TprimeMass(TpW[index],TpB[index]);
-  //     float TpMass2=TprimeMass(TpW2[index],TpB2[index]);
-  // hist("TT1btag_tprimemass")->Fill(,weight*additional_weight);
-  // hist("TT1btag_tprimemass1")->Fill(,weight*additional_weight);
-  // hist("TT1btag_tprimemass2")->Fill(,weight*additional_weight);
-  // hist("TT1btag_tprimept")->Fill(,weight*additional_weight);
-  // hist("TT1btag_tprimept1")->Fill(,weight*additional_weight);
-  // hist("TT1btag_tprimept2")->Fill(,weight*additional_weight);
-  // hist("TT1btag_mass")->Fill(,weight*additional_weight);
-  // hist("TT1btag_dmass")->Fill(,weight*additional_weight);
-  // hist("TT1btag_dmassomass")->Fill(,weight*additional_weight);
-  // hist("TT1btag_htak8")->Fill(,weight*additional_weight);
-  // hist("TT1btag_htak8ak4")->Fill(,weight*additional_weight);
-  // hist("TT1btag_smass")->Fill(,weight*additional_weight);
-  // hist("TT1btag_pt")->Fill(,weight*additional_weight);
-  //   }
-  //   else
-  //   {
+    if (found) //2 T' tag
+    {
+      float TpMass=TprimeMass(TpW[index],TpB[index]);
+      float TpMass2=TprimeMass(TpW2[index],TpB2[index]);
+      float TpMassMax=std::max(TpMass,TpMass2);
+      float TpMassMin=std::min(TpMass,TpMass2);
+      if (duebtag)
+      {
 
-  //   }
+
+      }
+      else
+      {
+        hist("TT1btag_tprimemass")->Fill(,weight*additional_weight);
+        hist("TT1btag_tprimemass1")->Fill(,weight*additional_weight);
+        hist("TT1btag_tprimemass2")->Fill(,weight*additional_weight);
+        hist("TT1btag_tprimept")->Fill(,weight*additional_weight);
+        hist("TT1btag_tprimept1")->Fill(,weight*additional_weight);
+        hist("TT1btag_tprimept2")->Fill(,weight*additional_weight);
+        hist("TT1btag_mass")->Fill(,weight*additional_weight);
+        hist("TT1btag_dmass")->Fill(,weight*additional_weight);
+        hist("TT1btag_dmassomass")->Fill(,weight*additional_weight);
+        hist("TT1btag_htak8")->Fill(,weight*additional_weight);
+        hist("TT1btag_htak8ak4")->Fill(,weight*additional_weight);
+        hist("TT1btag_smass")->Fill(,weight*additional_weight);
+        hist("TT1btag_pt")->Fill(,weight*additional_weight);
+      }
+    }
+    else //1 T' tag
+    {
+
+    }
   }
 
-
+///////////////////ttbar ANALYSIS
 
 
 

@@ -356,12 +356,15 @@
             <!--//// pileup -->
             <Item Name="pileup_directory_data_up" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/MyDataPileupHistogram_JSON_Silver_up.root" />
             <Item Name="pileup_directory_data_down" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/MyDataPileupHistogram_JSON_Silver_down.root" />
+            <Item Name="pileup_sys" Value="mean" /> 
             <!--set by process name -->
 
             <!--//// btag -->
             <Item Name="MCBtagEfficienciesAK4" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/BTagMCEfficiencyHistsAK4.root" />
             <Item Name="MCBtagEfficienciesAK8" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/BTagMCEfficiencyHistsAK8.root" />
             <Item Name="BTagCalibration" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/CSVv2.csv" />
+            <Item Name="btagging_sys" Value="central" />
+            <Item Name="subjetbtag_sys" Value="central" />
             <!--set by process name -->
 
             <!--//// mu r/f -->
@@ -373,6 +376,8 @@
             <!-- tbd -->
 
             <!--//// top/w tag -->
+            <Item Name="toptag_sys" Value="mean" />
+            <Item Name="wtag_sys" Value="mean" />
             <!-- set by process name -->
 
             <!--//// lumi -->
@@ -382,6 +387,7 @@
             <!-- flat -->
 
             <!--//// ttbar pt reweight -->
+            <Item Name="ttbar_sys" Value="up" />
             <!-- set b process name -->
 
             <!-- the class name of the AnalysisModule subclasses to run: -->

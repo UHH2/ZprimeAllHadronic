@@ -53,10 +53,9 @@ SelectionModule::SelectionModule(Context & ctx){
     //commonObjectCleaning->switch_jetlepcleaner(true);
     //commonObjectCleaning->switch_jetPtSorter(true);
     commonObjectCleaning->disable_jersmear();
-    string pu_sys="";
-    
-    if (contains(version,"PUUP")) pu_sys="up";
-    if (contains(version,"PUDOWN")) pu_sys="down";
+    string pu_sys=ctx.get("pileup_sys", "mean");
+    //if (contains(version,"PUUP")) pu_sys="up";
+    //if (contains(version,"PUDOWN")) pu_sys="down";
     //if (pu_sys=="") commonObjectCleaning->init(ctx);
     /*else */commonObjectCleaning->init(ctx,pu_sys);
     common_modules_with_lumi_sel.reset(commonObjectCleaning);
@@ -81,12 +80,12 @@ SelectionModule::SelectionModule(Context & ctx){
     h_btageffAK8.reset(new BTagMCEfficiencyHists(ctx, "BTagMCEfficiencyHistsAK8",CSVBTag::WP_MEDIUM,"topjets"));
     
     //btag SF and systematics
-    string sysAK4=ctx.get("dataset_version", "<not set>");;
-    if (contains(version,"BAK4SFUP")) sysAK4="up";
-    if (contains(version,"BAK4SFDOWN")) sysAK4="down";
-    string sysAK8="central";
-    if (contains(version,"BAK8SFUP")) sysAK8="up";
-    if (contains(version,"BAK8SFDOWN")) sysAK8="down";
+    string sysAK4=ctx.get("btagging_sys", "central");
+    //if (contains(version,"BAK4SFUP")) sysAK4="up";
+    //if (contains(version,"BAK4SFDOWN")) sysAK4="down";
+    string sysAK8=ctx.get("subjetbtag_sys", "central");
+    //if (contains(version,"BAK8SFUP")) sysAK8="up";
+    //if (contains(version,"BAK8SFDOWN")) sysAK8="down";
     btagwAK4.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "jets",sysAK4,"mujets","comb","MCBtagEfficienciesAK4","_AK4"));
     btagwAK8.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "topjets",sysAK8,"mujets","comb","MCBtagEfficienciesAK8","_AK8"));
 

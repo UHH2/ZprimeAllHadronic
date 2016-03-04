@@ -356,7 +356,7 @@
             <!--//// pileup -->
             <Item Name="pileup_directory_data_up" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/MyDataPileupHistogram_JSON_Silver_up.root" />
             <Item Name="pileup_directory_data_down" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/MyDataPileupHistogram_JSON_Silver_down.root" />
-            <Item Name="pileup_sys" Value="mean" /> <!-- $$$MUR -->
+            <Item Name="pileup_sys" Value="mean" /> 
             <!--set by process name -->
 
             <!--//// btag -->
