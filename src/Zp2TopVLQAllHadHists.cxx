@@ -1394,8 +1394,8 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("TT1btag_tprimept1", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT1btag_tprimept2", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT1btag_mass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag_dmass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag_dmassomass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag_dmass", ";m_{T'};Events", 300, 0, 300);
+  book<TH1F>("TT1btag_dmassomass", ";m_{T'};Events", 300, 0, 1);
   book<TH1F>("TT1btag_htak8", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT1btag_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT1btag_smass", ";m_{T'};Events", 300, 0, 3000);
@@ -1408,8 +1408,8 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("TT2btag_tprimept1", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT2btag_tprimept2", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT2btag_mass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag_dmass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag_dmassomass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag_dmass", ";m_{T'};Events", 300, 0, 300);
+  book<TH1F>("TT2btag_dmassomass", ";m_{T'};Events", 300, 0, 1);
   book<TH1F>("TT2btag_htak8", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT2btag_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT2btag_smass", ";m_{T'};Events", 300, 0, 3000);
@@ -1422,8 +1422,8 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("TT1btag1Tp_tprimept1", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT1btag1Tp_tprimept2", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT1btag1Tp_mass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag1Tp_dmass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag1Tp_dmassomass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag1Tp_dmass", ";m_{T'};Events", 300, 0, 300);
+  book<TH1F>("TT1btag1Tp_dmassomass", ";m_{T'};Events", 300, 0, 1);
   book<TH1F>("TT1btag1Tp_htak8", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT1btag1Tp_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT1btag1Tp_smass", ";m_{T'};Events", 300, 0, 3000);
@@ -1436,12 +1436,71 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("TT2btag1Tp_tprimept1", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT2btag1Tp_tprimept2", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT2btag1Tp_mass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag1Tp_dmass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag1Tp_dmassomass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag1Tp_dmass", ";m_{T'};Events", 300, 0, 300);
+  book<TH1F>("TT2btag1Tp_dmassomass", ";m_{T'};Events", 300, 0, 1);
   book<TH1F>("TT2btag1Tp_htak8", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT2btag1Tp_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT2btag1Tp_smass", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("TT2btag1Tp_pt", ";m_{T'};Events", 300, 0, 3000);
+
+
+
+  //ttbar
+  book<TH1F>("TTbar1btag_tprimemass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag_tprimemass1", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag_tprimemass2", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag_tprimept", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag_tprimept1", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag_tprimept2", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag_mass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag_dmass", ";m_{T'};Events", 300, 0, 300);
+  book<TH1F>("TTbar1btag_dmassomass", ";m_{T'};Events", 300, 0, 1);
+  book<TH1F>("TTbar1btag_htak8", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag_smass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag_pt", ";m_{T'};Events", 300, 0, 3000);
+
+  book<TH1F>("TTbar2btag_tprimemass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag_tprimemass1", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag_tprimemass2", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag_tprimept", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag_tprimept1", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag_tprimept2", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag_mass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag_dmass", ";m_{T'};Events", 300, 0, 300);
+  book<TH1F>("TTbar2btag_dmassomass", ";m_{T'};Events", 300, 0, 1);
+  book<TH1F>("TTbar2btag_htak8", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag_smass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag_pt", ";m_{T'};Events", 300, 0, 3000);
+
+  book<TH1F>("TTbar1btag1Tp_tprimemass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag1Tp_tprimemass1", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag1Tp_tprimemass2", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag1Tp_tprimept", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag1Tp_tprimept1", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag1Tp_tprimept2", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag1Tp_mass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag1Tp_dmass", ";m_{T'};Events", 300, 0, 300);
+  book<TH1F>("TTbar1btag1Tp_dmassomass", ";m_{T'};Events", 300, 0, 1);
+  book<TH1F>("TTbar1btag1Tp_htak8", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag1Tp_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag1Tp_smass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag1Tp_pt", ";m_{T'};Events", 300, 0, 3000);
+
+  book<TH1F>("TTbar2btag1Tp_tprimemass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag1Tp_tprimemass1", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag1Tp_tprimemass2", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag1Tp_tprimept", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag1Tp_tprimept1", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag1Tp_tprimept2", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag1Tp_mass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag1Tp_dmass", ";m_{T'};Events", 300, 0, 300);
+  book<TH1F>("TTbar2btag1Tp_dmassomass", ";m_{T'};Events", 300, 0, 1);
+  book<TH1F>("TTbar2btag1Tp_htak8", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag1Tp_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag1Tp_smass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag1Tp_pt", ";m_{T'};Events", 300, 0, 3000);
 
   // book<TH1F>("TT_", ";m_{T'};Events", 300, 0, 3000);
   // book<TH1F>("TT_", ";m_{T'};Events", 300, 0, 3000);
@@ -1711,6 +1770,7 @@ if (!event.isRealData)
 ///////////////////TpTp ANALYSIS
 if (has_ww)
 {
+  float additional_weight=WTagSF(event, the_w, w_sys)*WTagSF(event, the_w2, w_sys);
   float DELTA_R=0.8;
   //float additional_weight=WTagSF(event, the_w, w_sys)*WTagSF(event, the_w2, w_sys);
   bool has_b=false;
@@ -1734,11 +1794,6 @@ if (has_ww)
       the_b2=jet; has_b2=true; break;
     }
 
-
-
-
-
-
   //T'T'
   if (has_b && has_b2)
   {
@@ -1756,90 +1811,296 @@ if (has_ww)
       if(TpMass>500.0 && TpMass2>500.0 && std::max({TpMass,TpMass2})>biggestTpMass)
       {
         found=true;
-        biggestTpMass=TpMass;
+        biggestTpMass=std::max({TpMass,TpMass2});
         index=i;
       }
     }
-    cout<<index<<found<<duebtag;
+    //cout<<index<<found<<duebtag;
     if (found) //2 T' tag
     {
       float TpMass=TprimeMass(TpW[index],TpB[index]);
       float TpMass2=TprimeMass(TpW2[index],TpB2[index]);
+      float TpPt=TprimePt(TpW[index],TpB[index]);
+      float TpPt2=TprimePt(TpW2[index],TpB2[index]);
       float TpMassMax=std::max(TpMass,TpMass2);
       float TpMassMin=std::min(TpMass,TpMass2);
+      float TpPtMax=std::max(TpPt,TpPt2);
+      float TpPtMin=std::min(TpPt,TpPt2);
+      float totalmass=ZprimeMassResVLQ(TpW[index],TpW2[index],TpB[index],TpB2[index]);
+      float totalpt=ZprimePtResVLQ(TpW[index],TpW2[index],TpB[index],TpB2[index]);
       if (duebtag)
       {
-
-
+        hist("TT2btag_tprimemass")->Fill(TpMass,weight*additional_weight);
+        hist("TT2btag_tprimemass")->Fill(TpMass2,weight*additional_weight);
+        hist("TT2btag_tprimemass1")->Fill(TpMassMax,weight*additional_weight);
+        hist("TT2btag_tprimemass2")->Fill(TpMassMin,weight*additional_weight);
+        hist("TT2btag_tprimept")->Fill(TpPt,weight*additional_weight);
+        hist("TT2btag_tprimept")->Fill(TpPt2,weight*additional_weight);
+        hist("TT2btag_tprimept1")->Fill(TpPtMax,weight*additional_weight);
+        hist("TT2btag_tprimept2")->Fill(TpPtMin,weight*additional_weight);
+        hist("TT2btag_mass")->Fill(totalmass,weight*additional_weight);
+        hist("TT2btag_dmass")->Fill(TpMassMax-TpMassMin,weight*additional_weight);
+        hist("TT2btag_dmassomass")->Fill((TpMassMax-TpMassMin)/TpMassMax,weight*additional_weight);
+        hist("TT2btag_htak8")->Fill(TpW[index].pt()+TpW2[index].pt(),weight*additional_weight);
+        hist("TT2btag_htak8ak4")->Fill(TpW[index].pt()+TpW2[index].pt()+TpB[index].pt()+TpB2[index].pt(),weight*additional_weight);
+        hist("TT2btag_smass")->Fill(TpMass2+TpMass,weight*additional_weight);
+        hist("TT2btag_pt")->Fill(totalpt,weight*additional_weight);
       }
       else
       {
-        hist("TT1btag_tprimemass")->Fill(,weight*additional_weight);
-        hist("TT1btag_tprimemass1")->Fill(,weight*additional_weight);
-        hist("TT1btag_tprimemass2")->Fill(,weight*additional_weight);
-        hist("TT1btag_tprimept")->Fill(,weight*additional_weight);
-        hist("TT1btag_tprimept1")->Fill(,weight*additional_weight);
-        hist("TT1btag_tprimept2")->Fill(,weight*additional_weight);
-        hist("TT1btag_mass")->Fill(,weight*additional_weight);
-        hist("TT1btag_dmass")->Fill(,weight*additional_weight);
-        hist("TT1btag_dmassomass")->Fill(,weight*additional_weight);
-        hist("TT1btag_htak8")->Fill(,weight*additional_weight);
-        hist("TT1btag_htak8ak4")->Fill(,weight*additional_weight);
-        hist("TT1btag_smass")->Fill(,weight*additional_weight);
-        hist("TT1btag_pt")->Fill(,weight*additional_weight);
+        hist("TT1btag_tprimemass")->Fill(TpMass,weight*additional_weight);
+        hist("TT1btag_tprimemass")->Fill(TpMass2,weight*additional_weight);
+        hist("TT1btag_tprimemass1")->Fill(TpMassMax,weight*additional_weight);
+        hist("TT1btag_tprimemass2")->Fill(TpMassMin,weight*additional_weight);
+        hist("TT1btag_tprimept")->Fill(TpPt,weight*additional_weight);
+        hist("TT1btag_tprimept")->Fill(TpPt2,weight*additional_weight);
+        hist("TT1btag_tprimept1")->Fill(TpPtMax,weight*additional_weight);
+        hist("TT1btag_tprimept2")->Fill(TpPtMin,weight*additional_weight);
+        hist("TT1btag_mass")->Fill(totalmass,weight*additional_weight);
+        hist("TT1btag_dmass")->Fill(TpMassMax-TpMassMin,weight*additional_weight);
+        hist("TT1btag_dmassomass")->Fill((TpMassMax-TpMassMin)/TpMassMax,weight*additional_weight);
+        hist("TT1btag_htak8")->Fill(TpW[index].pt()+TpW2[index].pt(),weight*additional_weight);
+        hist("TT1btag_htak8ak4")->Fill(TpW[index].pt()+TpW2[index].pt()+TpB[index].pt()+TpB2[index].pt(),weight*additional_weight);
+        hist("TT1btag_smass")->Fill(TpMass2+TpMass,weight*additional_weight);
+        hist("TT1btag_pt")->Fill(totalpt,weight*additional_weight);
       }
     }
     else //1 T' tag
     {
-
+      bool found2=false;
+      float biggestTpMass2=-1;
+      unsigned int index2=0;
+      for(unsigned int i=0;i<TpW.size();i++)
+      {
+        float TpMass=TprimeMass(TpW[i],TpB[i]);
+        float TpMass2=TprimeMass(TpW2[i],TpB2[i]);
+        if((TpMass>500.0 || TpMass2>500.0) && std::max({TpMass,TpMass2})>biggestTpMass2)
+        {
+          found2=true;
+          biggestTpMass2=std::max({TpMass,TpMass2});
+          index2=i;
+        }
+      }
+      if (found2)
+      {
+        float TpMass=TprimeMass(TpW[index2],TpB[index2]);
+        float TpMass2=TprimeMass(TpW2[index2],TpB2[index2]);
+        float TpPt=TprimePt(TpW[index2],TpB[index2]);
+        float TpPt2=TprimePt(TpW2[index2],TpB2[index2]);
+        float TpMassMax=std::max(TpMass,TpMass2);
+        float TpMassMin=std::min(TpMass,TpMass2);
+        float TpPtMax=std::max(TpPt,TpPt2);
+        float TpPtMin=std::min(TpPt,TpPt2);
+        float totalmass=ZprimeMassResVLQ(TpW[index2],TpW2[index2],TpB[index2],TpB2[index2]);
+        float totalpt=ZprimePtResVLQ(TpW[index2],TpW2[index2],TpB[index2],TpB2[index2]);
+        if (duebtag)
+        {
+          hist("TT2btag1Tp_tprimemass")->Fill(TpMass,weight*additional_weight);
+          hist("TT2btag1Tp_tprimemass")->Fill(TpMass2,weight*additional_weight);
+          hist("TT2btag1Tp_tprimemass1")->Fill(TpMassMax,weight*additional_weight);
+          hist("TT2btag1Tp_tprimemass2")->Fill(TpMassMin,weight*additional_weight);
+          hist("TT2btag1Tp_tprimept")->Fill(TpPt,weight*additional_weight);
+          hist("TT2btag1Tp_tprimept")->Fill(TpPt2,weight*additional_weight);
+          hist("TT2btag1Tp_tprimept1")->Fill(TpPtMax,weight*additional_weight);
+          hist("TT2btag1Tp_tprimept2")->Fill(TpPtMin,weight*additional_weight);
+          hist("TT2btag1Tp_mass")->Fill(totalmass,weight*additional_weight);
+          hist("TT2btag1Tp_dmass")->Fill(TpMassMax-TpMassMin,weight*additional_weight);
+          hist("TT2btag1Tp_dmassomass")->Fill((TpMassMax-TpMassMin)/TpMassMax,weight*additional_weight);
+          hist("TT2btag1Tp_htak8")->Fill(TpW[index2].pt()+TpW2[index2].pt(),weight*additional_weight);
+          hist("TT2btag1Tp_htak8ak4")->Fill(TpW[index2].pt()+TpW2[index2].pt()+TpB[index2].pt()+TpB2[index2].pt(),weight*additional_weight);
+          hist("TT2btag1Tp_smass")->Fill(TpMass2+TpMass,weight*additional_weight);
+          hist("TT2btag1Tp_pt")->Fill(totalpt,weight*additional_weight);
+        }
+        else
+        {
+          hist("TT1btag1Tp_tprimemass")->Fill(TpMass,weight*additional_weight);
+          hist("TT1btag1Tp_tprimemass")->Fill(TpMass2,weight*additional_weight);
+          hist("TT1btag1Tp_tprimemass1")->Fill(TpMassMax,weight*additional_weight);
+          hist("TT1btag1Tp_tprimemass2")->Fill(TpMassMin,weight*additional_weight);
+          hist("TT1btag1Tp_tprimept")->Fill(TpPt,weight*additional_weight);
+          hist("TT1btag1Tp_tprimept")->Fill(TpPt2,weight*additional_weight);
+          hist("TT1btag1Tp_tprimept1")->Fill(TpPtMax,weight*additional_weight);
+          hist("TT1btag1Tp_tprimept2")->Fill(TpPtMin,weight*additional_weight);
+          hist("TT1btag1Tp_mass")->Fill(totalmass,weight*additional_weight);
+          hist("TT1btag1Tp_dmass")->Fill(TpMassMax-TpMassMin,weight*additional_weight);
+          hist("TT1btag1Tp_dmassomass")->Fill((TpMassMax-TpMassMin)/TpMassMax,weight*additional_weight);
+          hist("TT1btag1Tp_htak8")->Fill(TpW[index2].pt()+TpW2[index2].pt(),weight*additional_weight);
+          hist("TT1btag1Tp_htak8ak4")->Fill(TpW[index2].pt()+TpW2[index2].pt()+TpB[index2].pt()+TpB2[index2].pt(),weight*additional_weight);
+          hist("TT1btag1Tp_smass")->Fill(TpMass2+TpMass,weight*additional_weight);
+        }
+      }
     }
   }
-
-///////////////////ttbar ANALYSIS
-
-
-
-
-
-  // if (has_b && has_b2)
-  // {
-  //   std::vector<TopJet> TopW =    {the_w,  the_w2, the_w,  the_w2};
-  //   std::vector<TopJet> TprimeW = {the_w2, the_w,  the_w2, the_w};
-  //   std::vector<Jet> TopB =       {the_b,  the_b2, the_b2, the_b};
-  //   std::vector<Jet> TprimeB =    {the_b2, the_b,  the_b,  the_b2};
-  //   float biggestTprimeMass=-1;
-  //   bool found=false;
-  //   unsigned int index=0;
-  //   for(unsigned int i=0;i<TopW.size();i++)
-  //   {
-  //     float TopMass=TprimeMass(TopW[i],TopB[i]);
-  //     float TprimeMass2=TprimeMass(TprimeW[i],TprimeB[i]);
-  //     if (TopMass>140.0 && TopMass<250.0 && TprimeMass2>biggestTprimeMass)
-  //     {
-  //       found=true;
-  //       biggestTprimeMass=TprimeMass2;
-  //       index=i;
-  //     }
-  //   }
-  //   if (found)
-  //   {
-  //     float TprimeMass2=TprimeMass(TprimeW[index],TprimeB[index]);
-  //     hist("tprimemass_res")->Fill(TprimeMass2,weight*additional_weight);
-  //     if (TprimeMass2>500.0)
-  //     {
-  //       float ZprimeMass=ZprimeMassResVLQ(TprimeW[index],TopW[index],TprimeB[index],TopB[index]);
-  //       if (duebtag) hist("zprimemassbtag_res")->Fill(ZprimeMass,weight*additional_weight);
-  //       else hist("zprimemassnobtag_res")->Fill(ZprimeMass,weight*additional_weight);
-  //     }
- 
-  //   }
-  // }
- 
 }
 //end of TpTp analysis
  
+///////////////////ttbar ANALYSIS
+if (has_ww)
+{
+  float additional_weight=WTagSF(event, the_w, w_sys)*WTagSF(event, the_w2, w_sys);
+  float DELTA_R=0.1;
+  //float additional_weight=WTagSF(event, the_w, w_sys)*WTagSF(event, the_w2, w_sys);
+  bool has_b=false;
+  bool has_b2=false;
+  bool duebtag=false;
+  for(auto jet : *event.jets)
+    if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_w)>DELTA_R &&deltaR(jet,the_w2)>DELTA_R && jet.pt()>50.0)
+    {
+      the_b=jet; has_b=true; break;
+    }  
+  if (has_b) for(auto jet : *event.jets)
+    if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_w)>DELTA_R &&deltaR(jet,the_w2)>DELTA_R && jet.pt()>50.0 && fabs(jet.eta()-the_b.eta())>0.01)
+    {
+      
+      the_b2=jet; has_b2=true; duebtag=true; break;
+    }
+  if (has_b && !has_b2) for(auto jet : *event.jets)
+    if (deltaR(jet,the_w)>DELTA_R &&deltaR(jet,the_w2)>DELTA_R && jet.pt()>50.0 && fabs(jet.eta()-the_b.eta())>0.01)
+    {
+      
+      the_b2=jet; has_b2=true; break;
+    }
 
+  //ttbar
+  if (has_b && has_b2)
+  {
+    std::vector<TopJet> TpW  =   {the_w,  /*the_w2,*/ the_w/*,  the_w2*/};
+    std::vector<TopJet> TpW2 =   {the_w2, /*the_w,*/  the_w2/*, the_w*/};
+    std::vector<Jet> TpB     =   {the_b,  /*the_b2,*/ the_b2/*, the_b*/};
+    std::vector<Jet> TpB2    =   {the_b2, /*the_b,*/  the_b/*,  the_b2*/};
+    bool found=false;
+    //float biggestTpMass=-1;
+    unsigned int index=0;
+    for(unsigned int i=0;i<TpW.size();i++)
+    {
+      float TpMass=TprimeMass(TpW[i],TpB[i]);
+      float TpMass2=TprimeMass(TpW2[i],TpB2[i]);
+      if(TpMass>140.0 && TpMass<250.0 && TpMass2>140.0 && TpMass2<250.0 /*&& std::max({TpMass,TpMass2})>biggestTpMass*/)
+      {
+        found=true;
+        //biggestTpMass=std::max({TpMass,TpMass2});
+        index=i;
+      }
+    }
+    //cout<<index<<found<<duebtag;
+    if (found) //2 T' tag
+    {
+      float TpMass=TprimeMass(TpW[index],TpB[index]);
+      float TpMass2=TprimeMass(TpW2[index],TpB2[index]);
+      float TpPt=TprimePt(TpW[index],TpB[index]);
+      float TpPt2=TprimePt(TpW2[index],TpB2[index]);
+      float TpMassMax=std::max(TpMass,TpMass2);
+      float TpMassMin=std::min(TpMass,TpMass2);
+      float TpPtMax=std::max(TpPt,TpPt2);
+      float TpPtMin=std::min(TpPt,TpPt2);
+      float totalmass=ZprimeMassResVLQ(TpW[index],TpW2[index],TpB[index],TpB2[index]);
+      float totalpt=ZprimePtResVLQ(TpW[index],TpW2[index],TpB[index],TpB2[index]);
+      if (duebtag)
+      {
+        hist("TTbar2btag_tprimemass")->Fill(TpMass,weight*additional_weight);
+        hist("TTbar2btag_tprimemass")->Fill(TpMass2,weight*additional_weight);
+        hist("TTbar2btag_tprimemass1")->Fill(TpMassMax,weight*additional_weight);
+        hist("TTbar2btag_tprimemass2")->Fill(TpMassMin,weight*additional_weight);
+        hist("TTbar2btag_tprimept")->Fill(TpPt,weight*additional_weight);
+        hist("TTbar2btag_tprimept")->Fill(TpPt2,weight*additional_weight);
+        hist("TTbar2btag_tprimept1")->Fill(TpPtMax,weight*additional_weight);
+        hist("TTbar2btag_tprimept2")->Fill(TpPtMin,weight*additional_weight);
+        hist("TTbar2btag_mass")->Fill(totalmass,weight*additional_weight);
+        hist("TTbar2btag_dmass")->Fill(TpMassMax-TpMassMin,weight*additional_weight);
+        hist("TTbar2btag_dmassomass")->Fill((TpMassMax-TpMassMin)/TpMassMax,weight*additional_weight);
+        hist("TTbar2btag_htak8")->Fill(TpW[index].pt()+TpW2[index].pt(),weight*additional_weight);
+        hist("TTbar2btag_htak8ak4")->Fill(TpW[index].pt()+TpW2[index].pt()+TpB[index].pt()+TpB2[index].pt(),weight*additional_weight);
+        hist("TTbar2btag_smass")->Fill(TpMass2+TpMass,weight*additional_weight);
+        hist("TTbar2btag_pt")->Fill(totalpt,weight*additional_weight);
+      }
+      else
+      {
+        hist("TTbar1btag_tprimemass")->Fill(TpMass,weight*additional_weight);
+        hist("TTbar1btag_tprimemass")->Fill(TpMass2,weight*additional_weight);
+        hist("TTbar1btag_tprimemass1")->Fill(TpMassMax,weight*additional_weight);
+        hist("TTbar1btag_tprimemass2")->Fill(TpMassMin,weight*additional_weight);
+        hist("TTbar1btag_tprimept")->Fill(TpPt,weight*additional_weight);
+        hist("TTbar1btag_tprimept")->Fill(TpPt2,weight*additional_weight);
+        hist("TTbar1btag_tprimept1")->Fill(TpPtMax,weight*additional_weight);
+        hist("TTbar1btag_tprimept2")->Fill(TpPtMin,weight*additional_weight);
+        hist("TTbar1btag_mass")->Fill(totalmass,weight*additional_weight);
+        hist("TTbar1btag_dmass")->Fill(TpMassMax-TpMassMin,weight*additional_weight);
+        hist("TTbar1btag_dmassomass")->Fill((TpMassMax-TpMassMin)/TpMassMax,weight*additional_weight);
+        hist("TTbar1btag_htak8")->Fill(TpW[index].pt()+TpW2[index].pt(),weight*additional_weight);
+        hist("TTbar1btag_htak8ak4")->Fill(TpW[index].pt()+TpW2[index].pt()+TpB[index].pt()+TpB2[index].pt(),weight*additional_weight);
+        hist("TTbar1btag_smass")->Fill(TpMass2+TpMass,weight*additional_weight);
+        hist("TTbar1btag_pt")->Fill(totalpt,weight*additional_weight);
+      }
+    }
+    else //1 T' tag
+    {
+      bool found2=false;
+      //float biggestTpMass2=-1;
+      unsigned int index2=0;
+      for(unsigned int i=0;i<TpW.size();i++)
+      {
+        float TpMass=TprimeMass(TpW[i],TpB[i]);
+        float TpMass2=TprimeMass(TpW2[i],TpB2[i]);
+        if(( ( TpMass>140.0 && TpMass<250.0 ) || ( TpMass2>140.0 && TpMass2<250.0 ) ) /*&& std::max({TpMass,TpMass2})>biggestTpMass2*/)
+        {
+          found2=true;
+          //biggestTpMass2=std::max({TpMass,TpMass2});
+          index2=i;
+        }
+      }
+      if (found2)
+      {
+        float TpMass=TprimeMass(TpW[index2],TpB[index2]);
+        float TpMass2=TprimeMass(TpW2[index2],TpB2[index2]);
+        float TpPt=TprimePt(TpW[index2],TpB[index2]);
+        float TpPt2=TprimePt(TpW2[index2],TpB2[index2]);
+        float TpMassMax=std::max(TpMass,TpMass2);
+        float TpMassMin=std::min(TpMass,TpMass2);
+        float TpPtMax=std::max(TpPt,TpPt2);
+        float TpPtMin=std::min(TpPt,TpPt2);
+        float totalmass=ZprimeMassResVLQ(TpW[index2],TpW2[index2],TpB[index2],TpB2[index2]);
+        float totalpt=ZprimePtResVLQ(TpW[index2],TpW2[index2],TpB[index2],TpB2[index2]);
+        if (duebtag)
+        {
+          hist("TTbar2btag1Tp_tprimemass")->Fill(TpMass,weight*additional_weight);
+          hist("TTbar2btag1Tp_tprimemass")->Fill(TpMass2,weight*additional_weight);
+          hist("TTbar2btag1Tp_tprimemass1")->Fill(TpMassMax,weight*additional_weight);
+          hist("TTbar2btag1Tp_tprimemass2")->Fill(TpMassMin,weight*additional_weight);
+          hist("TTbar2btag1Tp_tprimept")->Fill(TpPt,weight*additional_weight);
+          hist("TTbar2btag1Tp_tprimept")->Fill(TpPt2,weight*additional_weight);
+          hist("TTbar2btag1Tp_tprimept1")->Fill(TpPtMax,weight*additional_weight);
+          hist("TTbar2btag1Tp_tprimept2")->Fill(TpPtMin,weight*additional_weight);
+          hist("TTbar2btag1Tp_mass")->Fill(totalmass,weight*additional_weight);
+          hist("TTbar2btag1Tp_dmass")->Fill(TpMassMax-TpMassMin,weight*additional_weight);
+          hist("TTbar2btag1Tp_dmassomass")->Fill((TpMassMax-TpMassMin)/TpMassMax,weight*additional_weight);
+          hist("TTbar2btag1Tp_htak8")->Fill(TpW[index2].pt()+TpW2[index2].pt(),weight*additional_weight);
+          hist("TTbar2btag1Tp_htak8ak4")->Fill(TpW[index2].pt()+TpW2[index2].pt()+TpB[index2].pt()+TpB2[index2].pt(),weight*additional_weight);
+          hist("TTbar2btag1Tp_smass")->Fill(TpMass2+TpMass,weight*additional_weight);
+          hist("TTbar2btag1Tp_pt")->Fill(totalpt,weight*additional_weight);
+        }
+        else
+        {
+          hist("TTbar1btag1Tp_tprimemass")->Fill(TpMass,weight*additional_weight);
+          hist("TTbar1btag1Tp_tprimemass")->Fill(TpMass2,weight*additional_weight);
+          hist("TTbar1btag1Tp_tprimemass1")->Fill(TpMassMax,weight*additional_weight);
+          hist("TTbar1btag1Tp_tprimemass2")->Fill(TpMassMin,weight*additional_weight);
+          hist("TTbar1btag1Tp_tprimept")->Fill(TpPt,weight*additional_weight);
+          hist("TTbar1btag1Tp_tprimept")->Fill(TpPt2,weight*additional_weight);
+          hist("TTbar1btag1Tp_tprimept1")->Fill(TpPtMax,weight*additional_weight);
+          hist("TTbar1btag1Tp_tprimept2")->Fill(TpPtMin,weight*additional_weight);
+          hist("TTbar1btag1Tp_mass")->Fill(totalmass,weight*additional_weight);
+          hist("TTbar1btag1Tp_dmass")->Fill(TpMassMax-TpMassMin,weight*additional_weight);
+          hist("TTbar1btag1Tp_dmassomass")->Fill((TpMassMax-TpMassMin)/TpMassMax,weight*additional_weight);
+          hist("TTbar1btag1Tp_htak8")->Fill(TpW[index2].pt()+TpW2[index2].pt(),weight*additional_weight);
+          hist("TTbar1btag1Tp_htak8ak4")->Fill(TpW[index2].pt()+TpW2[index2].pt()+TpB[index2].pt()+TpB2[index2].pt(),weight*additional_weight);
+          hist("TTbar1btag1Tp_smass")->Fill(TpMass2+TpMass,weight*additional_weight);
+        }
+      }
+    }
+  }
+}
 
+///////////////////end of ttbar ANALYSIS
 
   float additional_weight=1.0;
   if (has_tw)

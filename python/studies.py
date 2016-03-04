@@ -257,6 +257,9 @@ for i in signalTT_names:
 	signalTT_files.append(TFile(prepath2+filename_base+i+root,'READ'))
 for i in signalWB_names:
 	signal_files_pre2.append(TFile(prepath2+filename_base+i+root,'READ'))
+signalTTreco_files=[]
+for i in signalTT_names:
+	signalTTreco_files.append(TFile(path+filename_base+i+root,'READ'))
 
 for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
   "bmass",  "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
@@ -326,6 +329,85 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6]
         )
+
+
+
+
+
+for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
+  "bmass",  "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
+  "wmass",  "wpt",  "wnsub",
+  "toppt",  "topmass",  "topnsub",  "topcsv",
+  "dRbt",  "dRbW",  "dRtW",  "dRtTp",
+  "ht",  "htca8",  "ht_twb",  "npv",  "nevt",
+  "toppt_wpt",  "toppt_wbpt","ht_twbSR","ht_twbSRbtag","ht_twbSRnobtag",
+  "tprimemass",  "tprimept","Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub",
+  "zprimemass",  "zprimept",  "zprimemassbtag",  "zprimemassnobtag",  "zprimemassbmass",  "zprimemassnobmass","tprimemass_res", "zprimemassbtag_res", "zprimemassnobtag_res",
+  "TT1btag_tprimemass",  "TT1btag_tprimemass1",  "TT1btag_tprimemass2",  "TT1btag_tprimept",  "TT1btag_tprimept1",  "TT1btag_tprimept2",  "TT1btag_mass",  "TT1btag_dmass",  "TT1btag_dmassomass",  "TT1btag_htak8",  "TT1btag_htak8ak4",  "TT1btag_smass",  "TT1btag_pt",
+  "TT2btag_tprimemass",  "TT2btag_tprimemass1",  "TT2btag_tprimemass2",  "TT2btag_tprimept",  "TT2btag_tprimept1",  "TT2btag_tprimept2",  "TT2btag_mass",  "TT2btag_dmass",  "TT2btag_dmassomass",  "TT2btag_htak8",  "TT2btag_htak8ak4",  "TT2btag_smass",  "TT2btag_pt",
+  "TT1btag1Tp_tprimemass",  "TT1btag1Tp_tprimemass1",  "TT1btag1Tp_tprimemass2",  "TT1btag1Tp_tprimept",  "TT1btag1Tp_tprimept1",  "TT1btag1Tp_tprimept2",  "TT1btag1Tp_mass",  "TT1btag1Tp_dmass",  "TT1btag1Tp_dmassomass",  "TT1btag1Tp_htak8",  "TT1btag1Tp_htak8ak4",  "TT1btag1Tp_smass",  "TT1btag1Tp_pt",
+  "TT2btag1Tp_tprimemass",  "TT2btag1Tp_tprimemass1",  "TT2btag1Tp_tprimemass2",  "TT2btag1Tp_tprimept",  "TT2btag1Tp_tprimept1",  "TT2btag1Tp_tprimept2",  "TT2btag1Tp_mass",  "TT2btag1Tp_dmass",  "TT2btag1Tp_dmassomass",  "TT2btag1Tp_htak8",  "TT2btag1Tp_htak8ak4",  "TT2btag1Tp_smass",  "TT2btag1Tp_pt",
+  "TTbar1btag_tprimemass",  "TTbar1btag_tprimemass1",  "TTbar1btag_tprimemass2",  "TTbar1btag_tprimept",  "TTbar1btag_tprimept1",  "TTbar1btag_tprimept2",  "TTbar1btag_mass",  "TTbar1btag_dmass",  "TTbar1btag_dmassomass",  "TTbar1btag_htak8",  "TTbar1btag_htak8ak4",  "TTbar1btag_smass",  "TTbar1btag_pt",
+  "TTbar2btag_tprimemass",  "TTbar2btag_tprimemass1",  "TTbar2btag_tprimemass2",  "TTbar2btag_tprimept",  "TTbar2btag_tprimept1",  "TTbar2btag_tprimept2",  "TTbar2btag_mass",  "TTbar2btag_dmass",  "TTbar2btag_dmassomass",  "TTbar2btag_htak8",  "TTbar2btag_htak8ak4",  "TTbar2btag_smass",  "TTbar2btag_pt",
+  "TTbar1btag1Tp_tprimemass",  "TTbar1btag1Tp_tprimemass1",  "TTbar1btag1Tp_tprimemass2",  "TTbar1btag1Tp_tprimept",  "TTbar1btag1Tp_tprimept1",  "TTbar1btag1Tp_tprimept2",  "TTbar1btag1Tp_mass",  "TTbar1btag1Tp_dmass",  "TTbar1btag1Tp_dmassomass",  "TTbar1btag1Tp_htak8",  "TTbar1btag1Tp_htak8ak4",  "TTbar1btag1Tp_smass",  "TTbar1btag1Tp_pt",
+  "TTbar2btag1Tp_tprimemass",  "TTbar2btag1Tp_tprimemass1",  "TTbar2btag1Tp_tprimemass2",  "TTbar2btag1Tp_tprimept",  "TTbar2btag1Tp_tprimept1",  "TTbar2btag1Tp_tprimept2",  "TTbar2btag1Tp_mass",  "TTbar2btag1Tp_dmass",  "TTbar2btag1Tp_dmassomass",  "TTbar2btag1Tp_htak8",  "TTbar2btag1Tp_htak8ak4",  "TTbar2btag1Tp_smass",  "TTbar2btag1Tp_pt"
+  ]:
+#i=''
+	rebinna=10
+	signalzoom=2
+	minx=0
+	maxx=0
+	if 'topmass' in i and '_' not in i:
+		minx=60
+		maxx=300
+	if 'wmass' in i and '_' not in i:
+		minx=60
+		maxx=300
+	if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR","bcsv","csv_pthighest","csv_csvhighest", "topcsv",]:
+		rebinna=1
+	if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub",]:
+		rebinna =2
+	if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
+  "bmass",  "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
+  "wmass",  "wpt",  "wnsub",
+  "toppt",  "topmass",  "topnsub",  "topcsv",
+  "dRbt",  "dRbW",  "dRtW",  "dRtTp",
+  "ht",  "htca8",  "ht_twb",  "npv",  "nevt",]:
+  		signalzoom=100
+  	if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub"]:
+  		signalzoom=20
+  	if i in ["tprimemass"]:
+  		signalzoom=20
+	make_ratioplot(
+		name='TT_'+i,
+		ttbar_file=ttbar_file,
+		qcd_file=qcd_file,
+		data_file=data_file,
+		signal_files=signalTTreco_files,
+		histo='Selection/'+i, 
+		histo_qcd='Selection/'+i,
+		histo_signal='Selection/'+i,
+		rebin=rebinna,
+		minx=minx,
+		maxx=maxx,
+		miny=0,
+		maxy=0,
+		minratio=0,
+		maxratio=0,
+		logy=True,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalTT_legendnames,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        fixratio=True,
+        #signal_colors=[kOrange+10,kAzure+1,kSpring-6]
+        )
+
+
+
+
 
 for i in [
   "zprimemass",  "zprimemassbtag",  "zprimemassnobtag",  "zprimemassbmass",  "zprimemassnobmass",

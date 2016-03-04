@@ -362,7 +362,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   
   ###signal setting up
   signal_histos=[]
-  colors=[30,40,41,42,43,44,45,46,47,48,49]
+  colors=[30,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60]
   if signal_colors!=[]:
     colors=signal_colors
   for i in range(len(signal_files)):

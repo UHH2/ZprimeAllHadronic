@@ -80,6 +80,16 @@ float ZprimeMassResVLQ(TopJet t1, TopJet t2, Jet t3, Jet t4)
   else return allsubjets.M();
 }
 
+float ZprimePtResVLQ(TopJet t1, TopJet t2, Jet t3, Jet t4)
+{
+  LorentzVector allsubjets(0,0,0,0);
+  for(auto subjet : t1.subjets()) allsubjets += subjet.v4();
+  for(auto subjet : t2.subjets()) allsubjets += subjet.v4();
+  allsubjets += t3.v4();
+  allsubjets += t4.v4();
+  return allsubjets.Pt();
+}
+
 float ZprimePtVLQ(TopJet t1, TopJet t2, Jet t3)
 {
   LorentzVector allsubjets(0,0,0,0);

@@ -43,6 +43,7 @@ float TprimePt(TopJet t1, Jet t2);
 float ZprimeMassVLQ(TopJet t1, TopJet t2, Jet t3);
 float ZprimeMassResVLQ(TopJet t1, TopJet t2, Jet t3, Jet t4);
 float ZprimePtVLQ(TopJet t1, TopJet t2, Jet t3);
+float ZprimePtResVLQ(TopJet t1, TopJet t2, Jet t3, Jet t4);
 float ZprimeMass2(Particle t1, Particle t2);
 float TopJetNsub(TopJet t);
 float TopJetNsub2(TopJet t);

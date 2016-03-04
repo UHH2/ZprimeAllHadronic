@@ -15,8 +15,8 @@
     <Library Name="libSUHH2Zp2TopVLQAllHad"/>
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/preselection/" PostFix="" TargetLumi="2460" >
-   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="48" OutputDirectory="/nfs/dust/cms/user/usaiem/selection/" PostFix="" TargetLumi="2460" >  -->
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/selection/" PostFix="" TargetLumi="2460" > -->
+   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="20" OutputDirectory="/nfs/dust/cms/user/usaiem/selection/" PostFix="" TargetLumi="2460" > 
 
 
     <InputData Lumi="116421.0" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="True">
@@ -25,7 +25,7 @@
         <OutputTree Name="AnalysisTree" /> 
     </InputData>
 
-    <InputData Lumi="76.605" NEventsMax="-1" Type="MC" Version="TT_Mtt0700to1000" Cacheable="True">
+<!--     <InputData Lumi="76.605" NEventsMax="-1" Type="MC" Version="TT_Mtt0700to1000" Cacheable="True">
         <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.TT_Mtt0700to1000.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" />
         <OutputTree Name="AnalysisTree" /> 
@@ -35,7 +35,7 @@
         <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.TT_Mtt1000toINFT.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" />
         <OutputTree Name="AnalysisTree" /> 
-    </InputData>
+    </InputData> -->
 
 <!--     <InputData Lumi="11896.0" NEventsMax="-1" Type="MC" Version="TTbarScaleUp" Cacheable="True">
         <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.MC.TTbarScaleUp.root" Lumi="0.0"/>
@@ -52,7 +52,7 @@
 
 
 
-<!--     <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_05Oct2015_v1" Cacheable="True">
+    <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_05Oct2015_v1" Cacheable="True">
         <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.DATA.JetHT_Run2015D_05Oct2015_v1.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" />
         <OutputTree Name="AnalysisTree" /> 
@@ -62,7 +62,7 @@
         <In FileName="/nfs/dust/cms/user/usaiem/preselection/uhh2.AnalysisModuleRunner.DATA.JetHT_Run2015D_PromptReco_v4.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
-    </InputData>  -->
+    </InputData> 
 
 
 
@@ -406,30 +406,35 @@
             <!--//// systematics -->
 
             <!--//// jec jer -->
-            <Item Name="jecsmear_direction" Value="nominal" /> <!-- nominal up down -->
-            <Item Name="jersmear_direction" Value="nominal" /> <!-- nominal up down -->
+            <Item Name="jecsmear_direction" Value="nominal" /> <!-- n ominal up down --> <!-- $$$JEC -->
+            <Item Name="jersmear_direction" Value="nominal" /> <!-- n ominal up down --> <!-- $$$JER -->
             <!-- to be changed here -->
 
             <!--//// pileup -->
             <Item Name="pileup_directory_data_up" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/MyDataPileupHistogram_JSON_Silver_up.root" />
             <Item Name="pileup_directory_data_down" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/MyDataPileupHistogram_JSON_Silver_down.root" />
+            <Item Name="pileup_sys" Value="mean" /> 
             <!--set by process name -->
 
             <!--//// btag -->
             <Item Name="MCBtagEfficienciesAK4" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/BTagMCEfficiencyHistsAK4.root" />
             <Item Name="MCBtagEfficienciesAK8" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/BTagMCEfficiencyHistsAK8.root" />
             <Item Name="BTagCalibration" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/common/data/CSVv2.csv" />
+            <Item Name="btagging_sys" Value="central" />
+            <Item Name="subjetbtag_sys" Value="central" />
             <!--set by process name -->
 
             <!--//// mu r/f -->
-            <Item Name="ScaleVariationMuR" Value="mean" />
-            <Item Name="ScaleVariationMuF" Value="mean" />
+            <Item Name="ScaleVariationMuR" Value="mean" /> <!-- $$$MUR -->
+            <Item Name="ScaleVariationMuF" Value="mean" /> <!-- $$$MUF -->
             <!-- to be changed here -->
 
             <!--//// pdf -->
             <!-- tbd -->
 
             <!--//// top/w tag -->
+            <Item Name="toptag_sys" Value="mean" />
+            <Item Name="wtag_sys" Value="mean" />
             <!-- set by process name -->
 
             <!--//// lumi -->
@@ -439,7 +444,9 @@
             <!-- flat -->
 
             <!--//// ttbar pt reweight -->
-            <!-- ??? -->
+            <Item Name="ttbar_sys" Value="mean" />
+            <!-- set b process name -->
+
 
             <!-- the class name of the AnalysisModule subclasses to run: -->
             <Item Name="AnalysisModule" Value="SelectionModule" /> 
