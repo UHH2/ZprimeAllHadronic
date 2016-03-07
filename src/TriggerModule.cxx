@@ -141,15 +141,15 @@ TriggerModule::TriggerModule(Context & ctx){
     bool is_mc = ctx.get("dataset_type") == "MC";
     if (is_mc)
     {
-        jetcorrector.reset(new JetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK4PFchs_MC));
-        topjetcorrector.reset(new TopJetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK8PFchs_MC));
-        subjetcorrector.reset(new SubJetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK4PFchs_MC));
+        jetcorrector.reset(new JetCorrector(ctx,JERFiles::Fall15_25ns_L123_AK4PFchs_MC));
+        topjetcorrector.reset(new TopJetCorrector(ctx,JERFiles::Fall15_25ns_L123_AK8PFchs_MC));
+        subjetcorrector.reset(new SubJetCorrector(ctx,JERFiles::Fall15_25ns_L123_AK4PFchs_MC));
     }
     else
     {
-        jetcorrector.reset(new JetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK4PFchs_DATA));
-        topjetcorrector.reset(new TopJetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK8PFchs_DATA));
-        subjetcorrector.reset(new SubJetCorrector(ctx,JERFiles::Summer15_25ns_L123_AK4PFchs_DATA));
+        jetcorrector.reset(new JetCorrector(ctx,JERFiles::Fall15_25ns_L123_AK4PFchs_DATA));
+        topjetcorrector.reset(new TopJetCorrector(ctx,JERFiles::Fall15_25ns_L123_AK8PFchs_DATA));
+        subjetcorrector.reset(new SubJetCorrector(ctx,JERFiles::Fall15_25ns_L123_AK4PFchs_DATA));
     }
 
     h_ht=ctx.get_handle<float>("ht");

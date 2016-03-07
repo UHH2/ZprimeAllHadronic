@@ -243,7 +243,7 @@ def make_plot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_
 us='_'
 def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[], histo=0, histo_qcd='',histo_signal='',histo_ttbar='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,
                     xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False, signal_zoom=1, qcd_zoom=1, ttbar_zoom=1,normalize=False,
-                    ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='Data'):
+                    ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='Data',dosys=False,sysdict={}):
   
   ###canvas setting up
   canvas=0
@@ -391,7 +391,16 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
     ttbar_line.SetFillStyle(0)
 
   ###mc errors
-  err=TGraphAsymmErrors(sum_mc)
+  err=0
+  if not dosys:
+    err=TGraphAsymmErrors(sum_mc)
+  else:
+    sys_diff=[]
+    for imtt in range(1,ttbar_histo.GetNbinsX()+1):
+      sys_diff.append([])
+    for sys in sysdict:
+      ttf=TFile(path_base+cyclename+'TTbar'+systematics[isys]+'.root','READ')
+
   err.SetFillStyle(3145)
   err.SetFillColor(kGray)
   
