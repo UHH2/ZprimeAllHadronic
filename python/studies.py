@@ -219,7 +219,20 @@ signal_Tp_masses_short=[
 #"1p5",
 ]
 
-
+systypes={'mur':'_MUR',
+          'muf':'_MUF',
+          'murmuf':'_MURMUF',
+          'jec':'_JEC',
+          'jer':'_JER',
+          'pu':'_PU',
+          'btag':'_BAK4SF',
+          'subjetbtag':'_BAK8SF',
+          'ttbar':'_TTBAR',
+          'toptag':'_TSF',
+          'wtag':'_WSF',
+          #'pdf':'_PDF',
+          #'mean':''
+          }
 
 
 
@@ -1251,19 +1264,7 @@ for masspoint in [0,3,6]:
 ######systematics compare
 make_comp(data_file.Get("Selection/bkg1"),data_file.Get("Selection/bkg1up"),data_file.Get("Selection/bkg1down"),'SYS_bkg',10)
 syspath='/nfs/dust/cms/user/usaiem/sys/'
-systypes={'mur':'_MUR',
-          'muf':'_MUF',
-          'jec':'_JEC',
-          'jer':'_JER',
-          'pu':'_PU',
-          'btag':'_BAK4SF',
-          'subjetbtag':'_BAK8SF',
-          'ttbar':'_TTBAR',
-          'toptag':'_TSF',
-          'wtag':'_WSF',
-          #'pdf':'_PDF',
-          #'mean':''
-          }
+
 ttbar_string='MC.TTbar'
 up='UP'
 down='DOWN'

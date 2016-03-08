@@ -3,6 +3,8 @@
 #sframe_main ../config/Sys_MURDOWN.xml
 #sframe_main ../config/Sys_MUFUP.xml
 #sframe_main ../config/Sys_MUFDOWN.xml
+#sframe_main ../config/Sys_MURMUFUP.xml
+#sframe_main ../config/Sys_MURMUFDOWN.xml
 #sframe_main ../config/Sys_JECUP.xml
 #sframe_main ../config/Sys_JECDOWN.xml
 #sframe_main ../config/Sys_JERUP.xml

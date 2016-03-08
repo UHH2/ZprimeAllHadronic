@@ -700,7 +700,13 @@ PreselectionHists::PreselectionHists(Context & ctx, const string & dirname): His
   book<TH1F>("pT_closest_bjet_to_tb", ";pT closest bjet to b from t;Events", 300, 0, 3000);
   book<TH1F>("csv_closest_bjet_to_tb", ";csv closest bjet to b from t;Events", 100, 0, 1);
 
-
+  book<TH1F>("matched_top_mass", ";pT closest bjet to b from t;Events", 300, 0, 3000);
+  book<TH1F>("matched_top_res_mass", ";pT closest bjet to b from t;Events", 300, 0, 3000);
+  book<TH1F>("matched_tprime_mass", ";pT closest bjet to b from t;Events", 300, 0, 3000);
+  book<TH1F>("matched_zprime_mass", ";pT closest bjet to b from t;Events", 300, 0, 3000);
+  book<TH1F>("matched_zprime_res_mass", ";pT closest bjet to b from t;Events", 300, 0, 3000);
+  book<TH1F>("matched_tprime1_mass", ";pT closest bjet to b from t;Events", 300, 0, 3000);
+  book<TH1F>("matched_tprime2_mass", ";pT closest bjet to b from t;Events", 300, 0, 3000);
 
   book<TH1F>("pT_closest_wjet_to_w1", ";pT closest wjet to w;Events", 300, 0, 3000);
   book<TH1F>("mass_closest_wjet_to_w1", ";mass closest wjet to w;Events", 100, 0, 1000);
@@ -968,7 +974,7 @@ if (!event.isRealData)
   }
 
   TopJet the_closest_top,the_closest_w,the_closest_w1,the_closest_w2,the_closest_tw,the_closest_tprime; Jet the_closest_b,the_closest_b1,the_closest_b2,the_closest_tb;
-  //bool has_closest_top=false,has_closest_w=false,has_closest_b=false,has_closest_tprime=false;
+  bool has_closest_top=false,has_closest_w=false,has_closest_b=false/*,has_closest_tprime=false*/,has_closest_w1=false,has_closest_w2=false,has_closest_tw=false,has_closest_b1=false,has_closest_b2=false,has_closest_tb=false;
   if (has_gen_top)
   {
     for(auto topjet : *event.topjets)
@@ -978,7 +984,7 @@ if (!event.isRealData)
         hist("pT_closest_topjet_to_top")->Fill(TopJetPt(topjet),weight);
         hist("mass_closest_topjet_to_top")->Fill(TopJetMass(topjet),weight);
         hist("nsub_closest_topjet_to_top")->Fill(TopJetNsub(topjet),weight);
-        //has_closest_top=true;
+        has_closest_top=true;
         the_closest_top=topjet;
       }
     }
@@ -1008,7 +1014,7 @@ if (!event.isRealData)
         hist("pT_closest_wjet_to_w")->Fill(TopJetPt(topjet),weight);
         hist("mass_closest_wjet_to_w")->Fill(TopJetMass(topjet),weight);
         hist("nsub_closest_wjet_to_w")->Fill(TopJetNsub2(topjet),weight);
-        //has_closest_w=true;
+        has_closest_w=true;
         the_closest_w=topjet;
       }
     }
@@ -1022,7 +1028,7 @@ if (!event.isRealData)
       {
         hist("pT_closest_bjet_to_b")->Fill(jet.pt(),weight);
         hist("csv_closest_bjet_to_b")->Fill(jet.btag_combinedSecondaryVertex(),weight);
-        //has_closest_b=true;
+        has_closest_b=true;
         the_closest_b=jet;
       }
     }
@@ -1040,7 +1046,7 @@ if (!event.isRealData)
         hist("pT_closest_wjet_to_tw")->Fill(TopJetPt(topjet),weight);
         hist("mass_closest_wjet_to_tw")->Fill(TopJetMass(topjet),weight);
         hist("nsub_closest_wjet_to_tw")->Fill(TopJetNsub2(topjet),weight);
-        //has_closest_w=true;
+        has_closest_tw=true;
         the_closest_tw=topjet;
       }
     }
@@ -1054,7 +1060,7 @@ if (!event.isRealData)
       {
         hist("pT_closest_bjet_to_tb")->Fill(jet.pt(),weight);
         hist("csv_closest_bjet_to_tb")->Fill(jet.btag_combinedSecondaryVertex(),weight);
-        //has_closest_b=true;
+        has_closest_tb=true;
         the_closest_tb=jet;
       }
     }
@@ -1071,7 +1077,7 @@ if (has_gen_w1)
         hist("pT_closest_wjet_to_w1")->Fill(TopJetPt(topjet),weight);
         hist("mass_closest_wjet_to_w1")->Fill(TopJetMass(topjet),weight);
         hist("nsub_closest_wjet_to_w1")->Fill(TopJetNsub2(topjet),weight);
-        //has_closest_w=true;
+        has_closest_w1=true;
         the_closest_w1=topjet;
       }
     }
@@ -1085,7 +1091,7 @@ if (has_gen_w1)
       {
         hist("pT_closest_bjet_to_b1")->Fill(jet.pt(),weight);
         hist("csv_closest_bjet_to_b1")->Fill(jet.btag_combinedSecondaryVertex(),weight);
-        //has_closest_b=true;
+        has_closest_b1=true;
         the_closest_b1=jet;
       }
     }
@@ -1100,7 +1106,7 @@ if (has_gen_w1)
         hist("pT_closest_wjet_to_w2")->Fill(TopJetPt(topjet),weight);
         hist("mass_closest_wjet_to_w2")->Fill(TopJetMass(topjet),weight);
         hist("nsub_closest_wjet_to_w2")->Fill(TopJetNsub2(topjet),weight);
-        //has_closest_w=true;
+        has_closest_w2=true;
         the_closest_w2=topjet;
       }
     }
@@ -1114,14 +1120,21 @@ if (has_gen_w1)
       {
         hist("pT_closest_bjet_to_b2")->Fill(jet.pt(),weight);
         hist("csv_closest_bjet_to_b2")->Fill(jet.btag_combinedSecondaryVertex(),weight);
-        //has_closest_b=true;
+        has_closest_b2=true;
         the_closest_b2=jet;
       }
     }
   }
 
-}
+if (has_closest_top) hist("matched_top_mass")->Fill(TopJetMass(the_closest_top),weight);
+if (has_closest_tb && has_closest_tw) hist("matched_top_res_mass")->Fill(TprimeMass(the_closest_tw,the_closest_tb),weight);
+if (has_closest_b && has_closest_w) hist("matched_tprime_mass")->Fill(TprimeMass(the_closest_w,the_closest_b),weight);
+if (has_closest_top && has_closest_b && has_closest_w) hist("matched_zprime_mass")->Fill(ZprimeMassVLQ(the_closest_top,the_closest_w,the_closest_b),weight);
+if (has_closest_tb && has_closest_tw && has_closest_b && has_closest_w) hist("matched_zprime_res_mass")->Fill(ZprimeMassResVLQ(the_closest_w,the_closest_tw,the_closest_b,the_closest_tb),weight);
+if (has_closest_b1 && has_closest_w1) hist("matched_tprime1_mass")->Fill(TprimeMass(the_closest_w1,the_closest_b1),weight);
+if (has_closest_b2 && has_closest_w2) hist("matched_tprime2_mass")->Fill(TprimeMass(the_closest_w2,the_closest_b2),weight);
 
+}
 
 
 
