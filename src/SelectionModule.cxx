@@ -36,7 +36,7 @@ private:
     std::unique_ptr<SubJetCorrector> subjetcorrector;
     std::unique_ptr<JetCorrector> jetcorrector;
    
-    unique_ptr<AnalysisModule> common_modules_with_lumi_sel, btagwAK4, btagwAK8, scalevar;
+    unique_ptr<AnalysisModule> common_modules_with_lumi_sel, btagwAK4, btagwAK8, scalevar,jetsmearAK4,jetsmearAK8;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
     std::unique_ptr<Hists> h_selection, h_selectionallhad,h_btageffAK4,h_btageffAK8;
@@ -60,12 +60,16 @@ SelectionModule::SelectionModule(Context & ctx){
     /*else */commonObjectCleaning->init(ctx,pu_sys);
     common_modules_with_lumi_sel.reset(commonObjectCleaning);
 
+    GenericJetResolutionSmearer* jetsmearAK4 = new GenericJetResolutionSmearer(ctx, "jets", "genjets", true, JERSmearing::SF_13TeV_2015);
+    GenericJetResolutionSmearer* jetsmearAK8 = new GenericJetResolutionSmearer(ctx, "topjets", "gentopjets", true, JERSmearing::SF_13TeV_2015);
+
     bool is_mc = ctx.get("dataset_type") == "MC";
     if (is_mc)
     {
         jetcorrector.reset(new JetCorrector(ctx,JERFiles::Fall15_25ns_L123_AK4PFchs_MC));
         topjetcorrector.reset(new TopJetCorrector(ctx,JERFiles::Fall15_25ns_L123_AK8PFchs_MC));
         subjetcorrector.reset(new SubJetCorrector(ctx,JERFiles::Fall15_25ns_L123_AK4PFchs_MC));
+
     }
     else
     {
@@ -75,7 +79,7 @@ SelectionModule::SelectionModule(Context & ctx){
     }
 
     h_selection.reset(new SelectionHists(ctx, "Selection"));
-    h_selectionallhad.reset(new SelectionHists(ctx, "SelectionAllHad"));
+    h_selectionallhad.reset(new SelectionHists(ctx, "SelectionNoSJBtag"));
     h_btageffAK4.reset(new BTagMCEfficiencyHists(ctx, "BTagMCEfficiencyHistsAK4",CSVBTag::WP_MEDIUM,"jets"));
     h_btageffAK8.reset(new BTagMCEfficiencyHists(ctx, "BTagMCEfficiencyHistsAK8",CSVBTag::WP_MEDIUM,"topjets"));
     
@@ -177,20 +181,17 @@ if (!event.isRealData)
     topjetcorrector->process(event);
     subjetcorrector->process(event);
     jetcorrector->process(event);
-   
+    jetsmearAK4->process(event);
+    jetsmearAK8->process(event);
+
     h_btageffAK4->fill(event);
     h_btageffAK8->fill(event);
 
     btagwAK4->process(event);
-    btagwAK8->process(event);
     scalevar->process(event);
-
-    h_selection->fill(event);
-
-    if (is_allhad)
-    {
     h_selectionallhad->fill(event);
-    }
+    btagwAK8->process(event);
+    h_selection->fill(event);
 
     return false;
 }
