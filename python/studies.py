@@ -9,7 +9,7 @@ gROOT.SetBatch()
 
 #setup
 path='/nfs/dust/cms/user/usaiem/selection/'
-prepath='/nfs/dust/cms/user/usaiem/preselection/'
+prepath='/nfs/dust/cms/user/usaiem/preselection2/'
 prepath2='/nfs/dust/cms/user/usaiem/preselection2/'
 # path2='/nfs/dust/cms/user/usaiem/phys14-2/'
 root='.root'
@@ -1086,7 +1086,11 @@ report.write_html('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15
 #         )
 
 qcdbkgbtag=data_file.Get("Selection/bkg2").Clone('qcdbkgbtag')
+qcdbkgbtag_up=data_file.Get("Selection/bkg2up").Clone('qcdbkgbtag_up')
+qcdbkgbtag_down=data_file.Get("Selection/bkg2down").Clone('qcdbkgbtag_down')
 qcdbkgnobtag=data_file.Get("Selection/bkg1").Clone('qcdbkgnobtag')
+qcdbkgnobtag_up=data_file.Get("Selection/bkg1up").Clone('qcdbkgnobtag_up')
+qcdbkgnobtag_down=data_file.Get("Selection/bkg1down").Clone('qcdbkgnobtag_down')
 blow=qcdbkgbtag.GetXaxis().FindFixBin(900.0)
 bhigh=qcdbkgbtag.GetXaxis().FindFixBin(3000.0)
 qcdsfbtag=qcd_file.Get("Selection/zprimemassbtag").Integral(blow,bhigh)/qcd_file.Get("Selection/antibcsvCRbtag_zprimemass").Integral(blow,bhigh)
@@ -1106,11 +1110,25 @@ print 'nobtag2',qcdsfnobtag2
 
 qcdbkgbtag.Add(ttbar_file.Get("Selection/bkg2").Clone(),-1.0)
 qcdbkgbtag.Scale(qcdsfbtag2)
+qcdbkgbtag_up.Add(ttbar_file.Get("Selection/bkg2up").Clone(),-1.0)
+qcdbkgbtag_up.Scale(qcdsfbtag2)
+qcdbkgbtag_down.Add(ttbar_file.Get("Selection/bkg2down").Clone(),-1.0)
+qcdbkgbtag_down.Scale(qcdsfbtag2)
+
 qcdbkgnobtag.Add(ttbar_file.Get("Selection/bkg1").Clone(),-1.0)
 qcdbkgnobtag.Scale(qcdsfnobtag2)
+qcdbkgnobtag_up.Add(ttbar_file.Get("Selection/bkg1up").Clone(),-1.0)
+qcdbkgnobtag_up.Scale(qcdsfnobtag2)
+qcdbkgnobtag_down.Add(ttbar_file.Get("Selection/bkg1down").Clone(),-1.0)
+qcdbkgnobtag_down.Scale(qcdsfnobtag2)
+
 outfile.cd()
 qcdbkgbtag.Write()
+qcdbkgbtag_up.Write()
+qcdbkgbtag_down.Write()
 qcdbkgnobtag.Write()
+qcdbkgnobtag_up.Write()
+qcdbkgnobtag_down.Write()
 rebinna=10
 signalzoom=1
 minx=0
@@ -1285,7 +1303,8 @@ for masspoint in [0,3,6]:
 
 
 ######systematics compare
-make_comp(data_file.Get("Selection/bkg1"),data_file.Get("Selection/bkg1up"),data_file.Get("Selection/bkg1down"),'SYS_bkg',10)
+make_comp(data_file.Get("Selection/bkg1"),data_file.Get("Selection/bkg1up"),data_file.Get("Selection/bkg1down"),'SYS_bkg1',10)
+make_comp(data_file.Get("Selection/bkg2"),data_file.Get("Selection/bkg2up"),data_file.Get("Selection/bkg2down"),'SYS_bkg2',10)
 syspath='/nfs/dust/cms/user/usaiem/sys/'
 
 ttbar_string='MC.TTbar'
@@ -1322,4 +1341,23 @@ for sys in systypes:
 	make_comp(ttbar_mean.Get(sr1name),ttbar_SYSUP.Get(sr1name),ttbar_SYSDOWN.Get(sr1name),'SYS_'+sys+'1',10)
 	make_comp(ttbar_mean.Get(sr2name),ttbar_SYSUP.Get(sr2name),ttbar_SYSDOWN.Get(sr2name),'SYS_'+sys+'2',10)
 
+ttbar_MURUP=TFile(syspath+filename_base+ttbar_string+systypes['mur']+up+root)
+ttbar_MURDOWN=TFile(syspath+filename_base+ttbar_string+systypes['mur']+down+root)
+ttbar_MUFUP=TFile(syspath+filename_base+ttbar_string+systypes['muf']+up+root)
+ttbar_MUFDOWN=TFile(syspath+filename_base+ttbar_string+systypes['muf']+down+root)
+ttbar_MURMUFUP=TFile(syspath+filename_base+ttbar_string+systypes['murmuf']+up+root)
+ttbar_MURMUFDOWN=TFile(syspath+filename_base+ttbar_string+systypes['murmuf']+down+root)
+envelopesr1=envelope([ttbar_MURUP.Get(sr1name),ttbar_MURDOWN.Get(sr1name),ttbar_MUFUP.Get(sr1name),ttbar_MUFDOWN.Get(sr1name),ttbar_MURMUFUP.Get(sr1name),ttbar_MURMUFDOWN.Get(sr1name)])
+envelopesr2=envelope([ttbar_MURUP.Get(sr2name),ttbar_MURDOWN.Get(sr2name),ttbar_MUFUP.Get(sr2name),ttbar_MUFDOWN.Get(sr2name),ttbar_MURMUFUP.Get(sr2name),ttbar_MURMUFDOWN.Get(sr2name)])
+ttbarsr1_MUDOWN=ttbar_mean.Get(sr1name).Clone()
+ttbarsr1_MUUP=ttbar_mean.Get(sr1name).Clone()
+ttbarsr2_MUDOWN=ttbar_mean.Get(sr2name).Clone()
+ttbarsr2_MUUP=ttbar_mean.Get(sr2name).Clone()
+for imtt in range(1,ttbar_histo.GetNbinsX()+1):
+  ttbarsr1_MUDOWN.SetBinContent(imtt,envelopesr1[imtt-1][0])
+  ttbarsr1_MUUP.SetBinContent(imtt,envelopesr1[imtt-1][1])
+  ttbarsr2_MUDOWN.SetBinContent(imtt,envelopesr2[imtt-1][0])
+  ttbarsr2_MUUP.SetBinContent(imtt,envelopesr2[imtt-1][1])
+make_comp(ttbar_mean.Get(sr1name),ttbarsr1_MUDOWN,ttbarsr1_MUUP,'SYS_MU1',10)
+make_comp(ttbar_mean.Get(sr2name),ttbarsr2_MUDOWN,ttbarsr2_MUUP,'SYS_MU2',10)
 outfile.Close()

@@ -4,11 +4,17 @@ from sys import argv
 from os import mkdir
 from os.path import exists
 
-# def envelope(plots):
-#   output=[]
-#   for imtt in range(1,plot[0].GetNbinsX()+1):
-#     for plot in plots:
-#     sys_diff[imtt-1].append(ttbar_tmp.GetBinContent(imtt))
+def envelope(plots):
+  output=[]
+  for imtt in range(1,plot[0].GetNbinsX()+1):
+    minimium=float('inf')
+    maximum=-float('inf')
+    for plot in plots:
+      if plot.GetBinContent(imtt)>maximum:
+        maximum=plot.GetBinContent(imtt)
+      if plot.GetBinContent(imtt)<minimium:
+        minimum=plot.GetBinContent(imtt)
+    output.append([minimum,maximum])
 
 def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE',xtitle='',ytitle='',minx=0,maxx=0,rebin=1,miny=0,maxy=0,textsizefactor=1,logy=False):
   c=TCanvas(name,'',600,600)
@@ -249,7 +255,7 @@ def make_plot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_
 us='_'
 def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[], histo=0, histo_qcd='',histo_signal='',histo_ttbar='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,
                     xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False, signal_zoom=1, qcd_zoom=1, ttbar_zoom=1,normalize=False,
-                    ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='Data',dosys=False,sysdict={},syspath='/nfs/dust/cms/user/usaiem/sys/uhh2.AnalysisModuleRunner.MC.TTbar'):
+                    ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='Data',dosys=False,sysdict={},syspath='/nfs/dust/cms/user/usaiem/sys/uhh2.AnalysisModuleRunner.MC.TTbar',bkgup=0,bkgdown=0):
   
   ###canvas setting up
   canvas=0
@@ -405,16 +411,45 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
     for imtt in range(1,ttbar_histo.GetNbinsX()+1):
       sys_diff.append([])
     for sys in sysdict:
-      for side in ['UP','DOWN']:
-        ttf=TFile(syspath+sysdict[sys]+side+'.root','READ')
-        outfile.cd()
-        ttbar_tmp=ttf.Get(histo).Clone()#'ttbar'+sysdict[sys]+side
-        ttbar_tmp.Add(ttbar_histo,-1)
-        for imtt in range(1,ttbar_histo.GetNbinsX()+1):
-          sys_diff[imtt-1].append(ttbar_tmp.GetBinContent(imtt))
+      if not (sys in ['mur','muf','murmuf'])
+        for side in ['UP','DOWN']:
+          ttf=TFile(syspath+sysdict[sys]+side+'.root','READ')
+          outfile.cd()
+          ttbar_tmp=ttf.Get(histo).Clone()#'ttbar'+sysdict[sys]+side
+          ttbar_tmp.Add(ttbar_histo,-1)
+          for imtt in range(1,ttbar_histo.GetNbinsX()+1):
+            sys_diff[imtt-1].append(ttbar_tmp.GetBinContent(imtt))
+    #adding mu
+    if ('mur' in sysdict) and ('muf' in sysdict) and ('murmuf' in sysdict):
+      ttbar_MURUP=TFile(syspath+sysdict['mur']+'UP.root','READ')
+      ttbar_MURDOWN=TFile(syspath+sysdict['mur']+'DOWN.root','READ')
+      ttbar_MUFUP=TFile(syspath+sysdict['muf']+'UP.root','READ')
+      ttbar_MUFDOWN=TFile(syspath+sysdict['muf']+'DOWN.root','READ')
+      ttbar_MURMUFUP=TFile(syspath+sysdict['murmuf']+'UP.root','READ')
+      ttbar_MURMUFDOWN=TFile(syspath+sysdict['murmuf']+'DOWN.root','READ')
+    #adding bkg uncertainties
+    if bkgup!=0 and bkgdown!=0:
+      bkgupdiff=bkgup.clone()
+      bkgdowndiff=bkgdown.clone()
+      bkgupdiff.Add(ttbar_histo,-1)
+      bkgdowndiff.Add(ttbar_histo,-1)
+      for imtt in range(1,ttbar_histo.GetNbinsX()+1):
+        sys_diff[imtt-1].append(bkgupdiff.GetBinContent(imtt))
+        sys_diff[imtt-1].append(bkgdowndiff.GetBinContent(imtt))
     #adding stat uncertainties
-
+    for imtt in range(1,ttbar_histo.GetNbinsX()+1):
+      sys_diff[imtt-1].append(ttbar_histo.GetBinError(imtt))
+      sys_diff[imtt-1].append(-ttbar_histo.GetBinError(imtt))
+      sys_diff[imtt-1].append(qcd_histo.GetBinError(imtt))
+      sys_diff[imtt-1].append(-qcd_histo.GetBinError(imtt))
     #adding flat uncertainties
+    for imtt in range(1,ttbar_histo.GetNbinsX()+1):
+      #3% trigger
+      sys_diff[imtt-1].append(0.03*ttbar_histo.GetBinContent(imtt))
+      sys_diff[imtt-1].append(-0.03*ttbar_histo.GetBinContent(imtt))
+      #2.7% lumi
+      sys_diff[imtt-1].append(0.027*ttbar_histo.GetBinContent(imtt))
+      sys_diff[imtt-1].append(-0.027*ttbar_histo.GetBinContent(imtt))
 
   err.SetFillStyle(3145)
   err.SetFillColor(kGray)
