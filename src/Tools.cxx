@@ -473,11 +473,11 @@ float QCDWeight(float mzp, string mode, string syst)
  }
  if (mode=="1")
  {
-  weight = 1.339 - 0.0002029 *mzp;
+  weight = 1.402 - 0.0002422 *mzp;
  }
  if (mode=="2")
  {
-  weight = 1.846 - 0.0005092 *mzp;
+  weight = 1.851 - 0.0005581 *mzp;
  }
  if (syst=="nominal")
   {

@@ -60,8 +60,8 @@ SelectionModule::SelectionModule(Context & ctx){
     /*else */commonObjectCleaning->init(ctx,pu_sys);
     common_modules_with_lumi_sel.reset(commonObjectCleaning);
 
-    GenericJetResolutionSmearer* jetsmearAK4 = new GenericJetResolutionSmearer(ctx, "jets", "genjets", true, JERSmearing::SF_13TeV_2015);
-    GenericJetResolutionSmearer* jetsmearAK8 = new GenericJetResolutionSmearer(ctx, "topjets", "gentopjets", true, JERSmearing::SF_13TeV_2015);
+    jetsmearAK4.reset(new GenericJetResolutionSmearer(ctx, "jets", "genjets", true, JERSmearing::SF_13TeV_2015));
+    jetsmearAK8.reset(new GenericJetResolutionSmearer(ctx, "topjets", "gentopjets", true, JERSmearing::SF_13TeV_2015));
 
     bool is_mc = ctx.get("dataset_type") == "MC";
     if (is_mc)
@@ -103,79 +103,79 @@ if (!common_modules_with_lumi_sel->process(event)) {
     return false;
 }
 
-bool is_allhad=false;
-if (!event.isRealData)
-{
-  GenParticle the_gen_top,the_gen_tprime,the_gen_w,the_gen_b,the_gen_tw,the_gen_tb;
-  bool has_gen_top=false,has_gen_tprime=false,has_gen_w=false,has_gen_b=false,has_gen_tw=false,has_gen_tb=false;
-  for (auto genp : *event.genparticles)
-  {
-    if (abs(genp.pdgId()) == 6)
-    {
-      has_gen_top=true;
-      auto pthe_gen_tw = genp.daughter(event.genparticles, 1);
-      auto pthe_gen_tb = genp.daughter(event.genparticles, 2);
-      if (pthe_gen_tw && pthe_gen_tb)
-      {
-        the_gen_tw=*pthe_gen_tw;
-        the_gen_tb=*pthe_gen_tb;
-        if(abs(the_gen_tw.pdgId()) != 24)
-        {
-          std::swap(the_gen_tw, the_gen_tb);
-        }
-        if(abs(the_gen_tw.pdgId()) == 24)
-        {
-          has_gen_tw=true;
-        }
-        if(abs(the_gen_tb.pdgId()) == 5)
-        {
-          has_gen_tb=true;
-        }
-      } 
-    }
-    if (abs(genp.pdgId()) == 8000001)
-    {
-      has_gen_tprime=true;
-      auto pthe_gen_w = genp.daughter(event.genparticles, 1);
-      auto pthe_gen_b = genp.daughter(event.genparticles, 2);
-      if (pthe_gen_w && pthe_gen_b)
-      {
-        the_gen_w=*pthe_gen_w;
-        the_gen_b=*pthe_gen_b;
-        if(abs(the_gen_w.pdgId()) != 24)
-        {
-          std::swap(the_gen_w, the_gen_b);
-        }
-        if(abs(the_gen_w.pdgId()) == 24)
-        {
-          has_gen_w=true;
-        }
-        if(abs(the_gen_b.pdgId()) == 5)
-        {
-          has_gen_b=true;
-        }
-      } 
-    }
-  }
-  if (has_gen_top && has_gen_tprime && has_gen_w && has_gen_b && has_gen_tw && has_gen_tb)
-  {
-    auto wd1 = the_gen_w.daughter(event.genparticles, 1);
-    auto wd2 = the_gen_w.daughter(event.genparticles, 2);
-    auto wd3 = the_gen_tw.daughter(event.genparticles, 1);
-    auto wd4 = the_gen_tw.daughter(event.genparticles, 2);
-    if(wd1 && wd2 && wd3 && wd4)
-    {
-        int lept=0;
-        for(const auto & wd : {*wd1 , *wd2 , *wd3 , *wd4})
-        {
-            int id = abs(wd.pdgId());
-            if(id == 11 || id == 13 || id == 15) ++lept;
-        }
-        if (lept==0) is_allhad=true;
-    }
-  }
+// bool is_allhad=false;
+// if (!event.isRealData)
+// {
+//   GenParticle the_gen_top,the_gen_tprime,the_gen_w,the_gen_b,the_gen_tw,the_gen_tb;
+//   bool has_gen_top=false,has_gen_tprime=false,has_gen_w=false,has_gen_b=false,has_gen_tw=false,has_gen_tb=false;
+//   for (auto genp : *event.genparticles)
+//   {
+//     if (abs(genp.pdgId()) == 6)
+//     {
+//       has_gen_top=true;
+//       auto pthe_gen_tw = genp.daughter(event.genparticles, 1);
+//       auto pthe_gen_tb = genp.daughter(event.genparticles, 2);
+//       if (pthe_gen_tw && pthe_gen_tb)
+//       {
+//         the_gen_tw=*pthe_gen_tw;
+//         the_gen_tb=*pthe_gen_tb;
+//         if(abs(the_gen_tw.pdgId()) != 24)
+//         {
+//           std::swap(the_gen_tw, the_gen_tb);
+//         }
+//         if(abs(the_gen_tw.pdgId()) == 24)
+//         {
+//           has_gen_tw=true;
+//         }
+//         if(abs(the_gen_tb.pdgId()) == 5)
+//         {
+//           has_gen_tb=true;
+//         }
+//       } 
+//     }
+//     if (abs(genp.pdgId()) == 8000001)
+//     {
+//       has_gen_tprime=true;
+//       auto pthe_gen_w = genp.daughter(event.genparticles, 1);
+//       auto pthe_gen_b = genp.daughter(event.genparticles, 2);
+//       if (pthe_gen_w && pthe_gen_b)
+//       {
+//         the_gen_w=*pthe_gen_w;
+//         the_gen_b=*pthe_gen_b;
+//         if(abs(the_gen_w.pdgId()) != 24)
+//         {
+//           std::swap(the_gen_w, the_gen_b);
+//         }
+//         if(abs(the_gen_w.pdgId()) == 24)
+//         {
+//           has_gen_w=true;
+//         }
+//         if(abs(the_gen_b.pdgId()) == 5)
+//         {
+//           has_gen_b=true;
+//         }
+//       } 
+//     }
+//   }
+//   if (has_gen_top && has_gen_tprime && has_gen_w && has_gen_b && has_gen_tw && has_gen_tb)
+//   {
+//     auto wd1 = the_gen_w.daughter(event.genparticles, 1);
+//     auto wd2 = the_gen_w.daughter(event.genparticles, 2);
+//     auto wd3 = the_gen_tw.daughter(event.genparticles, 1);
+//     auto wd4 = the_gen_tw.daughter(event.genparticles, 2);
+//     if(wd1 && wd2 && wd3 && wd4)
+//     {
+//         int lept=0;
+//         for(const auto & wd : {*wd1 , *wd2 , *wd3 , *wd4})
+//         {
+//             int id = abs(wd.pdgId());
+//             if(id == 11 || id == 13 || id == 15) ++lept;
+//         }
+//         if (lept==0) is_allhad=true;
+//     }
+//   }
 
-}
+// }
 
 
     topjetcorrector->process(event);

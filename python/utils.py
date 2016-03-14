@@ -403,15 +403,13 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
     ttbar_line.SetFillStyle(0)
 
   ###mc errors
-  err=0
-  if not dosys:
-    err=TGraphAsymmErrors(sum_mc)
-  else:
+  err=TGraphAsymmErrors(sum_mc)
+  if dosys:
     sys_diff=[]
     for imtt in range(1,ttbar_histo.GetNbinsX()+1):
       sys_diff.append([])
     for sys in sysdict:
-      if not (sys in ['mur','muf','murmuf'])
+      if not (sys in ['mur','muf','murmuf']):
         for side in ['UP','DOWN']:
           ttf=TFile(syspath+sysdict[sys]+side+'.root','READ')
           outfile.cd()
@@ -427,6 +425,10 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
       ttbar_MUFDOWN=TFile(syspath+sysdict['muf']+'DOWN.root','READ')
       ttbar_MURMUFUP=TFile(syspath+sysdict['murmuf']+'UP.root','READ')
       ttbar_MURMUFDOWN=TFile(syspath+sysdict['murmuf']+'DOWN.root','READ')
+      envelopesr=envelope([ttbar_MURUP.Get(histo),ttbar_MURDOWN.Get(histo),ttbar_MUFUP.Get(histo),ttbar_MUFDOWN.Get(histo),ttbar_MURMUFUP.Get(histo),ttbar_MURMUFDOWN.Get(histo)])
+      for imtt in range(1,ttbar_histo.GetNbinsX()+1):
+        sys_diff[imtt-1].append(envelopesr[imtt-1][0])
+        sys_diff[imtt-1].append(envelopesr[imtt-1][1])
     #adding bkg uncertainties
     if bkgup!=0 and bkgdown!=0:
       bkgupdiff=bkgup.clone()
@@ -450,6 +452,19 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
       #2.7% lumi
       sys_diff[imtt-1].append(0.027*ttbar_histo.GetBinContent(imtt))
       sys_diff[imtt-1].append(-0.027*ttbar_histo.GetBinContent(imtt))
+    #combining uncertainties
+    sys_tot=[]
+    for imtt in range(1,ttbar_histo.GetNbinsX()+1):
+      uperr=0
+      downerr=0
+      for error in sys_diff[imtt-1]:
+        if error<0:
+          downerr=downerr+error*error
+        else:
+          uperr=uperr+error*error
+      sys_tot.append([downerr,uperr])
+      err.SetPointEYhigh(imtt-1,uperr)
+      err.SetPointEYlow(imtt-1,downerr)
 
   err.SetFillStyle(3145)
   err.SetFillColor(kGray)
@@ -457,11 +472,18 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   ###pull distribution
   pull=data_histo.Clone()
   pull.Add(sum_mc,-1)
-  for i in range(pull.GetNbinsX()+2):
-    if pull.GetBinError(i)!=0:
-      pull.SetBinContent(i,pull.GetBinContent(i)/pull.GetBinError(i))
+  #for i in range(pull.GetNbinsX()+2):
+  for imtt in range(1,ttbar_histo.GetNbinsX()+1):
+    if pull.GetBinError(imtt)!=0:
+      if dosys:
+        if pull.GetBinContent(imtt)>0:
+          pull.SetBinContent(imtt,pull.GetBinContent(imtt)/sys_tot[imtt-1][1])
+        else:
+          pull.SetBinContent(imtt,pull.GetBinContent(imtt)/sys_tot[imtt-1][0])
+      else:
+        pull.SetBinContent(imtt,pull.GetBinContent(imtt)/pull.GetBinError(imtt))
     else:
-      pull.SetBinContent(i,0)
+      pull.SetBinContent(imtt,0)
   pull.SetFillColor(kOrange+7)
 
   ###drawing top

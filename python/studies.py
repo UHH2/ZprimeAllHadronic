@@ -11,6 +11,7 @@ gROOT.SetBatch()
 path='/nfs/dust/cms/user/usaiem/selection/'
 prepath='/nfs/dust/cms/user/usaiem/preselection2/'
 prepath2='/nfs/dust/cms/user/usaiem/preselection2/'
+syspath='/nfs/dust/cms/user/usaiem/sys/'
 # path2='/nfs/dust/cms/user/usaiem/phys14-2/'
 root='.root'
 filename_base='uhh2.AnalysisModuleRunner.'
@@ -227,7 +228,7 @@ systypes={'mur':'_MUR',
           'pu':'_PU',
           'btag':'_BAK4SF',
           'subjetbtag':'_BAK8SF',
-          'ttbar':'_TTBAR',
+#          'ttbar':'_TTBAR',
           'toptag':'_TSF',
           'wtag':'_WSF',
           #'pdf':'_PDF',
@@ -298,33 +299,58 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
   "antibcsvCRnobtag_zprimemass",
   #  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
 "bkg1","bkg2","bkg12","bkg1up","bkg2up","bkg12up","bkg1down","bkg2down","bkg12down","tprimemass_res", "zprimemassbtag_res", "zprimemassnobtag_res"]:
-#i=''
-	rebinna=10
-	signalzoom=2
-	minx=0
-	maxx=0
-	if 'topmass' in i and '_' not in i:
-		minx=60
-		maxx=300
-	if 'wmass' in i and '_' not in i:
-		minx=60
-		maxx=300
-	if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR","bcsv","csv_pthighest","csv_csvhighest", "topcsv",]:
-		rebinna=1
-	if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub",]:
-		rebinna =2
-	if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
+  rebinna=10
+  signalzoom=2
+  minx=0
+  maxx=0
+  if 'topmass' in i and '_' not in i:
+    minx=60
+    maxx=300
+  if 'wmass' in i and '_' not in i:
+    minx=60
+    maxx=300
+  if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR","bcsv","csv_pthighest","csv_csvhighest", "topcsv",]:
+    rebinna=1
+  if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub",]:
+    rebinna =2
+  if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
   "bmass",  "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
   "wmass",  "wpt",  "wnsub",
   "toppt",  "topmass",  "topnsub",  "topcsv",
   "dRbt",  "dRbW",  "dRtW",  "dRtTp",
   "ht",  "htca8",  "ht_twb",  "npv",  "nevt",]:
-  		signalzoom=100
-  	if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub"]:
-  		signalzoom=20
-  	if i in ["tprimemass"]:
-  		signalzoom=20
-	make_ratioplot(
+    signalzoom=100
+  if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub"]:
+    signalzoom=20
+  if i in ["tprimemass"]:
+    signalzoom=20
+  make_ratioplot(
+    name=i+'NOSF',
+    ttbar_file=ttbar_file,
+    qcd_file=qcd_file,
+    data_file=data_file,
+    signal_files=signal_files_short,
+    histo='Selection/'+i, 
+    histo_qcd='Selection/'+i,
+    histo_signal='Selection/'+i,
+    rebin=rebinna,
+    minx=minx,
+    maxx=maxx,
+    miny=0,
+    maxy=0,
+    minratio=0,
+    maxratio=0,
+    logy=True,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalWB_legendnames_short,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        fixratio=True,
+        signal_colors=[kOrange+10,kAzure+1,kSpring-6])
+
+  make_ratioplot(
 		name=i,
 		ttbar_file=ttbar_file,
 		qcd_file=qcd_file,
@@ -348,8 +374,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
         separate_legend=True,
         signal_zoom=signalzoom,
         fixratio=True,
-        signal_colors=[kOrange+10,kAzure+1,kSpring-6]
-        )
+        signal_colors=[kOrange+10,kAzure+1,kSpring-6])
 
 
 
@@ -397,8 +422,8 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
   		signalzoom=100
   	if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub"]:
   		signalzoom=20
-  	if i in ["tprimemass"]:
-  		signalzoom=20
+  	#if i in ["tprimemass"]:
+  	#	signalzoom=20
 	make_ratioplot(
 		name='TT_'+i,
 		ttbar_file=ttbar_file,
@@ -431,23 +456,28 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
 
 
 for i in [
-  "zprimemass",  "zprimemassbtag",  "zprimemassnobtag",  "zprimemassbmass",  "zprimemassnobmass",
+  #"zprimemass",#,  "zprimemassbtag",  "zprimemassnobtag"#,  "zprimemassbmass",  "zprimemassnobmass",
   #"ttbarCR_zprimemass",  "ttbarCR_zprimemassbtag",
   #"lowmassCR_zprimemass",  "lowmassCR_zprimemassbtag",
   #"antitopmassCR_zprimemass",  "antitopnsubCR_zprimemass",  "antiwmassCR_zprimemass",  "antiwnsubCR_zprimemass", 
-   "antibcsvCR_zprimemass",
+   #"antibcsvCR_zprimemass",
    #  "antibptCR_zprimemass",  "antibmassCR_zprimemass",
 #"ttbarCR_zprimemass_low", "ttbarCR_zprimemassbtag_low", "lowmassCR_zprimemass_low", "lowmassCR_zprimemassbtag_low", 
  #"antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
  "antibcsvCRmass_zprimemass",
  # "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
  #"antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
- "antibcsvCRbtag_zprimemass", 
+ #"antibcsvCRbtag_zprimemass", 
  #"antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
 #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass",
-  "antibcsvCRnobtag_zprimemass",
+ # "antibcsvCRnobtag_zprimemass",
   #  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
-  "bkg1","bkg2","bkg12","bkg1up","bkg2up","bkg12up","bkg1down","bkg2down","bkg12down",]:
+  #"bkg1","bkg2",
+  "bkg12",
+  #"bkg1up","bkg2up",
+  "bkg12up",
+  #"bkg1down","bkg2down",
+  "bkg12down",]:
  	rebinna=10
 	minx=0
 	maxx=0
@@ -551,19 +581,25 @@ for i in [
 	ratioc.SaveAs('pdf/ratio_SRdata_vs_'+i+'_c.pdf')
 
 for i in [
-  "zprimemass",  "zprimemassbtag",  "zprimemassnobtag",  "zprimemassbmass",  "zprimemassnobmass",
+  #"zprimemass",  "zprimemassbtag",  "zprimemassnobtag",  "zprimemassbmass",  "zprimemassnobmass",
   #"ttbarCR_zprimemass",  "ttbarCR_zprimemassbtag",
   #"lowmassCR_zprimemass",  "lowmassCR_zprimemassbtag",
   #"antitopmassCR_zprimemass",  "antitopnsubCR_zprimemass",  "antiwmassCR_zprimemass",  "antiwnsubCR_zprimemass",
-    "antibcsvCR_zprimemass",#  "antibptCR_zprimemass",  "antibmassCR_zprimemass",
+   # "antibcsvCR_zprimemass",#  "antibptCR_zprimemass",  "antibmassCR_zprimemass",
   #"ttbarCR_zprimemass_low", "ttbarCR_zprimemassbtag_low", "lowmassCR_zprimemass_low", "lowmassCR_zprimemassbtag_low", 
  #"antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
- "antibcsvCRmass_zprimemass",# "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
+ #"antibcsvCRmass_zprimemass",# "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
  #"antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
  "antibcsvCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
 #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass", 
- "antibcsvCRnobtag_zprimemass",#  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
- "bkg1","bkg2","bkg12","bkg1up","bkg2up","bkg12up","bkg1down","bkg2down","bkg12down",]:
+ #"antibcsvCRnobtag_zprimemass",#  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
+ #"bkg1",
+ "bkg2",
+ #"bkg12","bkg1up",
+ "bkg2up",
+ #"bkg12up","bkg1down",
+ "bkg2down"#,"bkg12down",
+ ]:
  	rebinna=10
 	minx=0
 	maxx=0
@@ -670,19 +706,22 @@ for i in [
 
 
 for i in [
-  "zprimemass",  "zprimemassbtag",  "zprimemassnobtag",  "zprimemassbmass",  "zprimemassnobmass",
+  #"zprimemass",  "zprimemassbtag",  "zprimemassnobtag",  "zprimemassbmass",  "zprimemassnobmass",
   #"ttbarCR_zprimemass",  "ttbarCR_zprimemassbtag",
   #"lowmassCR_zprimemass",  "lowmassCR_zprimemassbtag",
   #"antitopmassCR_zprimemass",  "antitopnsubCR_zprimemass",  "antiwmassCR_zprimemass",  "antiwnsubCR_zprimemass",
-    "antibcsvCR_zprimemass",  "antibptCR_zprimemass",  "antibmassCR_zprimemass",
+   # "antibcsvCR_zprimemass",  "antibptCR_zprimemass",  "antibmassCR_zprimemass",
   #"ttbarCR_zprimemass_low", "ttbarCR_zprimemassbtag_low", "lowmassCR_zprimemass_low", "lowmassCR_zprimemassbtag_low", 
  #"antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
- "antibcsvCRmass_zprimemass",# "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
+ #"antibcsvCRmass_zprimemass",# "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
  #"antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
- "antibcsvCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
+ #"antibcsvCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
 #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass", 
  "antibcsvCRnobtag_zprimemass", # "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
- "bkg1","bkg2","bkg12","bkg1up","bkg2up","bkg12up","bkg1down","bkg2down","bkg12down",]:
+ "bkg1",#"bkg2","bkg12",
+ "bkg1up",#"bkg2up","bkg12up",
+ "bkg1down",#"bkg2down","bkg12down",
+ ]:
  	rebinna=10
 	minx=0
 	maxx=0
@@ -813,14 +852,19 @@ for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
   "matched_tprime1_mass",
   "matched_tprime2_mass",
   ]:
-  rebinna=10
+  rebinna=1
+  minx=0
+  maxx=0
+  if 'top_mass' in i or 'mass_closest_wjet' in i or 'mass_closest_topjet' in i or 'top_res_mass' in i:
+     minx=0
+     maxx=300
   compare(name='GEN_'+i,#signalWB_names[i]+'dRbW',
 		file_list=signal_files_pre2,#[signal_files[i],signal_files_pre[i]],
 		name_list=['NoCuts/'+i]*len(signal_files_pre2),
 		legend_list=signalWB_legendnames,
 		normalize=True,drawoption='hE',
 		xtitle='',ytitle='',
-		minx=0,maxx=0,
+		minx=minx,maxx=maxx,
 		rebin=rebinna,
 		miny=0,maxy=0,
 		textsizefactor=1,logy=False)
@@ -830,7 +874,7 @@ for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
 		legend_list=signalTT_legendnames,
 		normalize=True,drawoption='hE',
 		xtitle='',ytitle='',
-		minx=0,maxx=0,
+		minx=minx,maxx=maxx,
 		rebin=rebinna,
 		miny=0,maxy=0,
 		textsizefactor=1,logy=False)
@@ -930,108 +974,6 @@ for i in range(len(signalWB_names)):
 
 
 
-dotheta=True
-if dotheta:
-	rebinna=10
-	u='_'
-	uu='__'
-	signal_filesWB=[]
-	signal_filesZT=[]
-	signal_filesHT=[]
-	for i in signalWB_names:
-		signal_filesWB.append(TFile(path+filename_base+i+root,'READ'))
-	for i in signalZT_names:
-		signal_filesZT.append(TFile(path+filename_base+i+root,'READ'))
-	for i in signalHT_names:
-		signal_filesHT.append(TFile(path+filename_base+i+root,'READ'))
-	nscan=10
-	counter=1
-	filecounter=1
-	onebtag='Selection/zprimemassnobtag'
-	twobtags='Selection/zprimemassbtag'
-	for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]:
-		filename_postfix=u+str(filecounter)+u+str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')
-		thetafile=TFile('theta/theta'+filename_postfix+'.root','RECREATE')
-		thetafile.cd()
-		allhad2btag__qcd=qcd_file.Get(twobtags).Clone()
-		allhad1btag__qcd=qcd_file.Get(onebtag).Clone()
-		allhad2btag__ttbar=ttbar_file.Get(twobtags).Clone()
-		allhad1btag__ttbar=ttbar_file.Get(onebtag).Clone()
-		allhad2btag__DATA=data_file.Get(twobtags).Clone()
-		allhad1btag__DATA=data_file.Get(onebtag).Clone()
-		allhad2btag__qcd.Rebin(rebinna)
-		allhad1btag__qcd.Rebin(rebinna)
-		allhad2btag__ttbar.Rebin(rebinna)
-		allhad1btag__ttbar.Rebin(rebinna)
-		allhad2btag__DATA.Rebin(rebinna)
-		allhad1btag__DATA.Rebin(rebinna)
-		allhad2btag__qcd.Write('allhad2btag__qcd')
-		allhad1btag__qcd.Write('allhad1btag__qcd')
-		allhad2btag__ttbar.Write('allhad2btag__ttbar')
-		allhad1btag__ttbar.Write('allhad1btag__ttbar')
-		allhad2btag__DATA.Write('allhad2btag__DATA')
-		allhad1btag__DATA.Write('allhad1btag__DATA')
-
-		for masspoint in range(len(signalWB_names)):
-			allhad2btag__signalWB=signal_filesWB[masspoint].Get(twobtags).Clone()
-			allhad2btag__signalZT=signal_filesZT[masspoint].Get(twobtags).Clone()
-			allhad2btag__signalHT=signal_filesHT[masspoint].Get(twobtags).Clone()
-			#allhad2btag__signalWB.Sumw2()
-			#allhad2btag__signalZT.Sumw2()
-			#allhad2btag__signalHT.Sumw2()
-			allhad2btag__signalWB.Scale(triplet[0])
-			allhad2btag__signalHT.Scale(triplet[1])
-			allhad2btag__signalZT.Scale(triplet[2])
-			allhad2btag__signal=allhad2btag__signalWB
-			allhad2btag__signal.Add(allhad2btag__signalHT)
-			allhad2btag__signal.Add(allhad2btag__signalZT)
-			allhad2btag__signal.Rebin(rebinna)
-
-			allhad1btag__signalWB=signal_filesWB[masspoint].Get(onebtag).Clone()
-			allhad1btag__signalZT=signal_filesZT[masspoint].Get(onebtag).Clone()
-			allhad1btag__signalHT=signal_filesHT[masspoint].Get(onebtag).Clone()
-			#allhad1btag__signalWB.Sumw2()
-			#allhad1btag__signalZT.Sumw2()
-			#allhad1btag__signalHT.Sumw2()
-			allhad1btag__signalWB.Scale(triplet[0])
-			allhad1btag__signalHT.Scale(triplet[1])
-			allhad1btag__signalZT.Scale(triplet[2])
-			allhad1btag__signal=allhad1btag__signalWB
-			allhad1btag__signal.Add(allhad1btag__signalHT)
-			allhad1btag__signal.Add(allhad1btag__signalZT)
-			allhad1btag__signal.Rebin(rebinna)
-
-			allhad2btag__signal.Write('allhad2btag__signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
-				str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p'))
-			allhad1btag__signal.Write('allhad1btag__signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
-				str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p'))
-			counter+=1
-		thetafile.Close()
-		theta_config = open('theta/model'+filename_postfix+'.py','w')
-		theta_config.write("def get_model():\n\
-    model = build_model_from_rootfile('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/python/theta/theta"+filename_postfix+".root', include_mc_uncertainties = True)#mc uncertainties=true\n\
-    model.fill_histogram_zerobins()\n\
-    model.set_signal_processes('signal*')\n\
-    model.add_lognormal_uncertainty('ttbar_rate', 0.15, 'ttbar')\n\
-    model.add_lognormal_uncertainty('qcd_rate', 0.15, 'qcd')\n\
-    for p in model.processes:\n\
-        if p == 'qcd': continue\n\
-        model.add_lognormal_uncertainty('lumi', 0.026, p)\n\
-        if 'signal' in p:\n\
-            model.add_lognormal_uncertainty(p+'_rate', 0.15, p)\n\
-    return model\n\
-model = get_model()\n\
-model_summary(model)\n\
-options = Options()\n\
-options.set('main', 'n_threads', '20')\n\
-plot_exp, plot_obs = asymptotic_cls_limits(model,use_data=False,options=options)#bayesian_limits ,what='expected'\n\
-plot_exp.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/python/theta/limits_exp"+filename_postfix+".txt')\n\
-#plot_obs.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/python/theta/limits_obs"+filename_postfix+".txt')\n\
-report.write_html('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/python/theta/htmlout"+filename_postfix+"')")
-		filecounter+=1
-
-
-			
 
 
 # for i in ['step1_wmass','step1_wnsub','step1_tcsv','step1_tpt','step2_bcsv','step2_wpt','step3_tprimemass','step3_tprimept','step4_zprimemass','step4_zprimemassbtag','step4_zprimemassbtagnsub']:
@@ -1211,6 +1153,164 @@ compare(name='qcdcorrsystnobtag',
 		textsizefactor=1,logy=False)
 
 
+
+
+
+
+
+
+dotheta=True
+if dotheta:
+  rebinna=10
+  u='_'
+  uu='__'
+  signal_filesWB=[]
+  signal_filesZT=[]
+  signal_filesHT=[]
+  for i in signalWB_names:
+    signal_filesWB.append(TFile(path+filename_base+i+root,'READ'))
+  for i in signalZT_names:
+    signal_filesZT.append(TFile(path+filename_base+i+root,'READ'))
+  for i in signalHT_names:
+    signal_filesHT.append(TFile(path+filename_base+i+root,'READ'))
+  nscan=10
+  counter=1
+  filecounter=1
+  onebtag='Selection/zprimemassnobtag'
+  twobtags='Selection/zprimemassbtag'
+  for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]:
+    filename_postfix=u+str(filecounter)+u+str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')
+    thetafile=TFile('theta/theta'+filename_postfix+'.root','RECREATE')
+    thetafile.cd()
+    # allhad2btag__qcd=qcd_file.Get(twobtags).Clone()
+    # allhad1btag__qcd=qcd_file.Get(onebtag).Clone()
+    allhad2btag__qcd=data_file.Get('Selection/bkg2').Clone()
+    allhad1btag__qcd=data_file.Get('Selection/bkg1').Clone()
+    allhad2btag__ttbar=ttbar_file.Get(twobtags).Clone()
+    allhad1btag__ttbar=ttbar_file.Get(onebtag).Clone()
+    allhad2btag__DATA=data_file.Get(twobtags).Clone()
+    allhad1btag__DATA=data_file.Get(onebtag).Clone()
+    allhad2btag__qcd.Rebin(rebinna)
+    allhad1btag__qcd.Rebin(rebinna)
+    allhad2btag__ttbar.Rebin(rebinna)
+    allhad1btag__ttbar.Rebin(rebinna)
+    allhad2btag__DATA.Rebin(rebinna)
+    allhad1btag__DATA.Rebin(rebinna)
+    allhad2btag__qcd.Write('allhad2btag__qcd')
+    allhad1btag__qcd.Write('allhad1btag__qcd')
+    allhad2btag__ttbar.Write('allhad2btag__ttbar')
+    allhad1btag__ttbar.Write('allhad1btag__ttbar')
+    allhad2btag__DATA.Write('allhad2btag__DATA')
+    allhad1btag__DATA.Write('allhad1btag__DATA')
+    allhad2btag__qcd__bkgcorr__plus=data_file.Get('Selection/bkg2up').Clone()
+    allhad1btag__qcd__bkgcorr__plus=data_file.Get('Selection/bkg1up').Clone()
+    allhad2btag__qcd__bkgcorr__minus=data_file.Get('Selection/bkg2down').Clone()
+    allhad1btag__qcd__bkgcorr__minus=data_file.Get('Selection/bkg1down').Clone()
+    allhad2btag__qcd__bkgcorr__plus.Rebin(rebinna)
+    allhad1btag__qcd__bkgcorr__plus.Rebin(rebinna)
+    allhad2btag__qcd__bkgcorr__minus.Rebin(rebinna)
+    allhad1btag__qcd__bkgcorr__minus.Rebin(rebinna)
+    allhad2btag__qcd__bkgcorr__plus.Scale(qcdsfbtag2)
+    allhad1btag__qcd__bkgcorr__plus.Scale(qcdsfbtag2)
+    allhad2btag__qcd__bkgcorr__minus.Scale(qcdsfnobtag2)
+    allhad1btag__qcd__bkgcorr__minus.Scale(qcdsfnobtag2)
+    allhad2btag__qcd__bkgcorr__plus.Write('allhad2btag__qcd__bkgcorr__plus')
+    allhad1btag__qcd__bkgcorr__plus.Write('allhad1btag__qcd__bkgcorr__plus')
+    allhad2btag__qcd__bkgcorr__minus.Write('allhad2btag__qcd__bkgcorr__minus')
+    allhad1btag__qcd__bkgcorr__minus.Write('allhad1btag__qcd__bkgcorr__minus')
+  
+
+    for masspoint in range(len(signalWB_names)):
+      allhad2btag__signalWB=signal_filesWB[masspoint].Get(twobtags).Clone()
+      allhad2btag__signalZT=signal_filesZT[masspoint].Get(twobtags).Clone()
+      allhad2btag__signalHT=signal_filesHT[masspoint].Get(twobtags).Clone()
+      #allhad2btag__signalWB.Sumw2()
+      #allhad2btag__signalZT.Sumw2()
+      #allhad2btag__signalHT.Sumw2()
+      allhad2btag__signalWB.Scale(triplet[0])
+      allhad2btag__signalHT.Scale(triplet[1])
+      allhad2btag__signalZT.Scale(triplet[2])
+      allhad2btag__signal=allhad2btag__signalWB
+      allhad2btag__signal.Add(allhad2btag__signalHT)
+      allhad2btag__signal.Add(allhad2btag__signalZT)
+      allhad2btag__signal.Rebin(rebinna)
+
+      allhad1btag__signalWB=signal_filesWB[masspoint].Get(onebtag).Clone()
+      allhad1btag__signalZT=signal_filesZT[masspoint].Get(onebtag).Clone()
+      allhad1btag__signalHT=signal_filesHT[masspoint].Get(onebtag).Clone()
+      #allhad1btag__signalWB.Sumw2()
+      #allhad1btag__signalZT.Sumw2()
+      #allhad1btag__signalHT.Sumw2()
+      allhad1btag__signalWB.Scale(triplet[0])
+      allhad1btag__signalHT.Scale(triplet[1])
+      allhad1btag__signalZT.Scale(triplet[2])
+      allhad1btag__signal=allhad1btag__signalWB
+      allhad1btag__signal.Add(allhad1btag__signalHT)
+      allhad1btag__signal.Add(allhad1btag__signalZT)
+      allhad1btag__signal.Rebin(rebinna)
+
+
+      for sys in systypes:
+        if not (sys in ['mur','muf','murmuf']):
+          for side in {'UP':'plus','DOWN':'minus'}:
+            sys_fileWB=TFile(path+filename_base+signalWB_names[masspoint]+systypes[sys]+side+root,'READ')
+            sys_fileHT=TFile(path+filename_base+signalHT_names[masspoint]+systypes[sys]+side+root,'READ')
+            sys_fileZT=TFile(path+filename_base+signalZT_names[masspoint]+systypes[sys]+side+root,'READ')
+            for cat in [onebtag,twobtags]:
+              allhadWB=sys_fileWB.Get(cat).Clone()
+              allhadHT=sys_fileHT.Get(cat).Clone()
+              allhadZT=sys_fileZT.Get(cat).Clone()
+              allhadWB.Scale(triplet[0])
+              allhadHT.Scale(triplet[1])
+              allhadZT.Scale(triplet[2])
+              allhad=allhadWB
+              allhad.Add(allhadHT)
+              allhad.Add(allhadZT)
+            sys_fileWB.Close()
+            sys_fileHT.Close()
+            sys_fileZT.Close()
+
+
+
+      allhad2btag__signal.Write('allhad2btag__signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
+        str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p'))
+      allhad1btag__signal.Write('allhad1btag__signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
+        str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p'))
+      counter+=1
+    thetafile.Close()
+
+    theta_config = open('theta/model'+filename_postfix+'.py','w')
+    theta_config.write("def get_model():\n\
+    model = build_model_from_rootfile('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/theta"+filename_postfix+".root', include_mc_uncertainties = True)#mc uncertainties=true\n\
+    model.fill_histogram_zerobins()\n\
+    model.set_signal_processes('signal*')\n\
+    model.add_lognormal_uncertainty('ttbar_rate', math.log(1.15), 'ttbar')\n\
+    model.add_lognormal_uncertainty('qcd_rate', math.log(1.15), 'qcd')\n\
+    for p in model.processes:\n\
+        if p == 'qcd': continue\n\
+        model.add_lognormal_uncertainty('lumi', math.log(1.027), p)\n\
+        model.add_lognormal_uncertainty('trigger', math.log(1.05), p)\n\
+        if 'signal' in p:\n\
+            model.add_lognormal_uncertainty(p+'_rate', math.log(1.15), p)\n\
+    return model\n\
+model = get_model()\n\
+model_summary(model)\n\
+options = Options()\n\
+options.set('main', 'n_threads', '20')\n\
+plot_exp, plot_obs = asymptotic_cls_limits(model,use_data=False,options=options)#bayesian_limits ,what='expected'\n\
+plot_exp.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/limits_exp"+filename_postfix+".txt')\n\
+#plot_obs.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/limits_obs"+filename_postfix+".txt')\n\
+report.write_html('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/htmlout"+filename_postfix+"')")
+    filecounter+=1
+
+
+
+
+
+
+
+
+
 #signal contamination
 qcd1=qcd_file.Get("Selection/zprimemassnobtag").Clone()
 ttbar1=ttbar_file.Get("Selection/zprimemassnobtag").Clone()
@@ -1305,7 +1405,6 @@ for masspoint in [0,3,6]:
 ######systematics compare
 make_comp(data_file.Get("Selection/bkg1"),data_file.Get("Selection/bkg1up"),data_file.Get("Selection/bkg1down"),'SYS_bkg1',10)
 make_comp(data_file.Get("Selection/bkg2"),data_file.Get("Selection/bkg2up"),data_file.Get("Selection/bkg2down"),'SYS_bkg2',10)
-syspath='/nfs/dust/cms/user/usaiem/sys/'
 
 ttbar_string='MC.TTbar'
 up='UP'

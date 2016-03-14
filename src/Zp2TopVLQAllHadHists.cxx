@@ -1545,7 +1545,11 @@ void SelectionHists::fill(const Event & event){
     double weight = event.weight;
     //if (pu_sys==1) weight=event.weight_pu_up;
     //else if (pu_sys==-1) weight=event.weight_pu_down;
-    weight=weight*TTbarWeight(event,ttbar_sys);
+    
+    //TTBAR WEIGHT
+    //weight=weight*TTbarWeight(event,ttbar_sys);
+
+
 //gen part
 
 bool has_twb_gen=false;

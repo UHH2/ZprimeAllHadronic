@@ -258,7 +258,7 @@
 
 
 
-<!--   <InputData Lumi="828307" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1000" Cacheable="True">
+  <InputData Lumi="828307" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1000" Cacheable="True">
         <In FileName="/nfs/dust/cms/user/usaiem/syssel2/uhh2.AnalysisModuleRunner.MC.MC_TpTp_M-1000.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" /> 
     </InputData> 
@@ -316,7 +316,7 @@
   <InputData Lumi="829837" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-900" Cacheable="True">
         <In FileName="/nfs/dust/cms/user/usaiem/syssel2/uhh2.AnalysisModuleRunner.MC.MC_TpTp_M-900.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" /> 
-    </InputData>  -->
+    </InputData> 
 
 
 
@@ -360,8 +360,8 @@
             <!--set by process name -->
 
             <!--//// btag -->
-            <Item Name="MCBtagEfficienciesAK4" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/BTagMCEfficiencyHistsAK4.root" />
-            <Item Name="MCBtagEfficienciesAK8" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_4_15_patch1/src/UHH2/ZprimeAllHadronic/BTagMCEfficiencyHistsAK8.root" />
+            <Item Name="MCBtagEfficienciesAK4" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/BTagMCEfficiencyHistsAK4.root" />
+            <Item Name="MCBtagEfficienciesAK8" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/BTagMCEfficiencyHistsAK8.root" />
             <Item Name="BTagCalibration" Value="/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/data/CSVv2.csv" />
             <Item Name="btagging_sys" Value="central" />
             <Item Name="subjetbtag_sys" Value="down" />
