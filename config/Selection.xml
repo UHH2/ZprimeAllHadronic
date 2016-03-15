@@ -19,7 +19,7 @@
    <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="20" OutputDirectory="/nfs/dust/cms/user/usaiem/selection/" PostFix="" TargetLumi="2628.85" > 
 
 
-    <InputData Lumi="116421.0" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="True">
+    <InputData Lumi="116421.0" NEventsMax="-1" Type="MC" Version="TTbar2" Cacheable="True">
         <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.MC.TTbar.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
@@ -52,7 +52,7 @@
 
 
 
-    <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_05Oct2015_v1" Cacheable="True">
+<!--     <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_05Oct2015_v1" Cacheable="True">
         <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.DATA.JetHT_Run2015D_05Oct2015_v1.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" />
         <OutputTree Name="AnalysisTree" /> 
@@ -62,11 +62,11 @@
         <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.DATA.JetHT_Run2015D_PromptReco_v4.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
-    </InputData> 
+    </InputData>  -->
 
 
 
-<InputData Lumi="612.6385" NEventsMax="-1" Type="MC" Version="QCD_HT500to700" Cacheable="True">
+<!-- <InputData Lumi="612.6385" NEventsMax="-1" Type="MC" Version="QCD_HT500to700" Cacheable="True">
     <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.MC.QCD_HT500to700.root" Lumi="0.0"/>
     <InputTree Name="AnalysisTree" /> 
     <OutputTree Name="AnalysisTree" /> 
@@ -94,12 +94,12 @@
     <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.MC.QCD_HT2000toInf.root" Lumi="0.0"/>
     <InputTree Name="AnalysisTree" /> 
     <OutputTree Name="AnalysisTree" /> 
-</InputData>
+</InputData> -->
 
 
 
 
-<InputData Lumi="206786" NEventsMax="-1" Type="MC" Version="ZpToTpT_TpToHT_MZp1500Nar_MTp700Nar_LH" Cacheable="True">
+<!-- <InputData Lumi="206786" NEventsMax="-1" Type="MC" Version="ZpToTpT_TpToHT_MZp1500Nar_MTp700Nar_LH" Cacheable="True">
    <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.MC.ZpToTpT_TpToHT_MZp1500Nar_MTp700Nar_LH.root" Lumi="0.0"/>
    <InputTree Name="AnalysisTree" />
    <OutputTree Name="AnalysisTree" /> 
@@ -374,7 +374,7 @@
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
     </InputData> 
-
+ -->
 
 
 

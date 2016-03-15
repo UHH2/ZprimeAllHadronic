@@ -3,18 +3,18 @@ from os import system
 from sys import argv
 from os import mkdir
 from os.path import exists
+import math
 
 def envelope(plots):
   output=[]
-  for imtt in range(1,plot[0].GetNbinsX()+1):
+  for imtt in range(1,plots[0].GetNbinsX()+1):
     minimium=float('inf')
     maximum=-float('inf')
+    values=[]
     for plot in plots:
-      if plot.GetBinContent(imtt)>maximum:
-        maximum=plot.GetBinContent(imtt)
-      if plot.GetBinContent(imtt)<minimium:
-        minimum=plot.GetBinContent(imtt)
-    output.append([minimum,maximum])
+      values.append(plot.GetBinContent(imtt))
+    output.append([min(values),max(values)])
+  return output
 
 def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE',xtitle='',ytitle='',minx=0,maxx=0,rebin=1,miny=0,maxy=0,textsizefactor=1,logy=False):
   c=TCanvas(name,'',600,600)
@@ -412,8 +412,9 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
       if not (sys in ['mur','muf','murmuf']):
         for side in ['UP','DOWN']:
           ttf=TFile(syspath+sysdict[sys]+side+'.root','READ')
-          outfile.cd()
+          #outfile.cd()
           ttbar_tmp=ttf.Get(histo).Clone()#'ttbar'+sysdict[sys]+side
+          ttbar_tmp.Rebin(rebin)
           ttbar_tmp.Add(ttbar_histo,-1)
           for imtt in range(1,ttbar_histo.GetNbinsX()+1):
             sys_diff[imtt-1].append(ttbar_tmp.GetBinContent(imtt))
@@ -425,17 +426,31 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
       ttbar_MUFDOWN=TFile(syspath+sysdict['muf']+'DOWN.root','READ')
       ttbar_MURMUFUP=TFile(syspath+sysdict['murmuf']+'UP.root','READ')
       ttbar_MURMUFDOWN=TFile(syspath+sysdict['murmuf']+'DOWN.root','READ')
-      envelopesr=envelope([ttbar_MURUP.Get(histo),ttbar_MURDOWN.Get(histo),ttbar_MUFUP.Get(histo),ttbar_MUFDOWN.Get(histo),ttbar_MURMUFUP.Get(histo),ttbar_MURMUFDOWN.Get(histo)])
+      plotMURUP=ttbar_MURUP.Get(histo)
+      plotMURDOWN=ttbar_MURDOWN.Get(histo)
+      plotMUFUP=ttbar_MUFUP.Get(histo)
+      plotMUFDOWN=ttbar_MUFDOWN.Get(histo)
+      plotMURMUFUP=ttbar_MURMUFUP.Get(histo)
+      plotMURMUFDOWN=ttbar_MURMUFDOWN.Get(histo)
+      plotMURUP.Rebin(rebin)
+      plotMURDOWN.Rebin(rebin)
+      plotMUFUP.Rebin(rebin)
+      plotMUFDOWN.Rebin(rebin)
+      plotMURMUFUP.Rebin(rebin)
+      plotMURMUFDOWN.Rebin(rebin)
+      envelopesr=envelope([plotMURUP,plotMURDOWN,plotMUFUP,plotMUFDOWN,plotMURMUFUP,plotMURMUFDOWN])
       for imtt in range(1,ttbar_histo.GetNbinsX()+1):
         sys_diff[imtt-1].append(envelopesr[imtt-1][0])
         sys_diff[imtt-1].append(envelopesr[imtt-1][1])
     #adding bkg uncertainties
     if bkgup!=0 and bkgdown!=0:
-      bkgupdiff=bkgup.clone()
-      bkgdowndiff=bkgdown.clone()
-      bkgupdiff.Add(ttbar_histo,-1)
-      bkgdowndiff.Add(ttbar_histo,-1)
-      for imtt in range(1,ttbar_histo.GetNbinsX()+1):
+      bkgupdiff=qcd_file.Get(bkgup).Clone()
+      bkgdowndiff=qcd_file.Get(bkgdown).Clone()
+      bkgupdiff.Rebin(rebin)
+      bkgdowndiff.Rebin(rebin)
+      bkgupdiff.Add(qcd_histo,-1)
+      bkgdowndiff.Add(qcd_histo,-1)
+      for imtt in range(1,qcd_histo.GetNbinsX()+1):
         sys_diff[imtt-1].append(bkgupdiff.GetBinContent(imtt))
         sys_diff[imtt-1].append(bkgdowndiff.GetBinContent(imtt))
     #adding stat uncertainties
@@ -462,9 +477,9 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
           downerr=downerr+error*error
         else:
           uperr=uperr+error*error
-      sys_tot.append([downerr,uperr])
-      err.SetPointEYhigh(imtt-1,uperr)
-      err.SetPointEYlow(imtt-1,downerr)
+      sys_tot.append([math.sqrt(downerr),math.sqrt(uperr)])
+      err.SetPointEYhigh(imtt-1,math.sqrt(uperr))
+      err.SetPointEYlow(imtt-1,math.sqrt(downerr))
 
   err.SetFillStyle(3145)
   err.SetFillColor(kGray)
@@ -477,9 +492,9 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
     if pull.GetBinError(imtt)!=0:
       if dosys:
         if pull.GetBinContent(imtt)>0:
-          pull.SetBinContent(imtt,pull.GetBinContent(imtt)/sys_tot[imtt-1][1])
+          pull.SetBinContent(imtt,pull.GetBinContent(imtt)/(math.sqrt(sys_tot[imtt-1][1]*sys_tot[imtt-1][1]+data_histo.GetBinError(imtt)*data_histo.GetBinError(imtt)) ) )
         else:
-          pull.SetBinContent(imtt,pull.GetBinContent(imtt)/sys_tot[imtt-1][0])
+          pull.SetBinContent(imtt,pull.GetBinContent(imtt)/(math.sqrt(sys_tot[imtt-1][0]*sys_tot[imtt-1][0]+data_histo.GetBinError(imtt)*data_histo.GetBinError(imtt)) ) )
       else:
         pull.SetBinContent(imtt,pull.GetBinContent(imtt)/pull.GetBinError(imtt))
     else:

@@ -1333,6 +1333,8 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("zprimemassnobmass", ";m_{Z'};Events", 300, 0, 3000);
 
   book<TH1F>("tprimemass_res", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("topmass_res", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("topmass2_res", ";m_{T'};Events", 300, 0, 3000);
   book<TH1F>("zprimemassbtag_res", ";m_{Z'};Events", 300, 0, 3000);
   book<TH1F>("zprimemassnobtag_res", ";m_{Z'};Events", 300, 0, 3000);
 
@@ -1547,7 +1549,7 @@ void SelectionHists::fill(const Event & event){
     //else if (pu_sys==-1) weight=event.weight_pu_down;
     
     //TTBAR WEIGHT
-    //weight=weight*TTbarWeight(event,ttbar_sys);
+    weight=weight*TTbarWeight(event,ttbar_sys);
 
 
 //gen part
@@ -1755,8 +1757,31 @@ if (!event.isRealData)
       std::vector<Jet> TopB =       {the_b,  the_b2, the_b2, the_b};
       std::vector<Jet> TprimeB =    {the_b2, the_b,  the_b,  the_b2};
       float biggestTprimeMass=-1;
+      float fbiggestTprimeMass=-1;
       bool found=false;
+      bool ffound=false;
       unsigned int index=0;
+      unsigned int findex=0;
+
+      for(unsigned int i=0;i<TopW.size();i++)
+      {
+        //float TopMass=TprimeMass(TopW[i],TopB[i]);
+        float TprimeMass2=TprimeMass(TprimeW[i],TprimeB[i]);
+        if (/*TopMass>140.0 && TopMass<250.0 &&*/ TprimeMass2>fbiggestTprimeMass)
+        {
+          ffound=true;
+          fbiggestTprimeMass=TprimeMass2;
+          findex=i;
+        }
+      }
+      if (ffound)
+      {
+        float TopMass=TprimeMass(TopW[findex],TopB[findex]);
+        float TprimeMass2=TprimeMass(TprimeW[findex],TprimeB[findex]);
+        hist("topmass2_res")->Fill(TopMass,weight*additional_weight);
+        if (TprimeMass2>500.0) hist("topmass_res")->Fill(TopMass,weight*additional_weight);
+      }
+
       for(unsigned int i=0;i<TopW.size();i++)
       {
         float TopMass=TprimeMass(TopW[i],TopB[i]);

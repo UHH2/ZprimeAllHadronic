@@ -3,8 +3,9 @@ from os import system
 from sys import argv
 from os import mkdir
 from os.path import exists
+from array import array
 
-from utils import compare,hadd,doeff,make_plot,make_ratioplot,make_ratioplot2,make_comp
+from utils import compare,hadd,doeff,make_plot,make_ratioplot,make_ratioplot2,make_comp,envelope
 gROOT.SetBatch()
 
 #setup
@@ -298,8 +299,11 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
 #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass",
   "antibcsvCRnobtag_zprimemass",
   #  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
-"bkg1","bkg2","bkg12","bkg1up","bkg2up","bkg12up","bkg1down","bkg2down","bkg12down","tprimemass_res", "zprimemassbtag_res", "zprimemassnobtag_res"]:
+"bkg1","bkg2","bkg12","bkg1up","bkg2up","bkg12up","bkg1down","bkg2down","bkg12down","tprimemass_res", "zprimemassbtag_res", "zprimemassnobtag_res",
+'topmass_res','topmass2_res'
+]:
   rebinna=10
+  uselog=True
   signalzoom=2
   minx=0
   maxx=0
@@ -324,6 +328,12 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
     signalzoom=20
   if i in ["tprimemass"]:
     signalzoom=20
+  if i in ['topmass_res','topmass2_res']:
+    signalzoom=30
+    rebinna=1
+    uselog=False
+    minx=60
+    maxx=300
   make_ratioplot(
     name=i+'NOSF',
     ttbar_file=ttbar_file,
@@ -340,7 +350,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
     maxy=0,
     minratio=0,
     maxratio=0,
-    logy=True,
+    logy=uselog,
         xtitle='',
         ytitle='Events',
         textsizefactor=1,
@@ -366,7 +376,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
 		maxy=0,
 		minratio=0,
 		maxratio=0,
-		logy=True,
+		logy=uselog,
         xtitle='',
         ytitle='Events',
         textsizefactor=1,
@@ -374,7 +384,36 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
         separate_legend=True,
         signal_zoom=signalzoom,
         fixratio=True,
-        signal_colors=[kOrange+10,kAzure+1,kSpring-6])
+        signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        #dosys=True,
+        sysdict=systypes)
+  make_ratioplot(
+    name=i+'_TT',
+    ttbar_file=ttbar_file,
+    qcd_file=qcd_file,
+    data_file=data_file,
+    signal_files=signalTTreco_files,
+    histo='Selection/'+i, 
+    histo_qcd='Selection/'+i,
+    histo_signal='Selection/'+i,
+    rebin=rebinna,
+    minx=minx,
+    maxx=maxx,
+    miny=0,
+    maxy=0,
+    minratio=0,
+    maxratio=0,
+    logy=uselog,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalTT_legendnames,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        fixratio=True,
+        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        #dosys=True,
+        sysdict=systypes)
 
 
 
@@ -1100,7 +1139,10 @@ make_ratioplot(
         signal_zoom=signalzoom,
         qcd_legend='QCD from sideband',
         fixratio=True,
-        signal_colors=[kOrange+10,kAzure+1,kSpring-6]
+        signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        dosys=True,
+        sysdict=systypes,
+        bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
         )
 make_ratioplot(
 		name='1_btag',
@@ -1127,8 +1169,74 @@ make_ratioplot(
         signal_zoom=signalzoom,
         qcd_legend='QCD from sideband',
         fixratio=True,
-        signal_colors=[kOrange+10,kAzure+1,kSpring-6]
+        signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        dosys=True,
+        sysdict=systypes,
+        bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
         )
+
+
+make_ratioplot(
+    name='2_btagTT',
+    ttbar_file=ttbar_file,
+    qcd_file=outfile,
+    data_file=data_file,
+    signal_files=signalTTreco_files,
+    histo="Selection/zprimemassbtag", 
+    histo_qcd='qcdbkgbtag',
+    histo_signal="Selection/zprimemassbtag",
+    rebin=rebinna,
+    minx=minx,
+    maxx=maxx,
+    miny=0,
+    maxy=0,
+    minratio=0,
+    maxratio=0,
+    logy=True,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalTT_legendnames,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        qcd_legend='QCD from sideband',
+        fixratio=True,
+        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        dosys=True,
+        sysdict=systypes,
+        bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
+        )
+make_ratioplot(
+    name='1_btagTT',
+    ttbar_file=ttbar_file,
+    qcd_file=outfile,
+    data_file=data_file,
+    signal_files=signalTTreco_files,
+    histo="Selection/zprimemassnobtag", 
+    histo_qcd='qcdbkgnobtag',
+    histo_signal="Selection/zprimemassnobtag",
+    rebin=rebinna,
+    minx=minx,
+    maxx=maxx,
+    miny=0,
+    maxy=0,
+    minratio=0,
+    maxratio=0,
+    logy=True,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalTT_legendnames,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        qcd_legend='QCD from sideband',
+        fixratio=True,
+        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        dosys=True,
+        sysdict=systypes,
+        bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
+        )
+
 
 compare(name='qcdcorrsystbtag',
 		file_list=[qcd_file,qcd_file,qcd_file],
@@ -1156,29 +1264,32 @@ compare(name='qcdcorrsystnobtag',
 
 
 
+signal_filesWB=[]
+signal_filesZT=[]
+signal_filesHT=[]
+for i in signalWB_names:
+  signal_filesWB.append(TFile(path+filename_base+i+root,'READ'))
+for i in signalZT_names:
+  signal_filesZT.append(TFile(path+filename_base+i+root,'READ'))
+for i in signalHT_names:
+  signal_filesHT.append(TFile(path+filename_base+i+root,'READ'))
 
-
-
-dotheta=True
+dotheta=False
 if dotheta:
   rebinna=10
+  runList=[0,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000]
+  runLen=len(runList)-1
+  runArray = array('d',runList)
   u='_'
   uu='__'
-  signal_filesWB=[]
-  signal_filesZT=[]
-  signal_filesHT=[]
-  for i in signalWB_names:
-    signal_filesWB.append(TFile(path+filename_base+i+root,'READ'))
-  for i in signalZT_names:
-    signal_filesZT.append(TFile(path+filename_base+i+root,'READ'))
-  for i in signalHT_names:
-    signal_filesHT.append(TFile(path+filename_base+i+root,'READ'))
   nscan=10
   counter=1
   filecounter=1
   onebtag='Selection/zprimemassnobtag'
   twobtags='Selection/zprimemassbtag'
-  for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]:
+  sides={'UP':'plus','DOWN':'minus'}
+  cats={onebtag:'1btag',twobtags:'2btag'}
+  for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]:#+[[0,0,0]]:
     filename_postfix=u+str(filecounter)+u+str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')
     thetafile=TFile('theta/theta'+filename_postfix+'.root','RECREATE')
     thetafile.cd()
@@ -1190,12 +1301,22 @@ if dotheta:
     allhad1btag__ttbar=ttbar_file.Get(onebtag).Clone()
     allhad2btag__DATA=data_file.Get(twobtags).Clone()
     allhad1btag__DATA=data_file.Get(onebtag).Clone()
+    allhad2btag__qcd.Scale(qcdsfbtag2)
+    allhad1btag__qcd.Scale(qcdsfnobtag2)
     allhad2btag__qcd.Rebin(rebinna)
     allhad1btag__qcd.Rebin(rebinna)
     allhad2btag__ttbar.Rebin(rebinna)
     allhad1btag__ttbar.Rebin(rebinna)
     allhad2btag__DATA.Rebin(rebinna)
     allhad1btag__DATA.Rebin(rebinna)
+
+    allhad2btag__qcd=allhad2btag__qcd.Rebin(runLen,'',runArray)
+    allhad1btag__qcd=allhad1btag__qcd.Rebin(runLen,'',runArray)
+    allhad2btag__ttbar=allhad2btag__ttbar.Rebin(runLen,'',runArray)
+    allhad1btag__ttbar=allhad1btag__ttbar.Rebin(runLen,'',runArray)
+    allhad2btag__DATA=allhad2btag__DATA.Rebin(runLen,'',runArray)
+    allhad1btag__DATA=allhad1btag__DATA.Rebin(runLen,'',runArray)
+
     allhad2btag__qcd.Write('allhad2btag__qcd')
     allhad1btag__qcd.Write('allhad1btag__qcd')
     allhad2btag__ttbar.Write('allhad2btag__ttbar')
@@ -1206,19 +1327,67 @@ if dotheta:
     allhad1btag__qcd__bkgcorr__plus=data_file.Get('Selection/bkg1up').Clone()
     allhad2btag__qcd__bkgcorr__minus=data_file.Get('Selection/bkg2down').Clone()
     allhad1btag__qcd__bkgcorr__minus=data_file.Get('Selection/bkg1down').Clone()
+    allhad2btag__qcd__bkgcorr__plus.Scale(qcdsfbtag2)
+    allhad1btag__qcd__bkgcorr__plus.Scale(qcdsfnobtag2)
+    allhad2btag__qcd__bkgcorr__minus.Scale(qcdsfbtag2)
+    allhad1btag__qcd__bkgcorr__minus.Scale(qcdsfnobtag2)
     allhad2btag__qcd__bkgcorr__plus.Rebin(rebinna)
     allhad1btag__qcd__bkgcorr__plus.Rebin(rebinna)
     allhad2btag__qcd__bkgcorr__minus.Rebin(rebinna)
     allhad1btag__qcd__bkgcorr__minus.Rebin(rebinna)
-    allhad2btag__qcd__bkgcorr__plus.Scale(qcdsfbtag2)
-    allhad1btag__qcd__bkgcorr__plus.Scale(qcdsfbtag2)
-    allhad2btag__qcd__bkgcorr__minus.Scale(qcdsfnobtag2)
-    allhad1btag__qcd__bkgcorr__minus.Scale(qcdsfnobtag2)
+
+    allhad2btag__qcd__bkgcorr__plus=allhad2btag__qcd__bkgcorr__plus.Rebin(runLen,'',runArray)
+    allhad1btag__qcd__bkgcorr__plus=allhad1btag__qcd__bkgcorr__plus.Rebin(runLen,'',runArray)
+    allhad2btag__qcd__bkgcorr__minus=allhad2btag__qcd__bkgcorr__minus.Rebin(runLen,'',runArray)
+    allhad1btag__qcd__bkgcorr__minus=allhad1btag__qcd__bkgcorr__minus.Rebin(runLen,'',runArray)
     allhad2btag__qcd__bkgcorr__plus.Write('allhad2btag__qcd__bkgcorr__plus')
     allhad1btag__qcd__bkgcorr__plus.Write('allhad1btag__qcd__bkgcorr__plus')
     allhad2btag__qcd__bkgcorr__minus.Write('allhad2btag__qcd__bkgcorr__minus')
     allhad1btag__qcd__bkgcorr__minus.Write('allhad1btag__qcd__bkgcorr__minus')
   
+    for sys in systypes:
+        if not (sys in ['mur','muf','murmuf']):
+          for side in sides:
+            sys_file=TFile(syspath+filename_base+'MC.TTbar'+systypes[sys]+side+root,'READ')
+            for cat in cats:
+              allhad=sys_file.Get(cat).Clone()
+              allhad.Rebin(rebinna)
+              allhad=allhad.Rebin(runLen,'',runArray)
+              thetafile.cd()
+              allhad.Write('allhad'+cats[cat]+uu+'ttbar'+uu+sys+uu+sides[side])
+            sys_file.Close()
+
+    if ('mur' in systypes) and ('muf' in systypes) and ('murmuf' in systypes):
+      sysfilettbar_MURUP=TFile(syspath+filename_base+'MC.TTbar'+systypes['mur']+'UP.root','READ')
+      sysfilettbar_MURDOWN=TFile(syspath+filename_base+'MC.TTbar'+systypes['mur']+'DOWN.root','READ')
+      sysfilettbar_MUFUP=TFile(syspath+filename_base+'MC.TTbar'+systypes['muf']+'UP.root','READ')
+      sysfilettbar_MUFDOWN=TFile(syspath+filename_base+'MC.TTbar'+systypes['muf']+'DOWN.root','READ')
+      sysfilettbar_MURMUFUP=TFile(syspath+filename_base+'MC.TTbar'+systypes['murmuf']+'UP.root','READ')
+      sysfilettbar_MURMUFDOWN=TFile(syspath+filename_base+'MC.TTbar'+systypes['murmuf']+'DOWN.root','READ')
+      for cat in cats:
+        allhad_env=envelope([sysfilettbar_MURUP.Get(cat),sysfilettbar_MURDOWN.Get(cat),sysfilettbar_MUFUP.Get(cat),sysfilettbar_MUFDOWN.Get(cat),sysfilettbar_MURMUFUP.Get(cat),sysfilettbar_MURMUFDOWN.Get(cat)])
+        allhad_up=sysfilettbar_MURUP.Get(cat).Clone()
+        allhad_down=sysfilettbar_MURUP.Get(cat).Clone()
+        for imtt in range(1,allhad_up.GetNbinsX()+1):
+          allhad_up.SetBinContent(imtt,allhad_env[imtt-1][1])
+          allhad_down.SetBinContent(imtt,allhad_env[imtt-1][0])
+        allhad_up.Rebin(rebinna)
+        allhad_down.Rebin(rebinna)
+        allhad_up=allhad_up.Rebin(runLen,'',runArray)
+        allhad_down=allhad_down.Rebin(runLen,'',runArray)
+        thetafile.cd()
+        allhad_up.Write('allhad'+cats[cat]+uu+'ttbar'+uu+'mu'+uu+'plus')
+        allhad_down.Write('allhad'+cats[cat]+uu+'ttbar'+uu+'mu'+uu+'minus')
+
+      sysfilettbar_MURUP.Close()
+      sysfilettbar_MURDOWN.Close()
+      sysfilettbar_MUFUP.Close()
+      sysfilettbar_MUFDOWN.Close()
+      sysfilettbar_MURMUFUP.Close()
+      sysfilettbar_MURMUFDOWN.Close()
+
+    #if triplet==[0,0,0]:
+    #	for masspoint in range(len(signalTT_names)):
 
     for masspoint in range(len(signalWB_names)):
       allhad2btag__signalWB=signal_filesWB[masspoint].Get(twobtags).Clone()
@@ -1227,13 +1396,17 @@ if dotheta:
       #allhad2btag__signalWB.Sumw2()
       #allhad2btag__signalZT.Sumw2()
       #allhad2btag__signalHT.Sumw2()
-      allhad2btag__signalWB.Scale(triplet[0])
+      addscale=1.0
+      if '2000' in signalWB_names[masspoint] and '1500' in signalWB_names[masspoint]:
+        addscale=0.163649053
+      allhad2btag__signalWB.Scale(triplet[0]*addscale)
       allhad2btag__signalHT.Scale(triplet[1])
       allhad2btag__signalZT.Scale(triplet[2])
       allhad2btag__signal=allhad2btag__signalWB
       allhad2btag__signal.Add(allhad2btag__signalHT)
       allhad2btag__signal.Add(allhad2btag__signalZT)
       allhad2btag__signal.Rebin(rebinna)
+      allhad2btag__signal=allhad2btag__signal.Rebin(runLen,'',runArray)
 
       allhad1btag__signalWB=signal_filesWB[masspoint].Get(onebtag).Clone()
       allhad1btag__signalZT=signal_filesZT[masspoint].Get(onebtag).Clone()
@@ -1241,41 +1414,122 @@ if dotheta:
       #allhad1btag__signalWB.Sumw2()
       #allhad1btag__signalZT.Sumw2()
       #allhad1btag__signalHT.Sumw2()
-      allhad1btag__signalWB.Scale(triplet[0])
+      allhad1btag__signalWB.Scale(triplet[0]*addscale)
       allhad1btag__signalHT.Scale(triplet[1])
       allhad1btag__signalZT.Scale(triplet[2])
       allhad1btag__signal=allhad1btag__signalWB
       allhad1btag__signal.Add(allhad1btag__signalHT)
       allhad1btag__signal.Add(allhad1btag__signalZT)
       allhad1btag__signal.Rebin(rebinna)
+      allhad1btag__signal=allhad1btag__signal.Rebin(runLen,'',runArray)
 
+      thetafile.cd()
+      allhad2btag__signal.Write('allhad2btag__signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
+        str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p'))
+      allhad1btag__signal.Write('allhad1btag__signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
+        str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p'))
 
       for sys in systypes:
         if not (sys in ['mur','muf','murmuf']):
-          for side in {'UP':'plus','DOWN':'minus'}:
-            sys_fileWB=TFile(path+filename_base+signalWB_names[masspoint]+systypes[sys]+side+root,'READ')
-            sys_fileHT=TFile(path+filename_base+signalHT_names[masspoint]+systypes[sys]+side+root,'READ')
-            sys_fileZT=TFile(path+filename_base+signalZT_names[masspoint]+systypes[sys]+side+root,'READ')
-            for cat in [onebtag,twobtags]:
+          for side in sides:
+            sys_fileWB=TFile(syspath+filename_base+signalWB_names[masspoint]+systypes[sys]+side+root,'READ')
+            sys_fileHT=TFile(syspath+filename_base+signalHT_names[masspoint]+systypes[sys]+side+root,'READ')
+            sys_fileZT=TFile(syspath+filename_base+signalZT_names[masspoint]+systypes[sys]+side+root,'READ')
+            for cat in cats:
               allhadWB=sys_fileWB.Get(cat).Clone()
               allhadHT=sys_fileHT.Get(cat).Clone()
               allhadZT=sys_fileZT.Get(cat).Clone()
-              allhadWB.Scale(triplet[0])
+              allhadWB.Scale(triplet[0]*addscale)
               allhadHT.Scale(triplet[1])
               allhadZT.Scale(triplet[2])
               allhad=allhadWB
               allhad.Add(allhadHT)
               allhad.Add(allhadZT)
+              allhad.Rebin(rebinna)
+              allhad=allhad.Rebin(runLen,'',runArray)
+              thetafile.cd()
+              allhad.Write('allhad'+cats[cat]+uu+'signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
+        str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')+uu+sys+uu+sides[side])
             sys_fileWB.Close()
             sys_fileHT.Close()
             sys_fileZT.Close()
-
-
-
-      allhad2btag__signal.Write('allhad2btag__signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
-        str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p'))
-      allhad1btag__signal.Write('allhad1btag__signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
-        str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p'))
+      if ('mur' in systypes) and ('muf' in systypes) and ('murmuf' in systypes):
+        sysfileWB_MURUP=TFile(syspath+filename_base+signalWB_names[masspoint]+systypes['mur']+'UP.root','READ')
+        sysfileWB_MURDOWN=TFile(syspath+filename_base+signalWB_names[masspoint]+systypes['mur']+'DOWN.root','READ')
+        sysfileWB_MUFUP=TFile(syspath+filename_base+signalWB_names[masspoint]+systypes['muf']+'UP.root','READ')
+        sysfileWB_MUFDOWN=TFile(syspath+filename_base+signalWB_names[masspoint]+systypes['muf']+'DOWN.root','READ')
+        sysfileWB_MURMUFUP=TFile(syspath+filename_base+signalWB_names[masspoint]+systypes['murmuf']+'UP.root','READ')
+        sysfileWB_MURMUFDOWN=TFile(syspath+filename_base+signalWB_names[masspoint]+systypes['murmuf']+'DOWN.root','READ')
+        sysfileHT_MURUP=TFile(syspath+filename_base+signalHT_names[masspoint]+systypes['mur']+'UP.root','READ')
+        sysfileHT_MURDOWN=TFile(syspath+filename_base+signalHT_names[masspoint]+systypes['mur']+'DOWN.root','READ')
+        sysfileHT_MUFUP=TFile(syspath+filename_base+signalHT_names[masspoint]+systypes['muf']+'UP.root','READ')
+        sysfileHT_MUFDOWN=TFile(syspath+filename_base+signalHT_names[masspoint]+systypes['muf']+'DOWN.root','READ')
+        sysfileHT_MURMUFUP=TFile(syspath+filename_base+signalHT_names[masspoint]+systypes['murmuf']+'UP.root','READ')
+        sysfileHT_MURMUFDOWN=TFile(syspath+filename_base+signalHT_names[masspoint]+systypes['murmuf']+'DOWN.root','READ')
+        sysfileZT_MURUP=TFile(syspath+filename_base+signalZT_names[masspoint]+systypes['mur']+'UP.root','READ')
+        sysfileZT_MURDOWN=TFile(syspath+filename_base+signalZT_names[masspoint]+systypes['mur']+'DOWN.root','READ')
+        sysfileZT_MUFUP=TFile(syspath+filename_base+signalZT_names[masspoint]+systypes['muf']+'UP.root','READ')
+        sysfileZT_MUFDOWN=TFile(syspath+filename_base+signalZT_names[masspoint]+systypes['muf']+'DOWN.root','READ')
+        sysfileZT_MURMUFUP=TFile(syspath+filename_base+signalZT_names[masspoint]+systypes['murmuf']+'UP.root','READ')
+        sysfileZT_MURMUFDOWN=TFile(syspath+filename_base+signalZT_names[masspoint]+systypes['murmuf']+'DOWN.root','READ')
+        for cat in cats:
+          allhadWB_env=envelope([sysfileWB_MURUP.Get(cat),sysfileWB_MURDOWN.Get(cat),sysfileWB_MUFUP.Get(cat),sysfileWB_MUFDOWN.Get(cat),sysfileWB_MURMUFUP.Get(cat),sysfileWB_MURMUFDOWN.Get(cat)])
+          allhadHT_env=envelope([sysfileHT_MURUP.Get(cat),sysfileHT_MURDOWN.Get(cat),sysfileHT_MUFUP.Get(cat),sysfileHT_MUFDOWN.Get(cat),sysfileHT_MURMUFUP.Get(cat),sysfileHT_MURMUFDOWN.Get(cat)])
+          allhadZT_env=envelope([sysfileZT_MURUP.Get(cat),sysfileZT_MURDOWN.Get(cat),sysfileZT_MUFUP.Get(cat),sysfileZT_MUFDOWN.Get(cat),sysfileZT_MURMUFUP.Get(cat),sysfileZT_MURMUFDOWN.Get(cat)])
+          allhadWB_up=sysfileWB_MURUP.Get(cat).Clone()
+          allhadHT_up=sysfileHT_MURUP.Get(cat).Clone()
+          allhadZT_up=sysfileZT_MURUP.Get(cat).Clone()
+          allhadWB_down=sysfileWB_MURUP.Get(cat).Clone()
+          allhadHT_down=sysfileHT_MURUP.Get(cat).Clone()
+          allhadZT_down=sysfileZT_MURUP.Get(cat).Clone()
+          for imtt in range(1,allhadWB_up.GetNbinsX()+1):
+            allhadWB_up.SetBinContent(imtt,allhadWB_env[imtt-1][1])
+            allhadHT_up.SetBinContent(imtt,allhadHT_env[imtt-1][1])
+            allhadZT_up.SetBinContent(imtt,allhadZT_env[imtt-1][1])
+            allhadWB_down.SetBinContent(imtt,allhadWB_env[imtt-1][0])
+            allhadHT_down.SetBinContent(imtt,allhadHT_env[imtt-1][0])
+            allhadZT_down.SetBinContent(imtt,allhadZT_env[imtt-1][0])
+          allhadWB_up.Scale(triplet[0]*addscale)
+          allhadHT_up.Scale(triplet[1])
+          allhadZT_up.Scale(triplet[2])
+          allhadWB_down.Scale(triplet[0]*addscale)
+          allhadHT_down.Scale(triplet[1])
+          allhadZT_down.Scale(triplet[2])
+          allhad_up=allhadWB_up
+          allhad_up.Add(allhadHT_up)
+          allhad_up.Add(allhadZT_up)
+          allhad_down=allhadWB_down
+          allhad_down.Add(allhadHT_down)
+          allhad_down.Add(allhadZT_down)
+          allhad_up.Rebin(rebinna)
+          allhad_down.Rebin(rebinna)
+          allhad_up=allhad_up.Rebin(runLen,'',runArray)
+          allhad_down=allhad_down.Rebin(runLen,'',runArray)
+          thetafile.cd()
+          allhad_up.Write('allhad'+cats[cat]+uu+'signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
+        str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')+uu+'mu'+uu+'plus')
+          allhad_down.Write('allhad'+cats[cat]+uu+'signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
+        str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')+uu+'mu'+uu+'minus')
+        sysfileWB_MURUP.Close()
+        sysfileWB_MURDOWN.Close()
+        sysfileWB_MUFUP.Close()
+        sysfileWB_MUFDOWN.Close()
+        sysfileWB_MURMUFUP.Close()
+        sysfileWB_MURMUFDOWN.Close()
+        sysfileHT_MURUP.Close()
+        sysfileHT_MURDOWN.Close()
+        sysfileHT_MUFUP.Close()
+        sysfileHT_MUFDOWN.Close()
+        sysfileHT_MURMUFUP.Close()
+        sysfileHT_MURMUFDOWN.Close()
+        sysfileZT_MURUP.Close()
+        sysfileZT_MURDOWN.Close()
+        sysfileZT_MUFUP.Close()
+        sysfileZT_MUFDOWN.Close()
+        sysfileZT_MURMUFUP.Close()
+        sysfileZT_MURMUFDOWN.Close()
+        
+      
       counter+=1
     thetafile.Close()
 
@@ -1284,20 +1538,21 @@ if dotheta:
     model = build_model_from_rootfile('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/theta"+filename_postfix+".root', include_mc_uncertainties = True)#mc uncertainties=true\n\
     model.fill_histogram_zerobins()\n\
     model.set_signal_processes('signal*')\n\
-    model.add_lognormal_uncertainty('ttbar_rate', math.log(1.15), 'ttbar')\n\
-    model.add_lognormal_uncertainty('qcd_rate', math.log(1.15), 'qcd')\n\
+    #model.add_lognormal_uncertainty('ttbar_rate', math.log(1.15), 'ttbar')\n\
+    #model.add_lognormal_uncertainty('qcd_rate', math.log(1.15), 'qcd')\n\
     for p in model.processes:\n\
         if p == 'qcd': continue\n\
         model.add_lognormal_uncertainty('lumi', math.log(1.027), p)\n\
-        model.add_lognormal_uncertainty('trigger', math.log(1.05), p)\n\
-        if 'signal' in p:\n\
-            model.add_lognormal_uncertainty(p+'_rate', math.log(1.15), p)\n\
+        model.add_lognormal_uncertainty('trigger', math.log(1.03), p)\n\
+        #if 'signal' in p:\n\
+        #    model.add_lognormal_uncertainty(p+'_rate', math.log(1.15), p)\n\
     return model\n\
 model = get_model()\n\
 model_summary(model)\n\
 options = Options()\n\
 options.set('main', 'n_threads', '20')\n\
-plot_exp, plot_obs = asymptotic_cls_limits(model,use_data=False,options=options)#bayesian_limits ,what='expected'\n\
+#plot_exp, plot_obs = asymptotic_cls_limits(model,use_data=False,options=options)#bayesian_limits ,what='expected'\n\
+plot_exp, plot_obs = bayesian_limits(model,what='expected')#bayesian_limits ,what='expected'\n\
 plot_exp.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/limits_exp"+filename_postfix+".txt')\n\
 #plot_obs.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/limits_obs"+filename_postfix+".txt')\n\
 report.write_html('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/htmlout"+filename_postfix+"')")
@@ -1452,7 +1707,7 @@ ttbarsr1_MUDOWN=ttbar_mean.Get(sr1name).Clone()
 ttbarsr1_MUUP=ttbar_mean.Get(sr1name).Clone()
 ttbarsr2_MUDOWN=ttbar_mean.Get(sr2name).Clone()
 ttbarsr2_MUUP=ttbar_mean.Get(sr2name).Clone()
-for imtt in range(1,ttbar_histo.GetNbinsX()+1):
+for imtt in range(1,ttbarsr1_MUDOWN.GetNbinsX()+1):
   ttbarsr1_MUDOWN.SetBinContent(imtt,envelopesr1[imtt-1][0])
   ttbarsr1_MUUP.SetBinContent(imtt,envelopesr1[imtt-1][1])
   ttbarsr2_MUDOWN.SetBinContent(imtt,envelopesr2[imtt-1][0])
