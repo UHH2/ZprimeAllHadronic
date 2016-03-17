@@ -36,6 +36,8 @@ private:
     std::unique_ptr<JetCorrector> jetcorrector;
    
     unique_ptr<AnalysisModule> common_modules_with_lumi_sel;
+
+    uhh2::Event::Handle<std::vector<TopJet> > h_fatjets;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
     std::unique_ptr<Hists> h_nocuts, h_allhad, h_nocutssub, h_allhadsub, h_pre, h_preallhad;//h_nocorr, h_nocorr_gen, h_nocuts, h_nocuts_gen, h_preselection,h_trigger,h_alttrigger,h_trieffden,h_HTtrieffnum,h_AK8trieffnum,h_selection0,h_selection1,h_selection2,h_selection,h_selection_gen,h_preselection_gen,h_ww,h_tv,h_tev;
@@ -78,7 +80,7 @@ PreselectionModule::PreselectionModule(Context & ctx){
     h_pre.reset(new PreselectionHists(ctx, "Preselection"));
     h_preallhad.reset(new PreselectionHists(ctx, "PreselectionAllHad"));
 
-
+    h_fatjets = ctx.get_handle<std::vector<TopJet> > ("patJetsCa15CHSJetsSoftDropPacked_daughters");
     
 
 }
@@ -106,14 +108,42 @@ bool HT_cut= HT>850.0;
 // bool Trim_cut= HT>750.0;
 //if (!(HT_trigger && HT>850.0)) return false;
 
+std::vector<TopJet>* fatjets(0);
+if(event.is_valid(h_fatjets)) fatjets = &event.get(h_fatjets);
 
-bool Nfatjets=false;
-if (event.topjets->size()>1)
+bool condR8=false;
+bool condR15=false;
+
+// if (event.topjets->size()>1)
+// {
+//   cond1 = TopJetPt(event.topjets->at(0))>200.0/*400.0*/ && TopJetPt(event.topjets->at(1))>200.0 && TopJetMass(event.topjets->at(0))>60.0 && TopJetMass(event.topjets->at(1))>60.0;    
+// }
+// if (event.topjets->size()>0 && fatjets->size()>0)
+// {
+//   cond2
+// }
+int NgoodAK8=0;
+for(auto topjet : *event.topjets)
 {
-    if (TopJetPt(event.topjets->at(0))>200.0/*400.0*/ && TopJetPt(event.topjets->at(1))>200.0 && TopJetMass(event.topjets->at(0))>60.0 && TopJetMass(event.topjets->at(1))>60.0) Nfatjets=true;
+  if (TopJetPt(topjet)>200.0 && TopJetMass(topjet)>60.0) NgoodAK8++;
 }
+condR8=NgoodAK8>1;
+
+for(auto fatjet : *fatjets)
+{
+  if (TopJetPt(fatjet)>200.0 && TopJetMass(fatjet)>130.0)
+  {
+    for(auto topjet : *event.topjets)
+    {
+      if (TopJetPt(topjet)>200.0 && TopJetMass(topjet)>60.0 && deltaR(topjet,fatjet)>0.8) {condR15=true; break;}
+    }
+  }
+  if (condR15) break;
+}
+
+//if (cond1 /*&& cond2*/) Nfatjets=true;
 //cout<<HT_trigger<<Nfatjets;
-bool preselection = ( (HT_trigger && HT_cut) /*|| (Trim_trigger && Trim_cut) */) && Nfatjets;
+bool preselection = HT_trigger && HT_cut && (condR8 || condR15); //( (HT_trigger && HT_cut) /*|| (Trim_trigger && Trim_cut) */) ;
 
 
 bool is_allhad=false;

@@ -393,6 +393,12 @@ bool TopTag(TopJet topjet)
   return TopJetPt(topjet)>400.0 && mjet>110.0 && mjet<210.0 && TopJetNsub(topjet)<0.86;
 }
 
+bool TopTag15(TopJet topjet)
+{
+  auto mjet = TopJetMass(topjet);
+  return TopJetPt(topjet)>200.0 && mjet>140.0 && mjet<250.0 && TopJetNsub(topjet)<0.88;
+}
+
 bool AntiTopTag_mass(TopJet topjet)
 {
   auto mjet = TopJetMass(topjet);

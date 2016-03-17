@@ -15,6 +15,7 @@
 using namespace uhh2;
 using namespace std;
 bool TopTag(TopJet topjet);
+bool TopTag15(TopJet topjet);
 bool WTag(TopJet topjet);
 bool AntiTopTag(TopJet topjet);
 bool AntiTopTag_mass(TopJet topjet);
