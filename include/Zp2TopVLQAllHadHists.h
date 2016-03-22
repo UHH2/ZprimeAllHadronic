@@ -52,6 +52,7 @@ private:
     int w_sys;
     //int pu_sys;
     int ttbar_sys;
+    uhh2::Event::Handle<std::vector<TopJet> > h_fatjets;
 };
 
 class MistagAndShapeHists: public uhh2::Hists {

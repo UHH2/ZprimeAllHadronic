@@ -92,22 +92,36 @@ if (!common_modules_with_lumi_sel->process(event)) {
 
   bool has_tw=false;
   bool has_twb=false;
+  bool has_w=false;
+  bool has_t=false;
   TopJet the_top, the_w;
   Jet the_b;
-  if (TopTag(event.topjets->at(0))&&WTag(event.topjets->at(1)))
+
+
+
+  for(auto topjet : *event.topjets)
   {
-    the_top=event.topjets->at(0);
-    the_w=event.topjets->at(1);
-    has_tw=true;
+    if (TopTag(topjet))
+    {
+      has_t=true;
+      the_top=topjet;
+      break;
+    }
   }
-  else if(TopTag(event.topjets->at(1))&&WTag(event.topjets->at(0)))
+  for(auto topjet : *event.topjets)
   {
-    the_top=event.topjets->at(1);
-    the_w=event.topjets->at(0);
-    has_tw=true;
+    if (WTag(topjet))
+    {
+      has_w=true;
+      the_w=topjet;
+      break;
+    }
   }
+  has_tw = has_t && has_w ;
+
+
   if (has_tw) for(auto jet : *event.jets)
-  if (/*jet.btag_combinedSecondaryVertex()>0.890&&*/deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
+  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
   {
         the_b=jet; has_twb=true;
         break;

@@ -131,6 +131,7 @@ condR8=NgoodAK8>1;
 
 for(auto fatjet : *fatjets)
 {
+  //std::cout<<TopJetPt(fatjet);
   if (TopJetPt(fatjet)>200.0 && TopJetMass(fatjet)>130.0)
   {
     for(auto topjet : *event.topjets)

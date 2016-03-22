@@ -305,6 +305,21 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
 "tprimemassbtag","tprimemassnobtag","tprimemassbtagmass","tprimemassnobtagmass","antibcsvCRbtag_tprimemass","antibcsvCRnobtag_tprimemass",
 "antibcsvCRbtagmass_tprimemass","antibcsvCRnobtagmass_tprimemass","antibcsvCRbtag_ht_twb","antibcsvCRnobtag_ht_twb",
 
+"ttbarCR_zprimemassnobtag","lowmassCR_zprimemassnobtag","ttbarCR_zprimemassnobtag_low","lowmassCR_zprimemassnobtag_low",
+"CA15_zprimemassbtag","CA15_ht_twbSRbtag","CA15_tprimemassbtag",
+
+"CA15_zprimemassnobtag","CA15_ht_twbSRnobtag","CA15_tprimemassnobtag",
+
+"CA15_ttbarCR_zprimemassnobtag","CA15_ttbarCR_zprimemassbtag",
+"CA15_lowmassCR_zprimemassnobtag","CA15_lowmassCR_zprimemassbtag",
+
+"CA15_zprimemassbtag_low","CA15_ht_twbSRbtag_low","CA15_tprimemassbtag_low",
+
+"CA15_zprimemassnobtag_low","CA15_ht_twbSRnobtag_low","CA15_tprimemassnobtag_low",
+
+"CA15_ttbarCR_zprimemassnobtag_low","CA15_ttbarCR_zprimemassbtag_low",
+"CA15_lowmassCR_zprimemassnobtag_low","CA15_lowmassCR_zprimemassbtag_low",
+"index_toptag","index_wtag","index_wtag1","index_wtag2",
 ]:
   rebinna=10
   uselog=True
@@ -317,7 +332,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
   if 'wmass' in i and '_' not in i:
     minx=60
     maxx=300
-  if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR","bcsv","csv_pthighest","csv_csvhighest", "topcsv",]:
+  if i in ["index_toptag","index_wtag","index_wtag1","index_wtag2","N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR","bcsv","csv_pthighest","csv_csvhighest", "topcsv",]:
     rebinna=1
   if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub",]:
     rebinna =2
@@ -391,6 +406,62 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
         #dosys=True,
         sysdict=systypes)
+
+  make_ratioplot(
+    name=i+'_NOLOG',
+    ttbar_file=ttbar_file,
+    qcd_file=qcd_file,
+    data_file=data_file,
+    signal_files=signal_files_short,
+    histo='Selection/'+i, 
+    histo_qcd='Selection/'+i,
+    histo_signal='Selection/'+i,
+    rebin=rebinna,
+    minx=minx,
+    maxx=maxx,
+    miny=0,
+    maxy=0,
+    minratio=0,
+    maxratio=0,
+    logy=False,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalWB_legendnames_short,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        fixratio=True,
+        signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        #dosys=True,
+        sysdict=systypes)
+
+  make_ratioplot(
+    name=i+'_ALL',
+    ttbar_file=ttbar_file,
+    qcd_file=qcd_file,
+    data_file=data_file,
+    signal_files=signal_files,
+    histo='Selection/'+i, 
+    histo_qcd='Selection/'+i,
+    histo_signal='Selection/'+i,
+    rebin=rebinna,
+    minx=minx,
+    maxx=maxx,
+    miny=0,
+    maxy=0,
+    minratio=0,
+    maxratio=0,
+    logy=uselog,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalWB_legendnames,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        fixratio=True,
+        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        #dosys=True,
+        sysdict=systypes)
   make_ratioplot(
     name=i+'_TT',
     ttbar_file=ttbar_file,
@@ -408,6 +479,33 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
     minratio=0,
     maxratio=0,
     logy=uselog,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalTT_legendnames,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        fixratio=True,
+        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        #dosys=True,
+        sysdict=systypes)
+  make_ratioplot(
+    name=i+'_TTNOLOG',
+    ttbar_file=ttbar_file,
+    qcd_file=qcd_file,
+    data_file=data_file,
+    signal_files=signalTTreco_files,
+    histo='Selection/'+i, 
+    histo_qcd='Selection/'+i,
+    histo_signal='Selection/'+i,
+    rebin=rebinna,
+    minx=minx,
+    maxx=maxx,
+    miny=0,
+    maxy=0,
+    minratio=0,
+    maxratio=0,
+    logy=False,
         xtitle='',
         ytitle='Events',
         textsizefactor=1,
@@ -635,7 +733,7 @@ for i in [
  #"antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
  #"antibcsvCRmass_zprimemass",# "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
  #"antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
- "antibcsvCRbtag_zprimemass","antibcsvlooseCRbtag_zprimemass"# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
+ "antibcsvCRbtag_zprimemass","antibcsvlooseCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
 #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass", 
  #"antibcsvCRnobtag_zprimemass",#  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
  #"bkg1",
@@ -762,7 +860,7 @@ for i in [
  #"antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
  #"antibcsvCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
 #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass", 
- "antibcsvCRnobtag_zprimemass", "antibcsvlooseCRnobtag_zprimemass"# "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
+ "antibcsvCRnobtag_zprimemass", "antibcsvlooseCRnobtag_zprimemass",# "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
  "bkg1",#"bkg2","bkg12",
  "bkg1up",#"bkg2up","bkg12up",
  "bkg1down",#"bkg2down","bkg12down",
@@ -1146,7 +1244,7 @@ make_ratioplot(
         qcd_legend='QCD from sideband',
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=True,
+        dosys=False,
         sysdict=systypes,
         bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
         )
@@ -1176,7 +1274,7 @@ make_ratioplot(
         qcd_legend='QCD from sideband',
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=True,
+        dosys=False,
         sysdict=systypes,
         bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
         )
@@ -1208,7 +1306,7 @@ make_ratioplot(
         qcd_legend='QCD from sideband',
         fixratio=True,
         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=True,
+        dosys=False,
         sysdict=systypes,
         bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
         )
@@ -1238,10 +1336,205 @@ make_ratioplot(
         qcd_legend='QCD from sideband',
         fixratio=True,
         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=True,
+        dosys=False,
         sysdict=systypes,
         bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
         )
+
+make_ratioplot(
+    name='2_btagTTNOLOG',
+    ttbar_file=ttbar_file,
+    qcd_file=outfile,
+    data_file=data_file,
+    signal_files=signalTTreco_files,
+    histo="Selection/zprimemassbtag", 
+    histo_qcd='qcdbkgbtag',
+    histo_signal="Selection/zprimemassbtag",
+    rebin=rebinna,
+    minx=minx,
+    maxx=maxx,
+    miny=0,
+    maxy=0,
+    minratio=0,
+    maxratio=0,
+    logy=False,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalTT_legendnames,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        qcd_legend='QCD from sideband',
+        fixratio=True,
+        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        dosys=False,
+        sysdict=systypes,
+        bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
+        )
+make_ratioplot(
+    name='1_btagTTNOLOG',
+    ttbar_file=ttbar_file,
+    qcd_file=outfile,
+    data_file=data_file,
+    signal_files=signalTTreco_files,
+    histo="Selection/zprimemassnobtag", 
+    histo_qcd='qcdbkgnobtag',
+    histo_signal="Selection/zprimemassnobtag",
+    rebin=rebinna,
+    minx=minx,
+    maxx=maxx,
+    miny=0,
+    maxy=0,
+    minratio=0,
+    maxratio=0,
+    logy=False,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalTT_legendnames,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        qcd_legend='QCD from sideband',
+        fixratio=True,
+        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        dosys=False,
+        sysdict=systypes,
+        bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
+        )
+
+
+
+make_ratioplot(
+    name='2_btagALL',
+    ttbar_file=ttbar_file,
+    qcd_file=outfile,
+    data_file=data_file,
+    signal_files=signal_files,
+    histo="Selection/zprimemassbtag", 
+    histo_qcd='qcdbkgbtag',
+    histo_signal="Selection/zprimemassbtag",
+    rebin=rebinna,
+    minx=minx,
+    maxx=maxx,
+    miny=0,
+    maxy=0,
+    minratio=0,
+    maxratio=0,
+    logy=True,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalWB_legendnames,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        qcd_legend='QCD from sideband',
+        fixratio=True,
+        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        dosys=False,
+        sysdict=systypes,
+        bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
+        )
+make_ratioplot(
+    name='1_btagALL',
+    ttbar_file=ttbar_file,
+    qcd_file=outfile,
+    data_file=data_file,
+    signal_files=signal_files,
+    histo="Selection/zprimemassnobtag", 
+    histo_qcd='qcdbkgnobtag',
+    histo_signal="Selection/zprimemassnobtag",
+    rebin=rebinna,
+    minx=minx,
+    maxx=maxx,
+    miny=0,
+    maxy=0,
+    minratio=0,
+    maxratio=0,
+    logy=True,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalWB_legendnames,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        qcd_legend='QCD from sideband',
+        fixratio=True,
+        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        dosys=False,
+        sysdict=systypes,
+        bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
+        )
+
+
+
+
+
+make_ratioplot(
+    name='2_btagNOLOG',
+    ttbar_file=ttbar_file,
+    qcd_file=outfile,
+    data_file=data_file,
+    signal_files=signal_files_short,
+    histo="Selection/zprimemassbtag", 
+    histo_qcd='qcdbkgbtag',
+    histo_signal="Selection/zprimemassbtag",
+    rebin=rebinna,
+    minx=minx,
+    maxx=maxx,
+    miny=0,
+    maxy=0,
+    minratio=0,
+    maxratio=0,
+    logy=False,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalWB_legendnames_short,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        qcd_legend='QCD from sideband',
+        fixratio=True,
+        signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        dosys=False,
+        sysdict=systypes,
+        bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
+        )
+make_ratioplot(
+    name='1_btagNOLOG',
+    ttbar_file=ttbar_file,
+    qcd_file=outfile,
+    data_file=data_file,
+    signal_files=signal_files_short,
+    histo="Selection/zprimemassnobtag", 
+    histo_qcd='qcdbkgnobtag',
+    histo_signal="Selection/zprimemassnobtag",
+    rebin=rebinna,
+    minx=minx,
+    maxx=maxx,
+    miny=0,
+    maxy=0,
+    minratio=0,
+    maxratio=0,
+    logy=False,
+        xtitle='',
+        ytitle='Events',
+        textsizefactor=1,
+        signal_legend=signalWB_legendnames_short,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        qcd_legend='QCD from sideband',
+        fixratio=True,
+        signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        dosys=False,
+        sysdict=systypes,
+        bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
+        )
+
+
+
+
+
+
 
 
 compare(name='qcdcorrsystbtag',
@@ -1283,7 +1576,7 @@ for i in signalHT_names:
 dotheta=False
 if dotheta:
   rebinna=10
-  runList=[0,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000]
+  runList=[0,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000,4000]
   runLen=len(runList)-1
   runArray = array('d',runList)
   u='_'
@@ -1298,12 +1591,66 @@ if dotheta:
 
 
 
-  # def dosys(file_path='',histo_name='',label_out='',sys_to_do={},out_file=0,minusvar=0,plusvar=0):
-  #   the_file=
-  #   allhad=ttbar_file.Get(histo_name).Clone()
+  def dosys(file_path='',the_file=0,cats={},sys_to_do={},sample_name='',out_file=0,infile=0):
+    if the_file
+    the_file=TFile(file_path+'UP'+root,"READ")
+    for cat in cats:
+      allhad=the_file.Get(cat).Clone()
+      allhad.Rebin(rebinna)
+      allhad.Rebin(runLen,'',runArray)
+      outfile.cd()
+      allhad.Write('allhad'+cats[cat]+uu+sample_name)
+    for sys in sys_to_do:
+        if not (sys in ['mur','muf','murmuf']):
+          for side in sides:
+            sys_file=TFile(file_path+sys_to_do[sys]+side+root,'READ')
+            for cat in cats:
+              allhad=sys_file.Get(cat).Clone()
+              allhad.Rebin(rebinna)
+              allhad=allhad.Rebin(runLen,'',runArray)
+              out_file.cd()
+              allhad.Write('allhad'+cats[cat]+uu+sample_name+uu+sys+uu+sides[side])
+            sys_file.Close()
+    if ('mur' in sys_to_do) and ('muf' in sys_to_do) and ('murmuf' in sys_to_do):
+      sysfile_MURUP=TFile(file_path+sys_to_do['mur']+'UP.root','READ')
+      sysfile_MURDOWN=TFile(file_path+sys_to_do['mur']+'DOWN.root','READ')
+      sysfile_MUFUP=TFile(file_path+sys_to_do['muf']+'UP.root','READ')
+      sysfile_MUFDOWN=TFile(file_path+sys_to_do['muf']+'DOWN.root','READ')
+      sysfile_MURMUFUP=TFile(file_path+sys_to_do['murmuf']+'UP.root','READ')
+      sysfile_MURMUFDOWN=TFile(file_path+sys_to_do['murmuf']+'DOWN.root','READ')
+      for cat in cats:
+        allhad_env=envelope([sysfilettbar_MURUP.Get(cat),sysfilettbar_MURDOWN.Get(cat),sysfilettbar_MUFUP.Get(cat),sysfilettbar_MUFDOWN.Get(cat),sysfilettbar_MURMUFUP.Get(cat),sysfilettbar_MURMUFDOWN.Get(cat)])
+        allhad_up=sysfilettbar_MURUP.Get(cat).Clone()
+        allhad_down=sysfilettbar_MURUP.Get(cat).Clone()
+        for imtt in range(1,allhad_up.GetNbinsX()+1):
+          allhad_up.SetBinContent(imtt,allhad_env[imtt-1][1])
+          allhad_down.SetBinContent(imtt,allhad_env[imtt-1][0])
+        allhad_up.Rebin(rebinna)
+        allhad_down.Rebin(rebinna)
+        allhad_up=allhad_up.Rebin(runLen,'',runArray)
+        allhad_down=allhad_down.Rebin(runLen,'',runArray)
+        out_file.cd()
+        allhad_up.Write('allhad'+cats[cat]+uu+sample_name+uu+'mu'+uu+'plus')
+        allhad_down.Write('allhad'+cats[cat]+uu+sample_name+uu+'mu'+uu+'minus')
+      sysfilettbar_MURUP.Close()
+      sysfilettbar_MURDOWN.Close()
+      sysfilettbar_MUFUP.Close()
+      sysfilettbar_MUFDOWN.Close()
+      sysfilettbar_MURMUFUP.Close()
+      sysfilettbar_MURMUFDOWN.Close()
+    the_file.Close()
 
-  #   the_file.Close()
-
+  thetafileTT=TFile('thetaTT.root','RECREATE')
+  dosys(file_path=syspath+filename_base+'MC.TTbar',cats=cats,sys_to_do=systypes,sample_name='ttbar',out_file=thetafileTT)
+  dosys(file_path=syspath+filename_base+'MC.TTbar',cats=cats,sys_to_do=systypes,sample_name='DATA',out_file=thetafileTT)
+  allhad2btag__DATA=data_file.Get(twobtags).Clone()
+  allhad1btag__DATA=data_file.Get(onebtag).Clone()
+  allhad2btag__DATA.Rebin(rebinna)
+  allhad1btag__DATA.Rebin(rebinna)
+  allhad2btag__DATA=allhad2btag__DATA.Rebin(runLen,'',runArray)
+  allhad1btag__DATA=allhad1btag__DATA.Rebin(runLen,'',runArray)
+  allhad2btag__DATA.Write('allhad2btag__DATA')
+  allhad1btag__DATA.Write('allhad1btag__DATA')
 
   for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]:#+[[0,0,0]]:
     filename_postfix=u+str(filecounter)+u+str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')
@@ -1413,8 +1760,8 @@ if dotheta:
       #allhad2btag__signalZT.Sumw2()
       #allhad2btag__signalHT.Sumw2()
       addscale=1.0
-      if '2000' in signalWB_names[masspoint] and '1500' in signalWB_names[masspoint]:
-        addscale=0.163649053
+      #if '2000' in signalWB_names[masspoint] and '1500' in signalWB_names[masspoint]:
+      #  addscale=0.163649053
       allhad2btag__signalWB.Scale(triplet[0]*addscale)
       allhad2btag__signalHT.Scale(triplet[1])
       allhad2btag__signalZT.Scale(triplet[2])

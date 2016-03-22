@@ -636,29 +636,29 @@ PreselectionHists::PreselectionHists(Context & ctx, const string & dirname): His
   book<TH1F>("N_btags", ";N_{btags};Events", 10, 0, 10);
   book<TH1F>("N_subjetbtags", ";N_{subjetbtags};Events", 10, 0, 10);
 
-  book<TH1F>("pTtop", ";p_{T} top gen;Events", 300, 0, 3000);
-  book<TH1F>("pTtprime", ";p_{T} T' gen;Events", 300, 0, 3000);
-  book<TH1F>("pTb", ";p_{T} b gen;Events", 300, 0, 3000);
-  book<TH1F>("pTw", ";p_{T} W gen;Events", 300, 0, 3000);
-  book<TH1F>("pTtb", ";p_{T} b from t gen;Events", 300, 0, 3000);
-  book<TH1F>("pTtw", ";p_{T} W from t gen;Events", 300, 0, 3000);
-  book<TH1F>("pTzprime", ";p_{T} Z' gen;Events", 300, 0, 3000);
+  book<TH1F>("pTtop", ";p_{T} top gen;Events", 400, 0, 4000);
+  book<TH1F>("pTtprime", ";p_{T} T' gen;Events", 400, 0, 4000);
+  book<TH1F>("pTb", ";p_{T} b gen;Events", 400, 0, 4000);
+  book<TH1F>("pTw", ";p_{T} W gen;Events", 400, 0, 4000);
+  book<TH1F>("pTtb", ";p_{T} b from t gen;Events", 400, 0, 4000);
+  book<TH1F>("pTtw", ";p_{T} W from t gen;Events", 400, 0, 4000);
+  book<TH1F>("pTzprime", ";p_{T} Z' gen;Events", 400, 0, 4000);
 
-  book<TH1F>("ptop", ";p top gen;Events", 300, 0, 3000);
-  book<TH1F>("ptprime", ";p T' gen;Events", 300, 0, 3000);
-  book<TH1F>("pb", ";p b gen;Events", 300, 0, 3000);
-  book<TH1F>("pw", ";p W gen;Events", 300, 0, 3000);
-  book<TH1F>("ptb", ";p b from t gen;Events", 300, 0, 3000);
-  book<TH1F>("ptw", ";p W from t gen;Events", 300, 0, 3000);
-  book<TH1F>("pzprime", ";p Z' gen;Events", 300, 0, 3000);
+  book<TH1F>("ptop", ";p top gen;Events", 400, 0, 4000);
+  book<TH1F>("ptprime", ";p T' gen;Events", 400, 0, 4000);
+  book<TH1F>("pb", ";p b gen;Events", 400, 0, 4000);
+  book<TH1F>("pw", ";p W gen;Events", 400, 0, 4000);
+  book<TH1F>("ptb", ";p b from t gen;Events", 400, 0, 4000);
+  book<TH1F>("ptw", ";p W from t gen;Events", 400, 0, 4000);
+  book<TH1F>("pzprime", ";p Z' gen;Events", 400, 0, 4000);
 
-  book<TH1F>("mtop", ";M top gen;Events", 300, 0, 3000);
-  book<TH1F>("mtprime", ";M T' gen;Events", 300, 0, 3000);
-  book<TH1F>("mb", ";M b gen;Events", 300, 0, 3000);
-  book<TH1F>("mw", ";M W gen;Events", 300, 0, 3000);
-  book<TH1F>("mtb", ";M b from t gen;Events", 300, 0, 3000);
-  book<TH1F>("mtw", ";M W from t gen;Events", 300, 0, 3000);
-  book<TH1F>("mzprime", ";M Z' gen;Events", 300, 0, 3000);
+  book<TH1F>("mtop", ";M top gen;Events", 400, 0, 4000);
+  book<TH1F>("mtprime", ";M T' gen;Events", 400, 0, 4000);
+  book<TH1F>("mb", ";M b gen;Events", 400, 0, 4000);
+  book<TH1F>("mw", ";M W gen;Events", 400, 0, 4000);
+  book<TH1F>("mtb", ";M b from t gen;Events", 400, 0, 4000);
+  book<TH1F>("mtw", ";M W from t gen;Events", 400, 0, 4000);
+  book<TH1F>("mzprime", ";M Z' gen;Events", 400, 0, 4000);
 
   book<TH1F>("dRbW", ";#Delta R(b,W);Events", 500, 0, 5);
   book<TH1F>("dRtT", ";#Delta R(t,T');Events", 500, 0, 5);
@@ -677,70 +677,70 @@ PreselectionHists::PreselectionHists(Context & ctx, const string & dirname): His
   book<TH1F>("dR_W1_b2", ";#Delta R(b2, W1);Events", 500, 0, 5);
   book<TH1F>("dR_W2_b1", ";#Delta R(W2, b1);Events", 500, 0, 5);
 
-  book<TH1F>("pT_closest_topjet_to_top", ";pT closest topjet to top;Events", 300, 0, 3000);
+  book<TH1F>("pT_closest_topjet_to_top", ";pT closest topjet to top;Events", 400, 0, 4000);
   book<TH1F>("mass_closest_topjet_to_top", ";mass closest topjet to top;Events", 100, 0, 1000);
   book<TH1F>("nsub_closest_topjet_to_top", ";tau32 closest topjet to top;Events", 100, 0, 1);
 
-  book<TH1F>("pT_closest_topjet_to_tprime", ";pT closest topjet to tprime;Events", 300, 0, 3000);
+  book<TH1F>("pT_closest_topjet_to_tprime", ";pT closest topjet to tprime;Events", 400, 0, 4000);
   book<TH1F>("mass_closest_topjet_to_tprime", ";mass closest topjet to tprime;Events", 100, 0, 1000);
   book<TH1F>("nsub_closest_topjet_to_tprime", ";tau32 closest topjet to tprime;Events", 100, 0, 1);
 
-  book<TH1F>("pT_closest_wjet_to_w", ";pT closest wjet to w;Events", 300, 0, 3000);
+  book<TH1F>("pT_closest_wjet_to_w", ";pT closest wjet to w;Events", 400, 0, 4000);
   book<TH1F>("mass_closest_wjet_to_w", ";mass closest wjet to w;Events", 100, 0, 1000);
   book<TH1F>("nsub_closest_wjet_to_w", ";tau32 closest wjet to w;Events", 100, 0, 1);
 
-  book<TH1F>("pT_closest_bjet_to_b", ";pT closest bjet to b;Events", 300, 0, 3000);
+  book<TH1F>("pT_closest_bjet_to_b", ";pT closest bjet to b;Events", 400, 0, 4000);
   book<TH1F>("csv_closest_bjet_to_b", ";csv closest bjet to b;Events", 100, 0, 1);
 
 
-  book<TH1F>("pT_closest_wjet_to_tw", ";pT closest wjet to w from t;Events", 300, 0, 3000);
+  book<TH1F>("pT_closest_wjet_to_tw", ";pT closest wjet to w from t;Events", 400, 0, 4000);
   book<TH1F>("mass_closest_wjet_to_tw", ";mass closest wjet to w from t;Events", 100, 0, 1000);
   book<TH1F>("nsub_closest_wjet_to_tw", ";tau32 closest wjet to w from t;Events", 100, 0, 1);
 
-  book<TH1F>("pT_closest_bjet_to_tb", ";pT closest bjet to b from t;Events", 300, 0, 3000);
+  book<TH1F>("pT_closest_bjet_to_tb", ";pT closest bjet to b from t;Events", 400, 0, 4000);
   book<TH1F>("csv_closest_bjet_to_tb", ";csv closest bjet to b from t;Events", 100, 0, 1);
 
-  book<TH1F>("matched_top_mass", ";pT closest bjet to b from t;Events", 300, 0, 3000);
-  book<TH1F>("matched_top_res_mass", ";pT closest bjet to b from t;Events", 300, 0, 3000);
-  book<TH1F>("matched_tprime_mass", ";pT closest bjet to b from t;Events", 300, 0, 3000);
-  book<TH1F>("matched_zprime_mass", ";pT closest bjet to b from t;Events", 300, 0, 3000);
-  book<TH1F>("matched_zprime_res_mass", ";pT closest bjet to b from t;Events", 300, 0, 3000);
-  book<TH1F>("matched_tprime1_mass", ";pT closest bjet to b from t;Events", 300, 0, 3000);
-  book<TH1F>("matched_tprime2_mass", ";pT closest bjet to b from t;Events", 300, 0, 3000);
+  book<TH1F>("matched_top_mass", ";pT closest bjet to b from t;Events", 400, 0, 4000);
+  book<TH1F>("matched_top_res_mass", ";pT closest bjet to b from t;Events", 400, 0, 4000);
+  book<TH1F>("matched_tprime_mass", ";pT closest bjet to b from t;Events", 400, 0, 4000);
+  book<TH1F>("matched_zprime_mass", ";pT closest bjet to b from t;Events", 400, 0, 4000);
+  book<TH1F>("matched_zprime_res_mass", ";pT closest bjet to b from t;Events", 400, 0, 4000);
+  book<TH1F>("matched_tprime1_mass", ";pT closest bjet to b from t;Events", 400, 0, 4000);
+  book<TH1F>("matched_tprime2_mass", ";pT closest bjet to b from t;Events", 400, 0, 4000);
 
-  book<TH1F>("pT_closest_wjet_to_w1", ";pT closest wjet to w;Events", 300, 0, 3000);
+  book<TH1F>("pT_closest_wjet_to_w1", ";pT closest wjet to w;Events", 400, 0, 4000);
   book<TH1F>("mass_closest_wjet_to_w1", ";mass closest wjet to w;Events", 100, 0, 1000);
   book<TH1F>("nsub_closest_wjet_to_w1", ";tau32 closest wjet to w;Events", 100, 0, 1);
 
-  book<TH1F>("pT_closest_bjet_to_b1", ";pT closest bjet to b;Events", 300, 0, 3000);
+  book<TH1F>("pT_closest_bjet_to_b1", ";pT closest bjet to b;Events", 400, 0, 4000);
   book<TH1F>("csv_closest_bjet_to_b1", ";csv closest bjet to b;Events", 100, 0, 1);
 
-  book<TH1F>("pT_closest_wjet_to_w2", ";pT closest wjet to w;Events", 300, 0, 3000);
+  book<TH1F>("pT_closest_wjet_to_w2", ";pT closest wjet to w;Events", 400, 0, 4000);
   book<TH1F>("mass_closest_wjet_to_w2", ";mass closest wjet to w;Events", 100, 0, 1000);
   book<TH1F>("nsub_closest_wjet_to_w2", ";tau32 closest wjet to w;Events", 100, 0, 1);
 
-  book<TH1F>("pT_closest_bjet_to_b2", ";pT closest bjet to b;Events", 300, 0, 3000);
+  book<TH1F>("pT_closest_bjet_to_b2", ";pT closest bjet to b;Events", 400, 0, 4000);
   book<TH1F>("csv_closest_bjet_to_b2", ";csv closest bjet to b;Events", 100, 0, 1);
 
 
   book<TH1F>("step1_wmass", ";step1: mass w candidate;Events", 100, 0, 1000);
   book<TH1F>("step1_wnsub", ";step1: nsub w candidate;Events", 100, 0, 1);
   book<TH1F>("step1_tcsv", ";step1: csv t candidate;Events", 100, 0, 1);
-  book<TH1F>("step1_tpt", ";step1: pt t candidate;Events", 300, 0, 3000);
+  book<TH1F>("step1_tpt", ";step1: pt t candidate;Events", 400, 0, 4000);
   book<TH1F>("step2_bcsv", ";step2: csv b candidate;Events", 100, 0, 1);
-  book<TH1F>("step2_wpt", ";step2: pt w candidate;Events", 300, 0, 3000);
+  book<TH1F>("step2_wpt", ";step2: pt w candidate;Events", 400, 0, 4000);
   book<TH1F>("step2_drbw", ";#Delta R(b,W);Events", 500, 0, 5);
-  book<TH1F>("step3_tprimemass", ";step3: mass tprime candidate;Events", 300, 0, 3000);
-  book<TH1F>("step3_tprimept", ";step3: pt tprime candidate;Events", 300, 0, 3000);
-  book<TH1F>("step4_zprimemass", ";step4: mass zprime candidate;Events", 300, 0, 3000);
-  book<TH1F>("step4_zprimemassbtag", ";step4: mass zprime candidate;Events", 300, 0, 3000);
-  book<TH1F>("step4_zprimemassbtagnsub", ";step4: mass zprime candidate;Events", 300, 0, 3000);
+  book<TH1F>("step3_tprimemass", ";step3: mass tprime candidate;Events", 400, 0, 4000);
+  book<TH1F>("step3_tprimept", ";step3: pt tprime candidate;Events", 400, 0, 4000);
+  book<TH1F>("step4_zprimemass", ";step4: mass zprime candidate;Events", 400, 0, 4000);
+  book<TH1F>("step4_zprimemassbtag", ";step4: mass zprime candidate;Events", 400, 0, 4000);
+  book<TH1F>("step4_zprimemassbtagnsub", ";step4: mass zprime candidate;Events", 400, 0, 4000);
 
-  book<TH1F>("ttbarSR_zprimemass", ";step4: mass zprime candidate;Events", 300, 0, 3000);
-  book<TH1F>("ttbarSR_zprimemassbtag", ";step4: mass zprime candidate;Events", 300, 0, 3000);
+  book<TH1F>("ttbarSR_zprimemass", ";step4: mass zprime candidate;Events", 400, 0, 4000);
+  book<TH1F>("ttbarSR_zprimemassbtag", ";step4: mass zprime candidate;Events", 400, 0, 4000);
 
-  book<TH1F>("lowmassSR_zprimemass", ";step4: mass zprime candidate;Events", 300, 0, 3000);
-  book<TH1F>("lowmassSR_zprimemassbtag", ";step4: mass zprime candidate;Events", 300, 0, 3000);
+  book<TH1F>("lowmassSR_zprimemass", ";step4: mass zprime candidate;Events", 400, 0, 4000);
+  book<TH1F>("lowmassSR_zprimemassbtag", ";step4: mass zprime candidate;Events", 400, 0, 4000);
 
 
   book<TH1F>("topjet_index", ";index;Events", 10, 0, 10);
@@ -1327,225 +1327,275 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("dRWTpGEN", ";#Delta R(W,T');Events", 500, 0, 5);
 
 
-  book<TH1F>("ht", ";HT;Events", 300, 0, 3000);
-  book<TH1F>("htca8", ";HT_{CA8};Events", 300, 0, 3000);
-  book<TH1F>("ht_twb", ";HT_{top+W+b};Events", 300, 0, 3000);
+  book<TH1F>("ht", ";HT;Events", 400, 0, 4000);
+  book<TH1F>("htca8", ";HT_{CA8};Events", 400, 0, 4000);
+  book<TH1F>("ht_twb", ";HT_{top+W+b};Events", 400, 0, 4000);
   book<TH1F>("npv", ";N_{PV};Events", 100, 0, 100);
   book<TH1F>("nevt", ";N_{events};Events", 1, 0, 1);
 
   book<TH1F>("toppt_wpt", ";p_{T,top}-p_{T,W};Events", 400, -1000, 1000);
   book<TH1F>("toppt_wbpt", ";p_{T,top}-p_{T,T'};Events", 400, -1000, 1000);
 
-  book<TH1F>("tprimemass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("tprimept", ";p_{T,T'};Events", 300, 0, 3000);
+  book<TH1F>("tprimemass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("tprimept", ";p_{T,T'};Events", 400, 0, 4000);
 
-  book<TH1F>("zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("zprimept", ";p_{T,Z'};Events", 300, 0, 3000);
-  book<TH1F>("zprimemassbtag", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("zprimemassnobtag", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("zprimemassbmass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("zprimemassnobmass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("zprimept", ";p_{T,Z'};Events", 400, 0, 4000);
+  book<TH1F>("zprimemassbtag", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("zprimemassnobtag", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("zprimemassbmass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("zprimemassnobmass", ";m_{Z'};Events", 400, 0, 4000);
 
-  book<TH1F>("tprimemass_res", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("topmass_res", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("topmass2_res", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("zprimemassbtag_res", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("zprimemassnobtag_res", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("tprimemass_res", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("topmass_res", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("topmass2_res", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("zprimemassbtag_res", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("zprimemassnobtag_res", ";m_{Z'};Events", 400, 0, 4000);
 
-  book<TH1F>("ht_twbSR", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("ht_twbSRbtag", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("ht_twbSRnobtag", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("ht_twbSR", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("ht_twbSRbtag", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("ht_twbSRnobtag", ";m_{Z'};Events", 400, 0, 4000);
 
-  book<TH1F>("ttbarCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("ttbarCR_zprimemassbtag", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("lowmassCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("lowmassCR_zprimemassbtag", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("ttbarCR_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("ttbarCR_zprimemassbtag", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("lowmassCR_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("lowmassCR_zprimemassbtag", ";m_{Z'};Events", 400, 0, 4000);
 
-  book<TH1F>("ttbarCR_zprimemass_low", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("ttbarCR_zprimemassbtag_low", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("lowmassCR_zprimemass_low", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("lowmassCR_zprimemassbtag_low", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("ttbarCR_zprimemass_low", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("ttbarCR_zprimemassbtag_low", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("lowmassCR_zprimemass_low", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("lowmassCR_zprimemassbtag_low", ";m_{Z'};Events", 400, 0, 4000);
 
-  book<TH1F>("antitopmassCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antitopnsubCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antiwmassCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antiwnsubCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibcsvCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibptCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibmassCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antitopmassCR_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antitopnsubCR_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antiwmassCR_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antiwnsubCR_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibcsvCR_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibptCR_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibmassCR_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
 
-  book<TH1F>("antitopmassCRmass_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antitopnsubCRmass_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antiwmassCRmass_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antiwnsubCRmass_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibcsvCRmass_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibptCRmass_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibmassCRmass_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antitopmassCRmass_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antitopnsubCRmass_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antiwmassCRmass_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antiwnsubCRmass_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibcsvCRmass_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibptCRmass_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibmassCRmass_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
 
-  book<TH1F>("antitopmassCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antitopnsubCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antiwmassCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antiwnsubCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibcsvCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibptCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibmassCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antitopmassCRbtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antitopnsubCRbtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antiwmassCRbtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antiwnsubCRbtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibcsvCRbtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibptCRbtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibmassCRbtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
 
-  book<TH1F>("antitopmassCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antitopnsubCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antiwmassCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antiwnsubCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibcsvCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibptCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibmassCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antitopmassCRnobtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antitopnsubCRnobtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antiwmassCRnobtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antiwnsubCRnobtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibcsvCRnobtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibptCRnobtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibmassCRnobtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
 
-  book<TH1F>("antibcsvlooseCR_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibcsvlooseCRmass_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibcsvlooseCRbtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibcsvlooseCRnobtag_zprimemass", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("antibcsvlooseCR_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibcsvlooseCRmass_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibcsvlooseCRbtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibcsvlooseCRnobtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
 
-  book<TH1F>("bkg1", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("bkg2", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("bkg12", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("bkg1", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("bkg2", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("bkg12", ";m_{Z'};Events", 400, 0, 4000);
 
-  book<TH1F>("bkg1up", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("bkg2up", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("bkg12up", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("bkg1up", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("bkg2up", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("bkg12up", ";m_{Z'};Events", 400, 0, 4000);
 
-  book<TH1F>("bkg1down", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("bkg2down", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("bkg12down", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("bkg1down", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("bkg2down", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("bkg12down", ";m_{Z'};Events", 400, 0, 4000);
 
-  book<TH1F>("tprimemassbtag", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("tprimemassnobtag", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("tprimemassbtagmass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("tprimemassnobtagmass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("antibcsvCRbtag_tprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibcsvCRnobtag_tprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibcsvCRbtagmass_tprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibcsvCRnobtagmass_tprimemass", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibcsvCRbtag_ht_twb", ";m_{Z'};Events", 300, 0, 3000);
-  book<TH1F>("antibcsvCRnobtag_ht_twb", ";m_{Z'};Events", 300, 0, 3000);
+  book<TH1F>("tprimemassbtag", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("tprimemassnobtag", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("tprimemassbtagmass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("tprimemassnobtagmass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("antibcsvCRbtag_tprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibcsvCRnobtag_tprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibcsvCRbtagmass_tprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibcsvCRnobtagmass_tprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibcsvCRbtag_ht_twb", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("antibcsvCRnobtag_ht_twb", ";m_{Z'};Events", 400, 0, 4000);
 
   //TpTp
-  book<TH1F>("TT1btag_tprimemass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag_tprimemass1", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag_tprimemass2", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag_tprimept", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag_tprimept1", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag_tprimept2", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag_mass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag_tprimemass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag_tprimemass1", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag_tprimemass2", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag_tprimept", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag_tprimept1", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag_tprimept2", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag_mass", ";m_{T'};Events", 400, 0, 4000);
   book<TH1F>("TT1btag_dmass", ";m_{T'};Events", 300, 0, 300);
   book<TH1F>("TT1btag_dmassomass", ";m_{T'};Events", 300, 0, 1);
-  book<TH1F>("TT1btag_htak8", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag_smass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag_pt", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag_htak8", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag_htak8ak4", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag_smass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag_pt", ";m_{T'};Events", 400, 0, 4000);
 
-  book<TH1F>("TT2btag_tprimemass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag_tprimemass1", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag_tprimemass2", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag_tprimept", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag_tprimept1", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag_tprimept2", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag_mass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag_tprimemass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag_tprimemass1", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag_tprimemass2", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag_tprimept", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag_tprimept1", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag_tprimept2", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag_mass", ";m_{T'};Events", 400, 0, 4000);
   book<TH1F>("TT2btag_dmass", ";m_{T'};Events", 300, 0, 300);
   book<TH1F>("TT2btag_dmassomass", ";m_{T'};Events", 300, 0, 1);
-  book<TH1F>("TT2btag_htak8", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag_smass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag_pt", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag_htak8", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag_htak8ak4", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag_smass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag_pt", ";m_{T'};Events", 400, 0, 4000);
 
-  book<TH1F>("TT1btag1Tp_tprimemass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag1Tp_tprimemass1", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag1Tp_tprimemass2", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag1Tp_tprimept", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag1Tp_tprimept1", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag1Tp_tprimept2", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag1Tp_mass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag1Tp_tprimemass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag1Tp_tprimemass1", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag1Tp_tprimemass2", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag1Tp_tprimept", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag1Tp_tprimept1", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag1Tp_tprimept2", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag1Tp_mass", ";m_{T'};Events", 400, 0, 4000);
   book<TH1F>("TT1btag1Tp_dmass", ";m_{T'};Events", 300, 0, 300);
   book<TH1F>("TT1btag1Tp_dmassomass", ";m_{T'};Events", 300, 0, 1);
-  book<TH1F>("TT1btag1Tp_htak8", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag1Tp_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag1Tp_smass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT1btag1Tp_pt", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT1btag1Tp_htak8", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag1Tp_htak8ak4", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag1Tp_smass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT1btag1Tp_pt", ";m_{T'};Events", 400, 0, 4000);
 
-  book<TH1F>("TT2btag1Tp_tprimemass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag1Tp_tprimemass1", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag1Tp_tprimemass2", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag1Tp_tprimept", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag1Tp_tprimept1", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag1Tp_tprimept2", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag1Tp_mass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag1Tp_tprimemass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag1Tp_tprimemass1", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag1Tp_tprimemass2", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag1Tp_tprimept", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag1Tp_tprimept1", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag1Tp_tprimept2", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag1Tp_mass", ";m_{T'};Events", 400, 0, 4000);
   book<TH1F>("TT2btag1Tp_dmass", ";m_{T'};Events", 300, 0, 300);
   book<TH1F>("TT2btag1Tp_dmassomass", ";m_{T'};Events", 300, 0, 1);
-  book<TH1F>("TT2btag1Tp_htak8", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag1Tp_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag1Tp_smass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TT2btag1Tp_pt", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TT2btag1Tp_htak8", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag1Tp_htak8ak4", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag1Tp_smass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TT2btag1Tp_pt", ";m_{T'};Events", 400, 0, 4000);
 
 
 
   //ttbar
-  book<TH1F>("TTbar1btag_tprimemass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag_tprimemass1", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag_tprimemass2", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag_tprimept", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag_tprimept1", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag_tprimept2", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag_mass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag_tprimemass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag_tprimemass1", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag_tprimemass2", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag_tprimept", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag_tprimept1", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag_tprimept2", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag_mass", ";m_{T'};Events", 400, 0, 4000);
   book<TH1F>("TTbar1btag_dmass", ";m_{T'};Events", 300, 0, 300);
   book<TH1F>("TTbar1btag_dmassomass", ";m_{T'};Events", 300, 0, 1);
-  book<TH1F>("TTbar1btag_htak8", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag_smass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag_pt", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag_htak8", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag_htak8ak4", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag_smass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag_pt", ";m_{T'};Events", 400, 0, 4000);
 
-  book<TH1F>("TTbar2btag_tprimemass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag_tprimemass1", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag_tprimemass2", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag_tprimept", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag_tprimept1", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag_tprimept2", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag_mass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag_tprimemass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag_tprimemass1", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag_tprimemass2", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag_tprimept", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag_tprimept1", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag_tprimept2", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag_mass", ";m_{T'};Events", 400, 0, 4000);
   book<TH1F>("TTbar2btag_dmass", ";m_{T'};Events", 300, 0, 300);
   book<TH1F>("TTbar2btag_dmassomass", ";m_{T'};Events", 300, 0, 1);
-  book<TH1F>("TTbar2btag_htak8", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag_smass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag_pt", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag_htak8", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag_htak8ak4", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag_smass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag_pt", ";m_{T'};Events", 400, 0, 4000);
 
-  book<TH1F>("TTbar1btag1Tp_tprimemass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag1Tp_tprimemass1", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag1Tp_tprimemass2", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag1Tp_tprimept", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag1Tp_tprimept1", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag1Tp_tprimept2", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag1Tp_mass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag1Tp_tprimemass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag1Tp_tprimemass1", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag1Tp_tprimemass2", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag1Tp_tprimept", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag1Tp_tprimept1", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag1Tp_tprimept2", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag1Tp_mass", ";m_{T'};Events", 400, 0, 4000);
   book<TH1F>("TTbar1btag1Tp_dmass", ";m_{T'};Events", 300, 0, 300);
   book<TH1F>("TTbar1btag1Tp_dmassomass", ";m_{T'};Events", 300, 0, 1);
-  book<TH1F>("TTbar1btag1Tp_htak8", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag1Tp_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag1Tp_smass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar1btag1Tp_pt", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar1btag1Tp_htak8", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag1Tp_htak8ak4", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag1Tp_smass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar1btag1Tp_pt", ";m_{T'};Events", 400, 0, 4000);
 
-  book<TH1F>("TTbar2btag1Tp_tprimemass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag1Tp_tprimemass1", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag1Tp_tprimemass2", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag1Tp_tprimept", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag1Tp_tprimept1", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag1Tp_tprimept2", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag1Tp_mass", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag1Tp_tprimemass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag1Tp_tprimemass1", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag1Tp_tprimemass2", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag1Tp_tprimept", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag1Tp_tprimept1", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag1Tp_tprimept2", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag1Tp_mass", ";m_{T'};Events", 400, 0, 4000);
   book<TH1F>("TTbar2btag1Tp_dmass", ";m_{T'};Events", 300, 0, 300);
   book<TH1F>("TTbar2btag1Tp_dmassomass", ";m_{T'};Events", 300, 0, 1);
-  book<TH1F>("TTbar2btag1Tp_htak8", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag1Tp_htak8ak4", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag1Tp_smass", ";m_{T'};Events", 300, 0, 3000);
-  book<TH1F>("TTbar2btag1Tp_pt", ";m_{T'};Events", 300, 0, 3000);
+  book<TH1F>("TTbar2btag1Tp_htak8", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag1Tp_htak8ak4", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag1Tp_smass", ";m_{T'};Events", 400, 0, 4000);
+  book<TH1F>("TTbar2btag1Tp_pt", ";m_{T'};Events", 400, 0, 4000);
 
-  // book<TH1F>("TT_", ";m_{T'};Events", 300, 0, 3000);
-  // book<TH1F>("TT_", ";m_{T'};Events", 300, 0, 3000);
-  // book<TH1F>("TT_", ";m_{T'};Events", 300, 0, 3000);
+  // book<TH1F>("TT_", ";m_{T'};Events", 400, 0, 4000);
+  // book<TH1F>("TT_", ";m_{T'};Events", 400, 0, 4000);
+  // book<TH1F>("TT_", ";m_{T'};Events", 400, 0, 4000);
 
+
+book<TH1F>("ttbarCR_zprimemassnobtag","m_{Z'};Events",400,0,4000);
+book<TH1F>("lowmassCR_zprimemassnobtag","m_{Z'};Events",400,0,4000);
+book<TH1F>("ttbarCR_zprimemassnobtag_low","m_{Z'};Events",400,0,4000);
+book<TH1F>("lowmassCR_zprimemassnobtag_low","m_{Z'};Events",400,0,4000);
+
+book<TH1F>("CA15_zprimemassbtag","m_{Z'};Events",400,0,4000);
+book<TH1F>("CA15_ht_twbSRbtag","HT;Events",400,0,4000);
+book<TH1F>("CA15_tprimemassbtag","m_{T'};Events",400,0,4000);
+
+
+book<TH1F>("CA15_zprimemassnobtag","m_{Z'};Events",400,0,4000);
+book<TH1F>("CA15_ht_twbSRnobtag","HT;Events",400,0,4000);
+book<TH1F>("CA15_tprimemassnobtag","m_{T'};Events",400,0,4000);
+
+
+book<TH1F>("CA15_ttbarCR_zprimemassnobtag","m_{Z'};Events",400,0,4000);
+book<TH1F>("CA15_ttbarCR_zprimemassbtag","m_{Z'};Events",400,0,4000);
+
+book<TH1F>("CA15_lowmassCR_zprimemassnobtag","m_{Z'};Events",400,0,4000);
+book<TH1F>("CA15_lowmassCR_zprimemassbtag","m_{Z'};Events",400,0,4000);
+
+
+book<TH1F>("CA15_zprimemassbtag_low","m_{Z'};Events",400,0,4000);
+book<TH1F>("CA15_ht_twbSRbtag_low","HT;Events",400,0,4000);
+book<TH1F>("CA15_tprimemassbtag_low","m_{T'};Events",400,0,4000);
+
+
+book<TH1F>("CA15_zprimemassnobtag_low","m_{Z'};Events",400,0,4000);
+book<TH1F>("CA15_ht_twbSRnobtag_low","HT;Events",400,0,4000);
+book<TH1F>("CA15_tprimemassnobtag_low","m_{T'};Events",400,0,4000);
+
+
+book<TH1F>("CA15_ttbarCR_zprimemassnobtag_low","m_{Z'};Events",400,0,4000);
+book<TH1F>("CA15_ttbarCR_zprimemassbtag_low","m_{Z'};Events",400,0,4000);
+
+book<TH1F>("CA15_lowmassCR_zprimemassnobtag_low","m_{Z'};Events",400,0,4000);
+book<TH1F>("CA15_lowmassCR_zprimemassbtag_low","m_{Z'};Events",400,0,4000);
+
+book<TH1F>("index_toptag","index;Events",10,0,10);
+book<TH1F>("index_wtag","index;Events",10,0,10);
+book<TH1F>("index_wtag1","index;Events",10,0,10);
+book<TH1F>("index_wtag2","index;Events",10,0,10);
+
+  book<TH1F>("CA15_antibcsvCRbtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("CA15_antibcsvCRnobtag_zprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("CA15_antibcsvCRbtag_tprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("CA15_antibcsvCRnobtag_tprimemass", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("CA15_antibcsvCRbtag_ht_twb", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("CA15_antibcsvCRnobtag_ht_twb", ";m_{Z'};Events", 400, 0, 4000);
 
   string version=ctx.get("dataset_version", "<not set>");
   string s_top_sys=ctx.get("toptag_sys", "mean");
@@ -1566,6 +1616,8 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   //if (contains(version,"PUUP")) pu_sys=1;
   //if (contains(version,"PUDOWN")) pu_sys=-1;
 
+  h_fatjets = ctx.get_handle<std::vector<TopJet> > ("patJetsCa15CHSJetsSoftDropPacked_daughters");
+
 }
 
 void SelectionHists::fill(const Event & event){
@@ -1576,6 +1628,8 @@ void SelectionHists::fill(const Event & event){
     //TTBAR WEIGHT
     weight=weight*TTbarWeight(event,ttbar_sys);
 
+    const std::vector<TopJet>* fatjets(0);
+    if(event.is_valid(h_fatjets)) fatjets = &event.get(h_fatjets);
 
 //gen part
 
@@ -1669,6 +1723,7 @@ if (!event.isRealData)
   hist("N_btags")->Fill(N_bjets,weight);
 
   int N_bjets_good=0;
+if (event.topjets->size()>1){
   for(auto jet : *event.jets)
     {
       if (jet.btag_combinedSecondaryVertex()>0.890 &&deltaR(jet,event.topjets->at(0))>0.8 &&deltaR(jet,event.topjets->at(1))>0.8)
@@ -1677,7 +1732,7 @@ if (!event.isRealData)
       }
     }
   hist("N_btags_good")->Fill(N_bjets_good,weight);
-
+}
 
   int N_subjetbtags=0;
   for(auto topjet : *event.topjets)
@@ -1735,7 +1790,7 @@ if (!event.isRealData)
   bool has_twb_low=false;
   bool has_ww=false;
   bool has_tw15=false;
-  //bool has_twb15=false;
+  bool has_twb15=false;
   // if (TopTag(event.topjets->at(0))&&WTag(event.topjets->at(1)))
   // {
   //   the_top=event.topjets->at(0);
@@ -1754,14 +1809,20 @@ if (!event.isRealData)
   //   the_w2=event.topjets->at(1);
   //   has_ww=true;
   // }
+int index_toptag = 0;
+int index_wtag = 0;
+int index_wtag12 = 0;
+
   for(auto topjet : *event.topjets)
   {
     if (TopTag(topjet))
     {
       has_t=true;
       the_top=topjet;
+      hist("index_toptag")->Fill(index_toptag,weight);
       break;
     }
+    index_toptag++;
   }
   for(auto topjet : *event.topjets)
   {
@@ -1769,8 +1830,10 @@ if (!event.isRealData)
     {
       has_w=true;
       the_w=topjet;
+      hist("index_wtag")->Fill(index_wtag,weight);
       break;
     }
+    index_wtag++;
   }
   has_tw = has_t && has_w ;
 
@@ -1782,10 +1845,11 @@ if (!event.isRealData)
       nwtag++;
       switch(nwtag)
       {
-        case 1: the_w1=topjet; break;
-        case 2: the_w2=topjet; break;
+        case 1: the_w1=topjet; hist("index_wtag1")->Fill(index_wtag12,weight); break;
+        case 2: the_w2=topjet; hist("index_wtag2")->Fill(index_wtag12,weight); break;
       }
     }
+    index_wtag12++;
     if (nwtag==2) break;
   }
   if (nwtag==2) has_ww=true;
@@ -1816,7 +1880,7 @@ if (!event.isRealData)
     for(auto jet : *event.jets)
       if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top15)>1.5 &&deltaR(jet,the_w15)>0.8 && jet.pt()>100.0)
       {
-        the_b=jet; has_b=true; break;
+        the_b=jet; has_b=true; has_twb15=true; break;
       }
     for(auto jet : *event.jets)
       if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top15)>1.5 &&deltaR(jet,the_w15)>0.8 && jet.pt()>50.0)
@@ -1831,15 +1895,40 @@ if (!event.isRealData)
       float topmaxcsv=getMaxCSV(the_top15);
       if (tprimemass>500.0)
       {
-
+        if (topmaxcsv>0.890)
+        {
+          hist("CA15_zprimemassbtag")->Fill(zprimemass,weight);
+          hist("CA15_ht_twbSRbtag")->Fill(ht_twb,weight);
+          hist("CA15_tprimemassbtag")->Fill(tprimemass,weight);
+        }
+        else
+        {
+          hist("CA15_zprimemassnobtag")->Fill(zprimemass,weight);
+          hist("CA15_ht_twbSRnobtag")->Fill(ht_twb,weight);
+          hist("CA15_tprimemassnobtag")->Fill(tprimemass,weight);
+        }
       }
       if (tprimemass>250.0 && tprimemass<500.0)
       {
-
+        if (topmaxcsv>0.890)
+        {
+          hist("CA15_lowmassCR_zprimemassbtag")->Fill(zprimemass,weight);
+        }
+        else
+        {
+          hist("CA15_lowmassCR_zprimemassnobtag")->Fill(zprimemass,weight);
+        }
       }
       if (tprimemass>140.0 && tprimemass<250.0)
       {
-
+        if (topmaxcsv>0.890)
+        {
+          hist("CA15_ttbarCR_zprimemassbtag")->Fill(zprimemass,weight);
+        }
+        else
+        {
+          hist("CA15_ttbarCR_zprimemassnobtag")->Fill(zprimemass,weight);
+        }
       }
     }
     if (has_b_low)
@@ -1848,124 +1937,44 @@ if (!event.isRealData)
       float tprimemass=TprimeMass(the_w15,the_b_low);
       float zprimemass=ZprimeMassVLQ(the_top15,the_w15,the_b_low);
       float topmaxcsv=getMaxCSV(the_top15);
-      if (tprimemass>250.0 && tprimemass<500.0)
-      {
-
-      }
-      if (tprimemass>140.0 && tprimemass<250.0)
-      {
-
-      }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      hist("ht_twb")->Fill(ht_twb,weight);
-
-      hist("dRbTp")->Fill(deltaR(the_b,the_tp),weight);
-      hist("dRWTp")->Fill(deltaR(the_w,the_tp),weight);
-      if (has_twb_gen)
-      {
-        hist("dRtWGEN")->Fill(dRtW,weight);
-        hist("dRbtGEN")->Fill(dRbt,weight);
-        hist("dRbWGEN")->Fill(dRbW,weight);
-        hist("dRtTpGEN")->Fill(dRtTp,weight);
-        hist("dRbTpGEN")->Fill(dRbTp,weight);
-        hist("dRWTpGEN")->Fill(dRWTp,weight);
-      }
-      float tprimemass=TprimeMass(the_w,the_b);
-      float zprimemass=ZprimeMassVLQ(the_top,the_w,the_b);
-      float topmaxcsv=getMaxCSV(the_top);
-      float bmass=JetMass(the_b);
-      hist("bmass")->Fill(bmass,weight);
-      hist("bpt")->Fill(the_b.pt(),weight);
-      hist("bcsv")->Fill(the_b.btag_combinedSecondaryVertex(),weight);
-      hist("tprimemass")->Fill(tprimemass,weight);
-      hist("tprimept")->Fill(TprimePt(the_w,the_b),weight);
       if (tprimemass>500.0)
       {
-        hist("zprimemass")->Fill(zprimemass,weight);
-        hist("ht_twbSR")->Fill(ht_twb,weight);
-        hist("zprimept")->Fill(ZprimePtVLQ(the_top,the_w,the_b),weight);
         if (topmaxcsv>0.890)
         {
-          hist("zprimemassbtag")->Fill(zprimemass,weight);
-          hist("ht_twbSRbtag")->Fill(ht_twb,weight);
-          hist("tprimemassbtag")->Fill(tprimemass,weight);
-          if (zprimemass>1000.0) hist("tprimemassbtagmass")->Fill(tprimemass,weight);
+          hist("CA15_zprimemassbtag_low")->Fill(zprimemass,weight);
+          hist("CA15_ht_twbSRbtag_low")->Fill(ht_twb,weight);
+          hist("CA15_tprimemassbtag_low")->Fill(tprimemass,weight);
         }
         else
         {
-          hist("zprimemassnobtag")->Fill(zprimemass,weight);
-          hist("ht_twbSRnobtag")->Fill(ht_twb,weight);
-          hist("tprimemassnobtag")->Fill(tprimemass,weight);
-          if (zprimemass>1000.0) hist("tprimemassnobtagmass")->Fill(tprimemass,weight);
+          hist("CA15_zprimemassnobtag_low")->Fill(zprimemass,weight);
+          hist("CA15_ht_twbSRnobtag_low")->Fill(ht_twb,weight);
+          hist("CA15_tprimemassnobtag_low")->Fill(tprimemass,weight);
         }
-        if (bmass<10.0) hist("zprimemassbmass")->Fill(zprimemass,weight);
-        else hist("zprimemassnobmass")->Fill(zprimemass,weight);
-      }
-      if (tprimemass>140.0 && tprimemass<250.0)
-      {
-        hist("ttbarCR_zprimemass")->Fill(zprimemass,weight);
-        hist("N_btags_ttbarCR")->Fill(N_bjets,weight);
-        hist("N_btags_good_ttbarCR")->Fill(N_bjets_good,weight);
-        if (topmaxcsv>0.890) hist("ttbarCR_zprimemassbtag")->Fill(zprimemass,weight);
       }
       if (tprimemass>250.0 && tprimemass<500.0)
       {
-        hist("lowmassCR_zprimemass")->Fill(zprimemass,weight);
-        if (topmaxcsv>0.890) hist("lowmassCR_zprimemassbtag")->Fill(zprimemass,weight);
+        if (topmaxcsv>0.890)
+        {
+          hist("CA15_lowmassCR_zprimemassbtag_low")->Fill(zprimemass,weight);
+        }
+        else
+        {
+          hist("CA15_lowmassCR_zprimemassnobtag_low")->Fill(zprimemass,weight);
+        }
       }
-  }
-  if (has_twb_low)
-  {
-      float topmaxcsv=getMaxCSV(the_top);
-      float zprimemass=ZprimeMassVLQ(the_top,the_w,the_b_low);
-      float tprimemass=TprimeMass(the_w,the_b_low);
       if (tprimemass>140.0 && tprimemass<250.0)
       {
-        hist("ttbarCR_zprimemass_low")->Fill(zprimemass,weight);
-        if (topmaxcsv>0.890) hist("ttbarCR_zprimemassbtag_low")->Fill(zprimemass,weight);
+        if (topmaxcsv>0.890)
+        {
+          hist("CA15_ttbarCR_zprimemassbtag_low")->Fill(zprimemass,weight);
+        }
+        else
+        {
+          hist("CA15_ttbarCR_zprimemassnobtag_low")->Fill(zprimemass,weight);
+        }
       }
-      if (tprimemass>250.0 && tprimemass<500.0)
-      {
-        hist("lowmassCR_zprimemass_low")->Fill(zprimemass,weight);
-        if (topmaxcsv>0.890) hist("lowmassCR_zprimemassbtag_low")->Fill(zprimemass,weight);
-      }
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
   }
   ///////////////////RESOLVED ANALYSIS
   if (has_ww && !has_tw)
@@ -2222,7 +2231,7 @@ if (has_ww)
 if (has_ww)
 {
   float additional_weight=WTagSF(event, the_w1, w_sys)*WTagSF(event, the_w2, w_sys);
-  float DELTA_R=0.1;
+  float DELTA_R=0.4;
   //float additional_weight=WTagSF(event, the_w1, w_sys)*WTagSF(event, the_w2, w_sys);
   bool has_b=false;
   bool has_b2=false;
@@ -2392,7 +2401,7 @@ if (has_ww)
     additional_weight=WTagSF(event, the_w, w_sys)*TopTagSF(event, the_top, top_sys);
     weight=weight*additional_weight;
   }
-  else
+  else if (event.topjets->size()>1)
   {
     //partial weights
     if (TopTag(event.topjets->at(0))) weight=weight*TopTagSF(event, event.topjets->at(0), top_sys);
@@ -2443,6 +2452,9 @@ if (has_ww)
   }
 
   Jet the_unselected_b;
+
+  if (event.topjets->size()>1)
+  {
   for(auto jet : *event.jets)
   if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,event.topjets->at(0))>0.8 &&deltaR(jet,event.topjets->at(1))>0.8 && jet.pt()>100.0)
   {
@@ -2465,6 +2477,7 @@ if (has_ww)
   if (!(TopTag_SemiWtag_nsub.first.pt()==TopTag_SemiWtag_nsub.second.pt()))
     if(TprimeMass(TopTag_SemiWtag_nsub.second,the_unselected_b)>500)
       hist("Nm1wmass")->Fill(TopJetMass(TopTag_SemiWtag_nsub.second),weight);
+  }
   // if (has_tw){ hist("dRtW")->Fill(deltaR(the_top,the_w),weight);
   //               hist("toppt_wpt")->Fill(TopJetPt(the_top)-TopJetPt(the_w),weight);}
   
@@ -2544,11 +2557,13 @@ if (has_ww)
         hist("N_btags_ttbarCR")->Fill(N_bjets,weight);
         hist("N_btags_good_ttbarCR")->Fill(N_bjets_good,weight);
         if (topmaxcsv>0.890) hist("ttbarCR_zprimemassbtag")->Fill(zprimemass,weight);
+        else hist("ttbarCR_zprimemassnobtag")->Fill(zprimemass,weight);
       }
       if (tprimemass>250.0 && tprimemass<500.0)
       {
         hist("lowmassCR_zprimemass")->Fill(zprimemass,weight);
         if (topmaxcsv>0.890) hist("lowmassCR_zprimemassbtag")->Fill(zprimemass,weight);
+        else hist("lowmassCR_zprimemassnobtag")->Fill(zprimemass,weight);
       }
   }
   if (has_twb_low)
@@ -2560,18 +2575,21 @@ if (has_ww)
       {
         hist("ttbarCR_zprimemass_low")->Fill(zprimemass,weight);
         if (topmaxcsv>0.890) hist("ttbarCR_zprimemassbtag_low")->Fill(zprimemass,weight);
+        else hist("ttbarCR_zprimemassnobtag_low")->Fill(zprimemass,weight);
       }
       if (tprimemass>250.0 && tprimemass<500.0)
       {
         hist("lowmassCR_zprimemass_low")->Fill(zprimemass,weight);
         if (topmaxcsv>0.890) hist("lowmassCR_zprimemassbtag_low")->Fill(zprimemass,weight);
+        else hist("lowmassCR_zprimemassnobtag_low")->Fill(zprimemass,weight);
       }
   }
 
+  if (event.topjets->size()>2){
   //antitag CRs
   unsigned int tag_index;
   unsigned int probe_index;
-  TRandom3 rand(abs(static_cast<int>(sin(event.topjets->at(0).subjets().at(0).eta()*1000000)*100000)));
+  TRandom3 rand(abs(static_cast<int>(sin(event.topjets->at(0).eta()*1000000)*100000)));
   int choice= (int)rand.Integer(6.);
   switch(choice)
   {
@@ -2581,13 +2599,14 @@ if (has_ww)
     case 3: tag_index=2; probe_index=0; break;
     case 4: tag_index=1; probe_index=2; break;
     case 5: tag_index=2; probe_index=1; break;
+    default: tag_index=-1; probe_index=-1; break;
   }
   // if (rand.Uniform(1.)<=0.25)
   // {
   //   tag_index=0;
   //   probe_index=1;
   // }
-  if (event.topjets->size()>2){
+
 
   Jet the_b_antitopw;
   bool has_antitopwb=false;
@@ -2753,6 +2772,46 @@ if (has_ww)
       }
     }
   }
+
+
+
+
+  Jet the_b_antibcsv15;
+  bool has_twantibcsv15=false;
+  if (has_tw15 && !has_twb15 && !has_tw) for(auto jet : *event.jets)
+  if (jet.btag_combinedSecondaryVertex()<0.890&&deltaR(jet,the_top15)>1.5&&deltaR(jet,the_w15)>0.8 && jet.pt()>100.0)
+  {
+        the_b_antibcsv15=jet; has_twantibcsv15=true;
+        break;
+  }
+  if (has_twantibcsv15)
+  {
+    float zprimemass=ZprimeMassVLQ(the_top15,the_w15,the_b_antibcsv15);
+    float tprimemass=TprimeMass(the_w15,the_b_antibcsv15);
+    float ht_twb = TopJetPt(the_top15)+TopJetPt(the_w15)+the_b_antibcsv15.pt();
+    if (tprimemass>500.0)
+    {
+      if (getMaxCSV(the_top15)>0.890)
+      {
+        hist("CA15_antibcsvCRbtag_zprimemass")->Fill(zprimemass,weight);
+        hist("CA15_antibcsvCRbtag_tprimemass")->Fill(tprimemass,weight);
+        hist("CA15_antibcsvCRbtag_ht_twb")->Fill(ht_twb,weight);  
+      }
+      else
+      {
+        hist("CA15_antibcsvCRnobtag_zprimemass")->Fill(zprimemass,weight);
+        hist("CA15_antibcsvCRnobtag_tprimemass")->Fill(tprimemass,weight);
+        hist("CA15_antibcsvCRnobtag_ht_twb")->Fill(ht_twb,weight);
+      }
+    }
+  }
+
+
+
+
+
+
+
 
 
 
