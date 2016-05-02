@@ -71,6 +71,13 @@
   <!ENTITY MC_TpTp_M-800 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_TpTp_M-800.xml">
   <!ENTITY MC_TpTp_M-900 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_TpTp_M-900.xml">
 
+
+<!ENTITY MC_TsChannel SYSTEM        "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ST_s-channel_4f_leptonDecays.xml">
+<!ENTITY MC_TtChannel SYSTEM        "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ST_t-channel_4f_leptonDecays.xml">
+<!ENTITY MC_TWAntitop SYSTEM        "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_STneg_tW_inc.xml">
+<!ENTITY MC_TWTop SYSTEM            "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_STpos_tW_inc.xml">
+
+
 ]
 >
 
@@ -84,8 +91,8 @@
     <Library Name="libSUHH2Zp2TopVLQAllHad"/>
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/preselection2/" PostFix="" TargetLumi="2628.85" >
-   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="20" OutputDirectory="/nfs/dust/cms/user/usaiem/preselection2/" PostFix="" TargetLumi="2628.85" >  -->
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/preselection2/" PostFix="" TargetLumi="2628.85" > -->
+   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="20" OutputDirectory="/nfs/dust/cms/user/usaiem/preselection2/" PostFix="" TargetLumi="2628.85" > 
 
 
 
@@ -134,7 +141,33 @@
     </InputData>  -->
  
 
-  <InputData Lumi="828307" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1000" Cacheable="False">
+<InputData Lumi="291220" NEventsMax="-1" Type="MC" Version="SingleT_sChannel" Cacheable="False">
+    &MC_TsChannel;
+    <InputTree Name="AnalysisTree" />
+    <OutputTree Name="AnalysisTree" />
+</InputData>
+
+<InputData Lumi="18895860" NEventsMax="-1" Type="MC" Version="SingleT_tChannel" Cacheable="False">
+    &MC_TtChannel;
+    <InputTree Name="AnalysisTree" />
+    <OutputTree Name="AnalysisTree" />
+</InputData>
+
+<InputData Lumi="27766" NEventsMax="-1" Type="MC" Version="SingleT_WAntitop" Cacheable="False">
+    &MC_TWAntitop;
+    <InputTree Name="AnalysisTree" />
+    <OutputTree Name="AnalysisTree" />
+</InputData>
+
+<InputData Lumi="27966" NEventsMax="-1" Type="MC" Version="SingleT_WTop" Cacheable="False">
+    &MC_TWTop;
+    <InputTree Name="AnalysisTree" />
+    <OutputTree Name="AnalysisTree" />
+</InputData>
+
+
+
+ <!--  <InputData Lumi="828307" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1000" Cacheable="False">
         &MC_TpTp_M-1000;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
@@ -204,7 +237,7 @@
         &MC_TpTp_M-900;
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
-    </InputData> 
+    </InputData>  -->
 
 
 

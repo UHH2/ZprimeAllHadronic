@@ -159,6 +159,12 @@ gStyle.SetPalette(55)
 gStyle.SetNumberContours(99)#999
 #set_palette('',99)
 
+the_maximum=-100.0
+the_minimum=1000000.0
+for masspoint in range(len(signalWB_names)):
+	the_minimum = min(min(values[masspoint][2]),the_minimum)
+	the_maximum = max(max(values[masspoint][2]),the_maximum)
+
 for masspoint in range(len(signalWB_names)):
 	name=signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+'_v2'
 	p=TH2F(name,'',11,-0.05,1.05,11,-0.05,1.05)
@@ -168,12 +174,14 @@ for masspoint in range(len(signalWB_names)):
 	p.GetXaxis().SetRangeUser(0,1)
 	p.GetYaxis().SetTitle("T' #rightarrow tH branching fraction")
 	p.GetZaxis().SetTitle("Cross section limit (pb)")
+	print 'masspoint',name
 	for i in range(len(values[masspoint][0])):
 		p.Fill(values[masspoint][0][i],values[masspoint][1][i],values[masspoint][2][i])
-	#p.SetMinimum(0.2)
-	#p.SetMaximum(6.0)
-	p.SetMinimum(min(values[masspoint][2]))
-	p.SetMaximum(max(values[masspoint][2]))
+		print values[masspoint][0][i],values[masspoint][1][i],values[masspoint][2][i]
+	p.SetMinimum(the_minimum)
+	p.SetMaximum(the_maximum)
+	#p.SetMinimum(min(values[masspoint][2]))
+	#p.SetMaximum(max(values[masspoint][2]))
 	p.GetZaxis().SetMoreLogLabels(1)
 	p.SetStats(0)
 
@@ -212,7 +220,7 @@ for masspoint in range(len(signalWB_names)):
 	gStyle.SetPaintTextFormat('4.2f')
 	p.SetMarkerSize(1.8)
 	#p.SetMarkerColor(14)
-	p.Draw('atext45 same')
-	#c.SetLogz(1)
+	#p.Draw('atext45 same')
+	c.SetLogz(1)
 	c.SaveAs('pdf/'+name+'.pdf')
 outfile.Close()

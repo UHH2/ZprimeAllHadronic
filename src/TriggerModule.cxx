@@ -245,7 +245,7 @@ Jet the_b;
     has_tw=true;
   }
   if (has_tw) for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>0.890&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
+  if (jet.btag_combinedSecondaryVertex()>medium_btag&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
   {
         the_b=jet; has_twb=true;
         break;
@@ -258,15 +258,15 @@ Jet the_b;
 // if (topjets->size()>1)
 // {
 //     toptag_requirement = topjetID(topjets->at(0),event)&&topjetID(topjets->at(1),event);
-//     if (getMaxCSV(topjets->at(0))>0.890) nbtag++;
-//     if (getMaxCSV(topjets->at(1))>0.890) nbtag++;
+//     if (getMaxCSV(topjets->at(0))>medium_btag) nbtag++;
+//     if (getMaxCSV(topjets->at(1))>medium_btag) nbtag++;
 // }
 
 
 bool btag2=false;
 if (has_twb)
 {
-    btag2=getMaxCSV(the_top)>0.890;
+    btag2=getMaxCSV(the_top)>medium_btag;
 }
 
 bool ptcond = false;

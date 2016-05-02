@@ -477,6 +477,7 @@ float QCDWeight(float mzp, string mode, string syst)
  {
   weight = 1.414 - 0.0002473 *mzp;
  }
+
  if (mode=="1")
  {
   weight = 1.43 - 0.0002445 *mzp;
@@ -485,6 +486,16 @@ float QCDWeight(float mzp, string mode, string syst)
  {
   weight = 1.788 - 0.0005006 *mzp;
  }
+
+ if (mode=="1par")
+ {
+  weight = 1.43 - 0.0002445 *mzp - 0.0002445 *mzp*mzp;
+ }
+ if (mode=="2par")
+ {
+  weight = 1.788 - 0.0005006 *mzp - 0.0005006 *mzp*mzp;
+ }
+
  if (syst=="nominal")
   {
     //event.weight *= weight;
@@ -514,7 +525,7 @@ float TTbarWeight(const Event & event, int syst)
   // float alpha=-0.00096;
   // float sigmaN=0.17;
   // float sigmaAlpha=0.00020;
-  float weight= 0.92*exp(-0.00096*0.5*(ttbargen.Top().pt()+ttbargen.Antitop().pt()));
+  float weight= 0.93*exp(-0.00088*0.5*(ttbargen.Top().pt()+ttbargen.Antitop().pt()));
   if (syst==0)
   {
     //event.weight *= weight;
@@ -534,12 +545,13 @@ float TTbarWeight(const Event & event, int syst)
 
 float TopTagSF(const Event & event, TopJet jet, int sys)
 {
-  float sf=0.816535;
-  float error=0.0700101;
+  float sf=0.85;
+  float error=0.08;
+  //https://twiki.cern.ch/twiki/bin/view/CMS/JetTopTagging
   if (jet.pt()>550.0)
   {
-    sf=0.983997;
-    error=0.162987;
+    sf=1.08;
+    error=0.16;
   }
   if(!event.isRealData)
   {
@@ -553,8 +565,10 @@ float TopTagSF(const Event & event, TopJet jet, int sys)
 }
 float WTagSF(const Event & event, TopJet jet, int sys)
 {
-  float sf=0.87;
-  float error=0.17;
+  float sf=0.862;
+  float error=0.035;
+  //https://twiki.cern.ch/twiki/bin/view/CMS/JetWtagging
+  //http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2015_196_v8.pdf
   if(!event.isRealData)
   {
     // if (contains(procname,"WSFUP")) return sf+error;

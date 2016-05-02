@@ -14,6 +14,8 @@
 
 using namespace uhh2;
 using namespace std;
+const float medium_btag=0.800;
+const float loose_btag=0.460;
 bool TopTag(TopJet topjet);
 bool TopTag15(TopJet topjet);
 bool WTag(TopJet topjet);

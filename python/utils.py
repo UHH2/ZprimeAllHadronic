@@ -157,7 +157,7 @@ def make_plot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_
   c.SetRightMargin(0.05)#
   c.SetBottomMargin(0.1)
   c.SetTopMargin(0.25)
-  latex=TLatex(0.6,0.70,'13 TeV, 2.46 fb^{-1}')
+  latex=TLatex(0.6,0.70,'13 TeV, 2.63 fb^{-1}')
   latex.SetNDC(1)
   latex.SetTextFont(42)
   legend=TLegend(0.0,0.75,0.99,1.04)
@@ -255,7 +255,7 @@ def make_plot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_
 us='_'
 def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[], histo=0, histo_qcd='',histo_signal='',histo_ttbar='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,
                     xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False, signal_zoom=1, qcd_zoom=1, ttbar_zoom=1,normalize=False,
-                    ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='Data',dosys=False,sysdict={},syspath='/nfs/dust/cms/user/usaiem/sys/uhh2.AnalysisModuleRunner.MC.TTbar',bkgup=0,bkgdown=0):
+                    ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='Data',dosys=False,sysdict={},syspath='/nfs/dust/cms/user/usaiem/sys/uhh2.AnalysisModuleRunner.MC.TTbar',bkgup=0,bkgdown=0,blind=False):
   
   ###canvas setting up
   canvas=0
@@ -293,9 +293,9 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   ###latex label
   latex=0
   if separate_legend:
-    latex=TLatex(0.62,0.83,'13 TeV, 2.46 fb^{-1}')
+    latex=TLatex(0.62,0.83,'13 TeV, 2.63 fb^{-1}')
   else:
-    latex=TLatex(0.6,0.7,'13 TeV, 2.46 fb^{-1}')
+    latex=TLatex(0.6,0.7,'13 TeV, 2.63 fb^{-1}')
   latex.SetTextSize(charsize)
   latex.SetNDC(1)
   latex.SetTextFont(42)
@@ -478,6 +478,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
         else:
           uperr=uperr+error*error
       sys_tot.append([math.sqrt(downerr),math.sqrt(uperr)])
+      print math.sqrt(uperr),math.sqrt(downerr)
       err.SetPointEYhigh(imtt-1,math.sqrt(uperr))
       err.SetPointEYlow(imtt-1,math.sqrt(downerr))
 
@@ -533,7 +534,8 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
     ttbar_line.Draw('samehist')
   for i in signal_histos:
     i.Draw('samehist')
-  data_histo.Draw('p ex0 SAME')
+  if not blind:
+    data_histo.Draw('p ex0 SAME')
   if logy:
     top_pad.SetLogy()
   if not separate_legend:
@@ -548,6 +550,9 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   bottom_pad.cd()
   pull.SetStats(0)
   pull.SetTitle('')
+  if blind:
+    for imtt in range(1,pull.GetNbinsX()+1):
+      pull.SetBinContent(imtt,0)
   pull.Draw('hist')
   if minx!=0 or maxx!=0:
     pull.GetXaxis().SetRangeUser(minx,maxx)
@@ -640,9 +645,9 @@ def make_ratioplot2(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[]
   ###latex label
   latex=0
   if separate_legend:
-    latex=TLatex(0.62,0.83,'13 TeV, 2.46 fb^{-1}')
+    latex=TLatex(0.62,0.83,'13 TeV, 2.63 fb^{-1}')
   else:
-    latex=TLatex(0.6,0.7,'13 TeV, 2.46 fb^{-1}')
+    latex=TLatex(0.6,0.7,'13 TeV, 2.63 fb^{-1}')
   latex.SetTextSize(charsize)
   latex.SetNDC(1)
   latex.SetTextFont(42)

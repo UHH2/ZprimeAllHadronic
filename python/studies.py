@@ -66,6 +66,20 @@ signalTT_names=[
 'MC.MC_TpTp_M-800',
 'MC.MC_TpTp_M-900'
 ]
+signalTT_thetanames=[
+'TpTp1000',
+'TpTp1100',
+'TpTp1200',
+'TpTp1300',
+'TpTp1400',
+'TpTp1500',
+'TpTp1600',
+'TpTp1700',
+'TpTp1800',
+'TpTp700',
+'TpTp800',
+'TpTp900'
+]
 signalTT_legendnames=[
 "T'T' 1000 GeV",
 "T'T' 1100 GeV",
@@ -243,6 +257,8 @@ qcd_names=['MC.QCD_HT500to700','MC.QCD_HT700to1000','MC.QCD_HT1000to1500','MC.QC
 ttbar_names=['MC.TTbar']
 ttbarhigh_names=['MC.TT_Mtt0700to1000','MC.TT_Mtt1000toINFT']
 data_names=['DATA.JetHT_Run2015D_05Oct2015_v1','DATA.JetHT_Run2015D_PromptReco_v4']
+singletop_names=['MC.SingleT_WAntitop','MC.SingleT_WTop','MC.SingleT_sChannel','MC.SingleT_tChannel']
+top_names=ttbar_names+singletop_names
 # ttbar50ns_name='TTbar50ns'
 outfile=TFile('outfile.root','RECREATE')
 
@@ -253,10 +269,14 @@ merge=True
 qcd_filename=hadd(path,filename_base,qcd_names,'qcd_added',force,merge)
 ttbar_filename=hadd(path,filename_base,ttbar_names,'ttbar_added',force,merge)
 data_filename=hadd(path,filename_base,data_names,'data_added',force,merge)
+singletop_filename=hadd(path,filename_base,singletop_names,'singletop_added',force,merge)
+top_filename=hadd(path,filename_base,top_names,'top_added',force,merge)
 #open files
 qcd_file=TFile(qcd_filename,'READ')
 ttbar_file=TFile(ttbar_filename,'READ')
 data_file=TFile(data_filename,'READ')
+singletop_file=TFile(singletop_filename,'READ')
+top_file=TFile(top_filename,'READ')
 signal_files=[]
 signal_files_pre=[]
 signal_files_short=[]
@@ -404,7 +424,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
         signal_zoom=signalzoom,
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        #dosys=True,
+        dosys=True,
         sysdict=systypes)
 
   make_ratioplot(
@@ -423,6 +443,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
     maxy=0,
     minratio=0,
     maxratio=0,
+    blind=True,
     logy=False,
         xtitle='',
         ytitle='Events',
@@ -460,7 +481,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
         signal_zoom=signalzoom,
         fixratio=True,
         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        #dosys=True,
+        dosys=True,
         sysdict=systypes)
   make_ratioplot(
     name=i+'_TT',
@@ -487,7 +508,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
         signal_zoom=signalzoom,
         fixratio=True,
         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        #dosys=True,
+        dosys=True,
         sysdict=systypes)
   make_ratioplot(
     name=i+'_TTNOLOG',
@@ -514,7 +535,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
         signal_zoom=signalzoom,
         fixratio=True,
         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        #dosys=True,
+        dosys=True,
         sysdict=systypes)
 
 
@@ -738,10 +759,11 @@ for i in [
  #"antibcsvCRnobtag_zprimemass",#  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
  #"bkg1",
  "bkg2",
- #"bkg12","bkg1up",
  "bkg2up",
- #"bkg12up","bkg1down",
- "bkg2down"#,"bkg12down",
+ "bkg2down",
+ #"bkg2_par",
+ #"bkg2up_par",
+ #"bkg2down_par"
  ]:
  	rebinna=10
 	minx=0
@@ -796,6 +818,24 @@ for i in [
 	ratio_to_fit.Write()
 	ratioc.Write()
 	ratioc.SaveAs('pdf/ratio_SRbtag_vs_'+i+'_c.pdf')
+
+	gStyle.SetOptFit(1111)
+	ratio_to_fit=qcd_file.Get('Selection/zprimemassbtag').Clone('ratio2_SRbtag_vs_'+i)
+	denominator_CR=qcd_file.Get('Selection/'+i).Clone()
+	outfile.cd()
+	ratio_to_fit.Rebin(30)
+	denominator_CR.Rebin(30)
+	ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
+	denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
+	ratio_to_fit.Divide(denominator_CR)
+	ratioc=TCanvas('ratio2_SRbtag_vs_'+i+'_c')
+	ratio_to_fit.Draw()
+	ratio_to_fit.Fit('pol2','','',900,3000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
+	ratio_to_fit.Draw()
+	ratio_to_fit.Write()
+	ratioc.Write()
+	ratioc.SaveAs('pdf/ratio2_SRbtag_vs_'+i+'_c.pdf')
 
 	make_ratioplot2(
 		name='SRbtagdata_vs_'+i,
@@ -864,6 +904,9 @@ for i in [
  "bkg1",#"bkg2","bkg12",
  "bkg1up",#"bkg2up","bkg12up",
  "bkg1down",#"bkg2down","bkg12down",
+ #"bkg1_par",#"bkg2","bkg12",
+ #"bkg1up_par",#"bkg2up","bkg12up",
+ #"bkg1down_par",
  ]:
  	rebinna=10
 	minx=0
@@ -918,6 +961,24 @@ for i in [
 	ratio_to_fit.Write()
 	ratioc.Write()
 	ratioc.SaveAs('pdf/ratio_SRnobtag_vs_'+i+'_c.pdf')
+
+	gStyle.SetOptFit(1111)
+	ratio_to_fit=qcd_file.Get('Selection/zprimemassnobtag').Clone('ratio2_SRnobtag_vs_'+i)
+	denominator_CR=qcd_file.Get('Selection/'+i).Clone()
+	outfile.cd()
+	ratio_to_fit.Rebin(30)
+	denominator_CR.Rebin(30)
+	ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
+	denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
+	ratio_to_fit.Divide(denominator_CR)
+	ratioc=TCanvas('ratio2_SRnobtag_vs_'+i+'_c')
+	ratio_to_fit.Draw()
+	ratio_to_fit.Fit('pol2','','',900,3000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
+	ratio_to_fit.Draw()
+	ratio_to_fit.Write()
+	ratioc.Write()
+	ratioc.SaveAs('pdf/ratio2_SRnobtag_vs_'+i+'_c.pdf')
 
 	make_ratioplot2(
 		name='SRnobtagdata_vs_'+i,
@@ -1244,7 +1305,7 @@ make_ratioplot(
         qcd_legend='QCD from sideband',
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
+        dosys=True,
         sysdict=systypes,
         bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
         )
@@ -1274,7 +1335,7 @@ make_ratioplot(
         qcd_legend='QCD from sideband',
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
+        dosys=True,
         sysdict=systypes,
         bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
         )
@@ -1306,7 +1367,7 @@ make_ratioplot(
         qcd_legend='QCD from sideband',
         fixratio=True,
         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
+        dosys=True,
         sysdict=systypes,
         bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
         )
@@ -1336,7 +1397,7 @@ make_ratioplot(
         qcd_legend='QCD from sideband',
         fixratio=True,
         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
+        dosys=True,
         sysdict=systypes,
         bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
         )
@@ -1367,7 +1428,7 @@ make_ratioplot(
         qcd_legend='QCD from sideband',
         fixratio=True,
         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
+        dosys=True,
         sysdict=systypes,
         bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
         )
@@ -1397,7 +1458,7 @@ make_ratioplot(
         qcd_legend='QCD from sideband',
         fixratio=True,
         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
+        dosys=True,
         sysdict=systypes,
         bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
         )
@@ -1430,7 +1491,7 @@ make_ratioplot(
         qcd_legend='QCD from sideband',
         fixratio=True,
         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
+        dosys=True,
         sysdict=systypes,
         bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
         )
@@ -1460,7 +1521,7 @@ make_ratioplot(
         qcd_legend='QCD from sideband',
         fixratio=True,
         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
+        dosys=True,
         sysdict=systypes,
         bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
         )
@@ -1485,6 +1546,7 @@ make_ratioplot(
     maxy=0,
     minratio=0,
     maxratio=0,
+    blind=True,
     logy=False,
         xtitle='',
         ytitle='Events',
@@ -1495,7 +1557,7 @@ make_ratioplot(
         qcd_legend='QCD from sideband',
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
+        dosys=True,
         sysdict=systypes,
         bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
         )
@@ -1515,6 +1577,7 @@ make_ratioplot(
     maxy=0,
     minratio=0,
     maxratio=0,
+    blind=True,
     logy=False,
         xtitle='',
         ytitle='Events',
@@ -1525,7 +1588,7 @@ make_ratioplot(
         qcd_legend='QCD from sideband',
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
+        dosys=True,
         sysdict=systypes,
         bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
         )
@@ -1573,7 +1636,7 @@ for i in signalZT_names:
 for i in signalHT_names:
   signal_filesHT.append(TFile(path+filename_base+i+root,'READ'))
 
-dotheta=False
+dotheta=True
 if dotheta:
   rebinna=10
   runList=[0,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000,4000]
@@ -1586,20 +1649,54 @@ if dotheta:
   filecounter=1
   onebtag='Selection/zprimemassnobtag'
   twobtags='Selection/zprimemassbtag'
+  onebtag15='Selection/CA15_zprimemassnobtag'
+  twobtags15='Selection/CA15_zprimemassbtag'
   sides={'UP':'plus','DOWN':'minus'}
   cats={onebtag:'1btag',twobtags:'2btag'}
+  #cats={onebtag:'1btag',twobtags:'2btag',onebtag15:'1btagCA15',twobtags15:'2btagCA15'}
+  bkgcats={onebtag:'Selection/bkg1',twobtags:'Selection/bkg2',onebtag15:onebtag15,twobtags15:twobtags15}
+  #cats2={'Selection/bkg1':'1btag','Selection/bkg2':'2btag'}
 
 
 
-  def dosys(file_path='',the_file=0,cats={},sys_to_do={},sample_name='',out_file=0,infile=0):
-    if the_file
-    the_file=TFile(file_path+'UP'+root,"READ")
+  def dosys(file_path='',the_file=0,cats={},sys_to_do={},sample_name='',out_file=0,bkg=False):
+    if the_file==0:
+      the_file=TFile(file_path+'UP'+root,"READ")
     for cat in cats:
-      allhad=the_file.Get(cat).Clone()
+      allhad=0
+      if not bkg:
+        allhad=the_file.Get(cat).Clone()
+      else:
+        allhad=the_file.Get(bkgcats[cat]).Clone()
+      if bkg and not 'CA15' in cat:
+        if '2btag' in cats[cat]:
+          allhad.Scale(qcdsfbtag2)
+        else:
+          allhad.Scale(qcdsfnobtag2)
       allhad.Rebin(rebinna)
-      allhad.Rebin(runLen,'',runArray)
-      outfile.cd()
+      allhad=allhad.Rebin(runLen,'',runArray)
+      out_file.cd()
       allhad.Write('allhad'+cats[cat]+uu+sample_name)
+    if bkg:
+      for cat in cats:
+        if not 'CA15' in cat:
+          for side in sides:
+            sysvar=the_file.Get(bkgcats[cat]+side.lower()).Clone()
+            if '2btag' in cats[cat]:
+              sysvar.Scale(qcdsfbtag2)
+            else:
+              sysvar.Scale(qcdsfnobtag2)
+            sysvar.Rebin(rebinna)
+            sysvar=sysvar.Rebin(runLen,'',runArray)
+            sysvar.Write('allhad'+cats[cat]+uu+sample_name+uu+'bkgcorr'+uu+sides[side])
+    # else:
+    #   for cat in cats:
+    #     allhad=the_file.Get(cat).Clone()
+    #     allhad.Rebin(rebinna)
+    #     allhad.Rebin(runLen,'',runArray)
+    #     outfile.cd()
+    #     allhad.Write('allhad'+cats[cat]+uu+sample_name)
+
     for sys in sys_to_do:
         if not (sys in ['mur','muf','murmuf']):
           for side in sides:
@@ -1619,9 +1716,9 @@ if dotheta:
       sysfile_MURMUFUP=TFile(file_path+sys_to_do['murmuf']+'UP.root','READ')
       sysfile_MURMUFDOWN=TFile(file_path+sys_to_do['murmuf']+'DOWN.root','READ')
       for cat in cats:
-        allhad_env=envelope([sysfilettbar_MURUP.Get(cat),sysfilettbar_MURDOWN.Get(cat),sysfilettbar_MUFUP.Get(cat),sysfilettbar_MUFDOWN.Get(cat),sysfilettbar_MURMUFUP.Get(cat),sysfilettbar_MURMUFDOWN.Get(cat)])
-        allhad_up=sysfilettbar_MURUP.Get(cat).Clone()
-        allhad_down=sysfilettbar_MURUP.Get(cat).Clone()
+        allhad_env=envelope([sysfile_MURUP.Get(cat),sysfile_MURDOWN.Get(cat),sysfile_MUFUP.Get(cat),sysfile_MUFDOWN.Get(cat),sysfile_MURMUFUP.Get(cat),sysfile_MURMUFDOWN.Get(cat)])
+        allhad_up=sysfile_MURUP.Get(cat).Clone()
+        allhad_down=sysfile_MURUP.Get(cat).Clone()
         for imtt in range(1,allhad_up.GetNbinsX()+1):
           allhad_up.SetBinContent(imtt,allhad_env[imtt-1][1])
           allhad_down.SetBinContent(imtt,allhad_env[imtt-1][0])
@@ -1632,81 +1729,117 @@ if dotheta:
         out_file.cd()
         allhad_up.Write('allhad'+cats[cat]+uu+sample_name+uu+'mu'+uu+'plus')
         allhad_down.Write('allhad'+cats[cat]+uu+sample_name+uu+'mu'+uu+'minus')
-      sysfilettbar_MURUP.Close()
-      sysfilettbar_MURDOWN.Close()
-      sysfilettbar_MUFUP.Close()
-      sysfilettbar_MUFDOWN.Close()
-      sysfilettbar_MURMUFUP.Close()
-      sysfilettbar_MURMUFDOWN.Close()
-    the_file.Close()
+      sysfile_MURUP.Close()
+      sysfile_MURDOWN.Close()
+      sysfile_MUFUP.Close()
+      sysfile_MUFDOWN.Close()
+      sysfile_MURMUFUP.Close()
+      sysfile_MURMUFDOWN.Close()
+    #the_file.Close()
 
   thetafileTT=TFile('thetaTT.root','RECREATE')
-  dosys(file_path=syspath+filename_base+'MC.TTbar',cats=cats,sys_to_do=systypes,sample_name='ttbar',out_file=thetafileTT)
-  dosys(file_path=syspath+filename_base+'MC.TTbar',cats=cats,sys_to_do=systypes,sample_name='DATA',out_file=thetafileTT)
-  allhad2btag__DATA=data_file.Get(twobtags).Clone()
-  allhad1btag__DATA=data_file.Get(onebtag).Clone()
-  allhad2btag__DATA.Rebin(rebinna)
-  allhad1btag__DATA.Rebin(rebinna)
-  allhad2btag__DATA=allhad2btag__DATA.Rebin(runLen,'',runArray)
-  allhad1btag__DATA=allhad1btag__DATA.Rebin(runLen,'',runArray)
-  allhad2btag__DATA.Write('allhad2btag__DATA')
-  allhad1btag__DATA.Write('allhad1btag__DATA')
+  dosys(file_path=syspath+filename_base+'MC.TTbar',the_file=0,        cats=cats,sys_to_do=systypes,sample_name='ttbar',out_file=thetafileTT)
+  dosys(file_path=''                              ,the_file=data_file,cats=cats,sys_to_do={},sample_name='DATA',out_file=thetafileTT)
+  dosys(file_path=''                              ,the_file=data_file,cats=cats,sys_to_do={},sample_name='qcd',out_file=thetafileTT,bkg=True)
+  for signal_name in range(len(signalTT_names)):
+    dosys(file_path=syspath+filename_base+signalTT_names[signal_name],the_file=0,cats=cats,sys_to_do=systypes,sample_name=signalTT_thetanames[signal_name],out_file=thetafileTT)
+  # allhad2btag__DATA=data_file.Get(twobtags).Clone()
+  # allhad1btag__DATA=data_file.Get(onebtag).Clone()
+  # allhad2btag__DATA.Rebin(rebinna)
+  # allhad1btag__DATA.Rebin(rebinna)
+  # allhad2btag__DATA=allhad2btag__DATA.Rebin(runLen,'',runArray)
+  # allhad1btag__DATA=allhad1btag__DATA.Rebin(runLen,'',runArray)
+  # allhad2btag__DATA.Write('allhad2btag__DATA')
+  # allhad1btag__DATA.Write('allhad1btag__DATA')
 
   for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]:#+[[0,0,0]]:
     filename_postfix=u+str(filecounter)+u+str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')
     thetafile=TFile('theta/theta'+filename_postfix+'.root','RECREATE')
     thetafile.cd()
+    for cat in cats:
+      allhad__ttbar=ttbar_file.Get(cat).Clone()
+      allhad__DATA=data_file.Get(cat).Clone()
+      allhad__qcd=0
+      if 'CA15' in cat:
+        allhad__qcd=qcd_file.Get(bkgcats[cat]).Clone()
+      else:
+        allhad__qcd=data_file.Get(bkgcats[cat]).Clone()
+        if '2btag' in cats[cat]:
+          allhad__qcd.Scale(qcdsfbtag2)
+        else:
+          allhad__qcd.Scale(qcdsfnobtag2)
+      allhad__ttbar.Rebin(rebinna)
+      allhad__DATA.Rebin(rebinna)
+      allhad__qcd.Rebin(rebinna)
+      allhad__ttbar=allhad__ttbar.Rebin(runLen,'',runArray)
+      allhad__DATA=allhad__DATA.Rebin(runLen,'',runArray)
+      allhad__qcd=allhad__qcd.Rebin(runLen,'',runArray)
+      allhad__ttbar.Write('allhad'+cats[cat]+'__ttbar')
+      allhad__DATA.Write('allhad'+cats[cat]+'__DATA')
+      allhad__qcd.Write('allhad'+cats[cat]+'__qcd')
+      if not 'CA15' in cat:
+        for side in sides:
+          allhad__qcd__sys=data_file.Get(bkgcats[cat]+side.lower()).Clone()
+          if '2btag' in cats[cat]:
+            allhad__qcd__sys.Scale(qcdsfbtag2)
+          else:
+            allhad__qcd__sys.Scale(qcdsfnobtag2)
+          allhad__qcd__sys.Rebin(rebinna)
+          allhad__qcd__sys=allhad__qcd__sys.Rebin(runLen,'',runArray)
+          allhad__qcd__sys.Write('allhad'+cats[cat]+'__qcd__bkgcorr__'+sides[side])
+
+
     # allhad2btag__qcd=qcd_file.Get(twobtags).Clone()
     # allhad1btag__qcd=qcd_file.Get(onebtag).Clone()
-    allhad2btag__qcd=data_file.Get('Selection/bkg2').Clone()
-    allhad1btag__qcd=data_file.Get('Selection/bkg1').Clone()
-    allhad2btag__ttbar=ttbar_file.Get(twobtags).Clone()
-    allhad1btag__ttbar=ttbar_file.Get(onebtag).Clone()
-    allhad2btag__DATA=data_file.Get(twobtags).Clone()
-    allhad1btag__DATA=data_file.Get(onebtag).Clone()
-    allhad2btag__qcd.Scale(qcdsfbtag2)
-    allhad1btag__qcd.Scale(qcdsfnobtag2)
-    allhad2btag__qcd.Rebin(rebinna)
-    allhad1btag__qcd.Rebin(rebinna)
-    allhad2btag__ttbar.Rebin(rebinna)
-    allhad1btag__ttbar.Rebin(rebinna)
-    allhad2btag__DATA.Rebin(rebinna)
-    allhad1btag__DATA.Rebin(rebinna)
+    # allhad2btag__qcd=data_file.Get('Selection/bkg2').Clone()
+    # allhad1btag__qcd=data_file.Get('Selection/bkg1').Clone()
+    # allhad2btag__ttbar=ttbar_file.Get(twobtags).Clone()
+    # allhad1btag__ttbar=ttbar_file.Get(onebtag).Clone()
+    # allhad2btag__DATA=data_file.Get(twobtags).Clone()
+    # allhad1btag__DATA=data_file.Get(onebtag).Clone()
+    # allhad2btag__qcd.Scale(qcdsfbtag2)
+    # allhad1btag__qcd.Scale(qcdsfnobtag2)
+    # allhad2btag__qcd.Rebin(rebinna)
+    # allhad1btag__qcd.Rebin(rebinna)
+    # allhad2btag__ttbar.Rebin(rebinna)
+    # allhad1btag__ttbar.Rebin(rebinna)
+    # allhad2btag__DATA.Rebin(rebinna)
+    # allhad1btag__DATA.Rebin(rebinna)
 
-    allhad2btag__qcd=allhad2btag__qcd.Rebin(runLen,'',runArray)
-    allhad1btag__qcd=allhad1btag__qcd.Rebin(runLen,'',runArray)
-    allhad2btag__ttbar=allhad2btag__ttbar.Rebin(runLen,'',runArray)
-    allhad1btag__ttbar=allhad1btag__ttbar.Rebin(runLen,'',runArray)
-    allhad2btag__DATA=allhad2btag__DATA.Rebin(runLen,'',runArray)
-    allhad1btag__DATA=allhad1btag__DATA.Rebin(runLen,'',runArray)
+    # allhad2btag__qcd=allhad2btag__qcd.Rebin(runLen,'',runArray)
+    # allhad1btag__qcd=allhad1btag__qcd.Rebin(runLen,'',runArray)
+    # allhad2btag__ttbar=allhad2btag__ttbar.Rebin(runLen,'',runArray)
+    # allhad1btag__ttbar=allhad1btag__ttbar.Rebin(runLen,'',runArray)
+    # allhad2btag__DATA=allhad2btag__DATA.Rebin(runLen,'',runArray)
+    # allhad1btag__DATA=allhad1btag__DATA.Rebin(runLen,'',runArray)
 
-    allhad2btag__qcd.Write('allhad2btag__qcd')
-    allhad1btag__qcd.Write('allhad1btag__qcd')
-    allhad2btag__ttbar.Write('allhad2btag__ttbar')
-    allhad1btag__ttbar.Write('allhad1btag__ttbar')
-    allhad2btag__DATA.Write('allhad2btag__DATA')
-    allhad1btag__DATA.Write('allhad1btag__DATA')
-    allhad2btag__qcd__bkgcorr__plus=data_file.Get('Selection/bkg2up').Clone()
-    allhad1btag__qcd__bkgcorr__plus=data_file.Get('Selection/bkg1up').Clone()
-    allhad2btag__qcd__bkgcorr__minus=data_file.Get('Selection/bkg2down').Clone()
-    allhad1btag__qcd__bkgcorr__minus=data_file.Get('Selection/bkg1down').Clone()
-    allhad2btag__qcd__bkgcorr__plus.Scale(qcdsfbtag2)
-    allhad1btag__qcd__bkgcorr__plus.Scale(qcdsfnobtag2)
-    allhad2btag__qcd__bkgcorr__minus.Scale(qcdsfbtag2)
-    allhad1btag__qcd__bkgcorr__minus.Scale(qcdsfnobtag2)
-    allhad2btag__qcd__bkgcorr__plus.Rebin(rebinna)
-    allhad1btag__qcd__bkgcorr__plus.Rebin(rebinna)
-    allhad2btag__qcd__bkgcorr__minus.Rebin(rebinna)
-    allhad1btag__qcd__bkgcorr__minus.Rebin(rebinna)
+    # allhad2btag__qcd.Write('allhad2btag__qcd')
+    # allhad1btag__qcd.Write('allhad1btag__qcd')
+    # allhad2btag__ttbar.Write('allhad2btag__ttbar')
+    # allhad1btag__ttbar.Write('allhad1btag__ttbar')
+    # allhad2btag__DATA.Write('allhad2btag__DATA')
+    # allhad1btag__DATA.Write('allhad1btag__DATA')
+    # allhad2btag__qcd__bkgcorr__plus=data_file.Get('Selection/bkg2up').Clone()
+    # allhad1btag__qcd__bkgcorr__plus=data_file.Get('Selection/bkg1up').Clone()
+    # allhad2btag__qcd__bkgcorr__minus=data_file.Get('Selection/bkg2down').Clone()
+    # allhad1btag__qcd__bkgcorr__minus=data_file.Get('Selection/bkg1down').Clone()
+    # allhad2btag__qcd__bkgcorr__plus.Scale(qcdsfbtag2)
+    # allhad1btag__qcd__bkgcorr__plus.Scale(qcdsfnobtag2)
+    # allhad2btag__qcd__bkgcorr__minus.Scale(qcdsfbtag2)
+    # allhad1btag__qcd__bkgcorr__minus.Scale(qcdsfnobtag2)
+    # allhad2btag__qcd__bkgcorr__plus.Rebin(rebinna)
+    # allhad1btag__qcd__bkgcorr__plus.Rebin(rebinna)
+    # allhad2btag__qcd__bkgcorr__minus.Rebin(rebinna)
+    # allhad1btag__qcd__bkgcorr__minus.Rebin(rebinna)
 
-    allhad2btag__qcd__bkgcorr__plus=allhad2btag__qcd__bkgcorr__plus.Rebin(runLen,'',runArray)
-    allhad1btag__qcd__bkgcorr__plus=allhad1btag__qcd__bkgcorr__plus.Rebin(runLen,'',runArray)
-    allhad2btag__qcd__bkgcorr__minus=allhad2btag__qcd__bkgcorr__minus.Rebin(runLen,'',runArray)
-    allhad1btag__qcd__bkgcorr__minus=allhad1btag__qcd__bkgcorr__minus.Rebin(runLen,'',runArray)
-    allhad2btag__qcd__bkgcorr__plus.Write('allhad2btag__qcd__bkgcorr__plus')
-    allhad1btag__qcd__bkgcorr__plus.Write('allhad1btag__qcd__bkgcorr__plus')
-    allhad2btag__qcd__bkgcorr__minus.Write('allhad2btag__qcd__bkgcorr__minus')
-    allhad1btag__qcd__bkgcorr__minus.Write('allhad1btag__qcd__bkgcorr__minus')
+    # allhad2btag__qcd__bkgcorr__plus=allhad2btag__qcd__bkgcorr__plus.Rebin(runLen,'',runArray)
+    # allhad1btag__qcd__bkgcorr__plus=allhad1btag__qcd__bkgcorr__plus.Rebin(runLen,'',runArray)
+    # allhad2btag__qcd__bkgcorr__minus=allhad2btag__qcd__bkgcorr__minus.Rebin(runLen,'',runArray)
+    # allhad1btag__qcd__bkgcorr__minus=allhad1btag__qcd__bkgcorr__minus.Rebin(runLen,'',runArray)
+    # allhad2btag__qcd__bkgcorr__plus.Write('allhad2btag__qcd__bkgcorr__plus')
+    # allhad1btag__qcd__bkgcorr__plus.Write('allhad1btag__qcd__bkgcorr__plus')
+    # allhad2btag__qcd__bkgcorr__minus.Write('allhad2btag__qcd__bkgcorr__minus')
+    # allhad1btag__qcd__bkgcorr__minus.Write('allhad1btag__qcd__bkgcorr__minus')
   
     for sys in systypes:
         if not (sys in ['mur','muf','murmuf']):
@@ -1753,44 +1886,42 @@ if dotheta:
     #	for masspoint in range(len(signalTT_names)):
 
     for masspoint in range(len(signalWB_names)):
-      allhad2btag__signalWB=signal_filesWB[masspoint].Get(twobtags).Clone()
-      allhad2btag__signalZT=signal_filesZT[masspoint].Get(twobtags).Clone()
-      allhad2btag__signalHT=signal_filesHT[masspoint].Get(twobtags).Clone()
-      #allhad2btag__signalWB.Sumw2()
-      #allhad2btag__signalZT.Sumw2()
-      #allhad2btag__signalHT.Sumw2()
-      addscale=1.0
+      for cat in cats:
+        allhad__signalWB=signal_filesWB[masspoint].Get(cat).Clone()
+        allhad__signalZT=signal_filesZT[masspoint].Get(cat).Clone()
+        allhad__signalHT=signal_filesHT[masspoint].Get(cat).Clone()
+        addscale=1.0
       #if '2000' in signalWB_names[masspoint] and '1500' in signalWB_names[masspoint]:
       #  addscale=0.163649053
-      allhad2btag__signalWB.Scale(triplet[0]*addscale)
-      allhad2btag__signalHT.Scale(triplet[1])
-      allhad2btag__signalZT.Scale(triplet[2])
-      allhad2btag__signal=allhad2btag__signalWB
-      allhad2btag__signal.Add(allhad2btag__signalHT)
-      allhad2btag__signal.Add(allhad2btag__signalZT)
-      allhad2btag__signal.Rebin(rebinna)
-      allhad2btag__signal=allhad2btag__signal.Rebin(runLen,'',runArray)
+        allhad__signalWB.Scale(triplet[0]*addscale)
+        allhad__signalHT.Scale(triplet[1])
+        allhad__signalZT.Scale(triplet[2])
+        allhad__signal=allhad__signalWB
+        allhad__signal.Add(allhad__signalHT)
+        allhad__signal.Add(allhad__signalZT)
+        allhad__signal.Rebin(rebinna)
+        allhad__signal=allhad__signal.Rebin(runLen,'',runArray)
 
-      allhad1btag__signalWB=signal_filesWB[masspoint].Get(onebtag).Clone()
-      allhad1btag__signalZT=signal_filesZT[masspoint].Get(onebtag).Clone()
-      allhad1btag__signalHT=signal_filesHT[masspoint].Get(onebtag).Clone()
-      #allhad1btag__signalWB.Sumw2()
-      #allhad1btag__signalZT.Sumw2()
-      #allhad1btag__signalHT.Sumw2()
-      allhad1btag__signalWB.Scale(triplet[0]*addscale)
-      allhad1btag__signalHT.Scale(triplet[1])
-      allhad1btag__signalZT.Scale(triplet[2])
-      allhad1btag__signal=allhad1btag__signalWB
-      allhad1btag__signal.Add(allhad1btag__signalHT)
-      allhad1btag__signal.Add(allhad1btag__signalZT)
-      allhad1btag__signal.Rebin(rebinna)
-      allhad1btag__signal=allhad1btag__signal.Rebin(runLen,'',runArray)
+      # allhad1btag__signalWB=signal_filesWB[masspoint].Get(onebtag).Clone()
+      # allhad1btag__signalZT=signal_filesZT[masspoint].Get(onebtag).Clone()
+      # allhad1btag__signalHT=signal_filesHT[masspoint].Get(onebtag).Clone()
+      # #allhad1btag__signalWB.Sumw2()
+      # #allhad1btag__signalZT.Sumw2()
+      # #allhad1btag__signalHT.Sumw2()
+      # allhad1btag__signalWB.Scale(triplet[0]*addscale)
+      # allhad1btag__signalHT.Scale(triplet[1])
+      # allhad1btag__signalZT.Scale(triplet[2])
+      # allhad1btag__signal=allhad1btag__signalWB
+      # allhad1btag__signal.Add(allhad1btag__signalHT)
+      # allhad1btag__signal.Add(allhad1btag__signalZT)
+      # allhad1btag__signal.Rebin(rebinna)
+      # allhad1btag__signal=allhad1btag__signal.Rebin(runLen,'',runArray)
 
-      thetafile.cd()
-      allhad2btag__signal.Write('allhad2btag__signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
+        thetafile.cd()
+        allhad__signal.Write('allhad'+cats[cat]+'__signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
         str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p'))
-      allhad1btag__signal.Write('allhad1btag__signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
-        str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p'))
+        #allhad1btag__signal.Write('allhad1btag__signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
+        #str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p'))
 
       for sys in systypes:
         if not (sys in ['mur','muf','murmuf']):
@@ -1967,7 +2098,7 @@ for masspoint in range(len(signalWB_names)):
 #	if masspoint in [0,3,6]:
 
 
-	print signalWB_names[masspoint], num1/den1, num2/den2, num1b/den1b, num2b/den2b, num1bk/den1bk, num2bk/den2bk
+	print signalWB_names[masspoint], num1bk*(den1/den1bk)/num1,num2bk*(den2/den2bk)/num2#num1/den1, num2/den2, num1b/den1b, num2b/den2b, num1bk/den1bk, num2bk/den2bk
 
 # resized_bkg1=qcd_file.Get("Selection/bkg1").Clone('resized_bkg1')
 # resized_bkg2=qcd_file.Get("Selection/bkg2").Clone('resized_bkg2')
@@ -2025,6 +2156,7 @@ make_comp(data_file.Get("Selection/bkg1"),data_file.Get("Selection/bkg1up"),data
 make_comp(data_file.Get("Selection/bkg2"),data_file.Get("Selection/bkg2up"),data_file.Get("Selection/bkg2down"),'SYS_bkg2',10)
 
 ttbar_string='MC.TTbar'
+ttbar_string='MC.TTbar'
 up='UP'
 down='DOWN'
 # ttbar_MURUP=TFile(syspath+filename_base+ttbar_string+systypes['mur']+up+root)
@@ -2039,8 +2171,10 @@ ttbar_mean=TFile(syspath+filename_base+ttbar_string+up+root)
 # ttbar_PUUP=TFile(syspath+filename_base+ttbar_string+systypes['pu']+up+root)
 # ttbar_PUDOWN=TFile(syspath+filename_base+ttbar_string+systypes['pu']+down+root)
 
-sr1name="Selection/zprimemassnobtag"
-sr2name="Selection/zprimemassbtag"
+#sr1name="Selection/zprimemassnobtag"ttbarCR_zprimemassbtag_low
+#sr2name="Selection/zprimemassbtag"
+sr1name="Selection/ttbarCR_zprimemassnobtag_low"
+sr2name="Selection/ttbarCR_zprimemassbtag_low"
 # make_comp(ttbar_mean.Get(sr1name),ttbar_MURUP.Get(sr1name),ttbar_MURDOWN.Get(sr1name),'SYS_mur1',10)
 # make_comp(ttbar_mean.Get(sr2name),ttbar_MURUP.Get(sr2name),ttbar_MURDOWN.Get(sr2name),'SYS_mur2',10)
 # make_comp(ttbar_mean.Get(sr1name),ttbar_MUFUP.Get(sr1name),ttbar_MUFDOWN.Get(sr1name),'SYS_muf1',10)
