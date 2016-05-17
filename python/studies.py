@@ -296,6 +296,8 @@ signalTTreco_files=[]
 for i in signalTT_names:
 	signalTTreco_files.append(TFile(path+filename_base+i+root,'READ'))
 
+compare('pileup',[data_file,qcd_file],['Selection/npv','Selection/npv'],['Data','QCD MC'],True,'hE','n primary vertices','rate',0,40,1,0,0,1,False)
+
 for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
   "bmass",  "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
   "wmass",  "wpt",  "wnsub",
@@ -314,10 +316,10 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
 "antibcsvCRmass_zprimemass",
 #  "antibptCRmass_zprimemass",  "antibmassCRmass_zprimemass",
 #"antitopmassCRbtag_zprimemass",  "antitopnsubCRbtag_zprimemass",  "antiwmassCRbtag_zprimemass",  "antiwnsubCRbtag_zprimemass",  
-"antibcsvCRbtag_zprimemass",
+"antibcsvCRbtag_zprimemass","antibcsvlooseCRbtag_zprimemass",
 #  "antibptCRbtag_zprimemass",  "antibmassCRbtag_zprimemass",
 #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass",
-  "antibcsvCRnobtag_zprimemass",
+  "antibcsvCRnobtag_zprimemass","antibcsvlooseCRnobtag_zprimemass",
   #  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
 "bkg1","bkg2","bkg12","bkg1up","bkg2up","bkg12up","bkg1down","bkg2down","bkg12down","tprimemass_res", "zprimemassbtag_res", "zprimemassnobtag_res",
 'topmass_res','topmass2_res',
@@ -357,7 +359,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
   if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub",]:
     rebinna =2
   if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
-  "bmass",  "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
+    "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
   "wmass",  "wpt",  "wnsub",
   "toppt",  "topmass",  "topnsub",  "topcsv",
   "dRbt",  "dRbW",  "dRtW",  "dRtTp",
@@ -365,7 +367,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
     signalzoom=100
   if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub"]:
     signalzoom=20
-  if i in ["tprimemass"]:
+  if i in ["bmass","tprimemass"]:
     signalzoom=20
   if i in ['topmass_res','topmass2_res']:
     signalzoom=30
@@ -373,6 +375,9 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
     uselog=False
     minx=60
     maxx=300
+  if i in ['npv']:
+    rebinna=1
+    maxx=40
   # make_ratioplot(
   #   name=i+'NOSF',
   #   ttbar_file=ttbar_file,
@@ -443,7 +448,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
     maxy=0,
     minratio=0,
     maxratio=0,
-    blind=True,
+    blind=False,
     logy=False,
         xtitle='',
         ytitle='Events',
@@ -453,7 +458,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
         signal_zoom=signalzoom,
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        #dosys=True,
+        dosys=True,
         sysdict=systypes)
 
   make_ratioplot(
@@ -1546,7 +1551,7 @@ make_ratioplot(
     maxy=0,
     minratio=0,
     maxratio=0,
-    blind=True,
+    blind=False,
     logy=False,
         xtitle='',
         ytitle='Events',
@@ -1577,7 +1582,7 @@ make_ratioplot(
     maxy=0,
     minratio=0,
     maxratio=0,
-    blind=True,
+    blind=False,
     logy=False,
         xtitle='',
         ytitle='Events',
@@ -1786,7 +1791,21 @@ if dotheta:
             allhad__qcd__sys.Scale(qcdsfnobtag2)
           allhad__qcd__sys.Rebin(rebinna)
           allhad__qcd__sys=allhad__qcd__sys.Rebin(runLen,'',runArray)
-          allhad__qcd__sys.Write('allhad'+cats[cat]+'__qcd__bkgcorr__'+sides[side])
+          #allhad__qcd__sys.Write('allhad'+cats[cat]+'__qcd__bkgcorr__'+sides[side])
+
+###################################################################################################################################################################
+###################################################################################################################################################################
+###################################################################################################################################################################
+###################################################################################################################################################################
+###################################################################################################################################################################
+###################################################################################################################################################################
+###################################################################################################################################################################
+###################################################################################################################################################################
+###################################################################################################################################################################
+###################################################################################################################################################################
+###################################################################################################################################################################
+###################################################################################################################################################################
+
 
 
     # allhad2btag__qcd=qcd_file.Get(twobtags).Clone()

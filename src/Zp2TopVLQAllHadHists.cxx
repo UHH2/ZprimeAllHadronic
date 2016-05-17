@@ -1293,6 +1293,7 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("N_subjetbtags", ";N_{subjetbtags};Events", 10, 0, 10);
 
   book<TH1F>("bmass", ";m_{b};Events", 200, 0, 100);
+  book<TH1F>("bmass2", ";m_{b};Events", 200, 0, 100);
   book<TH1F>("bpt", ";p_{T,b};Events", 200, 0, 1000);
   book<TH1F>("bcsv", ";CSV_{b};Events", 101, 0, 1.01);
   book<TH1F>("csv_pthighest", ";CSV_{b};Events", 101, 0, 1.01);
@@ -2423,6 +2424,15 @@ if (has_ww)
         the_b=jet; has_twb=true;
         break;
   }
+
+  bool has_twb_loose=false;
+  if (has_tw) for(auto jet : *event.jets)
+  if (jet.btag_combinedSecondaryVertex()>loose_btag&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
+  {
+        has_twb_loose=true;
+        break;
+  }
+
   if (has_tw) for(auto jet : *event.jets)
   if (jet.btag_combinedSecondaryVertex()>medium_btag&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>50.0)
   {
@@ -2538,6 +2548,7 @@ if (has_ww)
       if (tprimemass>500.0)
       {
         hist("zprimemass")->Fill(zprimemass,weight);
+        hist("bmass2")->Fill(bmass,weight);
         hist("ht_twbSR")->Fill(ht_twb,weight);
         hist("zprimept")->Fill(ZprimePtVLQ(the_top,the_w,the_b),weight);
         if (topmaxcsv>medium_btag)
@@ -2755,7 +2766,7 @@ if (has_ww)
 
   Jet the_b_antibcsvloose;
   bool has_twantibcsvloose=false;
-  if (has_tw && !has_twb) for(auto jet : *event.jets)
+  if (has_tw && !has_twb_loose) for(auto jet : *event.jets)
   if (jet.btag_combinedSecondaryVertex()<loose_btag&&deltaR(jet,the_top)>0.8&&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
   {
         the_b_antibcsvloose=jet; has_twantibcsvloose=true;

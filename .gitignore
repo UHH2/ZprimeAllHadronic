@@ -8,3 +8,4 @@ obj/
 python/_*
 acls*cfg
 python/theta/*
+python/model/*
