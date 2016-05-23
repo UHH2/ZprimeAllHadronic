@@ -510,6 +510,30 @@ float QCDWeight(float mzp, string mode, string syst)
   {
     return 1.0;
   }
+
+  if (syst=="up_fit")
+  {
+    if (contains(mode,'par'))
+    {
+      return QCDWeight(mzp,mode,"nominal") + 
+    }
+    else
+    {
+      return QCDWeight(mzp,mode,"nominal") + 
+    }
+  }
+  if (syst=="down_fit")
+  {
+    if (contains(mode,'par'))
+    {
+      return QCDWeight(mzp,mode,"nominal") -
+    }
+    else
+    {
+      return QCDWeight(mzp,mode,"nominal") - 
+    }
+  }
+
   return 1.0;
 }
 

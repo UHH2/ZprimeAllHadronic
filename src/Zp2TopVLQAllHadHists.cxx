@@ -1406,21 +1406,67 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
 
   book<TH1F>("bkg1", ";m_{Z'};Events", 400, 0, 4000);
   book<TH1F>("bkg2", ";m_{Z'};Events", 400, 0, 4000);
-  book<TH1F>("bkg1_par", ";m_{Z'};Events", 400, 0, 4000);
-  book<TH1F>("bkg2_par", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("bkg1_par", ";m_{Z'};Events", 400, 0, 4000);//
+  book<TH1F>("bkg2_par", ";m_{Z'};Events", 400, 0, 4000);//
   book<TH1F>("bkg12", ";m_{Z'};Events", 400, 0, 4000);
 
   book<TH1F>("bkg1up", ";m_{Z'};Events", 400, 0, 4000);
   book<TH1F>("bkg2up", ";m_{Z'};Events", 400, 0, 4000);
-  book<TH1F>("bkg1up_par", ";m_{Z'};Events", 400, 0, 4000);
-  book<TH1F>("bkg2up_par", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("bkg1up_par", ";m_{Z'};Events", 400, 0, 4000);//
+  book<TH1F>("bkg2up_par", ";m_{Z'};Events", 400, 0, 4000);//
   book<TH1F>("bkg12up", ";m_{Z'};Events", 400, 0, 4000);
+
+  book<TH1F>("bkg1up_par_fit", ";m_{Z'};Events", 400, 0, 4000);//
+  book<TH1F>("bkg2up_par_fit", ";m_{Z'};Events", 400, 0, 4000);//
 
   book<TH1F>("bkg1down", ";m_{Z'};Events", 400, 0, 4000);
   book<TH1F>("bkg2down", ";m_{Z'};Events", 400, 0, 4000);
-  book<TH1F>("bkg1down_par", ";m_{Z'};Events", 400, 0, 4000);
-  book<TH1F>("bkg2down_par", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("bkg1down_par", ";m_{Z'};Events", 400, 0, 4000);//
+  book<TH1F>("bkg2down_par", ";m_{Z'};Events", 400, 0, 4000);//
   book<TH1F>("bkg12down", ";m_{Z'};Events", 400, 0, 4000);
+
+  book<TH1F>("bkg1down_par_fit", ";m_{Z'};Events", 400, 0, 4000);//
+  book<TH1F>("bkg2down_par_fit", ";m_{Z'};Events", 400, 0, 4000);//
+
+  //tp
+  book<TH1F>("bkgtp1", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("bkgtp2", ";m_{Z'};Events", 400, 0, 4000);
+
+  book<TH1F>("bkgtp1_par", ";m_{Z'};Events", 400, 0, 4000);//
+  book<TH1F>("bkgtp2_par", ";m_{Z'};Events", 400, 0, 4000);//
+
+  book<TH1F>("bkgtp1up_par_fit", ";m_{Z'};Events", 400, 0, 4000);//
+  book<TH1F>("bkgtp2up_par_fit", ";m_{Z'};Events", 400, 0, 4000);//
+
+  book<TH1F>("bkgtp1down_par_fit", ";m_{Z'};Events", 400, 0, 4000);//
+  book<TH1F>("bkgtp2down_par_fit", ";m_{Z'};Events", 400, 0, 4000);//
+
+  //ca15
+  book<TH1F>("bkgfat1", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("bkgfat2", ";m_{Z'};Events", 400, 0, 4000);
+
+  book<TH1F>("bkgfat1_par", ";m_{Z'};Events", 400, 0, 4000);//
+  book<TH1F>("bkgfat2_par", ";m_{Z'};Events", 400, 0, 4000);//
+
+  book<TH1F>("bkgfat1up_par_fit", ";m_{Z'};Events", 400, 0, 4000);//
+  book<TH1F>("bkgfat2up_par_fit", ";m_{Z'};Events", 400, 0, 4000);//
+
+  book<TH1F>("bkgfat1down_par_fit", ";m_{Z'};Events", 400, 0, 4000);//
+  book<TH1F>("bkgfat2down_par_fit", ";m_{Z'};Events", 400, 0, 4000);//
+
+  //loose
+  book<TH1F>("bkgloose1", ";m_{Z'};Events", 400, 0, 4000);
+  book<TH1F>("bkgloose2", ";m_{Z'};Events", 400, 0, 4000);
+
+  book<TH1F>("bkgloose1_par", ";m_{Z'};Events", 400, 0, 4000);//
+  book<TH1F>("bkgloose2_par", ";m_{Z'};Events", 400, 0, 4000);//
+
+  book<TH1F>("bkgloose1up_par_fit", ";m_{Z'};Events", 400, 0, 4000);//
+  book<TH1F>("bkgloose2up_par_fit", ";m_{Z'};Events", 400, 0, 4000);//
+
+  book<TH1F>("bkgloose1down_par_fit", ";m_{Z'};Events", 400, 0, 4000);//
+  book<TH1F>("bkgloose2down_par_fit", ";m_{Z'};Events", 400, 0, 4000);//
+
 
   book<TH1F>("tprimemassbtag", ";m_{T'};Events", 400, 0, 4000);
   book<TH1F>("tprimemassnobtag", ";m_{T'};Events", 400, 0, 4000);
@@ -2716,6 +2762,64 @@ if (has_ww)
   }
 
 }
+
+
+  hist("bkg1_par")->Fill(,);//
+  hist("bkg2_par")->Fill(,);//
+
+  hist("bkg1up_par")->Fill(,);//
+  hist("bkg2up_par")->Fill(,);//
+
+  hist("bkg1up_par_fit")->Fill(,);//
+  hist("bkg2up_par_fit")->Fill(,);//
+
+  hist("bkg1down_par")->Fill(,);//
+  hist("bkg2down_par")->Fill(,);//
+
+  hist("bkg1down_par_fit")->Fill(,);//
+  hist("bkg2down_par_fit")->Fill(,);//
+
+  //tp
+  hist("bkgtp1")->Fill(,);
+  hist("bkgtp2")->Fill(,);
+
+  hist("bkgtp1_par")->Fill(,);//
+  hist("bkgtp2_par")->Fill(,);//
+
+  hist("bkgtp1up_par_fit")->Fill(,);//
+  hist("bkgtp2up_par_fit")->Fill(,);//
+
+  hist("bkgtp1down_par_fit")->Fill(,);//
+  hist("bkgtp2down_par_fit")->Fill(,);//
+
+  //ca15
+  hist("bkgfat1")->Fill(,);
+  hist("bkgfat2")->Fill(,);
+
+  hist("bkgfat1_par")->Fill(,);//
+  hist("bkgfat2_par")->Fill(,);//
+
+  hist("bkgfat1up_par_fit")->Fill(,);//
+  hist("bkgfat2up_par_fit")->Fill(,);//
+
+  hist("bkgfat1down_par_fit")->Fill(,);//
+  hist("bkgfat2down_par_fit")->Fill(,);//
+
+  //loose
+  hist("bkgloose1")->Fill(,);
+  hist("bkgloose2")->Fill(,);
+
+  hist("bkgloose1_par")->Fill(,);//
+  hist("bkgloose2_par")->Fill(,);//
+
+  hist("bkgloose1up_par_fit")->Fill(,);//
+  hist("bkgloose2up_par_fit")->Fill(,);//
+
+  hist("bkgloose1down_par_fit")->Fill(,);//
+  hist("bkgloose2down_par_fit")->Fill(,);//
+
+
+
 
   Jet the_b_antibcsv;
   bool has_twantibcsv=false;
