@@ -2763,60 +2763,61 @@ if (has_ww)
 
 }
 
+weight*QCDWeight( zprimemass, , )
 
-  hist("bkg1_par")->Fill(,);//
-  hist("bkg2_par")->Fill(,);//
+  hist("bkg1_par")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1par", "nominal"));//
+  hist("bkg2_par")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2par", "nominal"));//
 
-  hist("bkg1up_par")->Fill(,);//
-  hist("bkg2up_par")->Fill(,);//
+  hist("bkg1up_par")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1par", "up"));//
+  hist("bkg2up_par")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2par", "up"));//
 
-  hist("bkg1up_par_fit")->Fill(,);//
-  hist("bkg2up_par_fit")->Fill(,);//
+  hist("bkg1up_par_fit")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1par", "up_fit"));//
+  hist("bkg2up_par_fit")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2par", "up_fit"));//
 
-  hist("bkg1down_par")->Fill(,);//
-  hist("bkg2down_par")->Fill(,);//
+  hist("bkg1down_par")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1par", "down"));//
+  hist("bkg2down_par")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2par", "down"));//
 
-  hist("bkg1down_par_fit")->Fill(,);//
-  hist("bkg2down_par_fit")->Fill(,);//
+  hist("bkg1down_par_fit")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1par", "down_fit"));//
+  hist("bkg2down_par_fit")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2par", "down_fit"));//
 
   //tp
-  hist("bkgtp1")->Fill(,);
-  hist("bkgtp2")->Fill(,);
+  hist("bkgtp1")->Fill(tprimemass,weight*QCDWeight( zprimemass, "1", "nominal"));
+  hist("bkgtp2")->Fill(tprimemass,weight*QCDWeight( zprimemass, "2", "nominal"));
 
-  hist("bkgtp1_par")->Fill(,);//
-  hist("bkgtp2_par")->Fill(,);//
+  hist("bkgtp1_par")->Fill(tprimemass,weight*QCDWeight( zprimemass, "1par", "nominal"));//
+  hist("bkgtp2_par")->Fill(tprimemass,weight*QCDWeight( zprimemass, "2par", "nominal"));//
 
-  hist("bkgtp1up_par_fit")->Fill(,);//
-  hist("bkgtp2up_par_fit")->Fill(,);//
+  hist("bkgtp1up_par_fit")->Fill(tprimemass,weight*QCDWeight( zprimemass, "1par", "up_fit"));//
+  hist("bkgtp2up_par_fit")->Fill(tprimemass,weight*QCDWeight( zprimemass, "2par", "up_fit"));//
 
-  hist("bkgtp1down_par_fit")->Fill(,);//
-  hist("bkgtp2down_par_fit")->Fill(,);//
+  hist("bkgtp1down_par_fit")->Fill(tprimemass,weight*QCDWeight( zprimemass, "1par", "down_fit"));//
+  hist("bkgtp2down_par_fit")->Fill(tprimemass,weight*QCDWeight( zprimemass, "2par", "down_fit"));//
 
   //ca15
-  hist("bkgfat1")->Fill(,);
-  hist("bkgfat2")->Fill(,);
+  hist("bkgfat1")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1", "nominal"));
+  hist("bkgfat2")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2", "nominal"));
 
-  hist("bkgfat1_par")->Fill(,);//
-  hist("bkgfat2_par")->Fill(,);//
+  hist("bkgfat1_par")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1par", "nominal"));//
+  hist("bkgfat2_par")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2par", "nominal"));//
 
-  hist("bkgfat1up_par_fit")->Fill(,);//
-  hist("bkgfat2up_par_fit")->Fill(,);//
+  hist("bkgfat1up_par_fit")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1par", "up_fit"));//
+  hist("bkgfat2up_par_fit")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2par", "up_fit"));//
 
-  hist("bkgfat1down_par_fit")->Fill(,);//
-  hist("bkgfat2down_par_fit")->Fill(,);//
+  hist("bkgfat1down_par_fit")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1par", "down_fit"));//
+  hist("bkgfat2down_par_fit")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2par", "down_fit"));//
 
   //loose
-  hist("bkgloose1")->Fill(,);
-  hist("bkgloose2")->Fill(,);
+  hist("bkgloose1")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1", "nominal"));
+  hist("bkgloose2")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2", "nominal"));
 
-  hist("bkgloose1_par")->Fill(,);//
-  hist("bkgloose2_par")->Fill(,);//
+  hist("bkgloose1_par")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1par","nominal"));//
+  hist("bkgloose2_par")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2par", "nominal"));//
 
-  hist("bkgloose1up_par_fit")->Fill(,);//
-  hist("bkgloose2up_par_fit")->Fill(,);//
+  hist("bkgloose1up_par_fit")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1par", "up_fit"));//
+  hist("bkgloose2up_par_fit")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2par", "up_fit"));//
 
-  hist("bkgloose1down_par_fit")->Fill(,);//
-  hist("bkgloose2down_par_fit")->Fill(,);//
+  hist("bkgloose1down_par_fit")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1par", "down_fit"));//
+  hist("bkgloose2down_par_fit")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2par", "down_fit"));//
 
 
 

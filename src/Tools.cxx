@@ -480,20 +480,21 @@ float QCDWeight(float mzp, string mode, string syst)
 
  if (mode=="1")
  {
-  weight = 1.43 - 0.0002445 *mzp;
+  weight = 1.43034789336 + mzp * ( -0.000244530616275 );
  }
  if (mode=="2")
  {
-  weight = 1.788 - 0.0005006 *mzp;
+  weight = 1.78771831575 + mzp * ( -0.000500603496891 );
  }
 
  if (mode=="1par")
  {
-  weight = 1.43 - 0.0002445 *mzp - 0.0002445 *mzp*mzp;
+  weight = 2.36738778916 + mzp * ( -0.00122291860376 ) + mzp * mzp * ( 2.41568822969e-07 ) ;
+
  }
  if (mode=="2par")
  {
-  weight = 1.788 - 0.0005006 *mzp - 0.0005006 *mzp*mzp;
+  weight = 4.7818372529 + mzp * ( -0.00357799036419 ) + mzp * mzp * ( 7.52563847961e-07 ) ;
  }
 
  if (syst=="nominal")
@@ -515,22 +516,58 @@ float QCDWeight(float mzp, string mode, string syst)
   {
     if (contains(mode,'par'))
     {
-      return QCDWeight(mzp,mode,"nominal") + 
+      if (contains(mode,'1'))
+      {
+        //parabola up 1btag
+        return QCDWeight(mzp,mode,"nominal") + sqrt( 0.212423236539 + mzp * mzp * ( 2.21134634086e-07 ) +  2 * mzp * ( -0.000214863949388 ) + 2 * mzp * mzp * ( 5.15525240348e-08 ) + 2 * mzp * mzp * mzp * ( -5.3827210681e-11 ) + mzp * mzp * mzp * mzp * ( 1.32901715009e-14 ) );
+      }
+      else
+      {
+        //parabola up 2btag
+        return QCDWeight(mzp,mode,"nominal") + sqrt( 1.94955956564 + mzp * mzp * ( 1.9863300406e-06 ) +  2 * mzp * ( -0.00195437852921 ) + 2 * mzp * mzp * ( 4.67616254672e-07 ) + 2 * mzp * mzp * mzp * ( -4.80620733376e-10 ) + mzp * mzp * mzp * mzp * ( 1.17534028475e-13 ) );
+      }
     }
     else
     {
-      return QCDWeight(mzp,mode,"nominal") + 
+      if (contains(mode,'1'))
+      {
+        //retta up 1btag
+        return QCDWeight(mzp,mode,"nominal") + sqrt( 0.0124511284463 + mzp * mzp * ( 3.12624851916e-09 ) +  2 * mzp * ( -6.06837330224e-06 ) );
+      }
+      else
+      {
+        //retta up 2btag
+        return QCDWeight(mzp,mode,"nominal") + sqrt( 0.0891198676591 + mzp * mzp * ( 2.09733269705e-08 ) +  2 * mzp * ( -4.21997715548e-05 ) );
+      }
     }
   }
   if (syst=="down_fit")
   {
     if (contains(mode,'par'))
     {
-      return QCDWeight(mzp,mode,"nominal") -
+      if (contains(mode,'1'))
+      {
+        //parabola down 1btag
+        return QCDWeight(mzp,mode,"nominal") - sqrt( 0.212423236539 + mzp * mzp * ( 2.21134634086e-07 ) +  2 * mzp * ( -0.000214863949388 ) + 2 * mzp * mzp * ( 5.15525240348e-08 ) + 2 * mzp * mzp * mzp * ( -5.3827210681e-11 ) + mzp * mzp * mzp * mzp * ( 1.32901715009e-14 ) );
+      }
+      else
+      {
+        //parabola down 2btag
+        return QCDWeight(mzp,mode,"nominal") - sqrt( 1.94955956564 + mzp * mzp * ( 1.9863300406e-06 ) +  2 * mzp * ( -0.00195437852921 ) + 2 * mzp * mzp * ( 4.67616254672e-07 ) + 2 * mzp * mzp * mzp * ( -4.80620733376e-10 ) + mzp * mzp * mzp * mzp * ( 1.17534028475e-13 ) );
+      }
     }
     else
     {
-      return QCDWeight(mzp,mode,"nominal") - 
+      if (contains(mode,'1'))
+      {
+        //retta down 1btag
+        return QCDWeight(mzp,mode,"nominal") - sqrt( 0.0124511284463 + mzp * mzp * ( 3.12624851916e-09 ) +  2 * mzp * ( -6.06837330224e-06 ) );
+      }
+      else
+      {
+        //retta down 2btag
+        return QCDWeight(mzp,mode,"nominal") - sqrt( 0.0891198676591 + mzp * mzp * ( 2.09733269705e-08 ) +  2 * mzp * ( -4.21997715548e-05 ) );
+      }
     }
   }
 
