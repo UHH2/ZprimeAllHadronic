@@ -40,6 +40,11 @@ private:
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
     std::unique_ptr<Hists> h_selection, h_selectionallhad,h_btageffAK4,h_btageffAK8;
+
+    bool dopdf;
+    std::vector<std::unique_ptr<Hists> > pdf_hists;
+    int pdf_set_type;
+    int pdf_norm_type;
 };
 
 
@@ -94,6 +99,30 @@ SelectionModule::SelectionModule(Context & ctx){
     btagwAK8.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "topjets",sysAK8,"mujets","incl","MCBtagEfficienciesAK8","_AK8"));
 
     scalevar.reset(new MCScaleVariation(ctx));
+
+    //PDF syst stuff
+    dopdf=(ctx.get("pdf_sys", "no")=="yes");
+    for (unsigned int i=0;i<100;i++)
+    {
+        pdf_hists.push_back(new SelectionHists(ctx, string("SelectionPDF")+std::to_string(i)));
+    }
+    string version=ctx.get("dataset_version", "<not set>");
+    if (contains(version,"TTbar") || contains(version,"SingleT_s") || contains(version,"SingleT_t"))
+    {
+        pdf_set_type=1;
+        pdf_norm_type=1;
+    }
+    if (contains(version,"ZpToTpT") || contains(version,"TpTp"))
+    {
+        pdf_set_type=2;
+        pdf_norm_type=2;
+    }
+    if (contains(version,"QCD") || contains(version,"SingleT_W"))
+    {
+        pdf_set_type=0;
+        pdf_norm_type=0;
+    }
+
 }
 
 
@@ -192,6 +221,26 @@ if (!common_modules_with_lumi_sel->process(event)) {
     h_selectionallhad->fill(event);
     btagwAK8->process(event);
     h_selection->fill(event);
+
+    if (dopdf && pdf_set_type>0)
+    {
+        int first_pdf_index=9;
+        if (pdf_set_type==2) first_pdf_index=112;
+        float pdf_weight=1.0;
+        for (unsigned int i=0;i<100;i++)
+        {
+            if (pdf_norm_type==1)
+            {
+                pdf_weight = event.genInfo->systweights().at(i+first_pdf_index) / event.genInfo->originalXWGTUP();
+            }
+            else if (pdf_norm_type==2)
+            {
+                pdf_weight = event.genInfo->systweights().at(i+first_pdf_index) / event.genInfo->pdf_scalePDF();
+            }
+            pdf_hists[i]->SetPDFWeight(pdf_weight);
+            pdf_hists[i]->process(event);
+        }
+    }
 
     return false;
 }

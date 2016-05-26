@@ -52,6 +52,20 @@ signalWB_names=[
 #'MC.ZpToTpT_TpToWB_MZp2000Wid_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH']
+
+signalWB_thetanames=[
+'MZp1507',
+'MZp1509',
+'MZp1512',
+'MZp2009',
+'MZp2012',
+#'MZp2000_MTp1200_RH',
+#'MZp2000_MTp1200Wid',
+'MZp2015',
+#'MZp2000Wid_MTp1200',
+'MZp2512',
+'MZp2515']
+
 signalTT_names=[
 'MC.MC_TpTp_M-1000',
 'MC.MC_TpTp_M-1100',
@@ -278,10 +292,12 @@ data_file=TFile(data_filename,'READ')
 singletop_file=TFile(singletop_filename,'READ')
 top_file=TFile(top_filename,'READ')
 signal_files=[]
+#signalWB_files=[]
 signal_files_pre=[]
 signal_files_short=[]
 for i in signalWB_names:
 	signal_files.append(TFile(path+filename_base+i+root,'READ'))
+	#signalWB_files.append(TFile(path+filename_base+i+root,'READ'))
 for i in signalWB_names_short:
 	signal_files_short.append(TFile(path+filename_base+i+root,'READ'))
 for i in signalWB_names:
@@ -1142,7 +1158,7 @@ for i in [
 	ratioc.SaveAs('pdf/ratio_SRnobtagdata_vs_'+i+'_c.pdf')
 
 f.close()
-assert(False)
+#assert(False)
 
 for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
   "ptop",  "ptprime",  "pb",  "pw",  "ptb",  "ptw",  "pzprime",
@@ -1766,7 +1782,7 @@ if dotheta:
   twobtags15='Selection/CA15_zprimemassbtag'
   sides={'UP':'plus','DOWN':'minus'}
   cats={onebtag:'1btag',twobtags:'2btag'}
-  #cats={onebtag:'1btag',twobtags:'2btag',onebtag15:'1btagCA15',twobtags15:'2btagCA15'}
+  cats15={onebtag:'1btag',twobtags:'2btag',onebtag15:'1btagCA15',twobtags15:'2btagCA15'}
   bkgcats={onebtag:'Selection/bkg1',twobtags:'Selection/bkg2',onebtag15:onebtag15,twobtags15:twobtags15}
   #cats2={'Selection/bkg1':'1btag','Selection/bkg2':'2btag'}
 
@@ -1856,6 +1872,14 @@ if dotheta:
   dosys(file_path=''                              ,the_file=data_file,cats=cats,sys_to_do={},sample_name='qcd',out_file=thetafileTT,bkg=True)
   for signal_name in range(len(signalTT_names)):
     dosys(file_path=syspath+filename_base+signalTT_names[signal_name],the_file=0,cats=cats,sys_to_do=systypes,sample_name=signalTT_thetanames[signal_name],out_file=thetafileTT)
+
+
+  CA15combi=TFile('CA15combi.root','RECREATE')
+  dosys(file_path='',the_file=ttbar_file, cats=cats15,sys_to_do={},sample_name='ttbar',out_file=CA15combi)
+  dosys(file_path='',the_file=data_file,  cats=cats15,sys_to_do={},sample_name='DATA',out_file=CA15combi)
+  dosys(file_path='',the_file=qcd_file,   cats=cats15,sys_to_do={},sample_name='qcd',out_file=CA15combi)
+  for signal_name in range(len(signalWB_names)):
+    dosys(file_path='',the_file=signal_filesWB[signal_name],cats=cats15,sys_to_do={},sample_name=signalWB_thetanames[signal_name],out_file=CA15combi)
   # allhad2btag__DATA=data_file.Get(twobtags).Clone()
   # allhad1btag__DATA=data_file.Get(onebtag).Clone()
   # allhad2btag__DATA.Rebin(rebinna)
@@ -1899,7 +1923,7 @@ if dotheta:
             allhad__qcd__sys.Scale(qcdsfnobtag2)
           allhad__qcd__sys.Rebin(rebinna)
           allhad__qcd__sys=allhad__qcd__sys.Rebin(runLen,'',runArray)
-          #allhad__qcd__sys.Write('allhad'+cats[cat]+'__qcd__bkgcorr__'+sides[side])
+          allhad__qcd__sys.Write('allhad'+cats[cat]+'__qcd__bkgcorr__'+sides[side])
 
 ###################################################################################################################################################################
 ###################################################################################################################################################################

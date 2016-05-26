@@ -21,3 +21,4 @@ sframe_main ../config/Sys_BAK4SFUP.xml
 sframe_main ../config/Sys_BAK4SFDOWN.xml
 sframe_main ../config/Sys_BAK8SFUP.xml
 sframe_main ../config/Sys_BAK8SFDOWN.xml
+sframe_main ../config/Sys_PDFUP.xml

@@ -373,7 +373,7 @@
             <!-- to be changed here -->
 
             <!--//// pdf -->
-            <!-- tbd -->
+            <Item Name="pdf_sys" Value="no" />
 
             <!--//// top/w tag -->
             <Item Name="toptag_sys" Value="mean" />

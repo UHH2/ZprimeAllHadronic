@@ -47,11 +47,14 @@ public:
 
     virtual void fill(const uhh2::Event & ev) override;
     virtual ~SelectionHists();
+
+    void setPDFWeight(float _PDFWeight);
 private:
     int top_sys;
     int w_sys;
     //int pu_sys;
     int ttbar_sys;
+    float PDFWeight;
     uhh2::Event::Handle<std::vector<TopJet> > h_fatjets;
 };
 

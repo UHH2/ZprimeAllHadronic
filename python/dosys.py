@@ -46,6 +46,8 @@ for systype in systypes:
 				newline=line.replace('mean',side.lower())
 			elif systype=='wtag' and 'wtag_sys' in line:
 				newline=line.replace('mean',side.lower())
+			elif systype=='pdf' and 'pdf_sys' in line:
+				newline=line.replace('no','yes')
 
 
 			sysconfig.write(newline)

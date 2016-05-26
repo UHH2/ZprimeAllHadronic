@@ -22,6 +22,7 @@ cd /nfs/dust/cms/user/usaiem/jobs/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_BAK4SFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_BAK4SFDOWN.xml
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_BAK8SFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_BAK8SFUP.xml
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_BAK8SFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_BAK8SFDOWN.xml
+~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_PDFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_PDFUP.xml
 
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w SysUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/SysUP.xml
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_MURUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MURUP.xml
@@ -46,3 +47,4 @@ cd /nfs/dust/cms/user/usaiem/jobs/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_BAK4SFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_BAK4SFDOWN.xml
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_BAK8SFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_BAK8SFUP.xml
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_BAK8SFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_BAK8SFDOWN.xml
+~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_PDFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_PDFUP.xml
