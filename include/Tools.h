@@ -81,6 +81,7 @@ struct HigherPt {
 };
 
 float QCDWeight(float mzp, string mode = "mean", string syst = "nominal");
+float QCDWeightFat(float mzp, string mode = "mean", string syst = "nominal");
 float TTbarWeight(const Event & event, int syst = 0);
 //enum E_BtagType {
 //    e_CSVT, /**< Combined Secondary Vertex tagger, tight working point */

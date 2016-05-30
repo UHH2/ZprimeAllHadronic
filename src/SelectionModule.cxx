@@ -39,10 +39,11 @@ private:
     unique_ptr<AnalysisModule> common_modules_with_lumi_sel, btagwAK4, btagwAK8, scalevar,jetsmearAK4,jetsmearAK8;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-    std::unique_ptr<Hists> h_selection, h_selectionallhad,h_btageffAK4,h_btageffAK8;
+    std::unique_ptr<Hists> h_selectionallhad,h_btageffAK4,h_btageffAK8;
+    std::unique_ptr<SelectionHists> h_selection;
 
     bool dopdf;
-    std::vector<std::unique_ptr<Hists> > pdf_hists;
+    std::vector<std::unique_ptr<SelectionHists> > pdf_hists;
     int pdf_set_type;
     int pdf_norm_type;
 };
@@ -102,25 +103,28 @@ SelectionModule::SelectionModule(Context & ctx){
 
     //PDF syst stuff
     dopdf=(ctx.get("pdf_sys", "no")=="yes");
-    for (unsigned int i=0;i<100;i++)
+    if (dopdf)
     {
-        pdf_hists.push_back(new SelectionHists(ctx, string("SelectionPDF")+std::to_string(i)));
-    }
-    string version=ctx.get("dataset_version", "<not set>");
-    if (contains(version,"TTbar") || contains(version,"SingleT_s") || contains(version,"SingleT_t"))
-    {
-        pdf_set_type=1;
-        pdf_norm_type=1;
-    }
-    if (contains(version,"ZpToTpT") || contains(version,"TpTp"))
-    {
-        pdf_set_type=2;
-        pdf_norm_type=2;
-    }
-    if (contains(version,"QCD") || contains(version,"SingleT_W"))
-    {
-        pdf_set_type=0;
-        pdf_norm_type=0;
+        for (unsigned int i=0;i<100;i++)
+        {
+            pdf_hists.emplace_back(new SelectionHists(ctx, string("SelectionPDF")+std::to_string(i)));
+        }
+        //string version=ctx.get("dataset_version", "<not set>");
+        if (contains(version,"TTbar") || contains(version,"SingleT_s") || contains(version,"SingleT_t"))
+        {
+            pdf_set_type=1;
+            pdf_norm_type=1;
+        }
+        if (contains(version,"ZpToTpT") || contains(version,"TpTp"))
+        {
+            pdf_set_type=2;
+            pdf_norm_type=2;
+        }
+        if (contains(version,"QCD") || contains(version,"SingleT_W"))
+        {
+            pdf_set_type=0;
+            pdf_norm_type=0;
+        }
     }
 
 }
@@ -218,8 +222,9 @@ if (!common_modules_with_lumi_sel->process(event)) {
 
     btagwAK4->process(event);
     scalevar->process(event);
-    h_selectionallhad->fill(event);
+    //h_selectionallhad->fill(event);
     btagwAK8->process(event);
+    h_selection->setPDFWeight(1.0);
     h_selection->fill(event);
 
     if (dopdf && pdf_set_type>0)
@@ -237,8 +242,8 @@ if (!common_modules_with_lumi_sel->process(event)) {
             {
                 pdf_weight = event.genInfo->systweights().at(i+first_pdf_index) / event.genInfo->pdf_scalePDF();
             }
-            pdf_hists[i]->SetPDFWeight(pdf_weight);
-            pdf_hists[i]->process(event);
+            pdf_hists[i]->setPDFWeight(pdf_weight);
+            pdf_hists[i]->fill(event);
         }
     }
 

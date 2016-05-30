@@ -1,0 +1,3 @@
+cd /nfs/dust/cms/user/usaiem/jobs/
+~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Selection ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Selection.xml
+~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Selection ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Selection.xml
