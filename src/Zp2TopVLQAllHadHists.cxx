@@ -1445,8 +1445,17 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("bkgtp2down_par_fit", ";m_{T'};Events", 400, 0, 4000);//
 
   //ht
+  book<TH1F>("bkght1", ";HT_{twb};Events", 400, 0, 4000);
+  book<TH1F>("bkght2", ";HT_{twb};Events", 400, 0, 4000);
+
   book<TH1F>("bkght1_par", ";HT_{twb};Events", 400, 0, 4000);//
   book<TH1F>("bkght2_par", ";HT_{twb};Events", 400, 0, 4000);//
+
+  book<TH1F>("bkght1up_par_fit", ";HT_{twb};Events", 400, 0, 4000);//
+  book<TH1F>("bkght2up_par_fit", ";HT_{twb};Events", 400, 0, 4000);//
+
+  book<TH1F>("bkght1down_par_fit", ";HT_{twb};Events", 400, 0, 4000);//
+  book<TH1F>("bkght2down_par_fit", ";HT_{twb};Events", 400, 0, 4000);//
 
   //ca15
   book<TH1F>("bkgfat1", ";m_{Z'};Events", 400, 0, 4000);
@@ -2822,9 +2831,12 @@ if (has_ww)
         hist("bkg2down_par_fit")->Fill(zprimemass,weight*QCDWeight( zprimemass, "2par", "down_fit"));//
         hist("bkgtp2")->Fill(tprimemass,weight*QCDWeight( zprimemass, "2", "nominal"));
         hist("bkgtp2_par")->Fill(tprimemass,weight*QCDWeight( zprimemass, "2par", "nominal"));//
-        hist("bkght2_par")->Fill(ht_twb,weight*QCDWeight( zprimemass, "2par", "nominal"));//
         hist("bkgtp2up_par_fit")->Fill(tprimemass,weight*QCDWeight( zprimemass, "2par", "up_fit"));//
         hist("bkgtp2down_par_fit")->Fill(tprimemass,weight*QCDWeight( zprimemass, "2par", "down_fit"));//
+        hist("bkght2")->Fill(ht_twb,weight*QCDWeight( zprimemass, "2", "nominal"));
+        hist("bkght2_par")->Fill(ht_twb,weight*QCDWeight( zprimemass, "2par", "nominal"));//
+        hist("bkght2up_par_fit")->Fill(ht_twb,weight*QCDWeight( zprimemass, "2par", "up_fit"));//
+        hist("bkght2down_par_fit")->Fill(ht_twb,weight*QCDWeight( zprimemass, "2par", "down_fit"));//
         hist("antibcsvCRbtag_tprimemass")->Fill(tprimemass,weight);
         if (zprimemass>1000.0) hist("antibcsvCRbtagmass_tprimemass")->Fill(tprimemass,weight);
         hist("antibcsvCRbtag_ht_twb")->Fill(ht_twb,weight);
@@ -2837,7 +2849,7 @@ if (has_ww)
         hist("bkg1up")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1", "up"));
         hist("bkg1down")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1", "down"));
         hist("bkg1_par")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1par", "nominal"));//
-        hist("bkght1_par")->Fill(ht_twb,weight*QCDWeight( zprimemass, "1par", "nominal"));//
+        //hist("bkght1_par")->Fill(ht_twb,weight*QCDWeight( zprimemass, "1par", "nominal"));//
         hist("bkg1up_par")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1par", "up"));//
         hist("bkg1up_par_fit")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1par", "up_fit"));//
         hist("bkg1down_par")->Fill(zprimemass,weight*QCDWeight( zprimemass, "1par", "down"));//
@@ -2846,12 +2858,15 @@ if (has_ww)
         hist("bkgtp1_par")->Fill(tprimemass,weight*QCDWeight( zprimemass, "1par", "nominal"));//
         hist("bkgtp1up_par_fit")->Fill(tprimemass,weight*QCDWeight( zprimemass, "1par", "up_fit"));//
         hist("bkgtp1down_par_fit")->Fill(tprimemass,weight*QCDWeight( zprimemass, "1par", "down_fit"));//
+        hist("bkght1")->Fill(ht_twb,weight*QCDWeight( zprimemass, "1", "nominal"));
+        hist("bkght1_par")->Fill(ht_twb,weight*QCDWeight( zprimemass, "1par", "nominal"));//
+        hist("bkght1up_par_fit")->Fill(ht_twb,weight*QCDWeight( zprimemass, "1par", "up_fit"));//
+        hist("bkght1down_par_fit")->Fill(ht_twb,weight*QCDWeight( zprimemass, "1par", "down_fit"));//
         hist("antibcsvCRnobtag_tprimemass")->Fill(tprimemass,weight);
         if (zprimemass>1000.0) hist("antibcsvCRnobtagmass_tprimemass")->Fill(tprimemass,weight);
         hist("antibcsvCRnobtag_ht_twb")->Fill(ht_twb,weight);
       }
     }
-    else{}
   }
 
 

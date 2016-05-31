@@ -625,12 +625,12 @@ float QCDWeightFat(float mzp, string mode, string syst)
       if (contains(mode,"1"))
       {
         //parabola up 1btag
-        return QCDWeight(mzp,mode,"nominal") + sqrt( 0.0839873039311 + mzp * mzp * ( 1.0372128596e-07 ) +  2 * mzp * ( -9.22140963793e-05 ) + 2 * mzp * mzp * ( 2.36494929634e-08 ) + 2 * mzp * mzp * mzp * ( -2.7115374295e-11 ) + mzp * mzp * mzp * mzp * ( 7.22445197463e-15 ) );
+        return QCDWeightFat(mzp,mode,"nominal") + sqrt( 0.0839873039311 + mzp * mzp * ( 1.0372128596e-07 ) +  2 * mzp * ( -9.22140963793e-05 ) + 2 * mzp * mzp * ( 2.36494929634e-08 ) + 2 * mzp * mzp * mzp * ( -2.7115374295e-11 ) + mzp * mzp * mzp * mzp * ( 7.22445197463e-15 ) );
       }
       else
       {
         //parabola up 2btag
-        return QCDWeight(mzp,mode,"nominal") + sqrt( 0.640006746518 + mzp * mzp * ( 7.80458081842e-07 ) +  2 * mzp * ( -0.000698664328138 ) + 2 * mzp * mzp * ( 1.75558011857e-07 ) + 2 * mzp * mzp * mzp * ( -1.99723939598e-10 ) + mzp * mzp * mzp * mzp * ( 5.21009172419e-14 ) );
+        return QCDWeightFat(mzp,mode,"nominal") + sqrt( 0.640006746518 + mzp * mzp * ( 7.80458081842e-07 ) +  2 * mzp * ( -0.000698664328138 ) + 2 * mzp * mzp * ( 1.75558011857e-07 ) + 2 * mzp * mzp * mzp * ( -1.99723939598e-10 ) + mzp * mzp * mzp * mzp * ( 5.21009172419e-14 ) );
       }
     }
     else
@@ -638,12 +638,12 @@ float QCDWeightFat(float mzp, string mode, string syst)
       if (contains(mode,"1"))
       {
         //retta up 1btag
-        return QCDWeight(mzp,mode,"nominal") + sqrt( 0.00656953676744 + mzp * mzp * ( 1.94964968788e-09 ) +  2 * mzp * ( -3.45079270476e-06 ) );
+        return QCDWeightFat(mzp,mode,"nominal") + sqrt( 0.00656953676744 + mzp * mzp * ( 1.94964968788e-09 ) +  2 * mzp * ( -3.45079270476e-06 ) );
       }
       else
       {
         //retta up 2btag
-        return QCDWeight(mzp,mode,"nominal") + sqrt( 0.0484506025927 + mzp * mzp * ( 1.48352341302e-08 ) +  2 * mzp * ( -2.56792688511e-05 ) );
+        return QCDWeightFat(mzp,mode,"nominal") + sqrt( 0.0484506025927 + mzp * mzp * ( 1.48352341302e-08 ) +  2 * mzp * ( -2.56792688511e-05 ) );
       }
     }
   }
@@ -654,12 +654,12 @@ float QCDWeightFat(float mzp, string mode, string syst)
       if (contains(mode,"1"))
       {
         //parabola down 1btag
-        return QCDWeight(mzp,mode,"nominal") - sqrt( 0.0839873039311 + mzp * mzp * ( 1.0372128596e-07 ) +  2 * mzp * ( -9.22140963793e-05 ) + 2 * mzp * mzp * ( 2.36494929634e-08 ) + 2 * mzp * mzp * mzp * ( -2.7115374295e-11 ) + mzp * mzp * mzp * mzp * ( 7.22445197463e-15 ) );
+        return QCDWeightFat(mzp,mode,"nominal") - sqrt( 0.0839873039311 + mzp * mzp * ( 1.0372128596e-07 ) +  2 * mzp * ( -9.22140963793e-05 ) + 2 * mzp * mzp * ( 2.36494929634e-08 ) + 2 * mzp * mzp * mzp * ( -2.7115374295e-11 ) + mzp * mzp * mzp * mzp * ( 7.22445197463e-15 ) );
       }
       else
       {
         //parabola down 2btag
-        return QCDWeight(mzp,mode,"nominal") - sqrt( 0.640006746518 + mzp * mzp * ( 7.80458081842e-07 ) +  2 * mzp * ( -0.000698664328138 ) + 2 * mzp * mzp * ( 1.75558011857e-07 ) + 2 * mzp * mzp * mzp * ( -1.99723939598e-10 ) + mzp * mzp * mzp * mzp * ( 5.21009172419e-14 ) );
+        return QCDWeightFat(mzp,mode,"nominal") - sqrt( 0.640006746518 + mzp * mzp * ( 7.80458081842e-07 ) +  2 * mzp * ( -0.000698664328138 ) + 2 * mzp * mzp * ( 1.75558011857e-07 ) + 2 * mzp * mzp * mzp * ( -1.99723939598e-10 ) + mzp * mzp * mzp * mzp * ( 5.21009172419e-14 ) );
       }
     }
     else
@@ -667,12 +667,12 @@ float QCDWeightFat(float mzp, string mode, string syst)
       if (contains(mode,"1"))
       {
         //retta down 1btag
-        return QCDWeight(mzp,mode,"nominal") - sqrt( 0.00656953676744 + mzp * mzp * ( 1.94964968788e-09 ) +  2 * mzp * ( -3.45079270476e-06 ) );
+        return QCDWeightFat(mzp,mode,"nominal") - sqrt( 0.00656953676744 + mzp * mzp * ( 1.94964968788e-09 ) +  2 * mzp * ( -3.45079270476e-06 ) );
       }
       else
       {
         //retta down 2btag
-        return QCDWeight(mzp,mode,"nominal") - sqrt( 0.0484506025927 + mzp * mzp * ( 1.48352341302e-08 ) +  2 * mzp * ( -2.56792688511e-05 ) );
+        return QCDWeightFat(mzp,mode,"nominal") - sqrt( 0.0484506025927 + mzp * mzp * ( 1.48352341302e-08 ) +  2 * mzp * ( -2.56792688511e-05 ) );
       }
     }
   }

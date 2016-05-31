@@ -347,7 +347,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
 "antibcsvCRbtag_zprimemass","antibcsvlooseCRbtag_zprimemass",
 #  "antibptCRbtag_zprimemass",  "antibmassCRbtag_zprimemass",
 #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass",
-  "antibcsvCRnobtag_zprimemass","antibcsvlooseCRnobtag_zprimemass",
+  "antibcsvCRnobtag_zprimemass","antibcsvlooseCRnobtag_zprimemass", "antitpmassCRbtag_zprimemass","antitpmassCRnobtag_zprimemass",
   #  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
 "bkg1","bkg2","bkg12","bkg1up","bkg2up","bkg12up","bkg1down","bkg2down","bkg12down","tprimemass_res", "zprimemassbtag_res", "zprimemassnobtag_res",
 'topmass_res','topmass2_res',
@@ -516,60 +516,60 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
         dosys=False,
         sysdict=systypes)
-  make_ratioplot(
-    name=i+'_TT',
-    ttbar_file=ttbar_file,
-    qcd_file=qcd_file,
-    data_file=data_file,
-    signal_files=signalTTreco_files,
-    histo='Selection/'+i, 
-    histo_qcd='Selection/'+i,
-    histo_signal='Selection/'+i,
-    rebin=rebinna,
-    minx=minx,
-    maxx=maxx,
-    miny=0,
-    maxy=0,
-    minratio=0,
-    maxratio=0,
-    logy=uselog,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalTT_legendnames,
-        separate_legend=True,
-        signal_zoom=signalzoom,
-        fixratio=True,
-        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
-        sysdict=systypes)
-  make_ratioplot(
-    name=i+'_TTNOLOG',
-    ttbar_file=ttbar_file,
-    qcd_file=qcd_file,
-    data_file=data_file,
-    signal_files=signalTTreco_files,
-    histo='Selection/'+i, 
-    histo_qcd='Selection/'+i,
-    histo_signal='Selection/'+i,
-    rebin=rebinna,
-    minx=minx,
-    maxx=maxx,
-    miny=0,
-    maxy=0,
-    minratio=0,
-    maxratio=0,
-    logy=False,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalTT_legendnames,
-        separate_legend=True,
-        signal_zoom=signalzoom,
-        fixratio=True,
-        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
-        sysdict=systypes)
+  # make_ratioplot(
+  #   name=i+'_TT',
+  #   ttbar_file=ttbar_file,
+  #   qcd_file=qcd_file,
+  #   data_file=data_file,
+  #   signal_files=signalTTreco_files,
+  #   histo='Selection/'+i, 
+  #   histo_qcd='Selection/'+i,
+  #   histo_signal='Selection/'+i,
+  #   rebin=rebinna,
+  #   minx=minx,
+  #   maxx=maxx,
+  #   miny=0,
+  #   maxy=0,
+  #   minratio=0,
+  #   maxratio=0,
+  #   logy=uselog,
+  #       xtitle='',
+  #       ytitle='Events',
+  #       textsizefactor=1,
+  #       signal_legend=signalTT_legendnames,
+  #       separate_legend=True,
+  #       signal_zoom=signalzoom,
+  #       fixratio=True,
+  #       #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+  #       dosys=False,
+  #       sysdict=systypes)
+  # make_ratioplot(
+  #   name=i+'_TTNOLOG',
+  #   ttbar_file=ttbar_file,
+  #   qcd_file=qcd_file,
+  #   data_file=data_file,
+  #   signal_files=signalTTreco_files,
+  #   histo='Selection/'+i, 
+  #   histo_qcd='Selection/'+i,
+  #   histo_signal='Selection/'+i,
+  #   rebin=rebinna,
+  #   minx=minx,
+  #   maxx=maxx,
+  #   miny=0,
+  #   maxy=0,
+  #   minratio=0,
+  #   maxratio=0,
+  #   logy=False,
+  #       xtitle='',
+  #       ytitle='Events',
+  #       textsizefactor=1,
+  #       signal_legend=signalTT_legendnames,
+  #       separate_legend=True,
+  #       signal_zoom=signalzoom,
+  #       fixratio=True,
+  #       #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+  #       dosys=False,
+  #       sysdict=systypes)
 
 
 
@@ -721,8 +721,8 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio_SR_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	ratio_to_fit.Fit('pol1','','',900,3000)
-	ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
+	ratio_to_fit.Fit('pol1','','',900,4000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
 	ratio_to_fit.Draw()
 	ratio_to_fit.Write()
 	ratioc.Write()
@@ -770,8 +770,8 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio_SRdata_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	ratio_to_fit.Fit('pol1','','',900,3000)
-	ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
+	ratio_to_fit.Fit('pol1','','',900,4000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
 	ratio_to_fit.Draw()
 	ratio_to_fit.Write()
 	ratioc.Write()
@@ -787,7 +787,7 @@ for i in [
  #"antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
  #"antibcsvCRmass_zprimemass",# "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
  #"antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
- "antibcsvCRbtag_zprimemass","antibcsvlooseCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
+ "antibcsvCRbtag_zprimemass","antibcsvlooseCRbtag_zprimemass","antitpmassCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
 #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass", 
  #"antibcsvCRnobtag_zprimemass",#  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
  #"bkg1",
@@ -845,25 +845,25 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio_SRbtag_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	fitresult=ratio_to_fit.Fit('pol1','SE','',900,3000)
+	fitresult=ratio_to_fit.Fit('pol1','SE','',900,4000)
 	f.write('ratio_SRbtag_vs_'+i+'_c\n')
 	f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );\n')
 	f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );\n')
 	f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+'\n')
 	f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,1))+' '+'\n\n')
-	ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3000)
+	ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,4000)
 	ratioup.SetParameter(0,fitresult.Parameter(0))
 	ratioup.SetParameter(1,fitresult.Parameter(1))
 	ratioup.SetParameter(2,fitresult.CovMatrix(0,0))
 	ratioup.SetParameter(3,fitresult.CovMatrix(1,1))
 	ratioup.SetParameter(4,fitresult.CovMatrix(1,0))
-	ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3000)
+	ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,4000)
 	ratiodown.SetParameter(0,fitresult.Parameter(0))
 	ratiodown.SetParameter(1,fitresult.Parameter(1))
 	ratiodown.SetParameter(2,fitresult.CovMatrix(0,0))
 	ratiodown.SetParameter(3,fitresult.CovMatrix(1,1))
 	ratiodown.SetParameter(4,fitresult.CovMatrix(1,0))
-	ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
 	ratio_to_fit.Draw()
 	ratioup.SetLineStyle(2)
 	ratiodown.SetLineStyle(2)
@@ -884,7 +884,7 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio2_SRbtag_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	fitresult=ratio_to_fit.Fit('pol2','SE','',900,3000)
+	fitresult=ratio_to_fit.Fit('pol2','SE','',900,4000)
 	f.write('ratio2_SRbtag_vs_'+i+'_c\n')
 	f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' ); \n')
 	f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+
@@ -893,7 +893,7 @@ for i in [
 	f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(2,2))+' '+
 					str(fitresult.CovMatrix(0,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,2))+' '+
 					str(fitresult.CovMatrix(2,0))+' '+str(fitresult.CovMatrix(1,2))+' '+str(fitresult.CovMatrix(2,1))+'\n\n')
-	ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3000)
+	ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,4000)
 	ratioup.SetParameter(0,fitresult.Parameter(0))
 	ratioup.SetParameter(1,fitresult.Parameter(1))
 	ratioup.SetParameter(2,fitresult.Parameter(2))
@@ -903,7 +903,7 @@ for i in [
 	ratioup.SetParameter(6,fitresult.CovMatrix(2,0))
 	ratioup.SetParameter(7,fitresult.CovMatrix(1,2))
 	ratioup.SetParameter(8,fitresult.CovMatrix(2,2))
-	ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3000)
+	ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,4000)
 	ratiodown.SetParameter(0,fitresult.Parameter(0))
 	ratiodown.SetParameter(1,fitresult.Parameter(1))
 	ratiodown.SetParameter(2,fitresult.Parameter(2))
@@ -913,7 +913,7 @@ for i in [
 	ratiodown.SetParameter(6,fitresult.CovMatrix(2,0))
 	ratiodown.SetParameter(7,fitresult.CovMatrix(1,2))
 	ratiodown.SetParameter(8,fitresult.CovMatrix(2,2))
-	ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
 	ratio_to_fit.Draw()
 	ratioup.SetLineStyle(2)
 	ratiodown.SetLineStyle(2)
@@ -966,8 +966,8 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio_SRbtagdata_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	ratio_to_fit.Fit('pol1','','',900,3000)
-	ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
+	ratio_to_fit.Fit('pol1','','',900,4000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
 	ratio_to_fit.Draw()
 	ratio_to_fit.Write()
 	ratioc.Write()
@@ -993,7 +993,7 @@ for i in [
  #"antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
  #"antibcsvCRmass_zprimemass",# "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
  #"antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
- "CA15_antibcsvCRbtag_zprimemass",#"CA15_antibcsvlooseCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
+ "CA15_antibcsvCRbtag_zprimemass","antitpmassCRnobtag_zprimemass",#"CA15_antibcsvlooseCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
 #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass", 
  #"antibcsvCRnobtag_zprimemass",#  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
  #"bkg1",
@@ -1051,25 +1051,25 @@ for i in [
   ratio_to_fit.Divide(denominator_CR)
   ratioc=TCanvas('CA15_ratio_SRbtag_vs_'+i+'_c')
   ratio_to_fit.Draw()
-  fitresult=ratio_to_fit.Fit('pol1','SE','',900,3000)
+  fitresult=ratio_to_fit.Fit('pol1','SE','',900,4000)
   f.write('CA15_ratio_SRbtag_vs_'+i+'_c\n')
   f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );\n')
   f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );\n')
   f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+'\n')
   f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,1))+' '+'\n\n')
-  ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3000)
+  ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,4000)
   ratioup.SetParameter(0,fitresult.Parameter(0))
   ratioup.SetParameter(1,fitresult.Parameter(1))
   ratioup.SetParameter(2,fitresult.CovMatrix(0,0))
   ratioup.SetParameter(3,fitresult.CovMatrix(1,1))
   ratioup.SetParameter(4,fitresult.CovMatrix(1,0))
-  ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3000)
+  ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,4000)
   ratiodown.SetParameter(0,fitresult.Parameter(0))
   ratiodown.SetParameter(1,fitresult.Parameter(1))
   ratiodown.SetParameter(2,fitresult.CovMatrix(0,0))
   ratiodown.SetParameter(3,fitresult.CovMatrix(1,1))
   ratiodown.SetParameter(4,fitresult.CovMatrix(1,0))
-  ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
+  ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
   ratio_to_fit.Draw()
   ratioup.SetLineStyle(2)
   ratiodown.SetLineStyle(2)
@@ -1090,7 +1090,7 @@ for i in [
   ratio_to_fit.Divide(denominator_CR)
   ratioc=TCanvas('CA15_ratio2_SRbtag_vs_'+i+'_c')
   ratio_to_fit.Draw()
-  fitresult=ratio_to_fit.Fit('pol2','SE','',900,3000)
+  fitresult=ratio_to_fit.Fit('pol2','SE','',900,4000)
   f.write('CA15_ratio2_SRbtag_vs_'+i+'_c\n')
   f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' ); \n')
   f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+
@@ -1099,7 +1099,7 @@ for i in [
   f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(2,2))+' '+
           str(fitresult.CovMatrix(0,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,2))+' '+
           str(fitresult.CovMatrix(2,0))+' '+str(fitresult.CovMatrix(1,2))+' '+str(fitresult.CovMatrix(2,1))+'\n\n')
-  ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3000)
+  ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,4000)
   ratioup.SetParameter(0,fitresult.Parameter(0))
   ratioup.SetParameter(1,fitresult.Parameter(1))
   ratioup.SetParameter(2,fitresult.Parameter(2))
@@ -1109,7 +1109,7 @@ for i in [
   ratioup.SetParameter(6,fitresult.CovMatrix(2,0))
   ratioup.SetParameter(7,fitresult.CovMatrix(1,2))
   ratioup.SetParameter(8,fitresult.CovMatrix(2,2))
-  ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3000)
+  ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,4000)
   ratiodown.SetParameter(0,fitresult.Parameter(0))
   ratiodown.SetParameter(1,fitresult.Parameter(1))
   ratiodown.SetParameter(2,fitresult.Parameter(2))
@@ -1119,7 +1119,7 @@ for i in [
   ratiodown.SetParameter(6,fitresult.CovMatrix(2,0))
   ratiodown.SetParameter(7,fitresult.CovMatrix(1,2))
   ratiodown.SetParameter(8,fitresult.CovMatrix(2,2))
-  ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
+  ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
   ratio_to_fit.Draw()
   ratioup.SetLineStyle(2)
   ratiodown.SetLineStyle(2)
@@ -1204,25 +1204,25 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio_SRnobtag_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	fitresult=ratio_to_fit.Fit('pol1','SE','',900,3000)
+	fitresult=ratio_to_fit.Fit('pol1','SE','',900,4000)
 	f.write('ratio_SRnobtag_vs_'+i+'_c\n')
 	f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );\n')
 	f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );\n')
 	f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+'\n')
 	f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,1))+' '+'\n\n')
-	ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3000)
+	ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,4000)
 	ratioup.SetParameter(0,fitresult.Parameter(0))
 	ratioup.SetParameter(1,fitresult.Parameter(1))
 	ratioup.SetParameter(2,fitresult.CovMatrix(0,0))
 	ratioup.SetParameter(3,fitresult.CovMatrix(1,1))
 	ratioup.SetParameter(4,fitresult.CovMatrix(1,0))
-	ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3000)
+	ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,4000)
 	ratiodown.SetParameter(0,fitresult.Parameter(0))
 	ratiodown.SetParameter(1,fitresult.Parameter(1))
 	ratiodown.SetParameter(2,fitresult.CovMatrix(0,0))
 	ratiodown.SetParameter(3,fitresult.CovMatrix(1,1))
 	ratiodown.SetParameter(4,fitresult.CovMatrix(1,0))
-	ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
 	ratio_to_fit.Draw()
 	ratioup.SetLineStyle(2)
 	ratiodown.SetLineStyle(2)
@@ -1243,7 +1243,7 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio2_SRnobtag_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	fitresult=ratio_to_fit.Fit('pol2','SE','',900,3000)
+	fitresult=ratio_to_fit.Fit('pol2','SE','',900,4000)
 	f.write('ratio2_SRnobtag_vs_'+i+'_c\n')
 	f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' ); \n')
 	f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+
@@ -1252,7 +1252,7 @@ for i in [
 	f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(2,2))+' '+
 					str(fitresult.CovMatrix(0,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,2))+' '+
 					str(fitresult.CovMatrix(2,0))+' '+str(fitresult.CovMatrix(1,2))+' '+str(fitresult.CovMatrix(2,1))+'\n\n')
-	ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3000)
+	ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,4000)
 	ratioup.SetParameter(0,fitresult.Parameter(0))
 	ratioup.SetParameter(1,fitresult.Parameter(1))
 	ratioup.SetParameter(2,fitresult.Parameter(2))
@@ -1262,7 +1262,7 @@ for i in [
 	ratioup.SetParameter(6,fitresult.CovMatrix(2,0))
 	ratioup.SetParameter(7,fitresult.CovMatrix(1,2))
 	ratioup.SetParameter(8,fitresult.CovMatrix(2,2))
-	ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3000)
+	ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,4000)
 	ratiodown.SetParameter(0,fitresult.Parameter(0))
 	ratiodown.SetParameter(1,fitresult.Parameter(1))
 	ratiodown.SetParameter(2,fitresult.Parameter(2))
@@ -1272,7 +1272,7 @@ for i in [
 	ratiodown.SetParameter(6,fitresult.CovMatrix(2,0))
 	ratiodown.SetParameter(7,fitresult.CovMatrix(1,2))
 	ratiodown.SetParameter(8,fitresult.CovMatrix(2,2))
-	ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
 	ratio_to_fit.Draw()
 	ratioup.SetLineStyle(2)
 	ratiodown.SetLineStyle(2)
@@ -1325,8 +1325,8 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio_SRnobtagdata_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	ratio_to_fit.Fit('pol1','','',900,3000)
-	ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
+	ratio_to_fit.Fit('pol1','','',900,4000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
 	ratio_to_fit.Draw()
 	ratio_to_fit.Write()
 	ratioc.Write()
@@ -1415,25 +1415,25 @@ for i in [
   ratio_to_fit.Divide(denominator_CR)
   ratioc=TCanvas('CA15_ratio_SRnobtag_vs_'+i+'_c')
   ratio_to_fit.Draw()
-  fitresult=ratio_to_fit.Fit('pol1','SE','',900,3000)
+  fitresult=ratio_to_fit.Fit('pol1','SE','',900,4000)
   f.write('CA15_ratio_SRnobtag_vs_'+i+'_c\n')
   f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );\n')
   f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );\n')
   f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+'\n')
   f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,1))+' '+'\n\n')
-  ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3000)
+  ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,4000)
   ratioup.SetParameter(0,fitresult.Parameter(0))
   ratioup.SetParameter(1,fitresult.Parameter(1))
   ratioup.SetParameter(2,fitresult.CovMatrix(0,0))
   ratioup.SetParameter(3,fitresult.CovMatrix(1,1))
   ratioup.SetParameter(4,fitresult.CovMatrix(1,0))
-  ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3000)
+  ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,4000)
   ratiodown.SetParameter(0,fitresult.Parameter(0))
   ratiodown.SetParameter(1,fitresult.Parameter(1))
   ratiodown.SetParameter(2,fitresult.CovMatrix(0,0))
   ratiodown.SetParameter(3,fitresult.CovMatrix(1,1))
   ratiodown.SetParameter(4,fitresult.CovMatrix(1,0))
-  ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
+  ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
   ratio_to_fit.Draw()
   ratioup.SetLineStyle(2)
   ratiodown.SetLineStyle(2)
@@ -1454,7 +1454,7 @@ for i in [
   ratio_to_fit.Divide(denominator_CR)
   ratioc=TCanvas('CA15_ratio2_SRnobtag_vs_'+i+'_c')
   ratio_to_fit.Draw()
-  fitresult=ratio_to_fit.Fit('pol2','SE','',900,3000)
+  fitresult=ratio_to_fit.Fit('pol2','SE','',900,4000)
   f.write('CA15_ratio2_SRnobtag_vs_'+i+'_c\n')
   f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' ); \n')
   f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+
@@ -1463,7 +1463,7 @@ for i in [
   f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(2,2))+' '+
           str(fitresult.CovMatrix(0,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,2))+' '+
           str(fitresult.CovMatrix(2,0))+' '+str(fitresult.CovMatrix(1,2))+' '+str(fitresult.CovMatrix(2,1))+'\n\n')
-  ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3000)
+  ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,4000)
   ratioup.SetParameter(0,fitresult.Parameter(0))
   ratioup.SetParameter(1,fitresult.Parameter(1))
   ratioup.SetParameter(2,fitresult.Parameter(2))
@@ -1473,7 +1473,7 @@ for i in [
   ratioup.SetParameter(6,fitresult.CovMatrix(2,0))
   ratioup.SetParameter(7,fitresult.CovMatrix(1,2))
   ratioup.SetParameter(8,fitresult.CovMatrix(2,2))
-  ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3000)
+  ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,4000)
   ratiodown.SetParameter(0,fitresult.Parameter(0))
   ratiodown.SetParameter(1,fitresult.Parameter(1))
   ratiodown.SetParameter(2,fitresult.Parameter(2))
@@ -1483,7 +1483,7 @@ for i in [
   ratiodown.SetParameter(6,fitresult.CovMatrix(2,0))
   ratiodown.SetParameter(7,fitresult.CovMatrix(1,2))
   ratiodown.SetParameter(8,fitresult.CovMatrix(2,2))
-  ratio_to_fit.GetXaxis().SetRangeUser(900,3000)
+  ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
   ratio_to_fit.Draw()
   ratioup.SetLineStyle(2)
   ratiodown.SetLineStyle(2)
@@ -1513,153 +1513,158 @@ for i in [
 f.close()
 #assert(False)
 
-for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
-  "ptop",  "ptprime",  "pb",  "pw",  "ptb",  "ptw",  "pzprime",
-  "mtop",  "mtprime",  "mb",  "mw",  "mtb",  "mtw",  "mzprime",
-  "dRbW",  "dRtT",  "dRbt",  "dRtW",  "dR_tb_tW",  "dR_tb_W",  "dR_tb_b",  "dR_b_tW",  "dR_W_tW",
-  "dR_W1_b1",  "dR_W2_b2",  "dR_W1_W2",  "dR_b1_b2",  "dR_W1_b2",  "dR_W2_b1",
-  "pT_closest_topjet_to_top",  "mass_closest_topjet_to_top",  "nsub_closest_topjet_to_top",
-  "pT_closest_topjet_to_tprime",  "mass_closest_topjet_to_tprime",  "nsub_closest_topjet_to_tprime",
-  "pT_closest_wjet_to_w",  "mass_closest_wjet_to_w",  "nsub_closest_wjet_to_w",
-  "pT_closest_bjet_to_b",  "csv_closest_bjet_to_b",
 
-  "pT_closest_wjet_to_tw",  "mass_closest_wjet_to_tw",  "nsub_closest_wjet_to_tw",
-  "pT_closest_bjet_to_tb",  "csv_closest_bjet_to_tb",
-
-  "pT_closest_wjet_to_w1",  "mass_closest_wjet_to_w1",  "nsub_closest_wjet_to_w1",
-  "pT_closest_bjet_to_b1",  "csv_closest_bjet_to_b1",
-  "pT_closest_wjet_to_w2",  "mass_closest_wjet_to_w2",  "nsub_closest_wjet_to_w2",
-  "pT_closest_bjet_to_b2",  "csv_closest_bjet_to_b2",
-  "matched_top_mass",
-  "matched_top_res_mass",
-  "matched_tprime_mass",
-  "matched_zprime_mass",
-  "matched_zprime_res_mass",
-  "matched_tprime1_mass",
-  "matched_tprime2_mass",
-  ]:
-  rebinna=1
-  minx=0
-  maxx=0
-  if 'top_mass' in i or 'mass_closest_wjet' in i or 'mass_closest_topjet' in i or 'top_res_mass' in i:
-     minx=0
-     maxx=300
-  compare(name='GEN_'+i,#signalWB_names[i]+'dRbW',
-		file_list=signal_files_pre2,#[signal_files[i],signal_files_pre[i]],
-		name_list=['NoCuts/'+i]*len(signal_files_pre2),
-		legend_list=signalWB_legendnames,
-		normalize=True,drawoption='hE',
-		xtitle='',ytitle='',
-		minx=minx,maxx=maxx,
-		rebin=rebinna,
-		miny=0,maxy=0,
-		textsizefactor=1,logy=False)
-  compare(name='GENTT_'+i,#signalWB_names[i]+'dRbW',
-		file_list=signalTT_files,#[signal_files[i],signal_files_pre[i]],
-		name_list=['NoCuts/'+i]*len(signal_files),
-		legend_list=signalTT_legendnames,
-		normalize=True,drawoption='hE',
-		xtitle='',ytitle='',
-		minx=minx,maxx=maxx,
-		rebin=rebinna,
-		miny=0,maxy=0,
-		textsizefactor=1,logy=False)
-
-for i in range(len(signalWB_names)):
-	rebinna=10
-	compare(name=signalWB_names[i]+'dRbW',
-		file_list=[signal_files[i],signal_files_pre[i]],
-		name_list=['Selection/dRbW','NoCuts/dRbW'],
-		legend_list=['RECO','GEN'],
-		normalize=True,drawoption='hE',
-		xtitle='',ytitle='',
-		minx=0,maxx=0,
-		rebin=rebinna,
-		miny=0,maxy=0,
-		textsizefactor=1,logy=False)
-
-	compare(name=signalWB_names[i]+'dRtT',
-		file_list=[signal_files[i],signal_files_pre[i]],
-		name_list=['Selection/dRtTp','NoCuts/dRtT'],
-		legend_list=['RECO','GEN'],
-		normalize=True,drawoption='hE',
-		xtitle='',ytitle='',
-		minx=0,maxx=0,
-		rebin=rebinna,
-		miny=0,maxy=0,
-		textsizefactor=1,logy=False)
-
-	compare(name=signalWB_names[i]+'dRbt',
-		file_list=[signal_files[i],signal_files_pre[i]],
-		name_list=['Selection/dRbt','NoCuts/dRbt'],
-		legend_list=['RECO','GEN'],
-		normalize=True,drawoption='hE',
-		xtitle='',ytitle='',
-		minx=0,maxx=0,
-		rebin=rebinna,
-		miny=0,maxy=0,
-		textsizefactor=1,logy=False)
-
-	compare(name=signalWB_names[i]+'dRtW',
-		file_list=[signal_files[i],signal_files_pre[i]],
-		name_list=['Selection/dRtW','NoCuts/dRtW'],
-		legend_list=['RECO','GEN'],
-		normalize=True,drawoption='hE',
-		xtitle='',ytitle='',
-		minx=0,maxx=0,
-		rebin=rebinna,
-		miny=0,maxy=0,
-		textsizefactor=1,logy=False)
+################################################################################################################
+#gen and angular studies
 
 
+# for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
+#   "ptop",  "ptprime",  "pb",  "pw",  "ptb",  "ptw",  "pzprime",
+#   "mtop",  "mtprime",  "mb",  "mw",  "mtb",  "mtw",  "mzprime",
+#   "dRbW",  "dRtT",  "dRbt",  "dRtW",  "dR_tb_tW",  "dR_tb_W",  "dR_tb_b",  "dR_b_tW",  "dR_W_tW",
+#   "dR_W1_b1",  "dR_W2_b2",  "dR_W1_W2",  "dR_b1_b2",  "dR_W1_b2",  "dR_W2_b1",
+#   "pT_closest_topjet_to_top",  "mass_closest_topjet_to_top",  "nsub_closest_topjet_to_top",
+#   "pT_closest_topjet_to_tprime",  "mass_closest_topjet_to_tprime",  "nsub_closest_topjet_to_tprime",
+#   "pT_closest_wjet_to_w",  "mass_closest_wjet_to_w",  "nsub_closest_wjet_to_w",
+#   "pT_closest_bjet_to_b",  "csv_closest_bjet_to_b",
 
+#   "pT_closest_wjet_to_tw",  "mass_closest_wjet_to_tw",  "nsub_closest_wjet_to_tw",
+#   "pT_closest_bjet_to_tb",  "csv_closest_bjet_to_tb",
 
-	compare(name=signalWB_names[i]+'dRbWSAME',
-		file_list=[signal_files[i],signal_files[i]],
-		name_list=['Selection/dRbW','Selection/dRbWGEN'],
-		legend_list=['RECO','GEN'],
-		normalize=True,drawoption='hE',
-		xtitle='',ytitle='',
-		minx=0,maxx=0,
-		rebin=rebinna,
-		miny=0,maxy=0,
-		textsizefactor=1,logy=False)
+#   "pT_closest_wjet_to_w1",  "mass_closest_wjet_to_w1",  "nsub_closest_wjet_to_w1",
+#   "pT_closest_bjet_to_b1",  "csv_closest_bjet_to_b1",
+#   "pT_closest_wjet_to_w2",  "mass_closest_wjet_to_w2",  "nsub_closest_wjet_to_w2",
+#   "pT_closest_bjet_to_b2",  "csv_closest_bjet_to_b2",
+#   "matched_top_mass",
+#   "matched_top_res_mass",
+#   "matched_tprime_mass",
+#   "matched_zprime_mass",
+#   "matched_zprime_res_mass",
+#   "matched_tprime1_mass",
+#   "matched_tprime2_mass",
+#   ]:
+#   rebinna=1
+#   minx=0
+#   maxx=0
+#   if 'top_mass' in i or 'mass_closest_wjet' in i or 'mass_closest_topjet' in i or 'top_res_mass' in i:
+#      minx=0
+#      maxx=300
+#   compare(name='GEN_'+i,#signalWB_names[i]+'dRbW',
+# 		file_list=signal_files_pre2,#[signal_files[i],signal_files_pre[i]],
+# 		name_list=['NoCuts/'+i]*len(signal_files_pre2),
+# 		legend_list=signalWB_legendnames,
+# 		normalize=True,drawoption='hE',
+# 		xtitle='',ytitle='',
+# 		minx=minx,maxx=maxx,
+# 		rebin=rebinna,
+# 		miny=0,maxy=0,
+# 		textsizefactor=1,logy=False)
+#   compare(name='GENTT_'+i,#signalWB_names[i]+'dRbW',
+# 		file_list=signalTT_files,#[signal_files[i],signal_files_pre[i]],
+# 		name_list=['NoCuts/'+i]*len(signal_files),
+# 		legend_list=signalTT_legendnames,
+# 		normalize=True,drawoption='hE',
+# 		xtitle='',ytitle='',
+# 		minx=minx,maxx=maxx,
+# 		rebin=rebinna,
+# 		miny=0,maxy=0,
+# 		textsizefactor=1,logy=False)
 
-	compare(name=signalWB_names[i]+'dRtTSAME',
-		file_list=[signal_files[i],signal_files[i]],
-		name_list=['Selection/dRtTp','Selection/dRtTpGEN'],
-		legend_list=['RECO','GEN'],
-		normalize=True,drawoption='hE',
-		xtitle='',ytitle='',
-		minx=0,maxx=0,
-		rebin=rebinna,
-		miny=0,maxy=0,
-		textsizefactor=1,logy=False)
+# for i in range(len(signalWB_names)):
+# 	rebinna=10
+# 	compare(name=signalWB_names[i]+'dRbW',
+# 		file_list=[signal_files[i],signal_files_pre[i]],
+# 		name_list=['Selection/dRbW','NoCuts/dRbW'],
+# 		legend_list=['RECO','GEN'],
+# 		normalize=True,drawoption='hE',
+# 		xtitle='',ytitle='',
+# 		minx=0,maxx=0,
+# 		rebin=rebinna,
+# 		miny=0,maxy=0,
+# 		textsizefactor=1,logy=False)
 
-	compare(name=signalWB_names[i]+'dRbtSAME',
-		file_list=[signal_files[i],signal_files[i]],
-		name_list=['Selection/dRbt','Selection/dRbtGEN'],
-		legend_list=['RECO','GEN'],
-		normalize=True,drawoption='hE',
-		xtitle='',ytitle='',
-		minx=0,maxx=0,
-		rebin=rebinna,
-		miny=0,maxy=0,
-		textsizefactor=1,logy=False)
+# 	compare(name=signalWB_names[i]+'dRtT',
+# 		file_list=[signal_files[i],signal_files_pre[i]],
+# 		name_list=['Selection/dRtTp','NoCuts/dRtT'],
+# 		legend_list=['RECO','GEN'],
+# 		normalize=True,drawoption='hE',
+# 		xtitle='',ytitle='',
+# 		minx=0,maxx=0,
+# 		rebin=rebinna,
+# 		miny=0,maxy=0,
+# 		textsizefactor=1,logy=False)
 
-	compare(name=signalWB_names[i]+'dRtWSAME',
-		file_list=[signal_files[i],signal_files[i]],
-		name_list=['Selection/dRtW','Selection/dRtWGEN'],
-		legend_list=['RECO','GEN'],
-		normalize=True,drawoption='hE',
-		xtitle='',ytitle='',
-		minx=0,maxx=0,
-		rebin=rebinna,
-		miny=0,maxy=0,
-		textsizefactor=1,logy=False)
+# 	compare(name=signalWB_names[i]+'dRbt',
+# 		file_list=[signal_files[i],signal_files_pre[i]],
+# 		name_list=['Selection/dRbt','NoCuts/dRbt'],
+# 		legend_list=['RECO','GEN'],
+# 		normalize=True,drawoption='hE',
+# 		xtitle='',ytitle='',
+# 		minx=0,maxx=0,
+# 		rebin=rebinna,
+# 		miny=0,maxy=0,
+# 		textsizefactor=1,logy=False)
+
+# 	compare(name=signalWB_names[i]+'dRtW',
+# 		file_list=[signal_files[i],signal_files_pre[i]],
+# 		name_list=['Selection/dRtW','NoCuts/dRtW'],
+# 		legend_list=['RECO','GEN'],
+# 		normalize=True,drawoption='hE',
+# 		xtitle='',ytitle='',
+# 		minx=0,maxx=0,
+# 		rebin=rebinna,
+# 		miny=0,maxy=0,
+# 		textsizefactor=1,logy=False)
 
 
 
+
+# 	compare(name=signalWB_names[i]+'dRbWSAME',
+# 		file_list=[signal_files[i],signal_files[i]],
+# 		name_list=['Selection/dRbW','Selection/dRbWGEN'],
+# 		legend_list=['RECO','GEN'],
+# 		normalize=True,drawoption='hE',
+# 		xtitle='',ytitle='',
+# 		minx=0,maxx=0,
+# 		rebin=rebinna,
+# 		miny=0,maxy=0,
+# 		textsizefactor=1,logy=False)
+
+# 	compare(name=signalWB_names[i]+'dRtTSAME',
+# 		file_list=[signal_files[i],signal_files[i]],
+# 		name_list=['Selection/dRtTp','Selection/dRtTpGEN'],
+# 		legend_list=['RECO','GEN'],
+# 		normalize=True,drawoption='hE',
+# 		xtitle='',ytitle='',
+# 		minx=0,maxx=0,
+# 		rebin=rebinna,
+# 		miny=0,maxy=0,
+# 		textsizefactor=1,logy=False)
+
+# 	compare(name=signalWB_names[i]+'dRbtSAME',
+# 		file_list=[signal_files[i],signal_files[i]],
+# 		name_list=['Selection/dRbt','Selection/dRbtGEN'],
+# 		legend_list=['RECO','GEN'],
+# 		normalize=True,drawoption='hE',
+# 		xtitle='',ytitle='',
+# 		minx=0,maxx=0,
+# 		rebin=rebinna,
+# 		miny=0,maxy=0,
+# 		textsizefactor=1,logy=False)
+
+# 	compare(name=signalWB_names[i]+'dRtWSAME',
+# 		file_list=[signal_files[i],signal_files[i]],
+# 		name_list=['Selection/dRtW','Selection/dRtWGEN'],
+# 		legend_list=['RECO','GEN'],
+# 		normalize=True,drawoption='hE',
+# 		xtitle='',ytitle='',
+# 		minx=0,maxx=0,
+# 		rebin=rebinna,
+# 		miny=0,maxy=0,
+# 		textsizefactor=1,logy=False)
+
+
+#################################################################################################################
 
 
 # for i in ['step1_wmass','step1_wnsub','step1_tcsv','step1_tpt','step2_bcsv','step2_wpt','step3_tprimemass','step3_tprimept','step4_zprimemass','step4_zprimemassbtag','step4_zprimemassbtagnsub']:
@@ -2088,12 +2093,16 @@ make_ratioplot(
 
 #prove
 for names in [
-['Selection/bkg1_par','Selection/zprimemassnobtag','parabola1'],
-['Selection/bkg2_par','Selection/zprimemassbtag','parabola2'],
-['Selection/bkgtp1_par','Selection/tprimemassnobtag','parabolatp1'],
-['Selection/bkgtp2_par','Selection/tprimemassbtag','parabolatp2'],
-['Selection/bkght1_par','Selection/ht_twbSRnobtag','parabolaht1'],
-['Selection/bkght2_par','Selection/ht_twbSRbtag','parabolaht2'],
+['Selection/bkg1_par','Selection/zprimemassnobtag','parabola1','Selection/bkg1down_par_fit','Selection/bkg1up_par_fit','Selection/bkg1'],
+['Selection/bkg2_par','Selection/zprimemassbtag','parabola2','Selection/bkg2down_par_fit','Selection/bkg2up_par_fit','Selection/bkg2'],
+['Selection/bkgtp1_par','Selection/tprimemassnobtag','parabolatp1','Selection/bkgtp1down_par_fit','Selection/bkgtp1up_par_fit','Selection/bkgtp1'],
+['Selection/bkgtp2_par','Selection/tprimemassbtag','parabolatp2','Selection/bkgtp2down_par_fit','Selection/bkgtp2up_par_fit','Selection/bkgtp2'],
+['Selection/bkght1_par','Selection/ht_twbSRnobtag','parabolaht1','Selection/bkght1down_par_fit','Selection/bkght1up_par_fit','Selection/bkght1'],
+['Selection/bkght2_par','Selection/ht_twbSRbtag','parabolaht2','Selection/bkght2down_par_fit','Selection/bkght2up_par_fit','Selection/bkght2'],
+['Selection/bkgfat1_par','Selection/CA15_zprimemassnobtag','parabolafat1','Selection/bkgfat1down_par_fit','Selection/bkgfat1up_par_fit','Selection/bkgfat1'],
+['Selection/bkgfat2_par','Selection/CA15_zprimemassbtag','parabolafat2','Selection/bkgfat2down_par_fit','Selection/bkgfat2up_par_fit','Selection/bkgfat2'],
+['Selection/bkgloose1_par','Selection/CA15_zprimemassnobtag','parabolaloose1','Selection/bkgloose1down_par_fit','Selection/bkgloose1up_par_fit','Selection/bkgloose1'],
+['Selection/bkgloose2_par','Selection/CA15_zprimemassbtag','parabolaloose2','Selection/bkgloose2down_par_fit','Selection/bkgloose2up_par_fit','Selection/bkgloose2'],
 ]:
   qcdbkg=data_file.Get(names[0]).Clone(names[2]+'_bkg')
   blow=qcdbkg.GetXaxis().FindFixBin(500.0)
@@ -2105,6 +2114,18 @@ for names in [
   
   qcdbkg.Scale(qcdsf)
   qcdbkg.Write()
+
+  qcdbkg_down=data_file.Get(names[3]).Clone(names[2]+'_bkgdown')
+  qcdbkg_up=data_file.Get(names[4]).Clone(names[2]+'_bkgup')
+
+  qcdbkg_down.Add(ttbar_file.Get(names[3]).Clone(),-1.0)
+  qcdbkg_up.Add(ttbar_file.Get(names[4]).Clone(),-1.0)
+
+  qcdbkg_down.Scale(qcdsf)
+  qcdbkg_up.Scale(qcdsf)
+  qcdbkg_down.Write()
+  qcdbkg_up.Write()
+
 
   make_ratioplot(
     name=names[2],
@@ -2133,10 +2154,25 @@ for names in [
         qcd_legend='QCD from sideband',
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
-        sysdict=systypes,
-        bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
+        dosys=True,
+        sysdict={},
+        bkgup=names[2]+'_bkgup',bkgdown=names[2]+'_bkgdown'
         )
+
+  if len(names)>3:
+    make_comp(data_file.Get(names[0]),data_file.Get(names[3]),data_file.Get(names[4]),names[2]+'_fiterrorsys',10)
+    make_comp(data_file.Get(names[0]),data_file.Get(names[5]),data_file.Get(names[5]),names[2]+'_fitformsys',10)
+
+  # compare(name=names[2]+'_sys',
+  #   file_list=[qcd_file,qcd_file,qcd_file],
+  #   name_list=['Selection/bkg2','Selection/bkg2up','Selection/bkg2down'],
+  #   legend_list=['nominal','up - weight applied twice','down - no weight applied'],
+  #   normalize=True,drawoption='hE',
+  #   xtitle='',ytitle='',
+  #   minx=0,maxx=0,
+  #   rebin=10,
+  #   miny=0,maxy=0,
+  #   textsizefactor=1,logy=False)
 
 
 
@@ -2183,7 +2219,7 @@ for i in signalHT_names:
 dotheta=True
 if dotheta:
   rebinna=10
-  runList=[0,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000,4000]
+  runList=[0,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,4000,4000]
   runLen=len(runList)-1
   runArray = array('d',runList)
   u='_'

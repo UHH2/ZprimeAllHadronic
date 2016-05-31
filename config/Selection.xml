@@ -15,15 +15,15 @@
     <Library Name="libSUHH2Zp2TopVLQAllHad"/>
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/test/" PostFix="" TargetLumi="2628.85" >
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/selection/" PostFix="" TargetLumi="2628.85" >
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="20" OutputDirectory="/nfs/dust/cms/user/usaiem/selection/" PostFix="" TargetLumi="2628.85" >  -->
 
 
-<!--     <InputData Lumi="116421.0" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
+    <InputData Lumi="116421.0" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
         <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.MC.TTbar.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
-    </InputData> -->
+    </InputData>
 
 <!--     <InputData Lumi="76.605" NEventsMax="-1" Type="MC" Version="TT_Mtt0700to1000" Cacheable="False">
         <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.MC.TT_Mtt0700to1000.root" Lumi="0.0"/>
@@ -51,14 +51,13 @@
 
 
 
-
     <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_05Oct2015_v1" Cacheable="False">
         <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.DATA.JetHT_Run2015D_05Oct2015_v1.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" />
         <OutputTree Name="AnalysisTree" /> 
     </InputData>
 
-    <!-- <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_PromptReco_v4" Cacheable="False">
+    <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_PromptReco_v4" Cacheable="False">
         <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.DATA.JetHT_Run2015D_PromptReco_v4.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
@@ -398,7 +397,7 @@
         <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.MC.MC_TpTp_M-900.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
-    </InputData>  -->
+    </InputData> 
 
 
 
