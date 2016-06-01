@@ -432,33 +432,33 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
   #       fixratio=True,
   #       signal_colors=[kOrange+10,kAzure+1,kSpring-6])
 
-  make_ratioplot(
-		name=i,
-		ttbar_file=ttbar_file,
-		qcd_file=qcd_file,
-		data_file=data_file,
-		signal_files=signal_files_short,
-		histo='Selection/'+i, 
-		histo_qcd='Selection/'+i,
-		histo_signal='Selection/'+i,
-		rebin=rebinna,
-		minx=minx,
-		maxx=maxx,
-		miny=0,
-		maxy=0,
-		minratio=0,
-		maxratio=0,
-		logy=uselog,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalWB_legendnames_short,
-        separate_legend=True,
-        signal_zoom=signalzoom,
-        fixratio=True,
-        signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
-        sysdict=systypes)
+  # make_ratioplot(
+		# name=i,
+		# ttbar_file=ttbar_file,
+		# qcd_file=qcd_file,
+		# data_file=data_file,
+		# signal_files=signal_files_short,
+		# histo='Selection/'+i, 
+		# histo_qcd='Selection/'+i,
+		# histo_signal='Selection/'+i,
+		# rebin=rebinna,
+		# minx=minx,
+		# maxx=maxx,
+		# miny=0,
+		# maxy=0,
+		# minratio=0,
+		# maxratio=0,
+		# logy=uselog,
+  #       xtitle='',
+  #       ytitle='Events',
+  #       textsizefactor=1,
+  #       signal_legend=signalWB_legendnames_short,
+  #       separate_legend=True,
+  #       signal_zoom=signalzoom,
+  #       fixratio=True,
+  #       signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+  #       dosys=False,
+  #       sysdict=systypes)
 
   make_ratioplot(
     name=i+'_NOLOG',
@@ -489,33 +489,33 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
         dosys=False,
         sysdict=systypes)
 
-  make_ratioplot(
-    name=i+'_ALL',
-    ttbar_file=ttbar_file,
-    qcd_file=qcd_file,
-    data_file=data_file,
-    signal_files=signal_files,
-    histo='Selection/'+i, 
-    histo_qcd='Selection/'+i,
-    histo_signal='Selection/'+i,
-    rebin=rebinna,
-    minx=minx,
-    maxx=maxx,
-    miny=0,
-    maxy=0,
-    minratio=0,
-    maxratio=0,
-    logy=uselog,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalWB_legendnames,
-        separate_legend=True,
-        signal_zoom=signalzoom,
-        fixratio=True,
-        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
-        sysdict=systypes)
+  # make_ratioplot(
+  #   name=i+'_ALL',
+  #   ttbar_file=ttbar_file,
+  #   qcd_file=qcd_file,
+  #   data_file=data_file,
+  #   signal_files=signal_files,
+  #   histo='Selection/'+i, 
+  #   histo_qcd='Selection/'+i,
+  #   histo_signal='Selection/'+i,
+  #   rebin=rebinna,
+  #   minx=minx,
+  #   maxx=maxx,
+  #   miny=0,
+  #   maxy=0,
+  #   minratio=0,
+  #   maxratio=0,
+  #   logy=uselog,
+  #       xtitle='',
+  #       ytitle='Events',
+  #       textsizefactor=1,
+  #       signal_legend=signalWB_legendnames,
+  #       separate_legend=True,
+  #       signal_zoom=signalzoom,
+  #       fixratio=True,
+  #       #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+  #       dosys=False,
+  #       sysdict=systypes)
   # make_ratioplot(
   #   name=i+'_TT',
   #   ttbar_file=ttbar_file,
@@ -574,208 +574,209 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
 
 
 
-
-for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
-  "bmass",  "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
-  "wmass",  "wpt",  "wnsub",
-  "toppt",  "topmass",  "topnsub",  "topcsv",
-  "dRbt",  "dRbW",  "dRtW",  "dRtTp",
-  "ht",  "htca8",  "ht_twb",  "npv",  "nevt",
-  "toppt_wpt",  "toppt_wbpt","ht_twbSR","ht_twbSRbtag","ht_twbSRnobtag",
-  "tprimemass",  "tprimept","Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub",
-  "zprimemass",  "zprimept",  "zprimemassbtag",  "zprimemassnobtag",  "zprimemassbmass",  "zprimemassnobmass","tprimemass_res", "zprimemassbtag_res", "zprimemassnobtag_res",
-  "tprimemassbtag","tprimemassnobtag","tprimemassbtagmass","tprimemassnobtagmass","antibcsvCRbtag_tprimemass","antibcsvCRnobtag_tprimemass",
-  "antibcsvCRbtagmass_tprimemass","antibcsvCRnobtagmass_tprimemass","antibcsvCRbtag_ht_twb","antibcsvCRnobtag_ht_twb",
-  "TT1btag_tprimemass",  "TT1btag_tprimemass1",  "TT1btag_tprimemass2",  "TT1btag_tprimept",  "TT1btag_tprimept1",  "TT1btag_tprimept2",  "TT1btag_mass",  "TT1btag_dmass",  "TT1btag_dmassomass",  "TT1btag_htak8",  "TT1btag_htak8ak4",  "TT1btag_smass",  "TT1btag_pt",
-  "TT2btag_tprimemass",  "TT2btag_tprimemass1",  "TT2btag_tprimemass2",  "TT2btag_tprimept",  "TT2btag_tprimept1",  "TT2btag_tprimept2",  "TT2btag_mass",  "TT2btag_dmass",  "TT2btag_dmassomass",  "TT2btag_htak8",  "TT2btag_htak8ak4",  "TT2btag_smass",  "TT2btag_pt",
-  #"TT1btag1Tp_tprimemass",  "TT1btag1Tp_tprimemass1",  "TT1btag1Tp_tprimemass2",  "TT1btag1Tp_tprimept",  "TT1btag1Tp_tprimept1",  "TT1btag1Tp_tprimept2",  "TT1btag1Tp_mass",  "TT1btag1Tp_dmass",  "TT1btag1Tp_dmassomass",  "TT1btag1Tp_htak8",  "TT1btag1Tp_htak8ak4",  "TT1btag1Tp_smass",  "TT1btag1Tp_pt",
-  #"TT2btag1Tp_tprimemass",  "TT2btag1Tp_tprimemass1",  "TT2btag1Tp_tprimemass2",  "TT2btag1Tp_tprimept",  "TT2btag1Tp_tprimept1",  "TT2btag1Tp_tprimept2",  "TT2btag1Tp_mass",  "TT2btag1Tp_dmass",  "TT2btag1Tp_dmassomass",  "TT2btag1Tp_htak8",  "TT2btag1Tp_htak8ak4",  "TT2btag1Tp_smass",  "TT2btag1Tp_pt",
-  #"TTbar1btag_tprimemass",  "TTbar1btag_tprimemass1",  "TTbar1btag_tprimemass2",  "TTbar1btag_tprimept",  "TTbar1btag_tprimept1",  "TTbar1btag_tprimept2",  "TTbar1btag_mass",  "TTbar1btag_dmass",  "TTbar1btag_dmassomass",  "TTbar1btag_htak8",  "TTbar1btag_htak8ak4",  "TTbar1btag_smass",  "TTbar1btag_pt",
-  #"TTbar2btag_tprimemass",  "TTbar2btag_tprimemass1",  "TTbar2btag_tprimemass2",  "TTbar2btag_tprimept",  "TTbar2btag_tprimept1",  "TTbar2btag_tprimept2",  "TTbar2btag_mass",  "TTbar2btag_dmass",  "TTbar2btag_dmassomass",  "TTbar2btag_htak8",  "TTbar2btag_htak8ak4",  "TTbar2btag_smass",  "TTbar2btag_pt",
-  #"TTbar1btag1Tp_tprimemass",  "TTbar1btag1Tp_tprimemass1",  "TTbar1btag1Tp_tprimemass2",  "TTbar1btag1Tp_tprimept",  "TTbar1btag1Tp_tprimept1",  "TTbar1btag1Tp_tprimept2",  "TTbar1btag1Tp_mass",  "TTbar1btag1Tp_dmass",  "TTbar1btag1Tp_dmassomass",  "TTbar1btag1Tp_htak8",  "TTbar1btag1Tp_htak8ak4",  "TTbar1btag1Tp_smass",  "TTbar1btag1Tp_pt",
-  #"TTbar2btag1Tp_tprimemass",  "TTbar2btag1Tp_tprimemass1",  "TTbar2btag1Tp_tprimemass2",  "TTbar2btag1Tp_tprimept",  "TTbar2btag1Tp_tprimept1",  "TTbar2btag1Tp_tprimept2",  "TTbar2btag1Tp_mass",  "TTbar2btag1Tp_dmass",  "TTbar2btag1Tp_dmassomass",  "TTbar2btag1Tp_htak8",  "TTbar2btag1Tp_htak8ak4",  "TTbar2btag1Tp_smass",  "TTbar2btag1Tp_pt"
-  ]:
-#i=''
-	rebinna=10
-	signalzoom=1
-	minx=0
-	maxx=0
-	if 'topmass' in i and '_' not in i:
-		minx=60
-		maxx=300
-	if 'wmass' in i and '_' not in i:
-		minx=60
-		maxx=300
-	if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR","bcsv","csv_pthighest","csv_csvhighest", "topcsv",]:
-		rebinna=1
-	if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub",]:
-		rebinna =2
-	if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
-  "bmass",  "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
-  "wmass",  "wpt",  "wnsub",
-  "toppt",  "topmass",  "topnsub",  "topcsv",
-  "dRbt",  "dRbW",  "dRtW",  "dRtTp",
-  "ht",  "htca8",  "ht_twb",  "npv",  "nevt",]:
-  		signalzoom=100
-  	if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub"]:
-  		signalzoom=20
-  	#if i in ["tprimemass"]:
-  	#	signalzoom=20
-	make_ratioplot(
-		name='TT_'+i,
-		ttbar_file=ttbar_file,
-		qcd_file=qcd_file,
-		data_file=data_file,
-		signal_files=signalTTreco_files,
-		histo='Selection/'+i, 
-		histo_qcd='Selection/'+i,
-		histo_signal='Selection/'+i,
-		rebin=rebinna,
-		minx=minx,
-		maxx=maxx,
-		miny=0,
-		maxy=0,
-		minratio=0,
-		maxratio=0,
-		logy=True,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalTT_legendnames,
-        separate_legend=True,
-        signal_zoom=signalzoom,
-        fixratio=True,
-        #signal_colors=[kOrange+10,kAzure+1,kSpring-6]
-        )
-
-
+#TT stuff
+# for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
+#   "bmass",  "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
+#   "wmass",  "wpt",  "wnsub",
+#   "toppt",  "topmass",  "topnsub",  "topcsv",
+#   "dRbt",  "dRbW",  "dRtW",  "dRtTp",
+#   "ht",  "htca8",  "ht_twb",  "npv",  "nevt",
+#   "toppt_wpt",  "toppt_wbpt","ht_twbSR","ht_twbSRbtag","ht_twbSRnobtag",
+#   "tprimemass",  "tprimept","Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub",
+#   "zprimemass",  "zprimept",  "zprimemassbtag",  "zprimemassnobtag",  "zprimemassbmass",  "zprimemassnobmass","tprimemass_res", "zprimemassbtag_res", "zprimemassnobtag_res",
+#   "tprimemassbtag","tprimemassnobtag","tprimemassbtagmass","tprimemassnobtagmass","antibcsvCRbtag_tprimemass","antibcsvCRnobtag_tprimemass",
+#   "antibcsvCRbtagmass_tprimemass","antibcsvCRnobtagmass_tprimemass","antibcsvCRbtag_ht_twb","antibcsvCRnobtag_ht_twb",
+#   "TT1btag_tprimemass",  "TT1btag_tprimemass1",  "TT1btag_tprimemass2",  "TT1btag_tprimept",  "TT1btag_tprimept1",  "TT1btag_tprimept2",  "TT1btag_mass",  "TT1btag_dmass",  "TT1btag_dmassomass",  "TT1btag_htak8",  "TT1btag_htak8ak4",  "TT1btag_smass",  "TT1btag_pt",
+#   "TT2btag_tprimemass",  "TT2btag_tprimemass1",  "TT2btag_tprimemass2",  "TT2btag_tprimept",  "TT2btag_tprimept1",  "TT2btag_tprimept2",  "TT2btag_mass",  "TT2btag_dmass",  "TT2btag_dmassomass",  "TT2btag_htak8",  "TT2btag_htak8ak4",  "TT2btag_smass",  "TT2btag_pt",
+#   #"TT1btag1Tp_tprimemass",  "TT1btag1Tp_tprimemass1",  "TT1btag1Tp_tprimemass2",  "TT1btag1Tp_tprimept",  "TT1btag1Tp_tprimept1",  "TT1btag1Tp_tprimept2",  "TT1btag1Tp_mass",  "TT1btag1Tp_dmass",  "TT1btag1Tp_dmassomass",  "TT1btag1Tp_htak8",  "TT1btag1Tp_htak8ak4",  "TT1btag1Tp_smass",  "TT1btag1Tp_pt",
+#   #"TT2btag1Tp_tprimemass",  "TT2btag1Tp_tprimemass1",  "TT2btag1Tp_tprimemass2",  "TT2btag1Tp_tprimept",  "TT2btag1Tp_tprimept1",  "TT2btag1Tp_tprimept2",  "TT2btag1Tp_mass",  "TT2btag1Tp_dmass",  "TT2btag1Tp_dmassomass",  "TT2btag1Tp_htak8",  "TT2btag1Tp_htak8ak4",  "TT2btag1Tp_smass",  "TT2btag1Tp_pt",
+#   #"TTbar1btag_tprimemass",  "TTbar1btag_tprimemass1",  "TTbar1btag_tprimemass2",  "TTbar1btag_tprimept",  "TTbar1btag_tprimept1",  "TTbar1btag_tprimept2",  "TTbar1btag_mass",  "TTbar1btag_dmass",  "TTbar1btag_dmassomass",  "TTbar1btag_htak8",  "TTbar1btag_htak8ak4",  "TTbar1btag_smass",  "TTbar1btag_pt",
+#   #"TTbar2btag_tprimemass",  "TTbar2btag_tprimemass1",  "TTbar2btag_tprimemass2",  "TTbar2btag_tprimept",  "TTbar2btag_tprimept1",  "TTbar2btag_tprimept2",  "TTbar2btag_mass",  "TTbar2btag_dmass",  "TTbar2btag_dmassomass",  "TTbar2btag_htak8",  "TTbar2btag_htak8ak4",  "TTbar2btag_smass",  "TTbar2btag_pt",
+#   #"TTbar1btag1Tp_tprimemass",  "TTbar1btag1Tp_tprimemass1",  "TTbar1btag1Tp_tprimemass2",  "TTbar1btag1Tp_tprimept",  "TTbar1btag1Tp_tprimept1",  "TTbar1btag1Tp_tprimept2",  "TTbar1btag1Tp_mass",  "TTbar1btag1Tp_dmass",  "TTbar1btag1Tp_dmassomass",  "TTbar1btag1Tp_htak8",  "TTbar1btag1Tp_htak8ak4",  "TTbar1btag1Tp_smass",  "TTbar1btag1Tp_pt",
+#   #"TTbar2btag1Tp_tprimemass",  "TTbar2btag1Tp_tprimemass1",  "TTbar2btag1Tp_tprimemass2",  "TTbar2btag1Tp_tprimept",  "TTbar2btag1Tp_tprimept1",  "TTbar2btag1Tp_tprimept2",  "TTbar2btag1Tp_mass",  "TTbar2btag1Tp_dmass",  "TTbar2btag1Tp_dmassomass",  "TTbar2btag1Tp_htak8",  "TTbar2btag1Tp_htak8ak4",  "TTbar2btag1Tp_smass",  "TTbar2btag1Tp_pt"
+#   ]:
+# #i=''
+# 	rebinna=10
+# 	signalzoom=1
+# 	minx=0
+# 	maxx=0
+# 	if 'topmass' in i and '_' not in i:
+# 		minx=60
+# 		maxx=300
+# 	if 'wmass' in i and '_' not in i:
+# 		minx=60
+# 		maxx=300
+# 	if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR","bcsv","csv_pthighest","csv_csvhighest", "topcsv",]:
+# 		rebinna=1
+# 	if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub",]:
+# 		rebinna =2
+# 	if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
+#   "bmass",  "bpt",  "bcsv","csv_pthighest","csv_csvhighest",
+#   "wmass",  "wpt",  "wnsub",
+#   "toppt",  "topmass",  "topnsub",  "topcsv",
+#   "dRbt",  "dRbW",  "dRtW",  "dRtTp",
+#   "ht",  "htca8",  "ht_twb",  "npv",  "nevt",]:
+#   		signalzoom=100
+#   	if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub"]:
+#   		signalzoom=20
+#   	#if i in ["tprimemass"]:
+#   	#	signalzoom=20
+# 	make_ratioplot(
+# 		name='TT_'+i,
+# 		ttbar_file=ttbar_file,
+# 		qcd_file=qcd_file,
+# 		data_file=data_file,
+# 		signal_files=signalTTreco_files,
+# 		histo='Selection/'+i, 
+# 		histo_qcd='Selection/'+i,
+# 		histo_signal='Selection/'+i,
+# 		rebin=rebinna,
+# 		minx=minx,
+# 		maxx=maxx,
+# 		miny=0,
+# 		maxy=0,
+# 		minratio=0,
+# 		maxratio=0,
+# 		logy=True,
+#         xtitle='',
+#         ytitle='Events',
+#         textsizefactor=1,
+#         signal_legend=signalTT_legendnames,
+#         separate_legend=True,
+#         signal_zoom=signalzoom,
+#         fixratio=True,
+#         #signal_colors=[kOrange+10,kAzure+1,kSpring-6]
+#         )
 
 
 
-for i in [
-  #"zprimemass",#,  "zprimemassbtag",  "zprimemassnobtag"#,  "zprimemassbmass",  "zprimemassnobmass",
-  #"ttbarCR_zprimemass",  "ttbarCR_zprimemassbtag",
-  #"lowmassCR_zprimemass",  "lowmassCR_zprimemassbtag",
-  #"antitopmassCR_zprimemass",  "antitopnsubCR_zprimemass",  "antiwmassCR_zprimemass",  "antiwnsubCR_zprimemass", 
-   #"antibcsvCR_zprimemass",
-   #  "antibptCR_zprimemass",  "antibmassCR_zprimemass",
-#"ttbarCR_zprimemass_low", "ttbarCR_zprimemassbtag_low", "lowmassCR_zprimemass_low", "lowmassCR_zprimemassbtag_low", 
- #"antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
- "antibcsvCRmass_zprimemass",
- # "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
- #"antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
- #"antibcsvCRbtag_zprimemass", 
- #"antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
-#"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass",
- # "antibcsvCRnobtag_zprimemass",
-  #  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
-  #"bkg1","bkg2",
-  "bkg12",
-  #"bkg1up","bkg2up",
-  "bkg12up",
-  #"bkg1down","bkg2down",
-  "bkg12down",]:
- 	rebinna=10
-	minx=0
-	maxx=0
-	# if i=='topmass':
-	# 	minx=100
-	# 	maxx=300
-	make_ratioplot2(
-		name='SR_vs_'+i,
-		ttbar_file=0,
-		qcd_file=qcd_file,
-		data_file=qcd_file,
-		signal_files=[],
-		histo='Selection/zprimemass', 
-		histo_qcd='Selection/'+i,
-		histo_signal='Selection/'+i,
-		rebin=rebinna,
-		minx=minx,
-		maxx=maxx,
-		miny=0,
-		maxy=0,
-		minratio=0,
-		maxratio=0,
-		logy=False,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalWB_legendnames,
-        separate_legend=True,
-        signal_zoom=2,
-        fixratio=True,
-        normalize=True,
-        qcd_legend='Control region (QCD MC)',
-        data_legend='Signal region (QCD MC)'
-        #signal_colors=[1,2,3,1,2,3,1,2]
-        )
-	gStyle.SetOptFit(1111)
-	ratio_to_fit=qcd_file.Get('Selection/zprimemass').Clone('ratio_SR_vs_'+i)
-	denominator_CR=qcd_file.Get('Selection/'+i).Clone()
-	outfile.cd()
-	ratio_to_fit.Rebin(30)
-	denominator_CR.Rebin(30)
-	ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
-	denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
-	ratio_to_fit.Divide(denominator_CR)
-	ratioc=TCanvas('ratio_SR_vs_'+i+'_c')
-	ratio_to_fit.Draw()
-	ratio_to_fit.Fit('pol1','','',900,4000)
-	ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
-	ratio_to_fit.Draw()
-	ratio_to_fit.Write()
-	ratioc.Write()
-	ratioc.SaveAs('pdf/ratio_SR_vs_'+i+'_c.pdf')
 
-	make_ratioplot2(
-		name='SRdata_vs_'+i,
-		ttbar_file=0,
-		qcd_file=data_file,
-		data_file=data_file,
-		signal_files=[],
-		histo='Selection/zprimemass', 
-		histo_qcd='Selection/'+i,
-		histo_signal='Selection/'+i,
-		rebin=rebinna,
-		minx=minx,
-		maxx=maxx,
-		miny=0,
-		maxy=0,
-		minratio=0,
-		maxratio=0,
-		logy=False,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalWB_legendnames,
-        separate_legend=True,
-        signal_zoom=2,
-        fixratio=True,
-        normalize=True,
-        qcd_legend='Control region (QCD MC)',
-        data_legend='Signal region (QCD MC)'
-        #signal_colors=[1,2,3,1,2,3,1,2]
-        )
-	gStyle.SetOptFit(1111)
-	ratio_to_fit=data_file.Get('Selection/zprimemass').Clone('ratio_SRdata_vs_'+i)
-	denominator_CR=data_file.Get('Selection/'+i).Clone()
-	outfile.cd()
-	ratio_to_fit.Add(ttbar_file.Get('Selection/zprimemass'),-1.0)
-	denominator_CR.Add(ttbar_file.Get('Selection/'+i),-1.0)
-	ratio_to_fit.Rebin(30)
-	denominator_CR.Rebin(30)
-	ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
-	denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
-	ratio_to_fit.Divide(denominator_CR)
-	ratioc=TCanvas('ratio_SRdata_vs_'+i+'_c')
-	ratio_to_fit.Draw()
-	ratio_to_fit.Fit('pol1','','',900,4000)
-	ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
-	ratio_to_fit.Draw()
-	ratio_to_fit.Write()
-	ratioc.Write()
-	ratioc.SaveAs('pdf/ratio_SRdata_vs_'+i+'_c.pdf')
+
+# for i in [
+#   #"zprimemass",#,  "zprimemassbtag",  "zprimemassnobtag"#,  "zprimemassbmass",  "zprimemassnobmass",
+#   #"ttbarCR_zprimemass",  "ttbarCR_zprimemassbtag",
+#   #"lowmassCR_zprimemass",  "lowmassCR_zprimemassbtag",
+#   #"antitopmassCR_zprimemass",  "antitopnsubCR_zprimemass",  "antiwmassCR_zprimemass",  "antiwnsubCR_zprimemass", 
+#    #"antibcsvCR_zprimemass",
+#    #  "antibptCR_zprimemass",  "antibmassCR_zprimemass",
+# #"ttbarCR_zprimemass_low", "ttbarCR_zprimemassbtag_low", "lowmassCR_zprimemass_low", "lowmassCR_zprimemassbtag_low", 
+#  #"antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
+#  "antibcsvCRmass_zprimemass",
+#  # "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
+#  #"antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
+#  #"antibcsvCRbtag_zprimemass", 
+#  #"antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
+# #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass",
+#  # "antibcsvCRnobtag_zprimemass",
+#   #  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
+#   #"bkg1","bkg2",
+#   "bkg12",
+#   #"bkg1up","bkg2up",
+#   "bkg12up",
+#   #"bkg1down","bkg2down",
+#   "bkg12down",]:
+#  	rebinna=10
+# 	minx=0
+# 	maxx=0
+# 	# if i=='topmass':
+# 	# 	minx=100
+# 	# 	maxx=300
+# 	make_ratioplot2(
+# 		name='SR_vs_'+i,
+# 		ttbar_file=0,
+# 		qcd_file=qcd_file,
+# 		data_file=qcd_file,
+# 		signal_files=[],
+# 		histo='Selection/zprimemass', 
+# 		histo_qcd='Selection/'+i,
+# 		histo_signal='Selection/'+i,
+# 		rebin=rebinna,
+# 		minx=minx,
+# 		maxx=maxx,
+# 		miny=0,
+# 		maxy=0,
+# 		minratio=0,
+# 		maxratio=0,
+# 		logy=False,
+#         xtitle='',
+#         ytitle='Events',
+#         textsizefactor=1,
+#         signal_legend=signalWB_legendnames,
+#         separate_legend=True,
+#         signal_zoom=2,
+#         fixratio=True,
+#         normalize=True,
+#         qcd_legend='Control region (QCD MC)',
+#         data_legend='Signal region (QCD MC)'
+#         #signal_colors=[1,2,3,1,2,3,1,2]
+#         )
+# 	gStyle.SetOptFit(1111)
+# 	ratio_to_fit=qcd_file.Get('Selection/zprimemass').Clone('ratio_SR_vs_'+i)
+# 	denominator_CR=qcd_file.Get('Selection/'+i).Clone()
+# 	outfile.cd()
+# 	ratio_to_fit.Rebin(30)
+# 	denominator_CR.Rebin(30)
+# 	ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
+# 	denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
+# 	ratio_to_fit.Divide(denominator_CR)
+# 	ratioc=TCanvas('ratio_SR_vs_'+i+'_c')
+# 	ratio_to_fit.Draw()
+# 	ratio_to_fit.Fit('pol1','','',900,3500)
+# 	ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
+# 	ratio_to_fit.Draw()
+# 	ratio_to_fit.Write()
+# 	ratioc.Write()
+# 	ratioc.SaveAs('pdf/ratio_SR_vs_'+i+'_c.pdf')
+
+# 	make_ratioplot2(
+# 		name='SRdata_vs_'+i,
+# 		ttbar_file=0,
+# 		qcd_file=data_file,
+# 		data_file=data_file,
+# 		signal_files=[],
+# 		histo='Selection/zprimemass', 
+# 		histo_qcd='Selection/'+i,
+# 		histo_signal='Selection/'+i,
+# 		rebin=rebinna,
+# 		minx=minx,
+# 		maxx=maxx,
+# 		miny=0,
+# 		maxy=0,
+# 		minratio=0,
+# 		maxratio=0,
+# 		logy=False,
+#         xtitle='',
+#         ytitle='Events',
+#         textsizefactor=1,
+#         signal_legend=signalWB_legendnames,
+#         separate_legend=True,
+#         signal_zoom=2,
+#         fixratio=True,
+#         normalize=True,
+#         qcd_legend='Control region (QCD MC)',
+#         data_legend='Signal region (QCD MC)'
+#         #signal_colors=[1,2,3,1,2,3,1,2]
+#         )
+# 	gStyle.SetOptFit(1111)
+# 	ratio_to_fit=data_file.Get('Selection/zprimemass').Clone('ratio_SRdata_vs_'+i)
+# 	denominator_CR=data_file.Get('Selection/'+i).Clone()
+# 	outfile.cd()
+# 	ratio_to_fit.Add(ttbar_file.Get('Selection/zprimemass'),-1.0)
+# 	denominator_CR.Add(ttbar_file.Get('Selection/'+i),-1.0)
+# 	ratio_to_fit.Rebin(30)
+# 	denominator_CR.Rebin(30)
+# 	ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
+# 	denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
+# 	ratio_to_fit.Divide(denominator_CR)
+# 	ratioc=TCanvas('ratio_SRdata_vs_'+i+'_c')
+# 	ratio_to_fit.Draw()
+# 	ratio_to_fit.Fit('pol1','','',900,3500)
+# 	ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
+# 	ratio_to_fit.Draw()
+# 	ratio_to_fit.Write()
+# 	ratioc.Write()
+# 	ratioc.SaveAs('pdf/ratio_SRdata_vs_'+i+'_c.pdf')
+
 f=open('fitresult.txt','w')
 for i in [
   #"zprimemass",  "zprimemassbtag",  "zprimemassnobtag",  "zprimemassbmass",  "zprimemassnobmass",
@@ -787,13 +788,13 @@ for i in [
  #"antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
  #"antibcsvCRmass_zprimemass",# "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
  #"antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
- "antibcsvCRbtag_zprimemass","antibcsvlooseCRbtag_zprimemass","antitpmassCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
+ "antibcsvCRbtag_zprimemass",#,"antibcsvlooseCRbtag_zprimemass","antitpmassCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
 #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass", 
  #"antibcsvCRnobtag_zprimemass",#  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
  #"bkg1",
- "bkg2",
- "bkg2up",
- "bkg2down",
+ "bkg2","bkg2_par",
+ # "bkg2up",
+ # "bkg2down",
  #"bkg2_par",
  #"bkg2up_par",
  #"bkg2down_par"
@@ -845,25 +846,26 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio_SRbtag_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	fitresult=ratio_to_fit.Fit('pol1','SE','',900,4000)
-	f.write('ratio_SRbtag_vs_'+i+'_c\n')
-	f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );\n')
-	f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );\n')
-	f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+'\n')
-	f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,1))+' '+'\n\n')
-	ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,4000)
+	fitresult=ratio_to_fit.Fit('pol1','SE','',900,3500)
+	if 'bkg' not in i:
+	 f.write('ratio_SRbtag_vs_'+i+'_c\n')
+	 f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );\n')
+	 f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );\n')
+	 f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+'\n')
+	 f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,1))+' '+'\n\n')
+	ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3500)
 	ratioup.SetParameter(0,fitresult.Parameter(0))
 	ratioup.SetParameter(1,fitresult.Parameter(1))
 	ratioup.SetParameter(2,fitresult.CovMatrix(0,0))
 	ratioup.SetParameter(3,fitresult.CovMatrix(1,1))
 	ratioup.SetParameter(4,fitresult.CovMatrix(1,0))
-	ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,4000)
+	ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3500)
 	ratiodown.SetParameter(0,fitresult.Parameter(0))
 	ratiodown.SetParameter(1,fitresult.Parameter(1))
 	ratiodown.SetParameter(2,fitresult.CovMatrix(0,0))
 	ratiodown.SetParameter(3,fitresult.CovMatrix(1,1))
 	ratiodown.SetParameter(4,fitresult.CovMatrix(1,0))
-	ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
 	ratio_to_fit.Draw()
 	ratioup.SetLineStyle(2)
 	ratiodown.SetLineStyle(2)
@@ -884,16 +886,17 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio2_SRbtag_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	fitresult=ratio_to_fit.Fit('pol2','SE','',900,4000)
-	f.write('ratio2_SRbtag_vs_'+i+'_c\n')
-	f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' ); \n')
-	f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+
+	fitresult=ratio_to_fit.Fit('pol2','SE','',900,3500)
+	if 'bkg' not in i:
+	 f.write('ratio2_SRbtag_vs_'+i+'_c\n')
+	 f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' ); \n')
+	 f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+
 		' ) + 2 * mzp * mzp * ( '+str(fitresult.CovMatrix(0,2))+' ) + 2 * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(1,2))+' ) + mzp * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(2,2))+' ) );\n')
-	f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+' '+str(fitresult.ParError(2))+'\n')
-	f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(2,2))+' '+
+	 f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+' '+str(fitresult.ParError(2))+'\n')
+	 f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(2,2))+' '+
 					str(fitresult.CovMatrix(0,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,2))+' '+
 					str(fitresult.CovMatrix(2,0))+' '+str(fitresult.CovMatrix(1,2))+' '+str(fitresult.CovMatrix(2,1))+'\n\n')
-	ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,4000)
+	ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3500)
 	ratioup.SetParameter(0,fitresult.Parameter(0))
 	ratioup.SetParameter(1,fitresult.Parameter(1))
 	ratioup.SetParameter(2,fitresult.Parameter(2))
@@ -903,7 +906,7 @@ for i in [
 	ratioup.SetParameter(6,fitresult.CovMatrix(2,0))
 	ratioup.SetParameter(7,fitresult.CovMatrix(1,2))
 	ratioup.SetParameter(8,fitresult.CovMatrix(2,2))
-	ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,4000)
+	ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3500)
 	ratiodown.SetParameter(0,fitresult.Parameter(0))
 	ratiodown.SetParameter(1,fitresult.Parameter(1))
 	ratiodown.SetParameter(2,fitresult.Parameter(2))
@@ -913,7 +916,7 @@ for i in [
 	ratiodown.SetParameter(6,fitresult.CovMatrix(2,0))
 	ratiodown.SetParameter(7,fitresult.CovMatrix(1,2))
 	ratiodown.SetParameter(8,fitresult.CovMatrix(2,2))
-	ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
 	ratio_to_fit.Draw()
 	ratioup.SetLineStyle(2)
 	ratiodown.SetLineStyle(2)
@@ -923,55 +926,55 @@ for i in [
 	ratioc.Write()
 	ratioc.SaveAs('pdf/ratio2_SRbtag_vs_'+i+'_c.pdf')
 
-	make_ratioplot2(
-		name='SRbtagdata_vs_'+i,
-		ttbar_file=0,
-		qcd_file=data_file,
-		data_file=data_file,
-		signal_files=[],
-		histo='Selection/zprimemassbtag', 
-		histo_qcd='Selection/'+i,
-		histo_signal='Selection/'+i,
-		rebin=rebinna,
-		minx=minx,
-		maxx=maxx,
-		miny=0,
-		maxy=0,
-		minratio=0,
-		maxratio=0,
-		logy=False,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalWB_legendnames,
-        separate_legend=True,
-        signal_zoom=2,
-        fixratio=True,
-        normalize=True,
-        qcd_legend='Control region (QCD MC)',
-        data_legend='Signal region (QCD MC)'
-        #signal_colors=[1,2,3,1,2,3,1,2]
-        )
+	# make_ratioplot2(
+	# 	name='SRbtagdata_vs_'+i,
+	# 	ttbar_file=0,
+	# 	qcd_file=data_file,
+	# 	data_file=data_file,
+	# 	signal_files=[],
+	# 	histo='Selection/zprimemassbtag', 
+	# 	histo_qcd='Selection/'+i,
+	# 	histo_signal='Selection/'+i,
+	# 	rebin=rebinna,
+	# 	minx=minx,
+	# 	maxx=maxx,
+	# 	miny=0,
+	# 	maxy=0,
+	# 	minratio=0,
+	# 	maxratio=0,
+	# 	logy=False,
+ #        xtitle='',
+ #        ytitle='Events',
+ #        textsizefactor=1,
+ #        signal_legend=signalWB_legendnames,
+ #        separate_legend=True,
+ #        signal_zoom=2,
+ #        fixratio=True,
+ #        normalize=True,
+ #        qcd_legend='Control region (QCD MC)',
+ #        data_legend='Signal region (QCD MC)'
+ #        #signal_colors=[1,2,3,1,2,3,1,2]
+ #        )
 
-	gStyle.SetOptFit(1111)
-	ratio_to_fit=data_file.Get('Selection/zprimemassbtag').Clone('ratio_SRbtagdata_vs_'+i)
-	denominator_CR=data_file.Get('Selection/'+i).Clone()
-	outfile.cd()
-	ratio_to_fit.Add(ttbar_file.Get('Selection/zprimemassbtag'),-1.0)
-	denominator_CR.Add(ttbar_file.Get('Selection/'+i),-1.0)
-	ratio_to_fit.Rebin(30)
-	denominator_CR.Rebin(30)
-	ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
-	denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
-	ratio_to_fit.Divide(denominator_CR)
-	ratioc=TCanvas('ratio_SRbtagdata_vs_'+i+'_c')
-	ratio_to_fit.Draw()
-	ratio_to_fit.Fit('pol1','','',900,4000)
-	ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
-	ratio_to_fit.Draw()
-	ratio_to_fit.Write()
-	ratioc.Write()
-	ratioc.SaveAs('pdf/ratio_SRbtagdata_vs_'+i+'_c.pdf')
+	# gStyle.SetOptFit(1111)
+	# ratio_to_fit=data_file.Get('Selection/zprimemassbtag').Clone('ratio_SRbtagdata_vs_'+i)
+	# denominator_CR=data_file.Get('Selection/'+i).Clone()
+	# outfile.cd()
+	# ratio_to_fit.Add(ttbar_file.Get('Selection/zprimemassbtag'),-1.0)
+	# denominator_CR.Add(ttbar_file.Get('Selection/'+i),-1.0)
+	# ratio_to_fit.Rebin(30)
+	# denominator_CR.Rebin(30)
+	# ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
+	# denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
+	# ratio_to_fit.Divide(denominator_CR)
+	# ratioc=TCanvas('ratio_SRbtagdata_vs_'+i+'_c')
+	# ratio_to_fit.Draw()
+	# ratio_to_fit.Fit('pol1','','',900,3500)
+	# ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
+	# ratio_to_fit.Draw()
+	# ratio_to_fit.Write()
+	# ratioc.Write()
+	# ratioc.SaveAs('pdf/ratio_SRbtagdata_vs_'+i+'_c.pdf')
 
 
 
@@ -993,13 +996,13 @@ for i in [
  #"antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
  #"antibcsvCRmass_zprimemass",# "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
  #"antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
- "CA15_antibcsvCRbtag_zprimemass","antitpmassCRnobtag_zprimemass",#"CA15_antibcsvlooseCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
+ "CA15_antibcsvCRbtag_zprimemass",#,"antitpmassCRnobtag_zprimemass",#"CA15_antibcsvlooseCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
 #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass", 
  #"antibcsvCRnobtag_zprimemass",#  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
  #"bkg1",
- "bkg2",
- "bkg2up",
- "bkg2down",
+ "bkgfat2","bkgfat2_par",
+ # "bkg2up",
+ # "bkg2down",
  #"bkg2_par",
  #"bkg2up_par",
  #"bkg2down_par"
@@ -1051,25 +1054,26 @@ for i in [
   ratio_to_fit.Divide(denominator_CR)
   ratioc=TCanvas('CA15_ratio_SRbtag_vs_'+i+'_c')
   ratio_to_fit.Draw()
-  fitresult=ratio_to_fit.Fit('pol1','SE','',900,4000)
-  f.write('CA15_ratio_SRbtag_vs_'+i+'_c\n')
-  f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );\n')
-  f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );\n')
-  f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+'\n')
-  f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,1))+' '+'\n\n')
-  ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,4000)
+  fitresult=ratio_to_fit.Fit('pol1','SE','',900,3500)
+  if 'bkg' not in i:
+    f.write('CA15_ratio_SRbtag_vs_'+i+'_c\n')
+    f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );\n')
+    f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );\n')
+    f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+'\n')
+    f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,1))+' '+'\n\n')
+  ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3500)
   ratioup.SetParameter(0,fitresult.Parameter(0))
   ratioup.SetParameter(1,fitresult.Parameter(1))
   ratioup.SetParameter(2,fitresult.CovMatrix(0,0))
   ratioup.SetParameter(3,fitresult.CovMatrix(1,1))
   ratioup.SetParameter(4,fitresult.CovMatrix(1,0))
-  ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,4000)
+  ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3500)
   ratiodown.SetParameter(0,fitresult.Parameter(0))
   ratiodown.SetParameter(1,fitresult.Parameter(1))
   ratiodown.SetParameter(2,fitresult.CovMatrix(0,0))
   ratiodown.SetParameter(3,fitresult.CovMatrix(1,1))
   ratiodown.SetParameter(4,fitresult.CovMatrix(1,0))
-  ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
+  ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
   ratio_to_fit.Draw()
   ratioup.SetLineStyle(2)
   ratiodown.SetLineStyle(2)
@@ -1090,16 +1094,17 @@ for i in [
   ratio_to_fit.Divide(denominator_CR)
   ratioc=TCanvas('CA15_ratio2_SRbtag_vs_'+i+'_c')
   ratio_to_fit.Draw()
-  fitresult=ratio_to_fit.Fit('pol2','SE','',900,4000)
-  f.write('CA15_ratio2_SRbtag_vs_'+i+'_c\n')
-  f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' ); \n')
-  f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+
+  fitresult=ratio_to_fit.Fit('pol2','SE','',900,3500)
+  if 'bkg' not in i:
+    f.write('CA15_ratio2_SRbtag_vs_'+i+'_c\n')
+    f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' ); \n')
+    f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+
     ' ) + 2 * mzp * mzp * ( '+str(fitresult.CovMatrix(0,2))+' ) + 2 * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(1,2))+' ) + mzp * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(2,2))+' ) );\n')
-  f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+' '+str(fitresult.ParError(2))+'\n')
-  f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(2,2))+' '+
+    f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+' '+str(fitresult.ParError(2))+'\n')
+    f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(2,2))+' '+
           str(fitresult.CovMatrix(0,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,2))+' '+
           str(fitresult.CovMatrix(2,0))+' '+str(fitresult.CovMatrix(1,2))+' '+str(fitresult.CovMatrix(2,1))+'\n\n')
-  ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,4000)
+  ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3500)
   ratioup.SetParameter(0,fitresult.Parameter(0))
   ratioup.SetParameter(1,fitresult.Parameter(1))
   ratioup.SetParameter(2,fitresult.Parameter(2))
@@ -1109,7 +1114,7 @@ for i in [
   ratioup.SetParameter(6,fitresult.CovMatrix(2,0))
   ratioup.SetParameter(7,fitresult.CovMatrix(1,2))
   ratioup.SetParameter(8,fitresult.CovMatrix(2,2))
-  ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,4000)
+  ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3500)
   ratiodown.SetParameter(0,fitresult.Parameter(0))
   ratiodown.SetParameter(1,fitresult.Parameter(1))
   ratiodown.SetParameter(2,fitresult.Parameter(2))
@@ -1119,7 +1124,7 @@ for i in [
   ratiodown.SetParameter(6,fitresult.CovMatrix(2,0))
   ratiodown.SetParameter(7,fitresult.CovMatrix(1,2))
   ratiodown.SetParameter(8,fitresult.CovMatrix(2,2))
-  ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
+  ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
   ratio_to_fit.Draw()
   ratioup.SetLineStyle(2)
   ratiodown.SetLineStyle(2)
@@ -1149,10 +1154,10 @@ for i in [
  #"antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
  #"antibcsvCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
 #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass", 
- "antibcsvCRnobtag_zprimemass", "antibcsvlooseCRnobtag_zprimemass",# "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
- "bkg1",#"bkg2","bkg12",
- "bkg1up",#"bkg2up","bkg12up",
- "bkg1down",#"bkg2down","bkg12down",
+ "antibcsvCRnobtag_zprimemass", #"antibcsvlooseCRnobtag_zprimemass",# "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
+ "bkg1","bkg1_par",#"bkg2","bkg12",
+ #"bkg1up",#"bkg2up","bkg12up",
+ #"bkg1down",#"bkg2down","bkg12down",
  #"bkg1_par",#"bkg2","bkg12",
  #"bkg1up_par",#"bkg2up","bkg12up",
  #"bkg1down_par",
@@ -1204,25 +1209,26 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio_SRnobtag_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	fitresult=ratio_to_fit.Fit('pol1','SE','',900,4000)
-	f.write('ratio_SRnobtag_vs_'+i+'_c\n')
-	f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );\n')
-	f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );\n')
-	f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+'\n')
-	f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,1))+' '+'\n\n')
-	ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,4000)
+	fitresult=ratio_to_fit.Fit('pol1','SE','',900,3500)
+	if 'bkg' not in i:
+	 f.write('ratio_SRnobtag_vs_'+i+'_c\n')
+	 f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );\n')
+	 f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );\n')
+	 f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+'\n')
+	 f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,1))+' '+'\n\n')
+	ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3500)
 	ratioup.SetParameter(0,fitresult.Parameter(0))
 	ratioup.SetParameter(1,fitresult.Parameter(1))
 	ratioup.SetParameter(2,fitresult.CovMatrix(0,0))
 	ratioup.SetParameter(3,fitresult.CovMatrix(1,1))
 	ratioup.SetParameter(4,fitresult.CovMatrix(1,0))
-	ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,4000)
+	ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3500)
 	ratiodown.SetParameter(0,fitresult.Parameter(0))
 	ratiodown.SetParameter(1,fitresult.Parameter(1))
 	ratiodown.SetParameter(2,fitresult.CovMatrix(0,0))
 	ratiodown.SetParameter(3,fitresult.CovMatrix(1,1))
 	ratiodown.SetParameter(4,fitresult.CovMatrix(1,0))
-	ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
 	ratio_to_fit.Draw()
 	ratioup.SetLineStyle(2)
 	ratiodown.SetLineStyle(2)
@@ -1243,16 +1249,17 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio2_SRnobtag_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	fitresult=ratio_to_fit.Fit('pol2','SE','',900,4000)
-	f.write('ratio2_SRnobtag_vs_'+i+'_c\n')
-	f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' ); \n')
-	f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+
+	fitresult=ratio_to_fit.Fit('pol2','SE','',900,3500)
+	if 'bkg' not in i:
+	 f.write('ratio2_SRnobtag_vs_'+i+'_c\n')
+	 f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' ); \n')
+	 f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+
 		' ) + 2 * mzp * mzp * ( '+str(fitresult.CovMatrix(0,2))+' ) + 2 * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(1,2))+' ) + mzp * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(2,2))+' ) );\n')
-	f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+' '+str(fitresult.ParError(2))+'\n')
-	f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(2,2))+' '+
+	 f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+' '+str(fitresult.ParError(2))+'\n')
+	 f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(2,2))+' '+
 					str(fitresult.CovMatrix(0,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,2))+' '+
 					str(fitresult.CovMatrix(2,0))+' '+str(fitresult.CovMatrix(1,2))+' '+str(fitresult.CovMatrix(2,1))+'\n\n')
-	ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,4000)
+	ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3500)
 	ratioup.SetParameter(0,fitresult.Parameter(0))
 	ratioup.SetParameter(1,fitresult.Parameter(1))
 	ratioup.SetParameter(2,fitresult.Parameter(2))
@@ -1262,7 +1269,7 @@ for i in [
 	ratioup.SetParameter(6,fitresult.CovMatrix(2,0))
 	ratioup.SetParameter(7,fitresult.CovMatrix(1,2))
 	ratioup.SetParameter(8,fitresult.CovMatrix(2,2))
-	ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,4000)
+	ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3500)
 	ratiodown.SetParameter(0,fitresult.Parameter(0))
 	ratiodown.SetParameter(1,fitresult.Parameter(1))
 	ratiodown.SetParameter(2,fitresult.Parameter(2))
@@ -1272,7 +1279,7 @@ for i in [
 	ratiodown.SetParameter(6,fitresult.CovMatrix(2,0))
 	ratiodown.SetParameter(7,fitresult.CovMatrix(1,2))
 	ratiodown.SetParameter(8,fitresult.CovMatrix(2,2))
-	ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
+	ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
 	ratio_to_fit.Draw()
 	ratioup.SetLineStyle(2)
 	ratiodown.SetLineStyle(2)
@@ -1282,55 +1289,55 @@ for i in [
 	ratioc.Write()
 	ratioc.SaveAs('pdf/ratio2_SRnobtag_vs_'+i+'_c.pdf')
 
-	make_ratioplot2(
-		name='SRnobtagdata_vs_'+i,
-		ttbar_file=0,
-		qcd_file=data_file,
-		data_file=data_file,
-		signal_files=[],
-		histo='Selection/zprimemassnobtag', 
-		histo_qcd='Selection/'+i,
-		histo_signal='Selection/'+i,
-		rebin=rebinna,
-		minx=minx,
-		maxx=maxx,
-		miny=0,
-		maxy=0,
-		minratio=0,
-		maxratio=0,
-		logy=False,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalWB_legendnames,
-        separate_legend=True,
-        signal_zoom=2,
-        fixratio=True,
-        normalize=True,
-        qcd_legend='Control region (QCD MC)',
-        data_legend='Signal region (QCD MC)'
-        #signal_colors=[1,2,3,1,2,3,1,2]
-        )
+	# make_ratioplot2(
+	# 	name='SRnobtagdata_vs_'+i,
+	# 	ttbar_file=0,
+	# 	qcd_file=data_file,
+	# 	data_file=data_file,
+	# 	signal_files=[],
+	# 	histo='Selection/zprimemassnobtag', 
+	# 	histo_qcd='Selection/'+i,
+	# 	histo_signal='Selection/'+i,
+	# 	rebin=rebinna,
+	# 	minx=minx,
+	# 	maxx=maxx,
+	# 	miny=0,
+	# 	maxy=0,
+	# 	minratio=0,
+	# 	maxratio=0,
+	# 	logy=False,
+ #        xtitle='',
+ #        ytitle='Events',
+ #        textsizefactor=1,
+ #        signal_legend=signalWB_legendnames,
+ #        separate_legend=True,
+ #        signal_zoom=2,
+ #        fixratio=True,
+ #        normalize=True,
+ #        qcd_legend='Control region (QCD MC)',
+ #        data_legend='Signal region (QCD MC)'
+ #        #signal_colors=[1,2,3,1,2,3,1,2]
+ #        )
 
-	gStyle.SetOptFit(1111)
-	ratio_to_fit=data_file.Get('Selection/zprimemassnobtag').Clone('ratio_SRnobtagdata_vs_'+i)
-	denominator_CR=data_file.Get('Selection/'+i).Clone()
-	outfile.cd()
-	ratio_to_fit.Add(ttbar_file.Get('Selection/zprimemassnobtag'),-1.0)
-	denominator_CR.Add(ttbar_file.Get('Selection/'+i),-1.0)
-	ratio_to_fit.Rebin(30)
-	denominator_CR.Rebin(30)
-	ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
-	denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
-	ratio_to_fit.Divide(denominator_CR)
-	ratioc=TCanvas('ratio_SRnobtagdata_vs_'+i+'_c')
-	ratio_to_fit.Draw()
-	ratio_to_fit.Fit('pol1','','',900,4000)
-	ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
-	ratio_to_fit.Draw()
-	ratio_to_fit.Write()
-	ratioc.Write()
-	ratioc.SaveAs('pdf/ratio_SRnobtagdata_vs_'+i+'_c.pdf')
+	# gStyle.SetOptFit(1111)
+	# ratio_to_fit=data_file.Get('Selection/zprimemassnobtag').Clone('ratio_SRnobtagdata_vs_'+i)
+	# denominator_CR=data_file.Get('Selection/'+i).Clone()
+	# outfile.cd()
+	# ratio_to_fit.Add(ttbar_file.Get('Selection/zprimemassnobtag'),-1.0)
+	# denominator_CR.Add(ttbar_file.Get('Selection/'+i),-1.0)
+	# ratio_to_fit.Rebin(30)
+	# denominator_CR.Rebin(30)
+	# ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
+	# denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
+	# ratio_to_fit.Divide(denominator_CR)
+	# ratioc=TCanvas('ratio_SRnobtagdata_vs_'+i+'_c')
+	# ratio_to_fit.Draw()
+	# ratio_to_fit.Fit('pol1','','',900,3500)
+	# ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
+	# ratio_to_fit.Draw()
+	# ratio_to_fit.Write()
+	# ratioc.Write()
+	# ratioc.SaveAs('pdf/ratio_SRnobtagdata_vs_'+i+'_c.pdf')
 
 
 
@@ -1361,9 +1368,9 @@ for i in [
  #"antibcsvCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
 #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass", 
  "CA15_antibcsvCRnobtag_zprimemass", #"CA15_antibcsvlooseCRnobtag_zprimemass",# "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
- "bkg1",#"bkg2","bkg12",
- "bkg1up",#"bkg2up","bkg12up",
- "bkg1down",#"bkg2down","bkg12down",
+ "bkgfat1","bkgfat1_par",#"bkg2","bkg12",
+ #"bkg1up",#"bkg2up","bkg12up",
+ #"bkg1down",#"bkg2down","bkg12down",
  #"bkg1_par",#"bkg2","bkg12",
  #"bkg1up_par",#"bkg2up","bkg12up",
  #"bkg1down_par",
@@ -1415,25 +1422,26 @@ for i in [
   ratio_to_fit.Divide(denominator_CR)
   ratioc=TCanvas('CA15_ratio_SRnobtag_vs_'+i+'_c')
   ratio_to_fit.Draw()
-  fitresult=ratio_to_fit.Fit('pol1','SE','',900,4000)
-  f.write('CA15_ratio_SRnobtag_vs_'+i+'_c\n')
-  f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );\n')
-  f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );\n')
-  f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+'\n')
-  f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,1))+' '+'\n\n')
-  ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,4000)
+  fitresult=ratio_to_fit.Fit('pol1','SE','',900,3500)
+  if 'bkg' not in i:
+    f.write('CA15_ratio_SRnobtag_vs_'+i+'_c\n')
+    f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );\n')
+    f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );\n')
+    f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+'\n')
+    f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,1))+' '+'\n\n')
+  ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3500)
   ratioup.SetParameter(0,fitresult.Parameter(0))
   ratioup.SetParameter(1,fitresult.Parameter(1))
   ratioup.SetParameter(2,fitresult.CovMatrix(0,0))
   ratioup.SetParameter(3,fitresult.CovMatrix(1,1))
   ratioup.SetParameter(4,fitresult.CovMatrix(1,0))
-  ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,4000)
+  ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3500)
   ratiodown.SetParameter(0,fitresult.Parameter(0))
   ratiodown.SetParameter(1,fitresult.Parameter(1))
   ratiodown.SetParameter(2,fitresult.CovMatrix(0,0))
   ratiodown.SetParameter(3,fitresult.CovMatrix(1,1))
   ratiodown.SetParameter(4,fitresult.CovMatrix(1,0))
-  ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
+  ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
   ratio_to_fit.Draw()
   ratioup.SetLineStyle(2)
   ratiodown.SetLineStyle(2)
@@ -1454,16 +1462,17 @@ for i in [
   ratio_to_fit.Divide(denominator_CR)
   ratioc=TCanvas('CA15_ratio2_SRnobtag_vs_'+i+'_c')
   ratio_to_fit.Draw()
-  fitresult=ratio_to_fit.Fit('pol2','SE','',900,4000)
-  f.write('CA15_ratio2_SRnobtag_vs_'+i+'_c\n')
-  f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' ); \n')
-  f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+
+  fitresult=ratio_to_fit.Fit('pol2','SE','',900,3500)
+  if 'bkg' not in i:
+    f.write('CA15_ratio2_SRnobtag_vs_'+i+'_c\n')
+    f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' ); \n')
+    f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+
     ' ) + 2 * mzp * mzp * ( '+str(fitresult.CovMatrix(0,2))+' ) + 2 * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(1,2))+' ) + mzp * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(2,2))+' ) );\n')
-  f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+' '+str(fitresult.ParError(2))+'\n')
-  f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(2,2))+' '+
+    f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+' '+str(fitresult.ParError(2))+'\n')
+    f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(2,2))+' '+
           str(fitresult.CovMatrix(0,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,2))+' '+
           str(fitresult.CovMatrix(2,0))+' '+str(fitresult.CovMatrix(1,2))+' '+str(fitresult.CovMatrix(2,1))+'\n\n')
-  ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,4000)
+  ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3500)
   ratioup.SetParameter(0,fitresult.Parameter(0))
   ratioup.SetParameter(1,fitresult.Parameter(1))
   ratioup.SetParameter(2,fitresult.Parameter(2))
@@ -1473,7 +1482,7 @@ for i in [
   ratioup.SetParameter(6,fitresult.CovMatrix(2,0))
   ratioup.SetParameter(7,fitresult.CovMatrix(1,2))
   ratioup.SetParameter(8,fitresult.CovMatrix(2,2))
-  ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,4000)
+  ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3500)
   ratiodown.SetParameter(0,fitresult.Parameter(0))
   ratiodown.SetParameter(1,fitresult.Parameter(1))
   ratiodown.SetParameter(2,fitresult.Parameter(2))
@@ -1483,7 +1492,7 @@ for i in [
   ratiodown.SetParameter(6,fitresult.CovMatrix(2,0))
   ratiodown.SetParameter(7,fitresult.CovMatrix(1,2))
   ratiodown.SetParameter(8,fitresult.CovMatrix(2,2))
-  ratio_to_fit.GetXaxis().SetRangeUser(900,4000)
+  ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
   ratio_to_fit.Draw()
   ratioup.SetLineStyle(2)
   ratiodown.SetLineStyle(2)
@@ -1766,252 +1775,252 @@ rebinna=10
 signalzoom=1
 minx=0
 maxx=0
-make_ratioplot(
-		name='2_btag',
-		ttbar_file=ttbar_file,
-		qcd_file=outfile,
-		data_file=data_file,
-		signal_files=signal_files_short,
-		histo="Selection/zprimemassbtag", 
-		histo_qcd='qcdbkgbtag',
-		histo_signal="Selection/zprimemassbtag",
-		rebin=rebinna,
-		minx=minx,
-		maxx=maxx,
-		miny=0,
-		maxy=0,
-		minratio=0,
-		maxratio=0,
-		logy=True,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalWB_legendnames_short,
-        separate_legend=True,
-        signal_zoom=signalzoom,
-        qcd_legend='QCD from sideband',
-        fixratio=True,
-        signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
-        sysdict=systypes,
-        bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
-        )
-make_ratioplot(
-		name='1_btag',
-		ttbar_file=ttbar_file,
-		qcd_file=outfile,
-		data_file=data_file,
-		signal_files=signal_files_short,
-		histo="Selection/zprimemassnobtag", 
-		histo_qcd='qcdbkgnobtag',
-		histo_signal="Selection/zprimemassnobtag",
-		rebin=rebinna,
-		minx=minx,
-		maxx=maxx,
-		miny=0,
-		maxy=0,
-		minratio=0,
-		maxratio=0,
-		logy=True,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalWB_legendnames_short,
-        separate_legend=True,
-        signal_zoom=signalzoom,
-        qcd_legend='QCD from sideband',
-        fixratio=True,
-        signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
-        sysdict=systypes,
-        bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
-        )
+# make_ratioplot(
+# 		name='2_btag',
+# 		ttbar_file=ttbar_file,
+# 		qcd_file=outfile,
+# 		data_file=data_file,
+# 		signal_files=signal_files_short,
+# 		histo="Selection/zprimemassbtag", 
+# 		histo_qcd='qcdbkgbtag',
+# 		histo_signal="Selection/zprimemassbtag",
+# 		rebin=rebinna,
+# 		minx=minx,
+# 		maxx=maxx,
+# 		miny=0,
+# 		maxy=0,
+# 		minratio=0,
+# 		maxratio=0,
+# 		logy=True,
+#         xtitle='',
+#         ytitle='Events',
+#         textsizefactor=1,
+#         signal_legend=signalWB_legendnames_short,
+#         separate_legend=True,
+#         signal_zoom=signalzoom,
+#         qcd_legend='QCD from sideband',
+#         fixratio=True,
+#         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+#         dosys=False,
+#         sysdict=systypes,
+#         bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
+#         )
+# make_ratioplot(
+# 		name='1_btag',
+# 		ttbar_file=ttbar_file,
+# 		qcd_file=outfile,
+# 		data_file=data_file,
+# 		signal_files=signal_files_short,
+# 		histo="Selection/zprimemassnobtag", 
+# 		histo_qcd='qcdbkgnobtag',
+# 		histo_signal="Selection/zprimemassnobtag",
+# 		rebin=rebinna,
+# 		minx=minx,
+# 		maxx=maxx,
+# 		miny=0,
+# 		maxy=0,
+# 		minratio=0,
+# 		maxratio=0,
+# 		logy=True,
+#         xtitle='',
+#         ytitle='Events',
+#         textsizefactor=1,
+#         signal_legend=signalWB_legendnames_short,
+#         separate_legend=True,
+#         signal_zoom=signalzoom,
+#         qcd_legend='QCD from sideband',
+#         fixratio=True,
+#         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+#         dosys=False,
+#         sysdict=systypes,
+#         bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
+#         )
 
 
-make_ratioplot(
-    name='2_btagTT',
-    ttbar_file=ttbar_file,
-    qcd_file=outfile,
-    data_file=data_file,
-    signal_files=signalTTreco_files,
-    histo="Selection/zprimemassbtag", 
-    histo_qcd='qcdbkgbtag',
-    histo_signal="Selection/zprimemassbtag",
-    rebin=rebinna,
-    minx=minx,
-    maxx=maxx,
-    miny=0,
-    maxy=0,
-    minratio=0,
-    maxratio=0,
-    logy=True,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalTT_legendnames,
-        separate_legend=True,
-        signal_zoom=signalzoom,
-        qcd_legend='QCD from sideband',
-        fixratio=True,
-        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
-        sysdict=systypes,
-        bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
-        )
-make_ratioplot(
-    name='1_btagTT',
-    ttbar_file=ttbar_file,
-    qcd_file=outfile,
-    data_file=data_file,
-    signal_files=signalTTreco_files,
-    histo="Selection/zprimemassnobtag", 
-    histo_qcd='qcdbkgnobtag',
-    histo_signal="Selection/zprimemassnobtag",
-    rebin=rebinna,
-    minx=minx,
-    maxx=maxx,
-    miny=0,
-    maxy=0,
-    minratio=0,
-    maxratio=0,
-    logy=True,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalTT_legendnames,
-        separate_legend=True,
-        signal_zoom=signalzoom,
-        qcd_legend='QCD from sideband',
-        fixratio=True,
-        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
-        sysdict=systypes,
-        bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
-        )
+# make_ratioplot(
+#     name='2_btagTT',
+#     ttbar_file=ttbar_file,
+#     qcd_file=outfile,
+#     data_file=data_file,
+#     signal_files=signalTTreco_files,
+#     histo="Selection/zprimemassbtag", 
+#     histo_qcd='qcdbkgbtag',
+#     histo_signal="Selection/zprimemassbtag",
+#     rebin=rebinna,
+#     minx=minx,
+#     maxx=maxx,
+#     miny=0,
+#     maxy=0,
+#     minratio=0,
+#     maxratio=0,
+#     logy=True,
+#         xtitle='',
+#         ytitle='Events',
+#         textsizefactor=1,
+#         signal_legend=signalTT_legendnames,
+#         separate_legend=True,
+#         signal_zoom=signalzoom,
+#         qcd_legend='QCD from sideband',
+#         fixratio=True,
+#         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+#         dosys=False,
+#         sysdict=systypes,
+#         bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
+#         )
+# make_ratioplot(
+#     name='1_btagTT',
+#     ttbar_file=ttbar_file,
+#     qcd_file=outfile,
+#     data_file=data_file,
+#     signal_files=signalTTreco_files,
+#     histo="Selection/zprimemassnobtag", 
+#     histo_qcd='qcdbkgnobtag',
+#     histo_signal="Selection/zprimemassnobtag",
+#     rebin=rebinna,
+#     minx=minx,
+#     maxx=maxx,
+#     miny=0,
+#     maxy=0,
+#     minratio=0,
+#     maxratio=0,
+#     logy=True,
+#         xtitle='',
+#         ytitle='Events',
+#         textsizefactor=1,
+#         signal_legend=signalTT_legendnames,
+#         separate_legend=True,
+#         signal_zoom=signalzoom,
+#         qcd_legend='QCD from sideband',
+#         fixratio=True,
+#         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+#         dosys=False,
+#         sysdict=systypes,
+#         bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
+#         )
 
-make_ratioplot(
-    name='2_btagTTNOLOG',
-    ttbar_file=ttbar_file,
-    qcd_file=outfile,
-    data_file=data_file,
-    signal_files=signalTTreco_files,
-    histo="Selection/zprimemassbtag", 
-    histo_qcd='qcdbkgbtag',
-    histo_signal="Selection/zprimemassbtag",
-    rebin=rebinna,
-    minx=minx,
-    maxx=maxx,
-    miny=0,
-    maxy=0,
-    minratio=0,
-    maxratio=0,
-    logy=False,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalTT_legendnames,
-        separate_legend=True,
-        signal_zoom=signalzoom,
-        qcd_legend='QCD from sideband',
-        fixratio=True,
-        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
-        sysdict=systypes,
-        bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
-        )
-make_ratioplot(
-    name='1_btagTTNOLOG',
-    ttbar_file=ttbar_file,
-    qcd_file=outfile,
-    data_file=data_file,
-    signal_files=signalTTreco_files,
-    histo="Selection/zprimemassnobtag", 
-    histo_qcd='qcdbkgnobtag',
-    histo_signal="Selection/zprimemassnobtag",
-    rebin=rebinna,
-    minx=minx,
-    maxx=maxx,
-    miny=0,
-    maxy=0,
-    minratio=0,
-    maxratio=0,
-    logy=False,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalTT_legendnames,
-        separate_legend=True,
-        signal_zoom=signalzoom,
-        qcd_legend='QCD from sideband',
-        fixratio=True,
-        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
-        sysdict=systypes,
-        bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
-        )
+# make_ratioplot(
+#     name='2_btagTTNOLOG',
+#     ttbar_file=ttbar_file,
+#     qcd_file=outfile,
+#     data_file=data_file,
+#     signal_files=signalTTreco_files,
+#     histo="Selection/zprimemassbtag", 
+#     histo_qcd='qcdbkgbtag',
+#     histo_signal="Selection/zprimemassbtag",
+#     rebin=rebinna,
+#     minx=minx,
+#     maxx=maxx,
+#     miny=0,
+#     maxy=0,
+#     minratio=0,
+#     maxratio=0,
+#     logy=False,
+#         xtitle='',
+#         ytitle='Events',
+#         textsizefactor=1,
+#         signal_legend=signalTT_legendnames,
+#         separate_legend=True,
+#         signal_zoom=signalzoom,
+#         qcd_legend='QCD from sideband',
+#         fixratio=True,
+#         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+#         dosys=False,
+#         sysdict=systypes,
+#         bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
+#         )
+# make_ratioplot(
+#     name='1_btagTTNOLOG',
+#     ttbar_file=ttbar_file,
+#     qcd_file=outfile,
+#     data_file=data_file,
+#     signal_files=signalTTreco_files,
+#     histo="Selection/zprimemassnobtag", 
+#     histo_qcd='qcdbkgnobtag',
+#     histo_signal="Selection/zprimemassnobtag",
+#     rebin=rebinna,
+#     minx=minx,
+#     maxx=maxx,
+#     miny=0,
+#     maxy=0,
+#     minratio=0,
+#     maxratio=0,
+#     logy=False,
+#         xtitle='',
+#         ytitle='Events',
+#         textsizefactor=1,
+#         signal_legend=signalTT_legendnames,
+#         separate_legend=True,
+#         signal_zoom=signalzoom,
+#         qcd_legend='QCD from sideband',
+#         fixratio=True,
+#         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+#         dosys=False,
+#         sysdict=systypes,
+#         bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
+#         )
 
 
 
-make_ratioplot(
-    name='2_btagALL',
-    ttbar_file=ttbar_file,
-    qcd_file=outfile,
-    data_file=data_file,
-    signal_files=signal_files,
-    histo="Selection/zprimemassbtag", 
-    histo_qcd='qcdbkgbtag',
-    histo_signal="Selection/zprimemassbtag",
-    rebin=rebinna,
-    minx=minx,
-    maxx=maxx,
-    miny=0,
-    maxy=0,
-    minratio=0,
-    maxratio=0,
-    logy=True,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalWB_legendnames,
-        separate_legend=True,
-        signal_zoom=signalzoom,
-        qcd_legend='QCD from sideband',
-        fixratio=True,
-        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
-        sysdict=systypes,
-        bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
-        )
-make_ratioplot(
-    name='1_btagALL',
-    ttbar_file=ttbar_file,
-    qcd_file=outfile,
-    data_file=data_file,
-    signal_files=signal_files,
-    histo="Selection/zprimemassnobtag", 
-    histo_qcd='qcdbkgnobtag',
-    histo_signal="Selection/zprimemassnobtag",
-    rebin=rebinna,
-    minx=minx,
-    maxx=maxx,
-    miny=0,
-    maxy=0,
-    minratio=0,
-    maxratio=0,
-    logy=True,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalWB_legendnames,
-        separate_legend=True,
-        signal_zoom=signalzoom,
-        qcd_legend='QCD from sideband',
-        fixratio=True,
-        #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
-        sysdict=systypes,
-        bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
-        )
+# make_ratioplot(
+#     name='2_btagALL',
+#     ttbar_file=ttbar_file,
+#     qcd_file=outfile,
+#     data_file=data_file,
+#     signal_files=signal_files,
+#     histo="Selection/zprimemassbtag", 
+#     histo_qcd='qcdbkgbtag',
+#     histo_signal="Selection/zprimemassbtag",
+#     rebin=rebinna,
+#     minx=minx,
+#     maxx=maxx,
+#     miny=0,
+#     maxy=0,
+#     minratio=0,
+#     maxratio=0,
+#     logy=True,
+#         xtitle='',
+#         ytitle='Events',
+#         textsizefactor=1,
+#         signal_legend=signalWB_legendnames,
+#         separate_legend=True,
+#         signal_zoom=signalzoom,
+#         qcd_legend='QCD from sideband',
+#         fixratio=True,
+#         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+#         dosys=False,
+#         sysdict=systypes,
+#         bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
+#         )
+# make_ratioplot(
+#     name='1_btagALL',
+#     ttbar_file=ttbar_file,
+#     qcd_file=outfile,
+#     data_file=data_file,
+#     signal_files=signal_files,
+#     histo="Selection/zprimemassnobtag", 
+#     histo_qcd='qcdbkgnobtag',
+#     histo_signal="Selection/zprimemassnobtag",
+#     rebin=rebinna,
+#     minx=minx,
+#     maxx=maxx,
+#     miny=0,
+#     maxy=0,
+#     minratio=0,
+#     maxratio=0,
+#     logy=True,
+#         xtitle='',
+#         ytitle='Events',
+#         textsizefactor=1,
+#         signal_legend=signalWB_legendnames,
+#         separate_legend=True,
+#         signal_zoom=signalzoom,
+#         qcd_legend='QCD from sideband',
+#         fixratio=True,
+#         #signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+#         dosys=False,
+#         sysdict=systypes,
+#         bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
+#         )
 
 
 
@@ -2105,24 +2114,32 @@ for names in [
 ['Selection/bkgloose2_par','Selection/CA15_zprimemassbtag','parabolaloose2','Selection/bkgloose2down_par_fit','Selection/bkgloose2up_par_fit','Selection/bkgloose2'],
 ]:
   qcdbkg=data_file.Get(names[0]).Clone(names[2]+'_bkg')
-  blow=qcdbkg.GetXaxis().FindFixBin(500.0)
-  bhigh=qcdbkg.GetXaxis().FindFixBin(4000.0)
+  blow=qcdbkg.GetXaxis().FindFixBin(900)
+  bhigh=qcdbkg.GetXaxis().FindFixBin(3500)
   qcdbkg.Add(ttbar_file.Get(names[0]).Clone(),-1.0)
   dratio=data_file.Get(names[1]).Clone()
   dratio.Add(ttbar_file.Get(names[1]),-1.0)
-  qcdsf=dratio.Integral(blow,bhigh)/qcdbkg.Integral(blow,bhigh)
+  qcdsf=dratio.Integral(blow,bhigh)/qcdbkg.Integral(blow,bhigh) 
   
-  qcdbkg.Scale(qcdsf)
-  qcdbkg.Write()
-
   qcdbkg_down=data_file.Get(names[3]).Clone(names[2]+'_bkgdown')
   qcdbkg_up=data_file.Get(names[4]).Clone(names[2]+'_bkgup')
 
   qcdbkg_down.Add(ttbar_file.Get(names[3]).Clone(),-1.0)
   qcdbkg_up.Add(ttbar_file.Get(names[4]).Clone(),-1.0)
 
+  qcdbkg.Scale(qcdsf)
   qcdbkg_down.Scale(qcdsf)
   qcdbkg_up.Scale(qcdsf)
+
+  for imtt in range(1,qcdbkg.GetNbinsX()+1):
+  	if (qcdbkg.GetBinContent(imtt)<0):
+  		qcdbkg.SetBinContent(imtt,0)
+  	if (qcdbkg_down.GetBinContent(imtt)<0):
+  		qcdbkg_down.SetBinContent(imtt,0)
+  	if (qcdbkg_up.GetBinContent(imtt)<0):
+  		qcdbkg_up.SetBinContent(imtt,0)
+
+	qcdbkg.Write()
   qcdbkg_down.Write()
   qcdbkg_up.Write()
 
@@ -2137,8 +2154,8 @@ for names in [
     histo_qcd=names[2]+'_bkg',
     histo_signal=names[1],
     rebin=rebinna,
-    minx=minx,
-    maxx=maxx,
+    minx=500,
+    maxx=3500,
     miny=0,
     maxy=0,
     minratio=0,
@@ -2219,7 +2236,7 @@ for i in signalHT_names:
 dotheta=True
 if dotheta:
   rebinna=10
-  runList=[0,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,4000,4000]
+  runList=[0,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3500,4000]
   runLen=len(runList)-1
   runArray = array('d',runList)
   u='_'
