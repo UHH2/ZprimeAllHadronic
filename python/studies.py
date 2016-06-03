@@ -721,8 +721,8 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
 # 	ratio_to_fit.Divide(denominator_CR)
 # 	ratioc=TCanvas('ratio_SR_vs_'+i+'_c')
 # 	ratio_to_fit.Draw()
-# 	ratio_to_fit.Fit('pol1','','',900,3500)
-# 	ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
+# 	ratio_to_fit.Fit('pol1','','',500,4000)
+# 	ratio_to_fit.GetXaxis().SetRangeUser(500,4000)
 # 	ratio_to_fit.Draw()
 # 	ratio_to_fit.Write()
 # 	ratioc.Write()
@@ -770,14 +770,19 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
 # 	ratio_to_fit.Divide(denominator_CR)
 # 	ratioc=TCanvas('ratio_SRdata_vs_'+i+'_c')
 # 	ratio_to_fit.Draw()
-# 	ratio_to_fit.Fit('pol1','','',900,3500)
-# 	ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
+# 	ratio_to_fit.Fit('pol1','','',500,4000)
+# 	ratio_to_fit.GetXaxis().SetRangeUser(500,4000)
 # 	ratio_to_fit.Draw()
 # 	ratio_to_fit.Write()
 # 	ratioc.Write()
 # 	ratioc.SaveAs('pdf/ratio_SRdata_vs_'+i+'_c.pdf')
-
+formulas={}
 f=open('fitresult.txt','w')
+
+ratioList=[500,1100,1400,1700,2000,2300,2600,2900,3500,4000]
+ratioLen=len(ratioList)-1
+ratioArray = array('d',ratioList)
+
 for i in [
   #"zprimemass",  "zprimemassbtag",  "zprimemassnobtag",  "zprimemassbmass",  "zprimemassnobmass",
   #"ttbarCR_zprimemass",  "ttbarCR_zprimemassbtag",
@@ -839,33 +844,35 @@ for i in [
 	ratio_to_fit=qcd_file.Get('Selection/zprimemassbtag').Clone('ratio_SRbtag_vs_'+i)
 	denominator_CR=qcd_file.Get('Selection/'+i).Clone()
 	outfile.cd()
-	ratio_to_fit.Rebin(30)
-	denominator_CR.Rebin(30)
 	ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
 	denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
+	ratio_to_fit=ratio_to_fit.Rebin(ratioLen,i+"numrebinned",ratioArray)
+	denominator_CR=denominator_CR.Rebin(ratioLen,i+"denrebinned",ratioArray)
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio_SRbtag_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	fitresult=ratio_to_fit.Fit('pol1','SE','',900,3500)
+	fitresult=ratio_to_fit.Fit('pol1','SE','',500,4000)
 	if 'bkg' not in i:
 	 f.write('ratio_SRbtag_vs_'+i+'_c\n')
 	 f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );\n')
+	 formulas[i]=str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );'
 	 f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );\n')
+	 formulas[i+'_err']='sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );'
 	 f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+'\n')
 	 f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,1))+' '+'\n\n')
-	ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3500)
+	ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',500,4000)
 	ratioup.SetParameter(0,fitresult.Parameter(0))
 	ratioup.SetParameter(1,fitresult.Parameter(1))
 	ratioup.SetParameter(2,fitresult.CovMatrix(0,0))
 	ratioup.SetParameter(3,fitresult.CovMatrix(1,1))
 	ratioup.SetParameter(4,fitresult.CovMatrix(1,0))
-	ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3500)
+	ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',500,4000)
 	ratiodown.SetParameter(0,fitresult.Parameter(0))
 	ratiodown.SetParameter(1,fitresult.Parameter(1))
 	ratiodown.SetParameter(2,fitresult.CovMatrix(0,0))
 	ratiodown.SetParameter(3,fitresult.CovMatrix(1,1))
 	ratiodown.SetParameter(4,fitresult.CovMatrix(1,0))
-	ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
+	ratio_to_fit.GetXaxis().SetRangeUser(500,4000)
 	ratio_to_fit.Draw()
 	ratioup.SetLineStyle(2)
 	ratiodown.SetLineStyle(2)
@@ -879,24 +886,26 @@ for i in [
 	ratio_to_fit=qcd_file.Get('Selection/zprimemassbtag').Clone('ratio2_SRbtag_vs_'+i)
 	denominator_CR=qcd_file.Get('Selection/'+i).Clone()
 	outfile.cd()
-	ratio_to_fit.Rebin(30)
-	denominator_CR.Rebin(30)
 	ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
 	denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
+	ratio_to_fit=ratio_to_fit.Rebin(ratioLen,i+"numrebinned",ratioArray)
+	denominator_CR=denominator_CR.Rebin(ratioLen,i+"denrebinned",ratioArray)
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio2_SRbtag_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	fitresult=ratio_to_fit.Fit('pol2','SE','',900,3500)
+	fitresult=ratio_to_fit.Fit('pol2','SE','',500,4000)
 	if 'bkg' not in i:
 	 f.write('ratio2_SRbtag_vs_'+i+'_c\n')
 	 f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' ); \n')
+	 formulas[i+'_par']=str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' );'
 	 f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+
 		' ) + 2 * mzp * mzp * ( '+str(fitresult.CovMatrix(0,2))+' ) + 2 * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(1,2))+' ) + mzp * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(2,2))+' ) );\n')
+	 formulas[i+'_par_err']='sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) + 2 * mzp * mzp * ( '+str(fitresult.CovMatrix(0,2))+' ) + 2 * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(1,2))+' ) + mzp * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(2,2))+' ) );'
 	 f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+' '+str(fitresult.ParError(2))+'\n')
 	 f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(2,2))+' '+
 					str(fitresult.CovMatrix(0,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,2))+' '+
 					str(fitresult.CovMatrix(2,0))+' '+str(fitresult.CovMatrix(1,2))+' '+str(fitresult.CovMatrix(2,1))+'\n\n')
-	ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3500)
+	ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',500,4000)
 	ratioup.SetParameter(0,fitresult.Parameter(0))
 	ratioup.SetParameter(1,fitresult.Parameter(1))
 	ratioup.SetParameter(2,fitresult.Parameter(2))
@@ -906,7 +915,7 @@ for i in [
 	ratioup.SetParameter(6,fitresult.CovMatrix(2,0))
 	ratioup.SetParameter(7,fitresult.CovMatrix(1,2))
 	ratioup.SetParameter(8,fitresult.CovMatrix(2,2))
-	ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3500)
+	ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',500,4000)
 	ratiodown.SetParameter(0,fitresult.Parameter(0))
 	ratiodown.SetParameter(1,fitresult.Parameter(1))
 	ratiodown.SetParameter(2,fitresult.Parameter(2))
@@ -916,7 +925,7 @@ for i in [
 	ratiodown.SetParameter(6,fitresult.CovMatrix(2,0))
 	ratiodown.SetParameter(7,fitresult.CovMatrix(1,2))
 	ratiodown.SetParameter(8,fitresult.CovMatrix(2,2))
-	ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
+	ratio_to_fit.GetXaxis().SetRangeUser(500,4000)
 	ratio_to_fit.Draw()
 	ratioup.SetLineStyle(2)
 	ratiodown.SetLineStyle(2)
@@ -969,8 +978,8 @@ for i in [
 	# ratio_to_fit.Divide(denominator_CR)
 	# ratioc=TCanvas('ratio_SRbtagdata_vs_'+i+'_c')
 	# ratio_to_fit.Draw()
-	# ratio_to_fit.Fit('pol1','','',900,3500)
-	# ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
+	# ratio_to_fit.Fit('pol1','','',500,4000)
+	# ratio_to_fit.GetXaxis().SetRangeUser(500,4000)
 	# ratio_to_fit.Draw()
 	# ratio_to_fit.Write()
 	# ratioc.Write()
@@ -1047,33 +1056,35 @@ for i in [
   ratio_to_fit=qcd_file.Get('Selection/CA15_zprimemassbtag').Clone('CA15_ratio_SRbtag_vs_'+i)
   denominator_CR=qcd_file.Get('Selection/'+i).Clone()
   outfile.cd()
-  ratio_to_fit.Rebin(30)
-  denominator_CR.Rebin(30)
   ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
   denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
+  ratio_to_fit=ratio_to_fit.Rebin(ratioLen,i+"numrebinned",ratioArray)
+  denominator_CR=denominator_CR.Rebin(ratioLen,i+"denrebinned",ratioArray)
   ratio_to_fit.Divide(denominator_CR)
   ratioc=TCanvas('CA15_ratio_SRbtag_vs_'+i+'_c')
   ratio_to_fit.Draw()
-  fitresult=ratio_to_fit.Fit('pol1','SE','',900,3500)
+  fitresult=ratio_to_fit.Fit('pol1','SE','',500,4000)
   if 'bkg' not in i:
     f.write('CA15_ratio_SRbtag_vs_'+i+'_c\n')
     f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );\n')
     f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );\n')
+    formulas[i]=str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );'
+    formulas[i+'_err']='sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );'
     f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+'\n')
     f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,1))+' '+'\n\n')
-  ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3500)
+  ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',500,4000)
   ratioup.SetParameter(0,fitresult.Parameter(0))
   ratioup.SetParameter(1,fitresult.Parameter(1))
   ratioup.SetParameter(2,fitresult.CovMatrix(0,0))
   ratioup.SetParameter(3,fitresult.CovMatrix(1,1))
   ratioup.SetParameter(4,fitresult.CovMatrix(1,0))
-  ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3500)
+  ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',500,4000)
   ratiodown.SetParameter(0,fitresult.Parameter(0))
   ratiodown.SetParameter(1,fitresult.Parameter(1))
   ratiodown.SetParameter(2,fitresult.CovMatrix(0,0))
   ratiodown.SetParameter(3,fitresult.CovMatrix(1,1))
   ratiodown.SetParameter(4,fitresult.CovMatrix(1,0))
-  ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
+  ratio_to_fit.GetXaxis().SetRangeUser(500,4000)
   ratio_to_fit.Draw()
   ratioup.SetLineStyle(2)
   ratiodown.SetLineStyle(2)
@@ -1087,14 +1098,14 @@ for i in [
   ratio_to_fit=qcd_file.Get('Selection/CA15_zprimemassbtag').Clone('CA15_ratio2_SRbtag_vs_'+i)
   denominator_CR=qcd_file.Get('Selection/'+i).Clone()
   outfile.cd()
-  ratio_to_fit.Rebin(30)
-  denominator_CR.Rebin(30)
   ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
   denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
+  ratio_to_fit=ratio_to_fit.Rebin(ratioLen,i+"numrebinned",ratioArray)
+  denominator_CR=denominator_CR.Rebin(ratioLen,i+"denrebinned",ratioArray)
   ratio_to_fit.Divide(denominator_CR)
   ratioc=TCanvas('CA15_ratio2_SRbtag_vs_'+i+'_c')
   ratio_to_fit.Draw()
-  fitresult=ratio_to_fit.Fit('pol2','SE','',900,3500)
+  fitresult=ratio_to_fit.Fit('pol2','SE','',500,4000)
   if 'bkg' not in i:
     f.write('CA15_ratio2_SRbtag_vs_'+i+'_c\n')
     f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' ); \n')
@@ -1104,7 +1115,9 @@ for i in [
     f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(2,2))+' '+
           str(fitresult.CovMatrix(0,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,2))+' '+
           str(fitresult.CovMatrix(2,0))+' '+str(fitresult.CovMatrix(1,2))+' '+str(fitresult.CovMatrix(2,1))+'\n\n')
-  ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3500)
+    formulas[i+'_par']=str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' );'
+    formulas[i+'_par_err']='sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) + 2 * mzp * mzp * ( '+str(fitresult.CovMatrix(0,2))+' ) + 2 * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(1,2))+' ) + mzp * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(2,2))+' ) );'
+  ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',500,4000)
   ratioup.SetParameter(0,fitresult.Parameter(0))
   ratioup.SetParameter(1,fitresult.Parameter(1))
   ratioup.SetParameter(2,fitresult.Parameter(2))
@@ -1114,7 +1127,7 @@ for i in [
   ratioup.SetParameter(6,fitresult.CovMatrix(2,0))
   ratioup.SetParameter(7,fitresult.CovMatrix(1,2))
   ratioup.SetParameter(8,fitresult.CovMatrix(2,2))
-  ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3500)
+  ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',500,4000)
   ratiodown.SetParameter(0,fitresult.Parameter(0))
   ratiodown.SetParameter(1,fitresult.Parameter(1))
   ratiodown.SetParameter(2,fitresult.Parameter(2))
@@ -1124,7 +1137,7 @@ for i in [
   ratiodown.SetParameter(6,fitresult.CovMatrix(2,0))
   ratiodown.SetParameter(7,fitresult.CovMatrix(1,2))
   ratiodown.SetParameter(8,fitresult.CovMatrix(2,2))
-  ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
+  ratio_to_fit.GetXaxis().SetRangeUser(500,4000)
   ratio_to_fit.Draw()
   ratioup.SetLineStyle(2)
   ratiodown.SetLineStyle(2)
@@ -1202,33 +1215,35 @@ for i in [
 	ratio_to_fit=qcd_file.Get('Selection/zprimemassnobtag').Clone('ratio_SRnobtag_vs_'+i)
 	denominator_CR=qcd_file.Get('Selection/'+i).Clone()
 	outfile.cd()
-	ratio_to_fit.Rebin(30)
-	denominator_CR.Rebin(30)
 	ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
 	denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
+	ratio_to_fit=ratio_to_fit.Rebin(ratioLen,i+"numrebinned",ratioArray)
+	denominator_CR=denominator_CR.Rebin(ratioLen,i+"denrebinned",ratioArray)
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio_SRnobtag_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	fitresult=ratio_to_fit.Fit('pol1','SE','',900,3500)
+	fitresult=ratio_to_fit.Fit('pol1','SE','',500,4000)
 	if 'bkg' not in i:
 	 f.write('ratio_SRnobtag_vs_'+i+'_c\n')
 	 f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );\n')
 	 f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );\n')
 	 f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+'\n')
 	 f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,1))+' '+'\n\n')
-	ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3500)
+	 formulas[i]=str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );'
+	 formulas[i+'_err']='sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );'
+	ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',500,4000)
 	ratioup.SetParameter(0,fitresult.Parameter(0))
 	ratioup.SetParameter(1,fitresult.Parameter(1))
 	ratioup.SetParameter(2,fitresult.CovMatrix(0,0))
 	ratioup.SetParameter(3,fitresult.CovMatrix(1,1))
 	ratioup.SetParameter(4,fitresult.CovMatrix(1,0))
-	ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3500)
+	ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',500,4000)
 	ratiodown.SetParameter(0,fitresult.Parameter(0))
 	ratiodown.SetParameter(1,fitresult.Parameter(1))
 	ratiodown.SetParameter(2,fitresult.CovMatrix(0,0))
 	ratiodown.SetParameter(3,fitresult.CovMatrix(1,1))
 	ratiodown.SetParameter(4,fitresult.CovMatrix(1,0))
-	ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
+	ratio_to_fit.GetXaxis().SetRangeUser(500,4000)
 	ratio_to_fit.Draw()
 	ratioup.SetLineStyle(2)
 	ratiodown.SetLineStyle(2)
@@ -1242,14 +1257,14 @@ for i in [
 	ratio_to_fit=qcd_file.Get('Selection/zprimemassnobtag').Clone('ratio2_SRnobtag_vs_'+i)
 	denominator_CR=qcd_file.Get('Selection/'+i).Clone()
 	outfile.cd()
-	ratio_to_fit.Rebin(30)
-	denominator_CR.Rebin(30)
 	ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
 	denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
+	ratio_to_fit=ratio_to_fit.Rebin(ratioLen,i+"numrebinned",ratioArray)
+	denominator_CR=denominator_CR.Rebin(ratioLen,i+"denrebinned",ratioArray)
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio2_SRnobtag_vs_'+i+'_c')
 	ratio_to_fit.Draw()
-	fitresult=ratio_to_fit.Fit('pol2','SE','',900,3500)
+	fitresult=ratio_to_fit.Fit('pol2','SE','',500,4000)
 	if 'bkg' not in i:
 	 f.write('ratio2_SRnobtag_vs_'+i+'_c\n')
 	 f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' ); \n')
@@ -1259,7 +1274,9 @@ for i in [
 	 f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(2,2))+' '+
 					str(fitresult.CovMatrix(0,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,2))+' '+
 					str(fitresult.CovMatrix(2,0))+' '+str(fitresult.CovMatrix(1,2))+' '+str(fitresult.CovMatrix(2,1))+'\n\n')
-	ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3500)
+	 formulas[i+'_par']=str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' );'
+	 formulas[i+'_par_err']='sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) + 2 * mzp * mzp * ( '+str(fitresult.CovMatrix(0,2))+' ) + 2 * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(1,2))+' ) + mzp * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(2,2))+' ) );'
+	ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',500,4000)
 	ratioup.SetParameter(0,fitresult.Parameter(0))
 	ratioup.SetParameter(1,fitresult.Parameter(1))
 	ratioup.SetParameter(2,fitresult.Parameter(2))
@@ -1269,7 +1286,7 @@ for i in [
 	ratioup.SetParameter(6,fitresult.CovMatrix(2,0))
 	ratioup.SetParameter(7,fitresult.CovMatrix(1,2))
 	ratioup.SetParameter(8,fitresult.CovMatrix(2,2))
-	ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3500)
+	ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',500,4000)
 	ratiodown.SetParameter(0,fitresult.Parameter(0))
 	ratiodown.SetParameter(1,fitresult.Parameter(1))
 	ratiodown.SetParameter(2,fitresult.Parameter(2))
@@ -1279,7 +1296,7 @@ for i in [
 	ratiodown.SetParameter(6,fitresult.CovMatrix(2,0))
 	ratiodown.SetParameter(7,fitresult.CovMatrix(1,2))
 	ratiodown.SetParameter(8,fitresult.CovMatrix(2,2))
-	ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
+	ratio_to_fit.GetXaxis().SetRangeUser(500,4000)
 	ratio_to_fit.Draw()
 	ratioup.SetLineStyle(2)
 	ratiodown.SetLineStyle(2)
@@ -1332,8 +1349,8 @@ for i in [
 	# ratio_to_fit.Divide(denominator_CR)
 	# ratioc=TCanvas('ratio_SRnobtagdata_vs_'+i+'_c')
 	# ratio_to_fit.Draw()
-	# ratio_to_fit.Fit('pol1','','',900,3500)
-	# ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
+	# ratio_to_fit.Fit('pol1','','',500,4000)
+	# ratio_to_fit.GetXaxis().SetRangeUser(500,4000)
 	# ratio_to_fit.Draw()
 	# ratio_to_fit.Write()
 	# ratioc.Write()
@@ -1415,33 +1432,35 @@ for i in [
   ratio_to_fit=qcd_file.Get('Selection/CA15_zprimemassnobtag').Clone('CA15_ratio_SRnobtag_vs_'+i)
   denominator_CR=qcd_file.Get('Selection/'+i).Clone()
   outfile.cd()
-  ratio_to_fit.Rebin(30)
-  denominator_CR.Rebin(30)
   ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
   denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
+  ratio_to_fit=ratio_to_fit.Rebin(ratioLen,i+"numrebinned",ratioArray)
+  denominator_CR=denominator_CR.Rebin(ratioLen,i+"denrebinned",ratioArray)
   ratio_to_fit.Divide(denominator_CR)
   ratioc=TCanvas('CA15_ratio_SRnobtag_vs_'+i+'_c')
   ratio_to_fit.Draw()
-  fitresult=ratio_to_fit.Fit('pol1','SE','',900,3500)
+  fitresult=ratio_to_fit.Fit('pol1','SE','',500,4000)
   if 'bkg' not in i:
     f.write('CA15_ratio_SRnobtag_vs_'+i+'_c\n')
     f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );\n')
     f.write('sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );\n')
     f.write(str(fitresult.ParError(0))+' '+str(fitresult.ParError(1))+'\n')
     f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,1))+' '+'\n\n')
-  ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3500)
+    formulas[i]=str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' );'
+    formulas[i+'_err']='sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) );'
+  ratioup=TF1('ratioup','[0] + x*[1] + sqrt( [2] + [3]*x*x + 2*x*[4] )',500,4000)
   ratioup.SetParameter(0,fitresult.Parameter(0))
   ratioup.SetParameter(1,fitresult.Parameter(1))
   ratioup.SetParameter(2,fitresult.CovMatrix(0,0))
   ratioup.SetParameter(3,fitresult.CovMatrix(1,1))
   ratioup.SetParameter(4,fitresult.CovMatrix(1,0))
-  ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',900,3500)
+  ratiodown=TF1('ratiodown','[0] + x*[1] - sqrt( [2] + [3]*x*x + 2*x*[4] )',500,4000)
   ratiodown.SetParameter(0,fitresult.Parameter(0))
   ratiodown.SetParameter(1,fitresult.Parameter(1))
   ratiodown.SetParameter(2,fitresult.CovMatrix(0,0))
   ratiodown.SetParameter(3,fitresult.CovMatrix(1,1))
   ratiodown.SetParameter(4,fitresult.CovMatrix(1,0))
-  ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
+  ratio_to_fit.GetXaxis().SetRangeUser(500,4000)
   ratio_to_fit.Draw()
   ratioup.SetLineStyle(2)
   ratiodown.SetLineStyle(2)
@@ -1455,14 +1474,14 @@ for i in [
   ratio_to_fit=qcd_file.Get('Selection/CA15_zprimemassnobtag').Clone('CA15_ratio2_SRnobtag_vs_'+i)
   denominator_CR=qcd_file.Get('Selection/'+i).Clone()
   outfile.cd()
-  ratio_to_fit.Rebin(30)
-  denominator_CR.Rebin(30)
   ratio_to_fit.Scale(1.0/(ratio_to_fit.Integral()+0.000001))
   denominator_CR.Scale(1.0/(denominator_CR.Integral()+0.000001))
+  ratio_to_fit=ratio_to_fit.Rebin(ratioLen,i+"numrebinned",ratioArray)
+  denominator_CR=denominator_CR.Rebin(ratioLen,i+"denrebinned",ratioArray)
   ratio_to_fit.Divide(denominator_CR)
   ratioc=TCanvas('CA15_ratio2_SRnobtag_vs_'+i+'_c')
   ratio_to_fit.Draw()
-  fitresult=ratio_to_fit.Fit('pol2','SE','',900,3500)
+  fitresult=ratio_to_fit.Fit('pol2','SE','',500,4000)
   if 'bkg' not in i:
     f.write('CA15_ratio2_SRnobtag_vs_'+i+'_c\n')
     f.write(str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' ); \n')
@@ -1472,7 +1491,9 @@ for i in [
     f.write(str(fitresult.CovMatrix(0,0))+' '+str(fitresult.CovMatrix(1,1))+' '+str(fitresult.CovMatrix(2,2))+' '+
           str(fitresult.CovMatrix(0,1))+' '+str(fitresult.CovMatrix(1,0))+' '+str(fitresult.CovMatrix(0,2))+' '+
           str(fitresult.CovMatrix(2,0))+' '+str(fitresult.CovMatrix(1,2))+' '+str(fitresult.CovMatrix(2,1))+'\n\n')
-  ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3500)
+    formulas[i+'_par']=str(fitresult.Parameter(0))+' + mzp * ( '+str(fitresult.Parameter(1))+' ) + mzp * mzp * ( '+str(fitresult.Parameter(2))+' );'
+    formulas[i+'_par_err']='sqrt( '+str(fitresult.CovMatrix(0,0))+' + mzp * mzp * ( '+str(fitresult.CovMatrix(1,1))+' ) +  2 * mzp * ( '+str(fitresult.CovMatrix(1,0))+' ) + 2 * mzp * mzp * ( '+str(fitresult.CovMatrix(0,2))+' ) + 2 * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(1,2))+' ) + mzp * mzp * mzp * mzp * ( '+str(fitresult.CovMatrix(2,2))+' ) );'
+  ratioup=TF1('ratioup','[0] + x*[1] + x*x*[2] + sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',500,4000)
   ratioup.SetParameter(0,fitresult.Parameter(0))
   ratioup.SetParameter(1,fitresult.Parameter(1))
   ratioup.SetParameter(2,fitresult.Parameter(2))
@@ -1482,7 +1503,7 @@ for i in [
   ratioup.SetParameter(6,fitresult.CovMatrix(2,0))
   ratioup.SetParameter(7,fitresult.CovMatrix(1,2))
   ratioup.SetParameter(8,fitresult.CovMatrix(2,2))
-  ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',900,3500)
+  ratiodown=TF1('ratiodown','[0] + x*[1] + x*x*[2] - sqrt( [3] + [4]*x*x + 2*x*[5] + 2*x*x*[6] + 2*x*x*x*[7] + x*x*x*x*[8] )',500,4000)
   ratiodown.SetParameter(0,fitresult.Parameter(0))
   ratiodown.SetParameter(1,fitresult.Parameter(1))
   ratiodown.SetParameter(2,fitresult.Parameter(2))
@@ -1492,7 +1513,7 @@ for i in [
   ratiodown.SetParameter(6,fitresult.CovMatrix(2,0))
   ratiodown.SetParameter(7,fitresult.CovMatrix(1,2))
   ratiodown.SetParameter(8,fitresult.CovMatrix(2,2))
-  ratio_to_fit.GetXaxis().SetRangeUser(900,3500)
+  ratio_to_fit.GetXaxis().SetRangeUser(500,4000)
   ratio_to_fit.Draw()
   ratioup.SetLineStyle(2)
   ratiodown.SetLineStyle(2)
@@ -1508,18 +1529,200 @@ for i in [
 
 
 
+code='\n\
+float QCDWeight(float mzp, string mode, string syst)\n\
+{\n\
+ float weight = 1.0;\n\
+ if (mode=="mean")\n\
+ {\n\
+  weight = 1.414 - 0.0002473 *mzp;\n\
+ }\n\
+ if (mode=="1")\n\
+ {\n\
+  weight = '+formulas['antibcsvCRnobtag_zprimemass']+'\n\
+ }\n\
+ if (mode=="2")\n\
+ {\n\
+  weight = '+formulas['antibcsvCRbtag_zprimemass']+'\n\
+ }\n\
+ if (mode=="1par")\n\
+ {\n\
+  weight = '+formulas['antibcsvCRnobtag_zprimemass_par']+'\n\
+ }\n\
+ if (mode=="2par")\n\
+ {\n\
+  weight = '+formulas['antibcsvCRbtag_zprimemass_par']+'\n\
+ }\n\
+ if (syst=="nominal")\n\
+  {\n\
+    return weight;\n\
+  }\n\
+  if (syst=="up")\n\
+  {\n\
+    return weight*weight;\n\
+  }\n\
+  if (syst=="down")\n\
+  {\n\
+    return 1.0;\n\
+  }\n\
+  if (syst=="up_fit")\n\
+  {\n\
+    if (contains(mode,"par"))\n\
+    {\n\
+      if (contains(mode,"1"))\n\
+      {\n\
+        //parabola up 1btag\n\
+        return QCDWeight(mzp,mode,"nominal") + '+formulas['antibcsvCRnobtag_zprimemass_par_err']+'\n\
+      }\n\
+      else\n\
+      {\n\
+        //parabola up 2btag\n\
+        return QCDWeight(mzp,mode,"nominal") + '+formulas['antibcsvCRbtag_zprimemass_par_err']+'\n\
+      }\n\
+    }\n\
+    else\n\
+    {\n\
+      if (contains(mode,"1"))\n\
+      {\n\
+        //retta up 1btag\n\
+        return QCDWeight(mzp,mode,"nominal") + '+formulas['antibcsvCRnobtag_zprimemass_err']+'\n\
+      }\n\
+      else\n\
+      {\n\
+        //retta up 2btag\n\
+        return QCDWeight(mzp,mode,"nominal") + '+formulas['antibcsvCRbtag_zprimemass_err']+'\n\
+      }\n\
+    }\n\
+  }\n\
+  if (syst=="down_fit")\n\
+  {\n\
+    if (contains(mode,"par"))\n\
+    {\n\
+      if (contains(mode,"1"))\n\
+      {\n\
+        //parabola down 1btag\n\
+        return QCDWeight(mzp,mode,"nominal") - '+formulas['antibcsvCRnobtag_zprimemass_par_err']+'\n\
+      }\n\
+      else\n\
+      {\n\
+        //parabola down 2btag\n\
+        return QCDWeight(mzp,mode,"nominal") - '+formulas['antibcsvCRbtag_zprimemass_par_err']+'\n\
+      }\n\
+    }\n\
+    else\n\
+    {\n\
+      if (contains(mode,"1"))\n\
+      {\n\
+        //retta down 1btag\n\
+        return QCDWeight(mzp,mode,"nominal") - '+formulas['antibcsvCRnobtag_zprimemass_err']+'\n\
+      }\n\
+      else\n\
+      {\n\
+        //retta down 2btag\n\
+        return QCDWeight(mzp,mode,"nominal") - '+formulas['antibcsvCRbtag_zprimemass_err']+'\n\
+      }\n\
+    }\n\
+  }\n\
+  return 1.0;\n\
+}\n\
+float QCDWeightFat(float mzp, string mode, string syst)\n\
+{\n\
+ float weight = 1.0;\n\
+ if (mode=="1")\n\
+ {\n\
+  weight = '+formulas['CA15_antibcsvCRnobtag_zprimemass']+'\n\
+ }\n\
+ if (mode=="2")\n\
+ {\n\
+  weight = '+formulas['CA15_antibcsvCRbtag_zprimemass']+'\n\
+ }\n\
+ if (mode=="1par")\n\
+ {\n\
+  weight = '+formulas['CA15_antibcsvCRnobtag_zprimemass_par']+'\n\
+ }\n\
+ if (mode=="2par")\n\
+ {\n\
+  weight = '+formulas['CA15_antibcsvCRbtag_zprimemass_par']+'\n\
+ }\n\
+ if (syst=="nominal")\n\
+  {\n\
+    //event.weight *= weight;\n\
+    return weight;\n\
+  }\n\
+  if (syst=="up")\n\
+  {\n\
+    //event.weight *= weight*weight;\n\
+    return weight*weight;\n\
+  }\n\
+  if (syst=="down")\n\
+  {\n\
+    return 1.0;\n\
+  }\n\
+  if (syst=="up_fit")\n\
+  {\n\
+    if (contains(mode,"par"))\n\
+    {\n\
+      if (contains(mode,"1"))\n\
+      {\n\
+        //parabola up 1btag\n\
+        return QCDWeightFat(mzp,mode,"nominal") + '+formulas['CA15_antibcsvCRnobtag_zprimemass_par_err']+'\n\
+      }\n\
+      else\n\
+      {\n\
+        //parabola up 2btag\n\
+        return QCDWeightFat(mzp,mode,"nominal") + '+formulas['CA15_antibcsvCRbtag_zprimemass_par_err']+'\n\
+      }\n\
+    }\n\
+    else\n\
+    {\n\
+      if (contains(mode,"1"))\n\
+      {\n\
+        //retta up 1btag\n\
+        return QCDWeightFat(mzp,mode,"nominal") + '+formulas['CA15_antibcsvCRnobtag_zprimemass_err']+'\n\
+      }\n\
+      else\n\
+      {\n\
+        //retta up 2btag\n\
+        return QCDWeightFat(mzp,mode,"nominal") + '+formulas['CA15_antibcsvCRbtag_zprimemass_err']+'\n\
+      }\n\
+    }\n\
+  }\n\
+  if (syst=="down_fit")\n\
+  {\n\
+    if (contains(mode,"par"))\n\
+    {\n\
+      if (contains(mode,"1"))\n\
+      {\n\
+        //parabola down 1btag\n\
+        return QCDWeightFat(mzp,mode,"nominal") - '+formulas['CA15_antibcsvCRnobtag_zprimemass_par_err']+'\n\
+      }\n\
+      else\n\
+      {\n\
+        //parabola down 2btag\n\
+        return QCDWeightFat(mzp,mode,"nominal") - '+formulas['CA15_antibcsvCRbtag_zprimemass_par_err']+'\n\
+      }\n\
+    }\n\
+    else\n\
+    {\n\
+      if (contains(mode,"1"))\n\
+      {\n\
+        //retta down 1btag\n\
+        return QCDWeightFat(mzp,mode,"nominal") - '+formulas['CA15_antibcsvCRnobtag_zprimemass_err']+'\n\
+      }\n\
+      else\n\
+      {\n\
+        //retta down 2btag\n\
+        return QCDWeightFat(mzp,mode,"nominal") - '+formulas['CA15_antibcsvCRbtag_zprimemass_err']+'\n\
+      }\n\
+    }\n\
+  }\n\
+  return 1.0;\n\
+}'
 
-
-
-
-
-
-
-
-
-
-
+f.write(code)
 f.close()
+
+
 #assert(False)
 
 
@@ -2161,7 +2364,7 @@ for names in [
     minratio=0,
     maxratio=0,
     blind=False,
-    logy=False,
+    logy=True,
         xtitle='',
         ytitle='Events',
         textsizefactor=1,

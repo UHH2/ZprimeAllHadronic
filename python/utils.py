@@ -1,4 +1,6 @@
-from ROOT import TFile,TCanvas,gROOT,gStyle,TLegend,TGraphAsymmErrors,THStack,TIter,kRed,kYellow,kGray,kBlack,TLatex,kOrange,kAzure,TLine,kWhite,kBlue
+import ROOT
+from ROOT import TFile,TCanvas,gROOT,gStyle,TLegend,TGraphAsymmErrors,THStack,TIter,kRed,kYellow,kGray,kBlack,TLatex,kOrange,kAzure,TLine,kWhite,kBlue,kTRUE,kFALSE
+from ROOT.TH1 import kPoisson
 from os import system
 from sys import argv
 from os import mkdir
@@ -478,7 +480,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
         else:
           uperr=uperr+error*error
       sys_tot.append([math.sqrt(downerr),math.sqrt(uperr)])
-      print math.sqrt(uperr),math.sqrt(downerr)
+      #print math.sqrt(uperr),math.sqrt(downerr)
       err.SetPointEYhigh(imtt-1,math.sqrt(uperr))
       err.SetPointEYlow(imtt-1,math.sqrt(downerr))
 
@@ -488,14 +490,17 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   ###pull distribution
   pull=data_histo.Clone()
   pull.Add(sum_mc,-1)
+  data_histo.Sumw2(kFALSE)
+  data_histo.SetBinErrorOption(kPoisson)
   #for i in range(pull.GetNbinsX()+2):
   for imtt in range(1,ttbar_histo.GetNbinsX()+1):
+    #print 'eh',data_histo.GetBinErrorLow(imtt), data_histo.GetBinErrorUp(imtt)
     if pull.GetBinError(imtt)!=0:
       if dosys:
         if pull.GetBinContent(imtt)>0:
-          pull.SetBinContent(imtt,pull.GetBinContent(imtt)/(math.sqrt(sys_tot[imtt-1][1]*sys_tot[imtt-1][1]+data_histo.GetBinError(imtt)*data_histo.GetBinError(imtt)) ) )
+          pull.SetBinContent(imtt,pull.GetBinContent(imtt)/(math.sqrt(sys_tot[imtt-1][1]*sys_tot[imtt-1][1]+data_histo.GetBinErrorLow(imtt)*data_histo.GetBinErrorLow(imtt)) ) )
         else:
-          pull.SetBinContent(imtt,pull.GetBinContent(imtt)/(math.sqrt(sys_tot[imtt-1][0]*sys_tot[imtt-1][0]+data_histo.GetBinError(imtt)*data_histo.GetBinError(imtt)) ) )
+          pull.SetBinContent(imtt,pull.GetBinContent(imtt)/(math.sqrt(sys_tot[imtt-1][0]*sys_tot[imtt-1][0]+data_histo.GetBinErrorUp(imtt)*data_histo.GetBinErrorUp(imtt)) ) )
       else:
         pull.SetBinContent(imtt,pull.GetBinContent(imtt)/pull.GetBinError(imtt))
     else:
@@ -535,7 +540,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   for i in signal_histos:
     i.Draw('samehist')
   if not blind:
-    data_histo.Draw('p ex0 SAME')
+    data_histo.Draw('E0 P SAME')
   if logy:
     top_pad.SetLogy()
   if not separate_legend:
