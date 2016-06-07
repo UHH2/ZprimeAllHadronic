@@ -90,4 +90,7 @@ for i in range(len(signal_names)):
 	num1=numplot1.Integral()
 	num2=numplot2.Integral()
 	eff=(num1+num2)*100/den
-	print signal_legends[i], "%.0f" % den,'&',"%.0f" % num1,'&',"%.0f" % num2,'&', "%.1f" % eff,'\% \\\\'
+	eff1=(num1)*100/den
+	eff2=(num2)*100/den
+	#print signal_legends[i], "%.0f" % den,'&',"%.0f" % num1,'&',"%.0f" % num2,'&', "%.1f" % eff,'\% \\\\'
+	print signal_legends[i],"%.1f" % eff1,'\% &', "%.1f" % eff2,'\% \\\\'

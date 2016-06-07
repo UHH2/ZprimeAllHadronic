@@ -297,8 +297,8 @@ qcd_file=TFile(qcd_filename,'READ')
 ###################################################################################################################################################################
 ###################################################################################################################################################################
 ###################################################################################################################################################################
-#ttbar_file=TFile(ttbar_filename,'READ')
-ttbar_file=TFile(top_filename,'READ')
+ttbar_file=TFile(ttbar_filename,'READ')
+#ttbar_file=TFile(top_filename,'READ')
 #top_file=TFile(top_filename,'READ')
 data_file=TFile(data_filename,'READ')
 singletop_file=TFile(singletop_filename,'READ')
@@ -2256,7 +2256,7 @@ make_ratioplot(
         qcd_legend='QCD from sideband',
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
+        dosys=True,
         sysdict=systypes,
         bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
         )
@@ -2287,7 +2287,7 @@ make_ratioplot(
         qcd_legend='QCD from sideband',
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=False,
+        dosys=True,
         sysdict=systypes,
         bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
         )
@@ -2297,7 +2297,7 @@ make_ratioplot(
 
 
 
-
+outfile.cd()
 
 
 

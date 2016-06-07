@@ -407,9 +407,13 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   ###mc errors
   err=TGraphAsymmErrors(sum_mc)
   if dosys:
-    sys_diff=[]
+    #sys_diff=[]
+    sys_diff_qcd=[]
+    sys_diff_ttbar=[]
+    #sys_diff=[]
     for imtt in range(1,ttbar_histo.GetNbinsX()+1):
-      sys_diff.append([])
+      sys_diff_qcd.append([])
+      sys_diff_ttbar.append([])
     for sys in sysdict:
       if not (sys in ['mur','muf','murmuf']):
         for side in ['UP','DOWN']:
@@ -419,7 +423,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
           ttbar_tmp.Rebin(rebin)
           ttbar_tmp.Add(ttbar_histo,-1)
           for imtt in range(1,ttbar_histo.GetNbinsX()+1):
-            sys_diff[imtt-1].append(ttbar_tmp.GetBinContent(imtt))
+            sys_diff_ttbar[imtt-1].append(ttbar_tmp.GetBinContent(imtt))
     #adding mu
     if ('mur' in sysdict) and ('muf' in sysdict) and ('murmuf' in sysdict):
       ttbar_MURUP=TFile(syspath+sysdict['mur']+'UP.root','READ')
@@ -442,8 +446,8 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
       plotMURMUFDOWN.Rebin(rebin)
       envelopesr=envelope([plotMURUP,plotMURDOWN,plotMUFUP,plotMUFDOWN,plotMURMUFUP,plotMURMUFDOWN])
       for imtt in range(1,ttbar_histo.GetNbinsX()+1):
-        sys_diff[imtt-1].append(envelopesr[imtt-1][0])
-        sys_diff[imtt-1].append(envelopesr[imtt-1][1])
+        sys_diff_ttbar[imtt-1].append(envelopesr[imtt-1][0])
+        sys_diff_ttbar[imtt-1].append(envelopesr[imtt-1][1])
     #adding bkg uncertainties
     if bkgup!=0 and bkgdown!=0:
       bkgupdiff=qcd_file.Get(bkgup).Clone()
@@ -453,36 +457,72 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
       bkgupdiff.Add(qcd_histo,-1)
       bkgdowndiff.Add(qcd_histo,-1)
       for imtt in range(1,qcd_histo.GetNbinsX()+1):
-        sys_diff[imtt-1].append(bkgupdiff.GetBinContent(imtt))
-        sys_diff[imtt-1].append(bkgdowndiff.GetBinContent(imtt))
+        sys_diff_qcd[imtt-1].append(bkgupdiff.GetBinContent(imtt))
+        sys_diff_qcd[imtt-1].append(bkgdowndiff.GetBinContent(imtt))
     #adding stat uncertainties
     for imtt in range(1,ttbar_histo.GetNbinsX()+1):
-      sys_diff[imtt-1].append(ttbar_histo.GetBinError(imtt))
-      sys_diff[imtt-1].append(-ttbar_histo.GetBinError(imtt))
-      sys_diff[imtt-1].append(qcd_histo.GetBinError(imtt))
-      sys_diff[imtt-1].append(-qcd_histo.GetBinError(imtt))
+      sys_diff_ttbar[imtt-1].append(ttbar_histo.GetBinError(imtt))
+      sys_diff_ttbar[imtt-1].append(-ttbar_histo.GetBinError(imtt))
+      sys_diff_qcd[imtt-1].append(qcd_histo.GetBinError(imtt))
+      sys_diff_qcd[imtt-1].append(-qcd_histo.GetBinError(imtt))
     #adding flat uncertainties
     for imtt in range(1,ttbar_histo.GetNbinsX()+1):
       #3% trigger
-      sys_diff[imtt-1].append(0.03*ttbar_histo.GetBinContent(imtt))
-      sys_diff[imtt-1].append(-0.03*ttbar_histo.GetBinContent(imtt))
+      sys_diff_ttbar[imtt-1].append(0.03*ttbar_histo.GetBinContent(imtt))
+      sys_diff_ttbar[imtt-1].append(-0.03*ttbar_histo.GetBinContent(imtt))
       #2.7% lumi
-      sys_diff[imtt-1].append(0.027*ttbar_histo.GetBinContent(imtt))
-      sys_diff[imtt-1].append(-0.027*ttbar_histo.GetBinContent(imtt))
+      sys_diff_ttbar[imtt-1].append(0.027*ttbar_histo.GetBinContent(imtt))
+      sys_diff_ttbar[imtt-1].append(-0.027*ttbar_histo.GetBinContent(imtt))
     #combining uncertainties
+    sys_tot_ttbar=[]
+    sys_tot_qcd=[]
     sys_tot=[]
+    sys_global_ttbar=[0.0,0.0]
+    sys_global_qcd=[0.0,0.0]
+    nevt_global=[0.0,0.0,0.0]
     for imtt in range(1,ttbar_histo.GetNbinsX()+1):
-      uperr=0
-      downerr=0
-      for error in sys_diff[imtt-1]:
+      uperr_qcd=0
+      downerr_qcd=0
+      uperr_ttbar=0
+      downerr_ttbar=0
+      for error in sys_diff_ttbar[imtt-1]:
         if error<0:
-          downerr=downerr+error*error
+          downerr_ttbar=downerr_ttbar+error*error
         else:
-          uperr=uperr+error*error
-      sys_tot.append([math.sqrt(downerr),math.sqrt(uperr)])
+          uperr_ttbar=uperr_ttbar+error*error
+      for error in sys_diff_qcd[imtt-1]:
+        if error<0:
+          downerr_qcd=downerr_qcd+error*error
+        else:
+          uperr_qcd=uperr_qcd+error*error
+      sys_tot_ttbar.append([math.sqrt(downerr_ttbar),math.sqrt(uperr_ttbar)])
+      sys_tot_qcd.append([math.sqrt(downerr_qcd),math.sqrt(uperr_qcd)])
+      sys_tot.append([math.sqrt(downerr_qcd+downerr_ttbar),math.sqrt(uperr_qcd+uperr_ttbar)])
+      sys_global_qcd[0]=sys_global_qcd[0]+downerr_qcd
+      sys_global_qcd[1]=sys_global_qcd[1]+uperr_qcd
+      sys_global_ttbar[0]=sys_global_ttbar[0]+downerr_ttbar
+      sys_global_ttbar[1]=sys_global_ttbar[1]+uperr_ttbar
+      nevt_global[0]=nevt_global[0]+data_histo.GetBinContent(imtt)
+      nevt_global[1]=nevt_global[1]+qcd_histo.GetBinContent(imtt)
+      nevt_global[2]=nevt_global[2]+ttbar_histo.GetBinContent(imtt)
       #print math.sqrt(uperr),math.sqrt(downerr)
-      err.SetPointEYhigh(imtt-1,math.sqrt(uperr))
-      err.SetPointEYlow(imtt-1,math.sqrt(downerr))
+      err.SetPointEYhigh(imtt-1,math.sqrt(uperr_qcd+uperr_ttbar))
+      err.SetPointEYlow(imtt-1,math.sqrt(downerr_qcd+downerr_ttbar))
+    sys_global=[0.0,0.0]
+    sys_global[0]=math.sqrt(sys_global_qcd[0]+sys_global_ttbar[0])
+    sys_global[1]=math.sqrt(sys_global_qcd[1]+sys_global_ttbar[1])
+    sys_global_qcd[0]=math.sqrt(sys_global_qcd[0])
+    sys_global_qcd[1]=math.sqrt(sys_global_qcd[1])
+    sys_global_ttbar[0]=math.sqrt(sys_global_ttbar[0])
+    sys_global_ttbar[1]=math.sqrt(sys_global_ttbar[1])
+    print name
+    print "\hline"
+    print "Multijet QCD & $%.0f^{+%.0f}_{-%.0f}$ \\\\" % (nevt_global[1],sys_global_qcd[1],sys_global_qcd[0])
+    print "SM ttbar & $%.0f^{+%.0f}_{-%.0f}$ \\\\" % (nevt_global[2],sys_global_ttbar[1],sys_global_ttbar[0])
+    print "\hline"
+    print "Total background & $%.0f^{+%.0f}_{-%.0f}$ \\\\" % (nevt_global[1]+nevt_global[2],sys_global[1],sys_global[0])
+    print 'DATA & %.0f' %nevt_global[0]
+
 
   err.SetFillStyle(3145)
   err.SetFillColor(kGray)
