@@ -159,7 +159,7 @@ def make_plot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_
   c.SetRightMargin(0.05)#
   c.SetBottomMargin(0.1)
   c.SetTopMargin(0.25)
-  latex=TLatex(0.6,0.70,'13 TeV, 2.63 fb^{-1}')
+  latex=TLatex(0.6,0.70,'13 TeV, 2.69 fb^{-1}')
   latex.SetNDC(1)
   latex.SetTextFont(42)
   legend=TLegend(0.0,0.75,0.99,1.04)
@@ -295,9 +295,9 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   ###latex label
   latex=0
   if separate_legend:
-    latex=TLatex(0.62,0.83,'13 TeV, 2.63 fb^{-1}')
+    latex=TLatex(0.62,0.83,'13 TeV, 2.69 fb^{-1}')
   else:
-    latex=TLatex(0.6,0.7,'13 TeV, 2.63 fb^{-1}')
+    latex=TLatex(0.6,0.7,'13 TeV, 2.69 fb^{-1}')
   latex.SetTextSize(charsize)
   latex.SetNDC(1)
   latex.SetTextFont(42)
@@ -690,9 +690,9 @@ def make_ratioplot2(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[]
   ###latex label
   latex=0
   if separate_legend:
-    latex=TLatex(0.62,0.83,'13 TeV, 2.63 fb^{-1}')
+    latex=TLatex(0.62,0.83,'13 TeV, 2.69 fb^{-1}')
   else:
-    latex=TLatex(0.6,0.7,'13 TeV, 2.63 fb^{-1}')
+    latex=TLatex(0.6,0.7,'13 TeV, 2.69 fb^{-1}')
   latex.SetTextSize(charsize)
   latex.SetNDC(1)
   latex.SetTextFont(42)

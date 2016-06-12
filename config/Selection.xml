@@ -15,8 +15,8 @@
     <Library Name="libSUHH2Zp2TopVLQAllHad"/>
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
-   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/selection/" PostFix="" TargetLumi="2628.85" >
-   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="20" OutputDirectory="/nfs/dust/cms/user/usaiem/selection/" PostFix="" TargetLumi="2628.85" >  -->
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/selection/" PostFix="" TargetLumi="2690.64" >
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="20" OutputDirectory="/nfs/dust/cms/user/usaiem/selection/" PostFix="" TargetLumi="2690.64" >  -->
 
 
 
