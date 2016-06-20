@@ -16,6 +16,13 @@ model = get_model()
 model_summary(model)
 options = Options()
 options.set('main', 'n_threads', '20')
+
+for p in model.distribution.get_parameters():
+    d = model.distribution.get_distribution(p)
+    print p,d['typ'],d['mean'],d['width']
+
+print model
+
 plot_exp, plot_obs = bayesian_limits(model,what='expected')#bayesian_limits ,what='expected'
 # plot_exp.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/limitsCA15.txt')
 # report.write_html('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/CA15htmlout')

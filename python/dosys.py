@@ -5,8 +5,8 @@ systypes={'mur':'_MUR',
           'jer':'_JER',
           'pu':'_PU',
           'btag':'_BAK4SF',
-          'subjetbtag':'_BAK8SF',
-          'ttbar':'_TTBAR',
+          #'subjetbtag':'_BAK8SF',
+          #'ttbar':'_TTBAR',
           'toptag':'_TSF',
           'wtag':'_WSF',
           'pdf':'_PDF',
@@ -36,8 +36,10 @@ for systype in systypes:
 				newline=line.replace('mean',side.lower())
 			elif systype=='btag' and 'btagging_sys' in line:
 				newline=line.replace('central',side.lower())
-			elif systype=='subjetbtag' and 'subjetbtag_sys' in line:
+			elif systype=='btag' and 'subjetbtag_sys' in line:
 				newline=line.replace('central',side.lower())
+			#elif systype=='subjetbtag' and 'subjetbtag_sys' in line:
+			#	newline=line.replace('central',side.lower())
 			elif systype=='pu' and 'pileup_sys' in line:
 				newline=line.replace('mean',side.lower())
 			elif systype=='ttbar' and 'ttbar_sys' in line:

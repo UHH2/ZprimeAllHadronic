@@ -93,4 +93,5 @@ for i in range(len(signal_names)):
 	eff1=(num1)*100/den
 	eff2=(num2)*100/den
 	#print signal_legends[i], "%.0f" % den,'&',"%.0f" % num1,'&',"%.0f" % num2,'&', "%.1f" % eff,'\% \\\\'
+	print eff,eff1,eff2
 	print signal_legends[i],"%.1f" % eff1,'\% &', "%.1f" % eff2,'\% \\\\'

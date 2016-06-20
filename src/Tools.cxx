@@ -737,19 +737,56 @@ float TopTagSF(const Event & event, TopJet jet, int sys)
 }
 float WTagSF(const Event & event, TopJet jet, int sys)
 {
-  float sf=0.862;
-  float error=0.035;
+  float sf=0.98;
+  float error=0.03;
+  float errorbig=0.048;
+
   //https://twiki.cern.ch/twiki/bin/view/CMS/JetWtagging
   //http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2015_196_v8.pdf
   if(!event.isRealData)
   {
+    bool is_matched=false;
+    for (auto genp : *event.genparticles)
+    {
+      if (abs(genp.pdgId()) == 24)
+      {
+        if(deltaR(jet,genp)<0.8)
+        {
+          is_matched=true;
+          break;
+        }
+      }
+    }
     // if (contains(procname,"WSFUP")) return sf+error;
     // if (contains(procname,"WSFDOWN")) return sf-error;
-    if (sys==1) return sf+error;
-    if (sys==-1) return sf-error;
-    return sf;
+    if (is_matched)
+    {
+      if (sys==1)
+      {
+        if(jet.pt()>300.0)
+        {
+          return sf+errorbig;
+        }
+        else
+        {
+          return sf+error;
+        }
+      }
+      if (sys==-1)
+      {
+        if(jet.pt()>300.0)
+        {
+          return sf-errorbig;
+        }
+        else
+        {
+          return sf-error;
+        }
+      }
+      return sf;
+    }
   }
-  else return 1.0;
+  return 1.0;
 }
 
 bool contains(string s, string substring)

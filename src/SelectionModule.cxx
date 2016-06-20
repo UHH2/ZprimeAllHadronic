@@ -96,8 +96,8 @@ SelectionModule::SelectionModule(Context & ctx){
     string sysAK8=ctx.get("subjetbtag_sys", "central");
     //if (contains(version,"BAK8SFUP")) sysAK8="up";
     //if (contains(version,"BAK8SFDOWN")) sysAK8="down";
-    btagwAK4.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "jets",sysAK4,"mujets","incl","MCBtagEfficienciesAK4","_AK4"));
-    btagwAK8.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "topjets",sysAK8,"mujets","incl","MCBtagEfficienciesAK8","_AK8"));
+    btagwAK4.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "jets",sysAK4,"mujets","incl","MCBtagEfficienciesAK4","_AK4","BTagCalibration"));
+    btagwAK8.reset(new MCBTagScaleFactor(ctx, CSVBTag::WP_MEDIUM, "topjets",sysAK8,"mujets","incl","MCBtagEfficienciesAK8","_AK8","SubjetBTagCalibration"));
 
     scalevar.reset(new MCScaleVariation(ctx));
 

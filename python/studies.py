@@ -256,7 +256,7 @@ systypes={'mur':'_MUR',
           'jer':'_JER',
           'pu':'_PU',
           'btag':'_BAK4SF',
-          'subjetbtag':'_BAK8SF',
+#          'subjetbtag':'_BAK8SF',
 #          'ttbar':'_TTBAR',
           'toptag':'_TSF',
           'wtag':'_WSF',
@@ -1730,57 +1730,60 @@ f.close()
 #gen and angular studies
 
 
-# for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
-#   "ptop",  "ptprime",  "pb",  "pw",  "ptb",  "ptw",  "pzprime",
-#   "mtop",  "mtprime",  "mb",  "mw",  "mtb",  "mtw",  "mzprime",
-#   "dRbW",  "dRtT",  "dRbt",  "dRtW",  "dR_tb_tW",  "dR_tb_W",  "dR_tb_b",  "dR_b_tW",  "dR_W_tW",
-#   "dR_W1_b1",  "dR_W2_b2",  "dR_W1_W2",  "dR_b1_b2",  "dR_W1_b2",  "dR_W2_b1",
-#   "pT_closest_topjet_to_top",  "mass_closest_topjet_to_top",  "nsub_closest_topjet_to_top",
-#   "pT_closest_topjet_to_tprime",  "mass_closest_topjet_to_tprime",  "nsub_closest_topjet_to_tprime",
-#   "pT_closest_wjet_to_w",  "mass_closest_wjet_to_w",  "nsub_closest_wjet_to_w",
-#   "pT_closest_bjet_to_b",  "csv_closest_bjet_to_b",
+for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
+  "ptop",  "ptprime",  "pb",  "pw",  "ptb",  "ptw",  "pzprime",
+  "mtop",  "mtprime",  "mb",  "mw",  "mtb",  "mtw",  "mzprime",
+  "dRbW",  "dRtT",  "dRbt",  "dRtW",  "dR_tb_tW",  "dR_tb_W",  "dR_tb_b",  "dR_b_tW",  "dR_W_tW",
+  "dR_W1_b1",  "dR_W2_b2",  "dR_W1_W2",  "dR_b1_b2",  "dR_W1_b2",  "dR_W2_b1",
+  "pT_closest_topjet_to_top",  "mass_closest_topjet_to_top",  "nsub_closest_topjet_to_top",
+  "pT_closest_topjet_to_tprime",  "mass_closest_topjet_to_tprime",  "nsub_closest_topjet_to_tprime",
+  "pT_closest_wjet_to_w",  "mass_closest_wjet_to_w",  "nsub_closest_wjet_to_w",
+  "pT_closest_bjet_to_b",  "csv_closest_bjet_to_b",
 
-#   "pT_closest_wjet_to_tw",  "mass_closest_wjet_to_tw",  "nsub_closest_wjet_to_tw",
-#   "pT_closest_bjet_to_tb",  "csv_closest_bjet_to_tb",
+  "pT_closest_wjet_to_tw",  "mass_closest_wjet_to_tw",  "nsub_closest_wjet_to_tw",
+  "pT_closest_bjet_to_tb",  "csv_closest_bjet_to_tb",
 
-#   "pT_closest_wjet_to_w1",  "mass_closest_wjet_to_w1",  "nsub_closest_wjet_to_w1",
-#   "pT_closest_bjet_to_b1",  "csv_closest_bjet_to_b1",
-#   "pT_closest_wjet_to_w2",  "mass_closest_wjet_to_w2",  "nsub_closest_wjet_to_w2",
-#   "pT_closest_bjet_to_b2",  "csv_closest_bjet_to_b2",
-#   "matched_top_mass",
-#   "matched_top_res_mass",
-#   "matched_tprime_mass",
-#   "matched_zprime_mass",
-#   "matched_zprime_res_mass",
-#   "matched_tprime1_mass",
-#   "matched_tprime2_mass",
-#   ]:
-#   rebinna=1
-#   minx=0
-#   maxx=0
-#   if 'top_mass' in i or 'mass_closest_wjet' in i or 'mass_closest_topjet' in i or 'top_res_mass' in i:
-#      minx=0
-#      maxx=300
-#   compare(name='GEN_'+i,#signalWB_names[i]+'dRbW',
-# 		file_list=signal_files_pre2,#[signal_files[i],signal_files_pre[i]],
-# 		name_list=['NoCuts/'+i]*len(signal_files_pre2),
-# 		legend_list=signalWB_legendnames,
-# 		normalize=True,drawoption='hE',
-# 		xtitle='',ytitle='',
-# 		minx=minx,maxx=maxx,
-# 		rebin=rebinna,
-# 		miny=0,maxy=0,
-# 		textsizefactor=1,logy=False)
-#   compare(name='GENTT_'+i,#signalWB_names[i]+'dRbW',
-# 		file_list=signalTT_files,#[signal_files[i],signal_files_pre[i]],
-# 		name_list=['NoCuts/'+i]*len(signal_files),
-# 		legend_list=signalTT_legendnames,
-# 		normalize=True,drawoption='hE',
-# 		xtitle='',ytitle='',
-# 		minx=minx,maxx=maxx,
-# 		rebin=rebinna,
-# 		miny=0,maxy=0,
-# 		textsizefactor=1,logy=False)
+  "pT_closest_wjet_to_w1",  "mass_closest_wjet_to_w1",  "nsub_closest_wjet_to_w1",
+  "pT_closest_bjet_to_b1",  "csv_closest_bjet_to_b1",
+  "pT_closest_wjet_to_w2",  "mass_closest_wjet_to_w2",  "nsub_closest_wjet_to_w2",
+  "pT_closest_bjet_to_b2",  "csv_closest_bjet_to_b2",
+  "matched_top_mass",
+  "matched_top_res_mass",
+  "matched_tprime_mass",
+  "matched_zprime_mass",
+  "matched_zprime_res_mass",
+  "matched_tprime1_mass",
+  "matched_tprime2_mass",
+  ]:
+  rebinna=1
+  minx=0
+  maxx=0
+  if 'top_mass' in i or 'mass_closest_wjet' in i or 'mass_closest_topjet' in i or 'top_res_mass' in i:
+     minx=0
+     maxx=300
+  if 'pTtb' in i :
+     minx=0
+     maxx=1000
+  compare(name='GEN_'+i,#signalWB_names[i]+'dRbW',
+		file_list=signal_files_pre2,#[signal_files[i],signal_files_pre[i]],
+		name_list=['NoCuts/'+i]*len(signal_files_pre2),
+		legend_list=signalWB_legendnames,
+		normalize=True,drawoption='hE',
+		xtitle='',ytitle='',
+		minx=minx,maxx=maxx,
+		rebin=rebinna,
+		miny=0,maxy=0,
+		textsizefactor=1,logy=False)
+  compare(name='GENTT_'+i,#signalWB_names[i]+'dRbW',
+		file_list=signalTT_files,#[signal_files[i],signal_files_pre[i]],
+		name_list=['NoCuts/'+i]*len(signal_files),
+		legend_list=signalTT_legendnames,
+		normalize=True,drawoption='hE',
+		xtitle='',ytitle='',
+		minx=minx,maxx=maxx,
+		rebin=rebinna,
+		miny=0,maxy=0,
+		textsizefactor=1,logy=False)
 
 # for i in range(len(signalWB_names)):
 # 	rebinna=10
