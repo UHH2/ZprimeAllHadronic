@@ -36,7 +36,7 @@ private:
     std::unique_ptr<SubJetCorrector> subjetcorrector;
     std::unique_ptr<JetCorrector> jetcorrector;
    
-    unique_ptr<AnalysisModule> common_modules_with_lumi_sel, btagwAK4, btagwAK8, scalevar,jetsmearAK4,jetsmearAK8;
+    unique_ptr<AnalysisModule> common_modules_with_lumi_sel, btagwAK4, btagwAK8, scalevar,jetsmearAK4,jetsmearAK8, topjetclean;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
     std::unique_ptr<Hists> h_selectionallhad,h_btageffAK4,h_btageffAK8;
@@ -53,7 +53,7 @@ SelectionModule::SelectionModule(Context & ctx){
   
     CommonModules* commonObjectCleaning = new CommonModules();
     string version=ctx.get("dataset_version", "<not set>");
-    //commonObjectCleaning->set_jet_id(AndId<Jet>(JetPFID(JetPFID::WP_LOOSE), PtEtaCut(30.0,2.4)));
+    commonObjectCleaning->set_jet_id(AndId<Jet>(JetPFID(JetPFID::WP_LOOSE), PtEtaCut(30.0,2.4)));
     //commonObjectCleaning->set_electron_id(AndId<Electron>(ElectronID_Spring15_25ns_medium_noIso,PtEtaCut(20.0, 2.1)));
     //commonObjectCleaning->set_muon_id(AndId<Muon>(MuonIDTight(),PtEtaCut(20.0, 2.1)));
     //commonObjectCleaning->switch_jetlepcleaner(true);
@@ -68,20 +68,21 @@ SelectionModule::SelectionModule(Context & ctx){
 
     jetsmearAK4.reset(new GenericJetResolutionSmearer(ctx, "jets", "genjets", true, JERSmearing::SF_13TeV_2015));
     jetsmearAK8.reset(new GenericJetResolutionSmearer(ctx, "topjets", "gentopjets", true, JERSmearing::SF_13TeV_2015));
+    topjetclean.reset(new TopJetCleaner(ctx, PtEtaCut(200., 2.4), "topjets"));
 
     bool is_mc = ctx.get("dataset_type") == "MC";
     if (is_mc)
     {
         jetcorrector.reset(new JetCorrector(ctx,JERFiles::Fall15_25ns_L123_AK4PFchs_MC));
         topjetcorrector.reset(new TopJetCorrector(ctx,JERFiles::Fall15_25ns_L123_AK8PFchs_MC));
-        subjetcorrector.reset(new SubJetCorrector(ctx,JERFiles::Fall15_25ns_L123_AK4PFchs_MC));
+        subjetcorrector.reset(new SubJetCorrector(ctx,JERFiles::Fall15_25ns_L23_AK4PFchs_MC));
 
     }
     else
     {
         jetcorrector.reset(new JetCorrector(ctx,JERFiles::Fall15_25ns_L123_AK4PFchs_DATA));
         topjetcorrector.reset(new TopJetCorrector(ctx,JERFiles::Fall15_25ns_L123_AK8PFchs_DATA));
-        subjetcorrector.reset(new SubJetCorrector(ctx,JERFiles::Fall15_25ns_L123_AK4PFchs_DATA));
+        subjetcorrector.reset(new SubJetCorrector(ctx,JERFiles::Fall15_25ns_L23_AK4PFchs_DATA));
     }
 
     h_selection.reset(new SelectionHists(ctx, "Selection"));
@@ -210,7 +211,7 @@ if (!common_modules_with_lumi_sel->process(event)) {
 
 // }
 
-
+    topjetclean->process(event);
     topjetcorrector->process(event);
     subjetcorrector->process(event);
     jetcorrector->process(event);

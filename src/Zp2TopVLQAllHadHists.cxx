@@ -2800,8 +2800,10 @@ if (has_ww)
 
   Jet the_b_antibcsv;
   bool has_twantibcsv=false;
-  if (has_tw && !has_twb) for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()<medium_btag&&deltaR(jet,the_top)>0.8&&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
+  // if (has_tw && !has_twb) for(auto jet : *event.jets)
+  // if (jet.btag_combinedSecondaryVertex()<medium_btag&&deltaR(jet,the_top)>0.8&&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
+  if (has_tw && !has_twb_loose) for(auto jet : *event.jets)
+  if (jet.btag_combinedSecondaryVertex()<loose_btag&&deltaR(jet,the_top)>0.8&&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
   {
         the_b_antibcsv=jet; has_twantibcsv=true;
         break;

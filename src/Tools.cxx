@@ -125,14 +125,14 @@ float ZprimeMass2(Particle t1, Particle t2)
   else return allsubjets.M();
 }
 
-float TopJetPt(TopJet topjet)
+float TopJetPt2(TopJet topjet)
 {
   LorentzVector allsubjets(0,0,0,0);
   for(auto subjet : topjet.subjets()) allsubjets += subjet.v4();
   return allsubjets.Pt();
 }
 
-float TopJetPt2(Particle topjet)
+float TopJetPt(Particle topjet)
 {
   return topjet.pt();
 }
