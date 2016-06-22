@@ -1,0 +1,5 @@
+cd /nfs/dust/cms/user/usaiem/jobs/
+rm -rf /nfs/dust/cms/user/usaiem/syssel2/Syssel2/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Syssel2/
+~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Syssel2 ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/SysSel.xml
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Syssel2 ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/SysSel.xml"

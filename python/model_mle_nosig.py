@@ -30,7 +30,7 @@ options = Options()
 options.set('main', 'n_threads', '20')
 options.set('global', 'check_cache', 'False')
 #plot_exp, plot_obs = asymptotic_cls_limits(model,use_data=False,options=options)#bayesian_limits ,what='expected'
-postfit=mle(model_nosig, input='data', n=1, signal_process_groups = {'': []})
+postfit=mle(model_nosig, input='data', n=1, signal_process_groups = {'': []}, with_covariance=True)
 print postfit
 f=open('anosig.txt','w')
 for i in postfit['']:

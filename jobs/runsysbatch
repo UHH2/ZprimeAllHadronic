@@ -1,50 +1,82 @@
 cd /nfs/dust/cms/user/usaiem/jobs/
+rm -rf /nfs/dust/cms/user/usaiem/sys/SysUP/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/SysUP/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w SysUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/SysUP.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_MURUP/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_MURUP/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_MURUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MURUP.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_MURDOWN/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_MURDOWN/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_MURDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MURDOWN.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_MUFUP/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_MUFUP/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_MUFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MUFUP.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_MUFDOWN/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_MUFDOWN/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_MUFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MUFDOWN.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_MURMUFUP/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_MURMUFUP/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_MURMUFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MURMUFUP.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_MURMUFDOWN/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_MURMUFDOWN/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_MURMUFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MURMUFDOWN.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_JECUP/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_JECUP/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_JECUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_JECUP.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_JECDOWN/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_JECDOWN/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_JECDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_JECDOWN.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_JERUP/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_JERUP/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_JERUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_JERUP.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_JERDOWN/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_JERDOWN/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_JERDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_JERDOWN.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_PUUP/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_PUUP/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_PUUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_PUUP.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_PUDOWN/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_PUDOWN/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_PUDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_PUDOWN.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_TTBARUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_TTBARUP.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_TTBARDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_TTBARDOWN.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_TSFUP/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_TSFUP/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_TSFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_TSFUP.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_TSFDOWN/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_TSFDOWN/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_TSFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_TSFDOWN.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_WSFUP/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_WSFUP/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_WSFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_WSFUP.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_WSFDOWN/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_WSFDOWN/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_WSFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_WSFDOWN.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_BAK4SFUP/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_BAK4SFUP/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_BAK4SFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_BAK4SFUP.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_BAK4SFDOWN/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_BAK4SFDOWN/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_BAK4SFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_BAK4SFDOWN.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_BAK8SFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_BAK8SFUP.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_BAK8SFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_BAK8SFDOWN.xml
+rm -rf /nfs/dust/cms/user/usaiem/sys/Sys_PDFUP/
+rm -rf /nfs/dust/cms/user/usaiem/jobs/Sys_PDFUP/
 ~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -s -w Sys_PDFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_PDFUP.xml
 
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w SysUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/SysUP.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_MURUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MURUP.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_MURDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MURDOWN.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_MUFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MUFUP.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_MUFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MUFDOWN.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_MURMUFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MURMUFUP.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_MURMUFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MURMUFDOWN.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_JECUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_JECUP.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_JECDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_JECDOWN.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_JERUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_JERUP.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_JERDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_JERDOWN.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_PUUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_PUUP.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_PUDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_PUDOWN.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_TTBARUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_TTBARUP.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_TTBARDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_TTBARDOWN.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_TSFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_TSFUP.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_TSFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_TSFDOWN.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_WSFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_WSFUP.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_WSFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_WSFDOWN.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_BAK4SFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_BAK4SFUP.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_BAK4SFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_BAK4SFDOWN.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_BAK8SFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_BAK8SFUP.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_BAK8SFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_BAK8SFDOWN.xml
-~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_PDFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_PDFUP.xml
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w SysUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/SysUP.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_MURUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MURUP.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_MURDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MURDOWN.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_MUFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MUFUP.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_MUFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MUFDOWN.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_MURMUFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MURMUFUP.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_MURMUFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_MURMUFDOWN.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_JECUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_JECUP.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_JECDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_JECDOWN.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_JERUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_JERUP.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_JERDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_JERDOWN.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_PUUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_PUUP.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_PUDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_PUDOWN.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_TSFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_TSFUP.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_TSFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_TSFDOWN.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_WSFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_WSFUP.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_WSFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_WSFDOWN.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_BAK4SFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_BAK4SFUP.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_BAK4SFDOWN ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_BAK4SFDOWN.xml"
+echo "~/xxl-af-cms/code/batch/SFrameBatch/sframe_batch.py -f -w Sys_PDFUP ~/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/config/Sys_PDFUP.xml"

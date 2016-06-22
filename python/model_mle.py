@@ -17,7 +17,7 @@ model_summary(model)
 options = Options()
 options.set('main', 'n_threads', '20')
 #plot_exp, plot_obs = asymptotic_cls_limits(model,use_data=False,options=options)#bayesian_limits ,what='expected'
-postfit=mle(model, input='data', n=1)
+postfit=mle(model, input='data', n=1, with_covariance=True)
 f=open('a.txt','w')
 for i in postfit['signal_525_2_1p2_1p0_0p0_0p0']:
     if i!='__nll':

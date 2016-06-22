@@ -47,18 +47,18 @@
 
 
 
-<InputData Lumi="0.00489123188" NEventsMax="-1" Type="MC" Version="QCD_Flat" Cacheable="False">
+<!-- <InputData Lumi="0.00489123188" NEventsMax="-1" Type="MC" Version="QCD_Flat" Cacheable="False">
     <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.MC.QCD_Flat.root" Lumi="0.0"/>
     <InputTree Name="AnalysisTree" /> 
     <OutputTree Name="AnalysisTree" /> 
-</InputData>
+</InputData> -->
 
 
-<!--     <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_05Oct2015_v1" Cacheable="False">
+<!--      <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_05Oct2015_v1" Cacheable="False">
         <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.DATA.JetHT_Run2015D_05Oct2015_v1.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" />
         <OutputTree Name="AnalysisTree" /> 
-    </InputData>
+    </InputData> -->
 
     <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="JetHT_Run2015D_PromptReco_v4" Cacheable="False">
         <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.DATA.JetHT_Run2015D_PromptReco_v4.root" Lumi="0.0"/>
@@ -67,7 +67,7 @@
     </InputData> 
 
 
-    <InputData Lumi="116421.0" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
+<!--     <InputData Lumi="116421.0" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
         <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.MC.TTbar.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" /> 
         <OutputTree Name="AnalysisTree" /> 
@@ -331,10 +331,10 @@
  </InputData>
 
 
+ -->
 
 
-
-
+<!--
 
   <InputData Lumi="828307" NEventsMax="-1" Type="MC" Version="MC_TpTp_M-1000" Cacheable="False">
         <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.MC.MC_TpTp_M-1000.root" Lumi="0.0"/>
