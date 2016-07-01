@@ -11,7 +11,7 @@ systypes={'mur':'_MUR',
 #          'ttbar':'_TTBAR',
           'toptag':'_TSF',
           'wtag':'_WSF',
-          #'pdf':'_PDF',
+          'pdf':'_PDF',
           'mean':''
           }
 
@@ -51,24 +51,29 @@ names=[
 'MC.ZpToTpT_TpToWB_MZp2000Wid_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH',
-'MC.MC_TpTp_M-1000',
-'MC.MC_TpTp_M-1100',
-'MC.MC_TpTp_M-1200',
-'MC.MC_TpTp_M-1300',
-'MC.MC_TpTp_M-1400',
-'MC.MC_TpTp_M-1500',
-'MC.MC_TpTp_M-1600',
-'MC.MC_TpTp_M-1700',
-'MC.MC_TpTp_M-1800',
-'MC.MC_TpTp_M-700',
-'MC.MC_TpTp_M-800',
-'MC.MC_TpTp_M-900',
+# 'MC.MC_TpTp_M-1000',
+# 'MC.MC_TpTp_M-1100',
+# 'MC.MC_TpTp_M-1200',
+# 'MC.MC_TpTp_M-1300',
+# 'MC.MC_TpTp_M-1400',
+# 'MC.MC_TpTp_M-1500',
+# 'MC.MC_TpTp_M-1600',
+# 'MC.MC_TpTp_M-1700',
+# 'MC.MC_TpTp_M-1800',
+# 'MC.MC_TpTp_M-700',
+# 'MC.MC_TpTp_M-800',
+# 'MC.MC_TpTp_M-900',
+'MC.SingleT_sChannel',
+'MC.SingleT_tChannel',
+'MC.SingleT_WAntitop',
+'MC.SingleT_WTop',
+
 'MC.QCD_HT500to700','MC.QCD_HT700to1000','MC.QCD_HT1000to1500','MC.QCD_HT1500to2000','MC.QCD_HT2000toInf',
 'MC.TTbar']#,'DATA.JetHT_Run2015D_05Oct2015_v1','DATA.JetHT_Run2015D_PromptReco_v4']
 
 for sys in systypes:
   for side in sides:
-    if side=='DOWN' and sys=='mean':
+    if side=='DOWN' and (sys=='mean' or sys=='pdf'):
       continue
     for name in names:
       copyfile('/nfs/dust/cms/user/usaiem/sys/Sys'+systypes[sys]+side+'/uhh2.AnalysisModuleRunner.'+name+systypes[sys]+side+'_0.root','/nfs/dust/cms/user/usaiem/sys/uhh2.AnalysisModuleRunner.'+name+systypes[sys]+side+'.root')

@@ -257,7 +257,7 @@ def make_plot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_
 us='_'
 def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[], histo=0, histo_qcd='',histo_signal='',histo_ttbar='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,
                     xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False, signal_zoom=1, qcd_zoom=1, ttbar_zoom=1,normalize=False,
-                    ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='Data',dosys=False,sysdict={},syspath='/nfs/dust/cms/user/usaiem/sys/uhh2.AnalysisModuleRunner.MC.TTbar',bkgup=0,bkgdown=0,blind=False):
+                    ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='Data',dosys=False,sysdict={},syspath='/nfs/dust/cms/user/usaiem/sys/top_added',bkgup=0,bkgdown=0,blind=False):
   
   ###canvas setting up
   canvas=0
@@ -415,7 +415,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
       sys_diff_qcd.append([])
       sys_diff_ttbar.append([])
     for sys in sysdict:
-      if not (sys in ['mur','muf','murmuf']):
+      if not (sys in ['mur','muf','murmuf','pdf']):
         for side in ['UP','DOWN']:
           ttf=TFile(syspath+sysdict[sys]+side+'.root','READ')
           #outfile.cd()
@@ -424,6 +424,21 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
           ttbar_tmp.Add(ttbar_histo,-1)
           for imtt in range(1,ttbar_histo.GetNbinsX()+1):
             sys_diff_ttbar[imtt-1].append(ttbar_tmp.GetBinContent(imtt))
+    #addinf pdf
+    if ('pdf' in sysdict):
+      ttbar_pdf=TFile(syspath+sysdict['pdf']+'UP.root','READ')
+      pdfplots=[]
+      for i in range(100):
+        pdfplots.append(ttbar_pdf.Get(histo.split('/')[0]+'PDF'+str(i)+'/'+histo.split('/')[1]).Clone())
+      for imtt in range(1,ttbar_histo.GetNbinsX()+1):
+        rms=0.0
+        for i in pdfplots:
+          rms=rms+math.pow(i.GetBinContent(imtt)-ttbar_histo.GetBinContent(imtt),2)
+        rms=math.sqrt(rms/100)
+        sys_diff_ttbar[imtt-1].append(rms)
+        sys_diff_ttbar[imtt-1].append(-rms)
+        #print rms
+
     #adding mu
     if ('mur' in sysdict) and ('muf' in sysdict) and ('murmuf' in sysdict):
       ttbar_MURUP=TFile(syspath+sysdict['mur']+'UP.root','READ')
@@ -448,6 +463,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
       for imtt in range(1,ttbar_histo.GetNbinsX()+1):
         sys_diff_ttbar[imtt-1].append(envelopesr[imtt-1][0])
         sys_diff_ttbar[imtt-1].append(envelopesr[imtt-1][1])
+        #print envelopesr[imtt-1][0], envelopesr[imtt-1][1]
     #adding bkg uncertainties
     if bkgup!=0 and bkgdown!=0:
       bkgupdiff=qcd_file.Get(bkgup).Clone()
@@ -505,7 +521,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
       nevt_global[0]=nevt_global[0]+data_histo.GetBinContent(imtt)
       nevt_global[1]=nevt_global[1]+qcd_histo.GetBinContent(imtt)
       nevt_global[2]=nevt_global[2]+ttbar_histo.GetBinContent(imtt)
-      #print math.sqrt(uperr),math.sqrt(downerr)
+      #print math.sqrt(uperr_qcd+uperr_ttbar),math.sqrt(downerr_qcd+downerr_ttbar)
       err.SetPointEYhigh(imtt-1,math.sqrt(uperr_qcd+uperr_ttbar))
       err.SetPointEYlow(imtt-1,math.sqrt(downerr_qcd+downerr_ttbar))
     sys_global=[0.0,0.0]
@@ -857,7 +873,11 @@ def make_ratioplot2(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[]
 
   ###drawing top
   top_pad.cd()
-  sum_mc.Draw('hist')
+  sum_mc2=sum_mc.Clone()
+  sum_mc.SetFillColorAlpha(kRed,0.5)
+  sum_mc.SetFillStyle(1001)
+  sum_mc.Draw('E2')
+  sum_mc2.Draw('hist same')
   sum_mc.SetStats(0)
   sum_mc.GetXaxis().SetTitle('')
   sum_mc.GetYaxis().SetTitle(ytitle)
@@ -888,7 +908,10 @@ def make_ratioplot2(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[]
   #  ttbar_line.Draw('samehist')
   #for i in signal_histos:
   #  i.Draw('samehist')
-  data_histo.Draw('hist SAME')
+  data_histo2=data_histo.Clone()
+  data_histo.SetFillColorAlpha(kBlack,0.5)
+  data_histo.Draw('E2 SAME')
+  data_histo2.Draw('histo same')
   if logy:
     top_pad.SetLogy()
   if not separate_legend:

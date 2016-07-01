@@ -1,4 +1,4 @@
-from ROOT import TFile,TCanvas,gROOT,gStyle,TGraph2D,TH2F,TPolyLine,TPolyLine3D,TLine,TGraph,TPad,TColor
+from ROOT import TFile,TCanvas,gROOT,gStyle,TGraph2D,TH2F,TPolyLine,TPolyLine3D,TLine,TGraph,TPad,TColor,TGraphAsymmErrors,TGraph,kYellow,kGreen
 from os import system
 from sys import argv
 from os import mkdir
@@ -89,17 +89,17 @@ signal_Zp_masses=[
 ]
 
 signal_Tp_masses=[
-"0p7",
-"0p9",
-"1p2",
-"0p9",
-"1p2",
-#1p2",
-#1p2",
-"1p5",
-#"1p2",
-"1p2",
-"1p5",
+"0p7",#0
+"0p9",#1
+"1p2",#2
+"0p9",#3
+"1p2",#4
+#1p2",#
+#1p2",#
+"1p5",#5
+#"1p2",#
+"1p2",#6
+"1p5",#7
 ]
 
 signal_Zp_masses2=[
@@ -140,13 +140,71 @@ if doresults:
 	outfile=open('tables.txt','w')
 
 	#values = [[[] for i in range(3)] for i in range(len(signalWB_names))]
-
+	plotcounter=0
 	for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]:
 		filename_postfix=u+str(filecounter)+u+str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')
 		theta_obs_result = open('theta/limits_obs'+filename_postfix+'.txt','r')
 		theta_exp_result = open('theta/limits_exp'+filename_postfix+'.txt','r')
 		theta_exp_lines=theta_exp_result.readlines()
 		theta_obs_lines=theta_obs_result.readlines()
+		if triplet in [[0.6,0.2,0.2],[1.0,0.0,0.0]]:
+			plotcounter=plotcounter+1
+			c=TCanvas('unodlimit'+str(plotcounter),'')
+			c.SetLogy();
+			x=array('d',[1.5,2.0,2.5])
+			lines_exp=[filter(None, theta_exp_lines[2+1].split(' ')),filter(None, theta_exp_lines[4+1].split(' ')),filter(None, theta_exp_lines[6+1].split(' '))]
+			lines_obs=[filter(None, theta_obs_lines[2+1].split(' ')),filter(None, theta_obs_lines[4+1].split(' ')),filter(None, theta_obs_lines[6+1].split(' '))]
+			y_obs=array('d',[float(lines_obs[0][1]),
+				         float(lines_obs[1][1]),
+				         float(lines_obs[2][1])])
+			y_exp=array('d',[float(lines_exp[0][1]),
+				         float(lines_exp[1][1]),
+				         float(lines_exp[2][1])])
+			y_err2down=array('d',[
+				float(lines_exp[0][1])-float(lines_exp[0][2]),
+				float(lines_exp[1][1])-float(lines_exp[1][2]),
+				float(lines_exp[2][1])-float(lines_exp[2][2])
+				])
+			y_err1down=array('d',[
+				float(lines_exp[0][1])-float(lines_exp[0][4]),
+				float(lines_exp[1][1])-float(lines_exp[1][4]),
+				float(lines_exp[2][1])-float(lines_exp[2][4])
+				])
+			y_err1up=array('d',[
+				float(lines_exp[0][5])-float(lines_exp[0][1]),
+				float(lines_exp[1][5])-float(lines_exp[1][1]),
+				float(lines_exp[2][5])-float(lines_exp[2][1])
+				])
+			y_err2up=array('d',[
+				float(lines_exp[0][3])-float(lines_exp[0][1]),
+				float(lines_exp[1][3])-float(lines_exp[1][1]),
+				float(lines_exp[2][3])-float(lines_exp[2][1])
+				])
+			zeros=array('d',[0,0,0])
+			exp1sigma=TGraphAsymmErrors(3,x,y_exp,zeros,zeros,y_err1down,y_err1up)
+			exp2sigma=TGraphAsymmErrors(3,x,y_exp,zeros,zeros,y_err2down,y_err2up)
+			explim=TGraph(3,x,y_exp)
+			obslim=TGraph(3,x,y_obs)
+			obslim.SetLineWidth(2)
+			explim.SetLineWidth(2)
+			explim.SetLineStyle(2)
+			explim.SetTitle('')
+			obslim.SetTitle('')
+			exp2sigma.SetTitle('')
+			exp1sigma.SetTitle('')
+			#obslim.SetMinimum(0.001);
+			#duesigma=TGraphAsymmErrors(3,)
+			exp1sigma.SetFillColor(kGreen)
+			exp2sigma.SetFillColor(kYellow)
+			exp2sigma.Draw('a3lp')
+			exp2sigma.GetXaxis().SetTitle("Z' mass (TeV)")
+			exp2sigma.GetYaxis().SetTitle("Upper cross section limit (pb)")
+			exp1sigma.Draw('3')
+			explim.Draw('lp')
+			obslim.Draw('lp')
+			
+			c.SaveAs('pdf/unodlimit'+str(plotcounter)+'.pdf')
+
 		if triplet in [[1.0,0.0,0.0],[0.0,1.0,0.0],[0.0,0.0,1.0]]:
 			print 'bW',triplet[0],'tH',triplet[1],'tZ',triplet[2]
 		for masspoint in range(len(signalWB_names)):
