@@ -264,7 +264,20 @@ systypes={'mur':'_MUR',
           'pdf':'_PDF',
           #'mean':''
           }
-
+systypes2={'mur':'_MUR',
+          'muf':'_MUF',
+          'murmuf':'_MURMUF',
+          'jec':'_JEC',
+          'jer':'_JER',
+          'pu':'_PU',
+          'btag':'_BAK4SF',
+#          'subjetbtag':'_BAK8SF',
+#          'ttbar':'_TTBAR',
+          'toptag':'_TSF',
+          'wtag':'_WSF',
+          'pdf':'_PDF',
+          'mean':''
+          }
 
 
 #signal_names=signalWB_names+signalHT_names+signalZT_names
@@ -280,19 +293,32 @@ outfile=TFile('outfile.root','RECREATE')
 
 #merge
 force=True
-merge=True
+merge=False
 qcd_filename=hadd(path,filename_base,qcd_names,'qcd_added',force,merge)
 ttbar_filename=hadd(path,filename_base,ttbar_names,'ttbar_added',force,merge)
 data_filename=hadd(path,filename_base,data_names,'data_added',force,merge)
 singletop_filename=hadd(path,filename_base,singletop_names,'singletop_added',force,merge)
 top_filename=hadd(path,filename_base,top_names,'top_added',force,merge)
-for sys in systypes:
+for sys in systypes2:
   for side in ['UP','DOWN']:
-    sysnames=[]
+    systopnames=[]
     for i in top_names:
       if not (sys=='pdf' and side=='DOWN'):
-        sysnames.append(i+systypes[sys]+side)
-    hadd(syspath,filename_base,sysnames,'top_added'+systypes[sys]+side,force,merge)
+        systopnames.append(i+systypes2[sys]+side)
+
+    systtbarnames=[]
+    for i in ttbar_names:
+      if not (sys=='pdf' and side=='DOWN'):
+        systtbarnames.append(i+systypes2[sys]+side)
+
+    syssingletopnames=[]
+    for i in singletop_names:
+      if not (sys=='pdf' and side=='DOWN'):
+        syssingletopnames.append(i+systypes2[sys]+side)
+
+    hadd(syspath,filename_base,systopnames,'top_added'+systypes2[sys]+side,force,merge)
+    hadd(syspath,filename_base,systtbarnames,'ttbar_added'+systypes2[sys]+side,force,merge)
+    hadd(syspath,filename_base,syssingletopnames,'singletop_added'+systypes2[sys]+side,force,merge)
 #open files
 qcd_file=TFile(qcd_filename,'READ')
 ###################################################################################################################################################################
@@ -305,8 +331,8 @@ qcd_file=TFile(qcd_filename,'READ')
 ###################################################################################################################################################################
 ###################################################################################################################################################################
 ###################################################################################################################################################################
-ttbar_file=TFile(top_filename,'READ')
 #ttbar_file=TFile(top_filename,'READ')
+ttbar_file=TFile(ttbar_filename,'READ')
 top_file=TFile(top_filename,'READ')
 data_file=TFile(data_filename,'READ')
 singletop_file=TFile(singletop_filename,'READ')
@@ -344,7 +370,8 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
   "dRbt",  "dRbW",  "dRtW",  "dRtTp",
   "ht",  "htca8",  "ht_twb",  "npv",  "nevt",
   "toppt_wpt",  "toppt_wbpt","ht_twbSR","ht_twbSRbtag","ht_twbSRnobtag",
-  "tprimemass",  "tprimept","Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub",
+  "tprimemass",  "tprimept","Nm1wmass","Nm1wmass1","Nm1wmass2","Nm1wmass3","Nm1wmass4","Nm1wnsub","Nm1topmass","Nm1topnsub",
+  "Nm1wmassRndm","Nm1wnsubRndm","Nm1topmassRndm","Nm1topnsubRndm",
   "zprimemass",  "zprimept",  "zprimemassbtag",  "zprimemassnobtag",  "zprimemassbmass",  "zprimemassnobmass",
   "ttbarCR_zprimemass",  "ttbarCR_zprimemassbtag","ttbarCR_zprimemass_low",  "ttbarCR_zprimemassbtag_low",
   "lowmassCR_zprimemass",  "lowmassCR_zprimemassbtag","lowmassCR_zprimemass_low",  "lowmassCR_zprimemassbtag_low",
@@ -395,8 +422,10 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
     maxx=300
   if i in ["index_toptag","index_wtag","index_wtag1","index_wtag2","N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR","bcsv","csv_pthighest","csv_csvhighest", "topcsv",]:
     rebinna=1
-  if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub",]:
+  if i in ["Nm1wmass","Nm1wmass1","Nm1wmass2","Nm1wmass3","Nm1wmass4","Nm1wnsub","Nm1topmass","Nm1topnsub","Nm1wmassRndm","Nm1wnsubRndm","Nm1topmassRndm","Nm1topnsubRndm"]:
     rebinna =2
+  if i in ["Nm1wmassRndm","Nm1wnsubRndm","Nm1topmassRndm","Nm1topnsubRndm"]:
+    rebinna =4
   if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR",
       "bcsv",
   "wmass",  "wpt",  "wnsub",
@@ -404,7 +433,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
   "dRbt",  "dRbW",  "dRtW",  "dRtTp",
   "ht",  "htca8",  "ht_twb",  "npv",  "nevt",]:
     signalzoom=100
-  if i in ["Nm1wmass","Nm1wnsub","Nm1topmass","Nm1topnsub","csv_pthighest",]:
+  if i in ["Nm1wmass","Nm1wmass1","Nm1wmass2","Nm1wmass3","Nm1wmass4","Nm1wnsub","Nm1topmass","Nm1topnsub","Nm1wmassRndm","Nm1wnsubRndm","Nm1topmassRndm","Nm1topnsubRndm","csv_pthighest",]:
     signalzoom=20
   if i in ["bmass","tprimemass",'tprimept',"topcsv"]:
     signalzoom=10
@@ -473,7 +502,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
 
   make_ratioplot(
     name=i+'_NOLOG',
-    ttbar_file=ttbar_file,
+    ttbar_file=top_file,
     qcd_file=qcd_file,
     data_file=data_file,
     signal_files=signal_files_short,
@@ -499,7 +528,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
         signal_zoom=signalzoom,
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=True,
+        dosys=False,
         sysdict=systypes)
 
   # make_ratioplot(
@@ -856,7 +885,9 @@ for i in [
         fixratio=True,
         normalize=True,
         qcd_legend='Control region (QCD MC)',
-        data_legend='Signal region (QCD MC)'
+        data_legend='Signal region (QCD MC)',
+        rebinlist=ratioArray,
+        rebinlen=ratioLen
         #signal_colors=[1,2,3,1,2,3,1,2]
         )
 
@@ -1227,7 +1258,9 @@ for i in [
         fixratio=True,
         normalize=True,
         qcd_legend='Corrected sideband region (QCD MC)',
-        data_legend='Signal region (QCD MC)'
+        data_legend='Signal region (QCD MC)',
+        rebinlist=ratioArray,
+        rebinlen=ratioLen
         #signal_colors=[1,2,3,1,2,3,1,2]
         )
 
@@ -1952,7 +1985,7 @@ f.close()
 #         signal_legend=signalWB_legendnames,
 #         separate_legend=True
 #         )
-
+#ttbar_file
 qcdbkgbtag=data_file.Get("Selection/bkg2").Clone('qcdbkgbtag')
 qcdbkgbtag_up=data_file.Get("Selection/bkg2up").Clone('qcdbkgbtag_up')
 qcdbkgbtag_down=data_file.Get("Selection/bkg2down").Clone('qcdbkgbtag_down')
@@ -1966,28 +1999,28 @@ qcdsfnobtag=qcd_file.Get("Selection/zprimemassnobtag").Integral(blow,bhigh)/qcd_
 print 'btag',qcdsfbtag
 print 'nobtag',qcdsfnobtag
 dratiobtag=data_file.Get("Selection/zprimemassbtag").Clone()
-dratiobtag.Add(ttbar_file.Get("Selection/zprimemassbtag"),-1.0)
+dratiobtag.Add(top_file.Get("Selection/zprimemassbtag"),-1.0)
 qcdsfbtag2=dratiobtag.Integral(blow,bhigh)/qcdbkgbtag.Integral(blow,bhigh)
 drationobtag=data_file.Get("Selection/zprimemassnobtag").Clone()
-drationobtag.Add(ttbar_file.Get("Selection/zprimemassnobtag"),-1.0)
+drationobtag.Add(top_file.Get("Selection/zprimemassnobtag"),-1.0)
 qcdsfnobtag2=drationobtag.Integral(blow,bhigh)/qcdbkgnobtag.Integral(blow,bhigh)
 print 'btag2',qcdsfbtag2
 print 'nobtag2',qcdsfnobtag2
 
 
 
-qcdbkgbtag.Add(ttbar_file.Get("Selection/bkg2").Clone(),-1.0)
+qcdbkgbtag.Add(top_file.Get("Selection/bkg2").Clone(),-1.0)
 qcdbkgbtag.Scale(qcdsfbtag2)
-qcdbkgbtag_up.Add(ttbar_file.Get("Selection/bkg2up").Clone(),-1.0)
+qcdbkgbtag_up.Add(top_file.Get("Selection/bkg2up").Clone(),-1.0)
 qcdbkgbtag_up.Scale(qcdsfbtag2)
-qcdbkgbtag_down.Add(ttbar_file.Get("Selection/bkg2down").Clone(),-1.0)
+qcdbkgbtag_down.Add(top_file.Get("Selection/bkg2down").Clone(),-1.0)
 qcdbkgbtag_down.Scale(qcdsfbtag2)
 
-qcdbkgnobtag.Add(ttbar_file.Get("Selection/bkg1").Clone(),-1.0)
+qcdbkgnobtag.Add(top_file.Get("Selection/bkg1").Clone(),-1.0)
 qcdbkgnobtag.Scale(qcdsfnobtag2)
-qcdbkgnobtag_up.Add(ttbar_file.Get("Selection/bkg1up").Clone(),-1.0)
+qcdbkgnobtag_up.Add(top_file.Get("Selection/bkg1up").Clone(),-1.0)
 qcdbkgnobtag_up.Scale(qcdsfnobtag2)
-qcdbkgnobtag_down.Add(ttbar_file.Get("Selection/bkg1down").Clone(),-1.0)
+qcdbkgnobtag_down.Add(top_file.Get("Selection/bkg1down").Clone(),-1.0)
 qcdbkgnobtag_down.Scale(qcdsfnobtag2)
 
 outfile.cd()
@@ -2252,68 +2285,68 @@ maxx=0
 
 
 
-make_ratioplot(
-    name='2_btagNOLOG',
-    ttbar_file=ttbar_file,
-    qcd_file=outfile,
-    data_file=data_file,
-    signal_files=signal_files_short,
-    histo="Selection/zprimemassbtag", 
-    histo_qcd='qcdbkgbtag',
-    histo_signal="Selection/zprimemassbtag",
-    rebin=rebinna,
-    minx=minx,
-    maxx=maxx,
-    miny=0,
-    maxy=0,
-    minratio=0,
-    maxratio=0,
-    blind=False,
-    logy=False,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalWB_legendnames_short,
-        separate_legend=True,
-        signal_zoom=signalzoom,
-        qcd_legend='QCD from sideband',
-        fixratio=True,
-        signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=True,
-        sysdict=systypes,
-        bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
-        )
-make_ratioplot(
-    name='1_btagNOLOG',
-    ttbar_file=ttbar_file,
-    qcd_file=outfile,
-    data_file=data_file,
-    signal_files=signal_files_short,
-    histo="Selection/zprimemassnobtag", 
-    histo_qcd='qcdbkgnobtag',
-    histo_signal="Selection/zprimemassnobtag",
-    rebin=rebinna,
-    minx=minx,
-    maxx=maxx,
-    miny=0,
-    maxy=0,
-    minratio=0,
-    maxratio=0,
-    blind=False,
-    logy=False,
-        xtitle='',
-        ytitle='Events',
-        textsizefactor=1,
-        signal_legend=signalWB_legendnames_short,
-        separate_legend=True,
-        signal_zoom=signalzoom,
-        qcd_legend='QCD from sideband',
-        fixratio=True,
-        signal_colors=[kOrange+10,kAzure+1,kSpring-6],
-        dosys=True,
-        sysdict=systypes,
-        bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
-        )
+# make_ratioplot(
+#     name='2_btagNOLOG',
+#     ttbar_file=top_file,
+#     qcd_file=outfile,
+#     data_file=data_file,
+#     signal_files=signal_files_short,
+#     histo="Selection/zprimemassbtag", 
+#     histo_qcd='qcdbkgbtag',
+#     histo_signal="Selection/zprimemassbtag",
+#     rebin=rebinna,
+#     minx=minx,
+#     maxx=maxx,
+#     miny=0,
+#     maxy=0,
+#     minratio=0,
+#     maxratio=0,
+#     blind=False,
+#     logy=False,
+#         xtitle='',
+#         ytitle='Events',
+#         textsizefactor=1,
+#         signal_legend=signalWB_legendnames_short,
+#         separate_legend=True,
+#         signal_zoom=signalzoom,
+#         qcd_legend='QCD from sideband',
+#         fixratio=True,
+#         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+#         dosys=True,
+#         sysdict=systypes,
+#         bkgup='qcdbkgbtag_up',bkgdown='qcdbkgbtag_down'
+#         )
+# make_ratioplot(
+#     name='1_btagNOLOG',
+#     ttbar_file=top_file,
+#     qcd_file=outfile,
+#     data_file=data_file,
+#     signal_files=signal_files_short,
+#     histo="Selection/zprimemassnobtag", 
+#     histo_qcd='qcdbkgnobtag',
+#     histo_signal="Selection/zprimemassnobtag",
+#     rebin=rebinna,
+#     minx=minx,
+#     maxx=maxx,
+#     miny=0,
+#     maxy=0,
+#     minratio=0,
+#     maxratio=0,
+#     blind=False,
+#     logy=False,
+#         xtitle='',
+#         ytitle='Events',
+#         textsizefactor=1,
+#         signal_legend=signalWB_legendnames_short,
+#         separate_legend=True,
+#         signal_zoom=signalzoom,
+#         qcd_legend='QCD from sideband',
+#         fixratio=True,
+#         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+#         dosys=True,
+#         sysdict=systypes,
+#         bkgup='qcdbkgnobtag_up',bkgdown='qcdbkgnobtag_down'
+#         )
 
 
 
@@ -2322,8 +2355,8 @@ make_ratioplot(
 
 outfile.cd()
 
-qcdsfnobtag2=0.0946614153981*0.97126320051
-qcdsfbtag2=0.128318310801*0.97126320051
+qcdsfnobtag2=0.0934509126798*0.996022971801#*0.97126320051
+qcdsfbtag2=0.124318746802*0.996022971801#*0.97126320051
 
 #prove
 for names in [
@@ -2354,29 +2387,41 @@ for names in [
   
   qcdbkg_down=data_file.Get(names[3]).Clone(names[2]+'_bkgdown')
   qcdbkg_up=data_file.Get(names[4]).Clone(names[2]+'_bkgup')
+  qcdbkg_fitup=data_file.Get(names[5]).Clone(names[2]+'_bkgfitup')
 
-  qcdbkg_down.Add(ttbar_file.Get(names[3]).Clone(),-1.0)
-  qcdbkg_up.Add(ttbar_file.Get(names[4]).Clone(),-1.0)
+  qcdbkg_down.Add(top_file.Get(names[3]).Clone(),-1.0)
+  qcdbkg_up.Add(top_file.Get(names[4]).Clone(),-1.0)
+  qcdbkg_fitup.Add(top_file.Get(names[5]).Clone(),-1.0)
+
 
 
   if '2' in names[2] and 'fat' not in names[2]:
     qcdbkg.Scale(qcdsfbtag2)
     qcdbkg_down.Scale(qcdsfbtag2)
     qcdbkg_up.Scale(qcdsfbtag2)
+    qcdbkg_fitup.Scale(qcdsfbtag2)
     for i in range(len(sgnbkg)):
       sgnbkg[i]=sgnbkg[i]*qcdsfbtag2
   elif '1' in names[2] and 'fat' not in names[2]:
     qcdbkg.Scale(qcdsfnobtag2)
     qcdbkg_down.Scale(qcdsfnobtag2)
     qcdbkg_up.Scale(qcdsfnobtag2)
+    qcdbkg_fitup.Scale(qcdsfnobtag2)
     for i in range(len(sgnbkg)):
       sgnbkg[i]=sgnbkg[i]*qcdsfnobtag2
   else:
     qcdbkg.Scale(qcdsf)
     qcdbkg_down.Scale(qcdsf)
     qcdbkg_up.Scale(qcdsf)
+    qcdbkg_fitup.Scale(qcdsf)
     for i in range(len(sgnbkg)):
       sgnbkg[i]=sgnbkg[i]*qcdsf
+
+  qcdbkg_fitdiff=qcdbkg_fitup.Clone(names[2]+'_fitdiff')
+  qcdbkg_fitdiff.Add(qcdbkg.Clone(),-1)
+  qcdbkg_fitdown=qcdbkg.Clone(names[2]+'_bkgfitdown')
+  qcdbkg_fitdown.Add(qcdbkg_fitdiff,-1)
+
 
   for i in range(len(signal_files_short)):
     print 's2s',sgnbkg[i]*100.0/signal_files_short[i].Get(names[1]).Clone().Integral(blow,bhigh)
@@ -2401,10 +2446,12 @@ for names in [
 
   outfile.cd()
 
+
   qcdbkg.Write()
   qcdbkg_down.Write()
   qcdbkg_up.Write()
-
+  qcdbkg_fitup.Write()
+  qcdbkg_fitdown.Write()
 
 
   make_ratioplot(
@@ -2437,12 +2484,16 @@ for names in [
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
         dosys=True,
         sysdict=systypes,
-        bkgup=names[2]+'_bkgup',bkgdown=names[2]+'_bkgdown'
+        bkgup=names[2]+'_bkgup',bkgdown=names[2]+'_bkgdown',
+        bkgfitup=names[2]+'_bkgfitup',bkgfitdown=names[2]+'_bkgfitdown'
         )
+
+
 
   if len(names)>3:
     make_comp(data_file.Get(names[0]),data_file.Get(names[3]),data_file.Get(names[4]),names[2]+'_fiterrorsys',10)
     make_comp(data_file.Get(names[0]),data_file.Get(names[5]),data_file.Get(names[5]),names[2]+'_fitformsys',10)
+
 
   # compare(name=names[2]+'_sys',
   #   file_list=[qcd_file,qcd_file,qcd_file],
@@ -2454,11 +2505,6 @@ for names in [
   #   rebin=10,
   #   miny=0,maxy=0,
   #   textsizefactor=1,logy=False)
-
-
-
-
-
 
 
 compare(name='qcdcorrsystbtag',
@@ -2484,8 +2530,11 @@ compare(name='qcdcorrsystnobtag',
 		textsizefactor=1,logy=False)
 
 
-#assert(False)
 
+#assert(False)
+outfile.Close()
+outfile=TFile('outfile.root','READ')
+outfile2=TFile('outfile2.root','RECREATE')
 
 signal_filesWB=[]
 signal_filesZT=[]
@@ -2515,7 +2564,8 @@ if dotheta:
   sides={'UP':'plus','DOWN':'minus'}
   cats={onebtag:'1btag',twobtags:'2btag'}
   cats15={onebtag:'1btag',twobtags:'2btag',onebtag15:'1btagCA15',twobtags15:'2btagCA15'}
-  bkgcats={onebtag:'Selection/bkg1_par',twobtags:'Selection/bkg2_par',onebtag15:onebtag15,twobtags15:twobtags15}
+  #bkgcats={onebtag:'Selection/bkg1_par',twobtags:'Selection/bkg2_par',onebtag15:onebtag15,twobtags15:twobtags15}
+  bkgcats={onebtag:'parabola1_bkg',twobtags:'parabola2_bkg'}
   #cats2={'Selection/bkg1':'1btag','Selection/bkg2':'2btag'}
 
 
@@ -2634,6 +2684,7 @@ if dotheta:
 
   CA15combi=TFile('CA15combi.root','RECREATE')
   dosys(file_path='',the_file=ttbar_file, cats=cats15,sys_to_do={},sample_name='ttbar',out_file=CA15combi)
+  dosys(file_path='',the_file=singletop_file, cats=cats15,sys_to_do={},sample_name='singletop',out_file=CA15combi)
   dosys(file_path='',the_file=data_file,  cats=cats15,sys_to_do={},sample_name='DATA',out_file=CA15combi)
   dosys(file_path='',the_file=qcd_file,   cats=cats15,sys_to_do={},sample_name='qcd',out_file=CA15combi)
   for signal_name in range(len(signalWB_names)):
@@ -2654,35 +2705,45 @@ if dotheta:
     thetafile.cd()
     for cat in cats:
       allhad__ttbar=ttbar_file.Get(cat).Clone()
+      allhad__singletop=singletop_file.Get(cat).Clone()
       allhad__DATA=data_file.Get(cat).Clone()
-      allhad__qcd=0
-      if 'CA15' in cat:
-        allhad__qcd=qcd_file.Get(bkgcats[cat]).Clone()
-      else:
-        allhad__qcd=data_file.Get(bkgcats[cat]).Clone()
-        if '2btag' in cats[cat]:
-          allhad__qcd.Scale(qcdsfbtag2)
-        else:
-          allhad__qcd.Scale(qcdsfnobtag2)
+      # allhad__qcd=0
+      # if 'CA15' in cat:
+      #   allhad__qcd=qcd_file.Get(bkgcats[cat]).Clone()
+      # else:
+      allhad__qcd=outfile.Get(bkgcats[cat]).Clone()
+        # if '2btag' in cats[cat]:
+        #   allhad__qcd.Scale(qcdsfbtag2)
+        # else:
+        #   allhad__qcd.Scale(qcdsfnobtag2)
       allhad__ttbar.Rebin(rebinna)
+      allhad__singletop.Rebin(rebinna)
       allhad__DATA.Rebin(rebinna)
       allhad__qcd.Rebin(rebinna)
       allhad__ttbar=allhad__ttbar.Rebin(runLen,'',runArray)
+      allhad__singletop=allhad__singletop.Rebin(runLen,'',runArray)
       allhad__DATA=allhad__DATA.Rebin(runLen,'',runArray)
       allhad__qcd=allhad__qcd.Rebin(runLen,'',runArray)
       allhad__ttbar.Write('allhad'+cats[cat]+'__ttbar')
+      allhad__singletop.Write('allhad'+cats[cat]+'__singletop')
       allhad__DATA.Write('allhad'+cats[cat]+'__DATA')
       allhad__qcd.Write('allhad'+cats[cat]+'__qcd')
-      if not 'CA15' in cat:
-        for side in sides:
-          allhad__qcd__sys=data_file.Get(bkgcats[cat].split('_')[0]+side.lower()+'_par_fit').Clone()
-          if '2btag' in cats[cat]:
-            allhad__qcd__sys.Scale(qcdsfbtag2)
-          else:
-            allhad__qcd__sys.Scale(qcdsfnobtag2)
-          allhad__qcd__sys.Rebin(rebinna)
-          allhad__qcd__sys=allhad__qcd__sys.Rebin(runLen,'',runArray)
-          allhad__qcd__sys.Write('allhad'+cats[cat]+'__qcd__bkgcorr__'+sides[side])
+      # if not 'CA15' in cat:
+      #   allhad__qcd__fitup=data
+      for side in sides:
+        allhad__qcd__sys=outfile.Get(bkgcats[cat]+side.lower()).Clone()
+        allhad__qcd__sysfit=outfile.Get(bkgcats[cat]+'fit'+side.lower()).Clone()
+          # allhad__qcd__sys=data_file.Get(bkgcats[cat].split('_')[0]+side.lower()+'_par_fit').Clone()
+          # if '2btag' in cats[cat]:
+          #   allhad__qcd__sys.Scale(qcdsfbtag2)
+          # else:
+          #   allhad__qcd__sys.Scale(qcdsfnobtag2)
+        allhad__qcd__sys.Rebin(rebinna)
+        allhad__qcd__sys=allhad__qcd__sys.Rebin(runLen,'',runArray)
+        allhad__qcd__sys.Write('allhad'+cats[cat]+'__qcd__bkgcorr__'+sides[side])
+        allhad__qcd__sysfit.Rebin(rebinna)
+        allhad__qcd__sysfit=allhad__qcd__sysfit.Rebin(runLen,'',runArray)
+        allhad__qcd__sysfit.Write('allhad'+cats[cat]+'__qcd__bkgfit__'+sides[side])
 
 ###################################################################################################################################################################
 ###################################################################################################################################################################
@@ -2753,18 +2814,19 @@ if dotheta:
   
     for sys in systypes:
         if not (sys in ['mur','muf','murmuf','pdf']):
-          for side in sides:
-            sys_file=TFile(syspath+'top_added'+systypes[sys]+side+root,'READ')
-            for cat in cats:
-              allhad=sys_file.Get(cat).Clone()
-              allhad.Rebin(rebinna)
-              allhad=allhad.Rebin(runLen,'',runArray)
-              thetafile.cd()
-              allhad.Write('allhad'+cats[cat]+uu+'ttbar'+uu+sys+uu+sides[side])
-            sys_file.Close()
+          for sample in ['ttbar','singletop']:
+            for side in sides:
+              sys_file=TFile(syspath+sample+'_added'+systypes[sys]+side+root,'READ')
+              for cat in cats:
+                allhad=sys_file.Get(cat).Clone()
+                allhad.Rebin(rebinna)
+                allhad=allhad.Rebin(runLen,'',runArray)
+                thetafile.cd()
+                allhad.Write('allhad'+cats[cat]+uu+sample+uu+sys+uu+sides[side])
+              sys_file.Close()
 
     if ('pdf' in systypes):
-      ttbar_pdf=TFile(syspath+'top_added'+systypes['pdf']+'UP.root','READ')
+      ttbar_pdf=TFile(syspath+'ttbar_added'+systypes['pdf']+'UP.root','READ')
       for cat in cats:
         pdfplots=[]
         for i in range(100):
@@ -2780,9 +2842,9 @@ if dotheta:
           pdfUP.SetBinContent(imtt,pdfUP.GetBinContent(imtt)+rms)
           pdfDOWN.SetBinContent(imtt,pdfDOWN.GetBinContent(imtt)-rms)
         if triplet==[1.0,0.0,0.0]:
-          outfile.cd()
+          outfile2.cd()
           pdfUP.Write('pdfup'+cats[cat])
-          pdfUP.Write('pdfdown'+cats[cat])
+          pdfDOWN.Write('pdfdown'+cats[cat])
           thetafile.cd()
         pdfUP.Rebin(rebinna)
         pdfUP=pdfUP.Rebin(runLen,'',runArray)
@@ -2794,33 +2856,34 @@ if dotheta:
       ttbar_pdf.Close()
 
     if ('mur' in systypes) and ('muf' in systypes) and ('murmuf' in systypes):
-      sysfilettbar_MURUP=TFile(syspath+'top_added'+systypes['mur']+'UP.root','READ')
-      sysfilettbar_MURDOWN=TFile(syspath+'top_added'+systypes['mur']+'DOWN.root','READ')
-      sysfilettbar_MUFUP=TFile(syspath+'top_added'+systypes['muf']+'UP.root','READ')
-      sysfilettbar_MUFDOWN=TFile(syspath+'top_added'+systypes['muf']+'DOWN.root','READ')
-      sysfilettbar_MURMUFUP=TFile(syspath+'top_added'+systypes['murmuf']+'UP.root','READ')
-      sysfilettbar_MURMUFDOWN=TFile(syspath+'top_added'+systypes['murmuf']+'DOWN.root','READ')
-      for cat in cats:
-        allhad_env=envelope([sysfilettbar_MURUP.Get(cat),sysfilettbar_MURDOWN.Get(cat),sysfilettbar_MUFUP.Get(cat),sysfilettbar_MUFDOWN.Get(cat),sysfilettbar_MURMUFUP.Get(cat),sysfilettbar_MURMUFDOWN.Get(cat)])
-        allhad_up=sysfilettbar_MURUP.Get(cat).Clone()
-        allhad_down=sysfilettbar_MURUP.Get(cat).Clone()
-        for imtt in range(1,allhad_up.GetNbinsX()+1):
-          allhad_up.SetBinContent(imtt,allhad_env[imtt-1][1])
-          allhad_down.SetBinContent(imtt,allhad_env[imtt-1][0])
-        allhad_up.Rebin(rebinna)
-        allhad_down.Rebin(rebinna)
-        allhad_up=allhad_up.Rebin(runLen,'',runArray)
-        allhad_down=allhad_down.Rebin(runLen,'',runArray)
-        thetafile.cd()
-        allhad_up.Write('allhad'+cats[cat]+uu+'ttbar'+uu+'mu'+uu+'plus')
-        allhad_down.Write('allhad'+cats[cat]+uu+'ttbar'+uu+'mu'+uu+'minus')
+      for sample in ['ttbar','singletop']:
+        sysfilettbar_MURUP=TFile(syspath+sample+'_added'+systypes['mur']+'UP.root','READ')
+        sysfilettbar_MURDOWN=TFile(syspath+sample+'_added'+systypes['mur']+'DOWN.root','READ')
+        sysfilettbar_MUFUP=TFile(syspath+sample+'_added'+systypes['muf']+'UP.root','READ')
+        sysfilettbar_MUFDOWN=TFile(syspath+sample+'_added'+systypes['muf']+'DOWN.root','READ')
+        sysfilettbar_MURMUFUP=TFile(syspath+sample+'_added'+systypes['murmuf']+'UP.root','READ')
+        sysfilettbar_MURMUFDOWN=TFile(syspath+sample+'_added'+systypes['murmuf']+'DOWN.root','READ')
+        for cat in cats:
+          allhad_env=envelope([sysfilettbar_MURUP.Get(cat),sysfilettbar_MURDOWN.Get(cat),sysfilettbar_MUFUP.Get(cat),sysfilettbar_MUFDOWN.Get(cat),sysfilettbar_MURMUFUP.Get(cat),sysfilettbar_MURMUFDOWN.Get(cat)])
+          allhad_up=sysfilettbar_MURUP.Get(cat).Clone()
+          allhad_down=sysfilettbar_MURUP.Get(cat).Clone()
+          for imtt in range(1,allhad_up.GetNbinsX()+1):
+            allhad_up.SetBinContent(imtt,allhad_env[imtt-1][1])
+            allhad_down.SetBinContent(imtt,allhad_env[imtt-1][0])
+          allhad_up.Rebin(rebinna)
+          allhad_down.Rebin(rebinna)
+          allhad_up=allhad_up.Rebin(runLen,'',runArray)
+          allhad_down=allhad_down.Rebin(runLen,'',runArray)
+          thetafile.cd()
+          allhad_up.Write('allhad'+cats[cat]+uu+sample+uu+'mu'+uu+'plus')
+          allhad_down.Write('allhad'+cats[cat]+uu+sample+uu+'mu'+uu+'minus')
 
-      sysfilettbar_MURUP.Close()
-      sysfilettbar_MURDOWN.Close()
-      sysfilettbar_MUFUP.Close()
-      sysfilettbar_MUFDOWN.Close()
-      sysfilettbar_MURMUFUP.Close()
-      sysfilettbar_MURMUFDOWN.Close()
+        sysfilettbar_MURUP.Close()
+        sysfilettbar_MURDOWN.Close()
+        sysfilettbar_MUFUP.Close()
+        sysfilettbar_MUFDOWN.Close()
+        sysfilettbar_MURMUFUP.Close()
+        sysfilettbar_MURMUFDOWN.Close()
 
     #if triplet==[0,0,0]:
     #	for masspoint in range(len(signalTT_names)):
@@ -3145,7 +3208,7 @@ for masspoint in [0,3,6]:
         qcd_zoom=den2/den2bk,
         fixratio=True,
         ttbar_legend='signal in bkg estimate (MC)',qcd_legend='background estimate (MC)', data_legend='observed background (MC)',
-        normalize=False
+        normalize=False, drawratio=False
         #signal_colors=[1,2,3,1,2,3,1,2]
         )
 
@@ -3154,7 +3217,7 @@ for masspoint in [0,3,6]:
 		qcd_file=qcd_file,data_file=qcd_file,signal_files=[signal_files[masspoint]],
 		histo="Selection/zprimemassnobtag",histo_qcd='Selection/bkg1_par',
 		histo_ttbar='Selection/bkg1_par',histo_signal="Selection/zprimemassnobtag",
-		rebin=rebinna,minx=minx,maxx=maxx,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,xtitle='',ytitle='Events',textsizefactor=1,signal_legend=[signalWB_legendnames[masspoint]],separate_legend=False,signal_zoom=1,ttbar_zoom=den1/den1bk,qcd_zoom=den1/den1bk,fixratio=True,ttbar_legend='signal in bkg estimate (MC)',qcd_legend='background estimate (MC)',data_legend="observed background (MC)",normalize=False)
+		rebin=rebinna,minx=minx,drawratio=False,maxx=maxx,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,xtitle='',ytitle='Events',textsizefactor=1,signal_legend=[signalWB_legendnames[masspoint]],separate_legend=False,signal_zoom=1,ttbar_zoom=den1/den1bk,qcd_zoom=den1/den1bk,fixratio=True,ttbar_legend='signal in bkg estimate (MC)',qcd_legend='background estimate (MC)',data_legend="observed background (MC)",normalize=False)
 		
 		#)
 
@@ -3179,10 +3242,10 @@ ttbar_mean=TFile(syspath+filename_base+ttbar_string+up+root)
 # ttbar_PUUP=TFile(syspath+filename_base+ttbar_string+systypes['pu']+up+root)
 # ttbar_PUDOWN=TFile(syspath+filename_base+ttbar_string+systypes['pu']+down+root)
 
-#sr1name="Selection/zprimemassnobtag"ttbarCR_zprimemassbtag_low
-#sr2name="Selection/zprimemassbtag"
-sr1name="Selection/ttbarCR_zprimemassnobtag_low"
-sr2name="Selection/ttbarCR_zprimemassbtag_low"
+sr1name="Selection/zprimemassnobtag"#ttbarCR_zprimemassbtag_low
+sr2name="Selection/zprimemassbtag"
+# sr1name="Selection/antibcsvCRbtag_zprimemass"
+# sr2name="Selection/antibcsvCRbtag_zprimemass"
 # make_comp(ttbar_mean.Get(sr1name),ttbar_MURUP.Get(sr1name),ttbar_MURDOWN.Get(sr1name),'SYS_mur1',10)
 # make_comp(ttbar_mean.Get(sr2name),ttbar_MURUP.Get(sr2name),ttbar_MURDOWN.Get(sr2name),'SYS_mur2',10)
 # make_comp(ttbar_mean.Get(sr1name),ttbar_MUFUP.Get(sr1name),ttbar_MUFDOWN.Get(sr1name),'SYS_muf1',10)
@@ -3201,8 +3264,9 @@ for sys in systypes:
 	 make_comp(ttbar_mean.Get(sr1name),ttbar_SYSUP.Get(sr1name),ttbar_SYSDOWN.Get(sr1name),'SYS_'+sys+'1',10)
 	 make_comp(ttbar_mean.Get(sr2name),ttbar_SYSUP.Get(sr2name),ttbar_SYSDOWN.Get(sr2name),'SYS_'+sys+'2',10)
 
-make_comp(ttbar_mean.Get(sr1name),outfile.Get('pdfup1btag'),outfile.Get('pdfdown1btag'),'SYS_pdf1',10)
-make_comp(ttbar_mean.Get(sr2name),outfile.Get('pdfup2btag'),outfile.Get('pdfdown2btag'),'SYS_pdf2',10)
+make_comp(ttbar_mean.Get(sr1name),outfile2.Get('pdfup1btag'),outfile2.Get('pdfdown1btag'),'SYS_pdf1',10)
+make_comp(ttbar_mean.Get(sr2name),outfile2.Get('pdfup2btag'),outfile2.Get('pdfdown2btag'),'SYS_pdf2',10)
+outfile2.Close()
 
 ttbar_MURUP=TFile(syspath+filename_base+ttbar_string+systypes['mur']+up+root)
 ttbar_MURDOWN=TFile(syspath+filename_base+ttbar_string+systypes['mur']+down+root)
@@ -3223,4 +3287,3 @@ for imtt in range(1,ttbarsr1_MUDOWN.GetNbinsX()+1):
   ttbarsr2_MUUP.SetBinContent(imtt,envelopesr2[imtt-1][1])
 make_comp(ttbar_mean.Get(sr1name),ttbarsr1_MUDOWN,ttbarsr1_MUUP,'SYS_MU1',10)
 make_comp(ttbar_mean.Get(sr2name),ttbarsr2_MUDOWN,ttbarsr2_MUUP,'SYS_MU2',10)
-outfile.Close()

@@ -1309,9 +1309,19 @@ SelectionHists::SelectionHists(Context & ctx, const string & dirname): Hists(ctx
   book<TH1F>("topcsv", ";CSV_{top};Events", 101, 0, 1.01);
 
   book<TH1F>("Nm1wmass", ";m_{W};Events", 200, 0, 1000);
+  book<TH1F>("Nm1wmass1", ";m_{W};Events", 200, 0, 1000);
+  book<TH1F>("Nm1wmass2", ";m_{W};Events", 200, 0, 1000);
+  book<TH1F>("Nm1wmass3", ";m_{W};Events", 200, 0, 1000);
+  book<TH1F>("Nm1wmass4", ";m_{W};Events", 200, 0, 1000);
+
   book<TH1F>("Nm1wnsub", ";#tau_{2}/#tau_{1}(W);Events", 101, 0, 1.01);
   book<TH1F>("Nm1topmass", ";m_{top};Events", 400, 0, 2000);
   book<TH1F>("Nm1topnsub", ";#tau_{3}/#tau_{2}(top);Events", 101, 0, 1.01);
+
+  book<TH1F>("Nm1wmassRndm", ";m_{W};Events", 200, 0, 1000);
+  book<TH1F>("Nm1wnsubRndm", ";#tau_{2}/#tau_{1}(W);Events", 101, 0, 1.01);
+  book<TH1F>("Nm1topmassRndm", ";m_{top};Events", 400, 0, 2000);
+  book<TH1F>("Nm1topnsubRndm", ";#tau_{3}/#tau_{2}(top);Events", 101, 0, 1.01);
 
   book<TH1F>("dRbt", ";#Delta R(b,top);Events", 500, 0, 5);
   book<TH1F>("dRbW", ";#Delta R(b,W);Events", 500, 0, 5);
@@ -1695,16 +1705,15 @@ void SelectionHists::fill(const Event & event){
     //else if (pu_sys==-1) weight=event.weight_pu_down;
     
     //TTBAR WEIGHT
-    weight=weight*TTbarWeight(event,ttbar_sys);
+    //weight=weight*TTbarWeight(event,ttbar_sys);
 
     //PDF WEIGHT
     weight=weight*PDFWeight;
 
     const std::vector<TopJet>* fatjets(0);
     if(event.is_valid(h_fatjets)) fatjets = &event.get(h_fatjets);
-
 //gen part
-
+ 
 bool has_twb_gen=false;
 float dRbt=0;
 float dRbW=0;
@@ -2473,15 +2482,15 @@ if (has_ww)
     additional_weight=WTagSF(event, the_w, w_sys)*TopTagSF(event, the_top, top_sys);
     weight=weight*additional_weight;
   }
-  else if (event.topjets->size()>1)
-  {
-    //partial weights
-    if (TopTag(event.topjets->at(0))) weight=weight*TopTagSF(event, event.topjets->at(0), top_sys);
-    if (TopTag(event.topjets->at(1))) weight=weight*TopTagSF(event, event.topjets->at(1), top_sys);
-    if (WTag(event.topjets->at(0))) weight=weight*WTagSF(event, event.topjets->at(0), w_sys);
-    if (WTag(event.topjets->at(1))) weight=weight*WTagSF(event, event.topjets->at(1), w_sys);
+  // else if (event.topjets->size()>1)
+  // {
+  //   //partial weights
+  //   if (TopTag(event.topjets->at(0))) weight=weight*TopTagSF(event, event.topjets->at(0), top_sys);
+  //   if (TopTag(event.topjets->at(1))) weight=weight*TopTagSF(event, event.topjets->at(1), top_sys);
+  //   if (WTag(event.topjets->at(0))) weight=weight*WTagSF(event, event.topjets->at(0), w_sys);
+  //   if (WTag(event.topjets->at(1))) weight=weight*WTagSF(event, event.topjets->at(1), w_sys);
 
-  }
+  // }
 
   if (has_tw) for(auto jet : *event.jets)
   if (jet.btag_combinedSecondaryVertex()>medium_btag&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
@@ -2533,32 +2542,164 @@ if (has_ww)
   }
 
   Jet the_unselected_b;
+  bool bfound=false;
+  if (event.topjets->size()>2){
+  //antitag CRs
+  unsigned int t_index;
+  unsigned int w_index;
+  TRandom3 rand(abs(static_cast<int>(sin(event.topjets->at(0).eta()*1000000)*100000)));
+  int choice= (int)rand.Integer(6.);
+  switch(choice)
+  {
+    case 0: t_index=0; w_index=1; break;
+    case 1: t_index=1; w_index=0; break;
+    case 2: t_index=0; w_index=2; break;
+    case 3: t_index=2; w_index=0; break;
+    case 4: t_index=1; w_index=2; break;
+    case 5: t_index=2; w_index=1; break;
+    default: t_index=-1; w_index=-1; break;
+  }
+  bfound=false;
+  TopJet t_jet=event.topjets->at(t_index);
+  TopJet w_jet=event.topjets->at(w_index);
+  for(auto jet : *event.jets)
+  if (jet.btag_combinedSecondaryVertex()>medium_btag&&deltaR(jet,t_jet)>0.8 &&deltaR(jet,w_jet)>0.8 && jet.pt()>100.0)
+  {
+        the_unselected_b=jet;
+        bfound=true;
+        break;
+  }
+
+  if(bfound && SemiTopTag_mass(t_jet) && WTag(w_jet) )
+  {
+    hist("Nm1topnsubRndm")->Fill(TopJetNsub(t_jet),weight);
+  }
+
+  if(bfound && SemiTopTag_nsub(t_jet) && WTag(w_jet) )
+  {
+    hist("Nm1topmassRndm")->Fill(TopJetMass(t_jet),weight);
+  }
+
+
+  if(bfound && TopTag(t_jet) && SemiWTag_mass(w_jet) )
+  {
+    hist("Nm1wnsubRndm")->Fill(TopJetNsub2(w_jet),weight);
+  }
+
+  if(bfound && TopTag(t_jet) && SemiWTag_nsub(w_jet) )
+  {
+    hist("Nm1wmassRndm")->Fill(TopJetMass(w_jet),weight);
+  }
+ 
+  }
+
 
   if (event.topjets->size()>1)
   {
+
+  std::pair<TopJet, TopJet> SemiTopTag_mass_Wtag = findTopWpair( SemiTopTag_mass, WTag, event);
+  bfound=false;
   for(auto jet : *event.jets)
-  if (jet.btag_combinedSecondaryVertex()>medium_btag&&deltaR(jet,event.topjets->at(0))>0.8 &&deltaR(jet,event.topjets->at(1))>0.8 && jet.pt()>100.0)
+  if (jet.btag_combinedSecondaryVertex()>medium_btag&&deltaR(jet,SemiTopTag_mass_Wtag.first)>0.8 &&deltaR(jet,SemiTopTag_mass_Wtag.second)>0.8 && jet.pt()>100.0)
   {
         the_unselected_b=jet;
+        bfound=true;
         break;
   }
-  std::pair<TopJet, TopJet> SemiTopTag_mass_Wtag = findTopWpair( SemiTopTag_mass, WTag, event.topjets->at(0), event.topjets->at(1));
-  if (!(SemiTopTag_mass_Wtag.first.pt()==SemiTopTag_mass_Wtag.second.pt()))
+  if (bfound && deltaR(SemiTopTag_mass_Wtag.first,SemiTopTag_mass_Wtag.second)>0.01)
     if(TprimeMass(SemiTopTag_mass_Wtag.second,the_unselected_b)>500)
       hist("Nm1topnsub")->Fill(TopJetNsub(SemiTopTag_mass_Wtag.first),weight);
-  std::pair<TopJet, TopJet> SemiTopTag_nsub_Wtag = findTopWpair( SemiTopTag_nsub, WTag, event.topjets->at(0), event.topjets->at(1));
-  if (!(SemiTopTag_nsub_Wtag.first.pt()==SemiTopTag_nsub_Wtag.second.pt()))
+
+
+  std::pair<TopJet, TopJet> SemiTopTag_nsub_Wtag = findTopWpair( SemiTopTag_nsub, WTag, event);
+  bfound=false;
+  for(auto jet : *event.jets)
+  if (jet.btag_combinedSecondaryVertex()>medium_btag&&deltaR(jet,SemiTopTag_nsub_Wtag.first)>0.8 &&deltaR(jet,SemiTopTag_nsub_Wtag.second)>0.8 && jet.pt()>100.0)
+  {
+        the_unselected_b=jet;
+        bfound=true;
+        break;
+  }
+  if (bfound && deltaR(SemiTopTag_nsub_Wtag.first,SemiTopTag_nsub_Wtag.second)>0.01)
     if(TprimeMass(SemiTopTag_nsub_Wtag.second,the_unselected_b)>500)
       hist("Nm1topmass")->Fill(TopJetMass(SemiTopTag_nsub_Wtag.first),weight);
-  std::pair<TopJet, TopJet> TopTag_SemiWtag_mass = findTopWpair( TopTag, SemiWTag_mass, event.topjets->at(0), event.topjets->at(1));
-  if (!(TopTag_SemiWtag_mass.first.pt()==TopTag_SemiWtag_mass.second.pt()))
+
+
+  std::pair<TopJet, TopJet> TopTag_SemiWtag_mass = findTopWpair( TopTag, SemiWTag_mass, event);
+  bfound=false;
+  for(auto jet : *event.jets)
+  if (jet.btag_combinedSecondaryVertex()>medium_btag&&deltaR(jet,TopTag_SemiWtag_mass.first)>0.8 &&deltaR(jet,TopTag_SemiWtag_mass.second)>0.8 && jet.pt()>100.0)
+  {
+        the_unselected_b=jet;
+        bfound=true;
+        break;
+  }
+  if (bfound && deltaR(TopTag_SemiWtag_mass.first,TopTag_SemiWtag_mass.second)>0.01)
     if(TprimeMass(TopTag_SemiWtag_mass.second,the_unselected_b)>500)
       hist("Nm1wnsub")->Fill(TopJetNsub2(TopTag_SemiWtag_mass.second),weight);
-  std::pair<TopJet, TopJet> TopTag_SemiWtag_nsub = findTopWpair( TopTag, SemiWTag_nsub, event.topjets->at(0), event.topjets->at(1));
-  if (!(TopTag_SemiWtag_nsub.first.pt()==TopTag_SemiWtag_nsub.second.pt()))
+
+
+  std::pair<TopJet, TopJet> TopTag_SemiWtag_nsub = findTopWpair( TopTag, SemiWTag_nsub, event);
+  bfound=false;
+  for(auto jet : *event.jets)
+  if (jet.btag_combinedSecondaryVertex()>medium_btag&&deltaR(jet,TopTag_SemiWtag_nsub.first)>0.8 &&deltaR(jet,TopTag_SemiWtag_nsub.second)>0.8 && jet.pt()>100.0)
+  {
+        the_unselected_b=jet;
+        bfound=true;
+        break;
+  }
+  if (bfound && deltaR(TopTag_SemiWtag_nsub.first,TopTag_SemiWtag_nsub.second)>0.01)//(!(TopTag_SemiWtag_nsub.first.pt()==TopTag_SemiWtag_nsub.second.pt()))
+  {
+    hist("Nm1wmass1")->Fill(TopJetMass(TopTag_SemiWtag_nsub.second),weight);
     if(TprimeMass(TopTag_SemiWtag_nsub.second,the_unselected_b)>500)
       hist("Nm1wmass")->Fill(TopJetMass(TopTag_SemiWtag_nsub.second),weight);
   }
+
+
+  std::pair<TopJet, TopJet> TopTag_SemiWtag_nsub2 = findTopWpair( TopTag, SemiWTag_nsub2, event);
+  bfound=false;
+  for(auto jet : *event.jets)
+  if (jet.btag_combinedSecondaryVertex()>medium_btag&&deltaR(jet,TopTag_SemiWtag_nsub2.first)>0.8 &&deltaR(jet,TopTag_SemiWtag_nsub2.second)>0.8 && jet.pt()>100.0)
+  {
+        the_unselected_b=jet;
+        bfound=true;
+        break;
+  }
+  if (bfound && deltaR(TopTag_SemiWtag_nsub2.first,TopTag_SemiWtag_nsub2.second)>0.01)
+    if(TprimeMass(TopTag_SemiWtag_nsub2.second,the_unselected_b)>500)
+      hist("Nm1wmass2")->Fill(TopJetMass(TopTag_SemiWtag_nsub2.second),weight);
+
+
+  std::pair<TopJet, TopJet> TopTag_SemiWtag_nsub3 = findTopWpair( TopTag, SemiWTag_nsub3, event);
+  bfound=false;
+  for(auto jet : *event.jets)
+  if (jet.btag_combinedSecondaryVertex()>medium_btag&&deltaR(jet,TopTag_SemiWtag_nsub3.first)>0.8 &&deltaR(jet,TopTag_SemiWtag_nsub3.second)>0.8 && jet.pt()>100.0)
+  {
+        the_unselected_b=jet;
+        bfound=true;
+        break;
+  }
+  if (bfound && deltaR(TopTag_SemiWtag_nsub3.first,TopTag_SemiWtag_nsub3.second)>0.01)
+    if(TprimeMass(TopTag_SemiWtag_nsub3.second,the_unselected_b)>500)
+      hist("Nm1wmass3")->Fill(TopJetMass(TopTag_SemiWtag_nsub3.second),weight);
+
+ 
+
+
+  std::pair<TopJet, TopJet> TopTag_SemiWtag_nsub4 = findTopWpair( TopTag180, SemiWTag_nsub, event);
+  bfound=false;
+  for(auto jet : *event.jets)
+  if (jet.btag_combinedSecondaryVertex()>medium_btag&&deltaR(jet,TopTag_SemiWtag_nsub4.first)>0.8 &&deltaR(jet,TopTag_SemiWtag_nsub4.second)>0.8 && jet.pt()>100.0)
+  {
+        the_unselected_b=jet;
+        bfound=true;
+        break;
+  }
+  if (bfound && deltaR(TopTag_SemiWtag_nsub4.first,TopTag_SemiWtag_nsub4.second)>0.01)
+    if(TprimeMass(TopTag_SemiWtag_nsub4.second,the_unselected_b)>500)
+      hist("Nm1wmass4")->Fill(TopJetMass(TopTag_SemiWtag_nsub4.second),weight);
+
+   }
   // if (has_tw){ hist("dRtW")->Fill(deltaR(the_top,the_w),weight);
   //               hist("toppt_wpt")->Fill(TopJetPt(the_top)-TopJetPt(the_w),weight);}
   

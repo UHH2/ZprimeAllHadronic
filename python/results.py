@@ -116,8 +116,8 @@ if doresults:
 
 	for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]:
 		filename_postfix=u+str(filecounter)+u+str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')
-		theta_exp_result = open('theta/limits_exp'+filename_postfix+'.txt','r')
-		#theta_exp_result = open('theta/limits_obs'+filename_postfix+'.txt','r')
+		#theta_exp_result = open('theta/limits_exp'+filename_postfix+'.txt','r')
+		theta_exp_result = open('theta/limits_obs'+filename_postfix+'.txt','r')
 		theta_exp_lines=theta_exp_result.readlines()
 		for masspoint in range(len(signalWB_names)):
 			values[masspoint][0].append(triplet[0])
@@ -228,6 +228,6 @@ for masspoint in range(len(signalWB_names)):
 	#p.SetMarkerColor(14)
 	#p.Draw('atext45 same')
 	c.SetLogz(1)
-	c.SaveAs('pdf/'+name+'.pdf')
-	#c.SaveAs('pdf/o'+name+'.pdf')
+	#c.SaveAs('pdf/'+name+'.pdf')
+	c.SaveAs('pdf/o'+name+'.pdf')
 outfile.Close()

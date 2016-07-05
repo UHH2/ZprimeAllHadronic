@@ -23,6 +23,8 @@ for i in postfit['signal_525_2_1p2_1p0_0p0_0p0']:
     if i!='__nll':
         f.write(str(postfit['signal_525_2_1p2_1p0_0p0_0p0'][i][0][0])+' '+str(postfit['signal_525_2_1p2_1p0_0p0_0p0'][i][0][1])+' '+i+'\n')
 f.close()
+print model.get_parameters([])
+print postfit['signal_525_2_1p2_1p0_0p0_0p0']['__cov'][0]
 #postfit.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta2/limits_exp_66_1p0_0p0_0p0.txt')
 # plot_exp, plot_obs = bayesian_limits(model,what='all')#bayesian_limits ,what='expected'
 # plot_exp.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/limits_exp_66_1p0_0p0_0p0.txt')

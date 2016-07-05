@@ -393,6 +393,12 @@ bool TopTag(TopJet topjet)
   return TopJetPt(topjet)>400.0 && mjet>110.0 && mjet<210.0 && TopJetNsub(topjet)<0.86;
 }
 
+bool TopTag180(TopJet topjet)
+{
+  auto mjet = TopJetMass(topjet);
+  return TopJetPt(topjet)>400.0 && mjet>110.0 && mjet<180.0 && TopJetNsub(topjet)<0.86;
+}
+
 bool TopTag15(TopJet topjet)
 {
   auto mjet = TopJetMass(topjet);
@@ -460,6 +466,16 @@ bool SemiWTag_nsub(TopJet topjet)
   //auto mjet = TopJetMass(topjet);
   return TopJetNsub2(topjet)<0.6 && TopJetPt(topjet)>200.0;
 }
+bool SemiWTag_nsub2(TopJet topjet)
+{
+  //auto mjet = TopJetMass(topjet);
+  return TopJetNsub2(topjet)<0.8 && TopJetPt(topjet)>200.0;
+}
+bool SemiWTag_nsub3(TopJet topjet)
+{
+  //auto mjet = TopJetMass(topjet);
+  return TopJetNsub2(topjet)<0.4 && TopJetPt(topjet)>200.0;
+}
 
 std::pair<TopJet, TopJet> findTopWpair( bool (*ttag)(TopJet), bool (*wtag)(TopJet), TopJet first, TopJet second)
 {
@@ -470,7 +486,24 @@ return std::make_pair( first, first );
 
 }
 
+std::pair<TopJet, TopJet> findTopWpair( bool (*ttag)(TopJet), bool (*wtag)(TopJet), const Event & event)
+{
+  for(auto topjet : *event.topjets)
+  {
+    for(auto wjet : *event.topjets)
+    {
+      if (deltaR(topjet,wjet)>0.01)
+      {
+        if (ttag(topjet) && wtag(wjet) )
+        {
+          return std::make_pair( topjet, wjet );
+        }
+      }
+    }
+  }
+  return std::make_pair( event.topjets->at(0), event.topjets->at(0) ); 
 
+}
 
 
 
