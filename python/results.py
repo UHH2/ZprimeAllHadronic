@@ -112,21 +112,29 @@ if doresults:
 	outfile=TFile('results.root','RECREATE')
 	outfile.cd()
 
-	values = [[[] for i in range(3)] for i in range(len(signalWB_names))]
+	values_exp = [[[] for i in range(3)] for i in range(len(signalWB_names))]
+	values_obs = [[[] for i in range(3)] for i in range(len(signalWB_names))]
 
 	for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]:
 		filename_postfix=u+str(filecounter)+u+str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')
-		#theta_exp_result = open('theta/limits_exp'+filename_postfix+'.txt','r')
-		theta_exp_result = open('theta/limits_obs'+filename_postfix+'.txt','r')
+		theta_exp_result = open('theta/limits_exp'+filename_postfix+'.txt','r')
+		theta_obs_result = open('theta/limits_obs'+filename_postfix+'.txt','r')
 		theta_exp_lines=theta_exp_result.readlines()
+		theta_obs_lines=theta_obs_result.readlines()
 		for masspoint in range(len(signalWB_names)):
-			values[masspoint][0].append(triplet[0])
-			values[masspoint][1].append(triplet[1])
-			this_line=filter(None, theta_exp_lines[masspoint+1].split(' '))
-			assert(int(this_line[0])==counter)
-			values[masspoint][2].append(float(this_line[1]))
+			values_exp[masspoint][0].append(triplet[0])
+			values_exp[masspoint][1].append(triplet[1])
+			values_obs[masspoint][0].append(triplet[0])
+			values_obs[masspoint][1].append(triplet[1])
+			this_line_exp=filter(None, theta_exp_lines[masspoint+1].split(' '))
+			this_line_obs=filter(None, theta_obs_lines[masspoint+1].split(' '))
+			assert(int(this_line_exp[0])==counter)
+			assert(int(this_line_obs[0])==counter)
+			values_exp[masspoint][2].append(float(this_line_exp[1]))
+			values_obs[masspoint][2].append(float(this_line_obs[1]))
 			counter+=1
 		theta_exp_result.close()
+		theta_obs_result.close()
 		
 
 		filecounter+=1
@@ -163,71 +171,77 @@ gStyle.SetNumberContours(99)#999
 the_maximum=-100.0
 the_minimum=1000000.0
 for masspoint in range(len(signalWB_names)):
-	the_minimum = min(min(values[masspoint][2]),the_minimum)
-	the_maximum = max(max(values[masspoint][2]),the_maximum)
+	the_minimum = min(min(values_obs[masspoint][2]+values_exp[masspoint][2]),the_minimum)
+	the_maximum = max(max(values_obs[masspoint][2]+values_exp[masspoint][2]),the_maximum)
 
 print the_minimum, the_maximum
 
 the_minimum=0.2
 the_maximum=11.0
 
-for masspoint in range(len(signalWB_names)):
-	name=signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+'_v2'
-	p=TH2F(name,'',11,-0.05,1.05,11,-0.05,1.05)
-	c=TCanvas(name+u+'c')#,'',600,600)
-	c.SetRightMargin(0.15)
-	p.GetXaxis().SetTitle("T' #rightarrow bW branching fraction")
-	p.GetXaxis().SetRangeUser(0,1)
-	p.GetYaxis().SetTitle("T' #rightarrow tH branching fraction")
-	p.GetZaxis().SetTitle("Cross section limit (pb)")
-	print 'masspoint',name
-	for i in range(len(values[masspoint][0])):
-		p.Fill(values[masspoint][0][i],values[masspoint][1][i],values[masspoint][2][i])
-		#print values[masspoint][0][i],values[masspoint][1][i],values[masspoint][2][i]
-	p.SetMinimum(the_minimum)
-	p.SetMaximum(the_maximum)
-	#p.SetMinimum(min(values[masspoint][2]))
-	#p.SetMaximum(max(values[masspoint][2]))
-	p.GetZaxis().SetMoreLogLabels(1)
-	p.SetStats(0)
+values={'exp':values_exp,'obs':values_obs}
 
-	p.Draw('cont4z')
-	p.Write()
-	plots.append(p)
-	xx=array('d',[-0.05,1.04,1.04])
-	yy=array('d',[1.04,1.04,-0.05])
+for tipo in values:
+	for masspoint in range(len(signalWB_names)):
+		name=signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+'_v2'
+		if tipo=='obs':
+			name='o'+name
+		p=TH2F(name,'',11,-0.05,1.05,11,-0.05,1.05)
+		c=TCanvas(name+u+'c')#,'',600,600)
+		c.SetRightMargin(0.15)
+		p.GetXaxis().SetTitle("T' #rightarrow bW branching fraction")
+		p.GetXaxis().SetRangeUser(0,1)
+		p.GetYaxis().SetTitle("T' #rightarrow tH branching fraction")
+		p.GetZaxis().SetTitle("Cross section limit (pb)")
+		print 'masspoint',name
+		for i in range(len(values[tipo][masspoint][0])):
+			p.Fill(values[tipo][masspoint][0][i],values[tipo][masspoint][1][i],values[tipo][masspoint][2][i])
+			#print values[tipo][masspoint][0][i],values[tipo][masspoint][1][i],values[tipo][masspoint][2][i]
+		#p.SetMinimum(the_minimum)
+		#p.SetMaximum(the_maximum)
+		p.SetMinimum(min(values_obs[masspoint][2]+values_exp[masspoint][2]))
+		p.SetMaximum(max(values_obs[masspoint][2]+values_exp[masspoint][2]))
+		p.GetZaxis().SetMoreLogLabels(1)
+		p.SetStats(0)
+
+		p.Draw('cont4z')
+		p.Write()
+		plots.append(p)
+		xx=array('d',[-0.05,1.04,1.04])
+		yy=array('d',[1.04,1.04,-0.05])
 	
-	null = TPad("null","",0,0,1,1)
-   	null.SetFillStyle(0)
-   	null.SetFrameFillStyle(0)
-   	null.Draw()
-   	null.cd()
+		null = TPad("null","",0,0,1,1)
+   		null.SetFillStyle(0)
+   		null.SetFrameFillStyle(0)
+   		null.Draw()
+   		null.cd()
 
-   	bm = c.GetBottomMargin()
-   	lm = c.GetLeftMargin()
-   	rm = c.GetRightMargin()
-   	to = c.GetTopMargin()
-   	x1 = p.GetXaxis().GetXmin()
-   	yf = p.GetYaxis().GetXmin()
-   	x2 = p.GetXaxis().GetXmax()
-   	y2 = p.GetYaxis().GetXmax()
+   		bm = c.GetBottomMargin()
+   		lm = c.GetLeftMargin()
+   		rm = c.GetRightMargin()
+   		to = c.GetTopMargin()
+   		x1 = p.GetXaxis().GetXmin()
+   		yf = p.GetYaxis().GetXmin()
+   		x2 = p.GetXaxis().GetXmax()
+   		y2 = p.GetYaxis().GetXmax()
 
-   	Xa = (x2-x1)/(1-lm-rm)-(x2-x1)
-   	Ya = (y2-yf)/(1-bm-to)-(y2-yf)
-   	LM = Xa*(lm/(lm+rm))
-   	RM = Xa*(rm/(lm+rm))
-   	BM = Ya*(bm/(bm+to))
-   	TM = Ya*(to/(bm+to))
-   	null.Range(x1-LM,yf-BM,x2+RM,y2+TM)
-	tri=TPolyLine(3,xx,yy)
-	tri.SetFillColor(0)
-	#p.Draw('atext')
-	tri.Draw('f')
-	gStyle.SetPaintTextFormat('4.2f')
-	p.SetMarkerSize(1.8)
-	#p.SetMarkerColor(14)
-	#p.Draw('atext45 same')
-	c.SetLogz(1)
-	#c.SaveAs('pdf/'+name+'.pdf')
-	c.SaveAs('pdf/o'+name+'.pdf')
+   		Xa = (x2-x1)/(1-lm-rm)-(x2-x1)
+   		Ya = (y2-yf)/(1-bm-to)-(y2-yf)
+   		LM = Xa*(lm/(lm+rm))
+   		RM = Xa*(rm/(lm+rm))
+   		BM = Ya*(bm/(bm+to))
+   		TM = Ya*(to/(bm+to))
+   		null.Range(x1-LM,yf-BM,x2+RM,y2+TM)
+		tri=TPolyLine(3,xx,yy)
+		tri.SetFillColor(0)
+		#p.Draw('atext')
+		tri.Draw('f')
+		gStyle.SetPaintTextFormat('4.2f')
+		p.SetMarkerSize(1.8)
+		#p.SetMarkerColor(14)
+		#p.Draw('atext45 same')
+		#c.SetLogz(1)
+		#p.GetZaxis().SetMoreLogLabels(1)
+		c.SaveAs('pdf/'+name+'.pdf')
+	
 outfile.Close()

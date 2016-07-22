@@ -516,6 +516,9 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
       #2.7% lumi
       sys_diff_ttbar[imtt-1].append(0.027*ttbar_histo.GetBinContent(imtt))
       sys_diff_ttbar[imtt-1].append(-0.027*ttbar_histo.GetBinContent(imtt))
+      #15% ttbar
+      sys_diff_ttbar[imtt-1].append(0.15*ttbar_histo.GetBinContent(imtt))
+      sys_diff_ttbar[imtt-1].append(-0.15*ttbar_histo.GetBinContent(imtt))
     #combining uncertainties
     sys_tot_ttbar=[]
     sys_tot_qcd=[]
