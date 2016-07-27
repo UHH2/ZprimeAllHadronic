@@ -6,7 +6,7 @@ from os.path import exists
 from array import array
 import math
 
-from utils import compare,hadd,doeff,make_plot,make_ratioplot,make_ratioplot2,make_comp,envelope
+from utils import compare,hadd,doeff,make_plot,make_ratioplot,make_ratioplot2,make_comp,envelope,make_fitplot
 gROOT.SetBatch()
 
 #setup
@@ -125,14 +125,15 @@ signalTT_masses=[
 ]
 
 signalWB_legendnames=[
-"Z'(1.5TeV)#rightarrowT't, T'(0.7TeV)#rightarrowbW",
+"m_{Z'}=1.5TeV, m_{T'}=0.7TeV, BR(bW)=1",
+#"Z'(1.5TeV)#rightarrowT't, T'(0.7TeV)#rightarrowbW",
 "Z'(1.5TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
 "Z'(1.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
-"Z'(2TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
-"Z'(2TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
+"Z'(2.0TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
+"Z'(2.0TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
 #"Z'(2TeV)#rightarrowT't, T'(1.2TeV,RH)#rightarrowbW 1pb",
 #"Z'(2TeV)#rightarrowT't, T'(1.2TeV,Wide)#rightarrowbW 1pb",
-"Z'(2TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
+"Z'(2.0TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
 #"Z'(2TeV,Wide)#rightarrowT't, T'(1.2TeV)#rightarrowbW 1pb",
 "Z'(2.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
 "Z'(2.5TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
@@ -209,16 +210,19 @@ signalWB_names_short=[
 #'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH'
 ]
 signalWB_legendnames_short=[
-"Z'(1.5TeV)#rightarrowT't, T'(0.7TeV)#rightarrowbW",
+"m_{Z'}=1.5 TeV, m_{T'}=0.7 TeV",
+#"Z'(1.5TeV)#rightarrowT't, T'(0.7TeV)#rightarrowbW",
 #"Z'(1.5TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
 #"Z'(1.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
-"Z'(2TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
+"m_{Z'}=2.0 TeV, m_{T'}=0.9 TeV",
+#"Z'(2.0TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
 #"Z'(2TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
 #"Z'(2TeV)#rightarrowT't, T'(1.2TeV,RH)#rightarrowbW 1pb",
 #"Z'(2TeV)#rightarrowT't, T'(1.2TeV,Wide)#rightarrowbW 1pb",
 #"Z'(2TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
 #"Z'(2TeV,Wide)#rightarrowT't, T'(1.2TeV)#rightarrowbW 1pb",
-"Z'(2.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
+"m_{Z'}=2.5 TeV, m_{T'}=1.2 TeV",
+#"Z'(2.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
 #"Z'(2.5TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
 ]
 
@@ -944,6 +948,7 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio2_SRbtag_vs_'+i+'_c')
 	ratio_to_fit.Draw()
+	ratioinput=ratio_to_fit.Clone()
 	fitresult=ratio_to_fit.Fit('pol2','SE','',ratioList[0],ratioList[-1])
 	if 'bkg' not in i:
 	 f.write('ratio2_SRbtag_vs_'+i+'_c\n')
@@ -985,6 +990,12 @@ for i in [
 	ratio_to_fit.Write()
 	ratioc.Write()
 	ratioc.SaveAs('pdf/ratio2_SRbtag_vs_'+i+'_c.pdf')
+	ratiomean=TF1('ratiomean','[0] + x*[1] + x*x*[2]',ratioList[0],ratioList[-1])
+	ratiomean.SetParameter(0,fitresult.Parameter(0))
+	ratiomean.SetParameter(1,fitresult.Parameter(1))
+	ratiomean.SetParameter(2,fitresult.Parameter(2))
+	make_fitplot(ratioinput,ratiomean,ratioup,ratiodown,'2 b tag')
+
 
 	# make_ratioplot2(
 	# 	name='SRbtagdata_vs_'+i,
@@ -1317,6 +1328,7 @@ for i in [
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio2_SRnobtag_vs_'+i+'_c')
 	ratio_to_fit.Draw()
+	ratioinput=ratio_to_fit.Clone()
 	fitresult=ratio_to_fit.Fit('pol2','SE','',ratioList[0],ratioList[-1])
 	if 'bkg' not in i:
 	 f.write('ratio2_SRnobtag_vs_'+i+'_c\n')
@@ -1358,6 +1370,11 @@ for i in [
 	ratio_to_fit.Write()
 	ratioc.Write()
 	ratioc.SaveAs('pdf/ratio2_SRnobtag_vs_'+i+'_c.pdf')
+	ratiomean=TF1('ratiomean','[0] + x*[1] + x*x*[2]',ratioList[0],ratioList[-1])
+	ratiomean.SetParameter(0,fitresult.Parameter(0))
+	ratiomean.SetParameter(1,fitresult.Parameter(1))
+	ratiomean.SetParameter(2,fitresult.Parameter(2))
+	make_fitplot(ratioinput,ratiomean,ratioup,ratiodown,'1 b tag')
 
 	# make_ratioplot2(
 	# 	name='SRnobtagdata_vs_'+i,
@@ -1408,12 +1425,6 @@ for i in [
 	# ratio_to_fit.Write()
 	# ratioc.Write()
 	# ratioc.SaveAs('pdf/ratio_SRnobtagdata_vs_'+i+'_c.pdf')
-
-
-
-
-
-
 
 
 
@@ -2453,6 +2464,11 @@ for names in [
   qcdbkg_fitup.Write()
   qcdbkg_fitdown.Write()
 
+  xtitle="m_{Z'} [GeV]"
+  if 'tp' in names[0]:
+  	xtitle="m_{T'} [GeV]"
+  elif 'ht' in names[0]:
+  	xtitle="HT [GeV]"
 
   make_ratioplot(
     name=names[2],
@@ -2472,8 +2488,8 @@ for names in [
     maxratio=0,
     blind=False,
     logy=False,
-        xtitle='',
-        ytitle='Events',
+        xtitle=xtitle,
+        ytitle='Events / 100 GeV',
         textsizefactor=1,
         signal_legend=signalWB_legendnames_short,
         separate_legend=True,
@@ -2506,6 +2522,7 @@ for names in [
   #   miny=0,maxy=0,
   #   textsizefactor=1,logy=False)
 
+assert(False)
 
 compare(name='qcdcorrsystbtag',
 		file_list=[qcd_file,qcd_file,qcd_file],

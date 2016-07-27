@@ -4,6 +4,7 @@ from sys import argv
 from os import mkdir
 from os.path import exists
 from array import array
+import CMS_lumi
 
 from utils import compare,hadd,doeff,make_plot,make_ratioplot
 gROOT.SetBatch()
@@ -187,20 +188,36 @@ for tipo in values:
 		if tipo=='obs':
 			name='o'+name
 		p=TH2F(name,'',11,-0.05,1.05,11,-0.05,1.05)
-		c=TCanvas(name+u+'c')#,'',600,600)
-		c.SetRightMargin(0.15)
+		c=TCanvas(name+u+'c','',1100,1000)
+		margine=0.15
+		c.SetRightMargin(0.20)
+		c.SetLeftMargin(margine)
+		c.SetTopMargin(0.10)
+		c.SetBottomMargin(margine)
 		p.GetXaxis().SetTitle("T' #rightarrow bW branching fraction")
 		p.GetXaxis().SetRangeUser(0,1)
 		p.GetYaxis().SetTitle("T' #rightarrow tH branching fraction")
-		p.GetZaxis().SetTitle("Cross section limit (pb)")
+		p.GetZaxis().SetTitle("Upper cross section limit (pb)")
+		sizefactor=1.6
+		p.GetXaxis().SetTitleSize(sizefactor*p.GetXaxis().GetTitleSize())
+		p.GetYaxis().SetTitleSize(sizefactor*p.GetYaxis().GetTitleSize())
+		p.GetZaxis().SetTitleSize(sizefactor*p.GetZaxis().GetTitleSize())
+		p.GetXaxis().SetLabelSize(sizefactor*p.GetXaxis().GetLabelSize())
+		p.GetYaxis().SetLabelSize(sizefactor*p.GetYaxis().GetLabelSize())
+		p.GetZaxis().SetLabelSize(sizefactor*p.GetZaxis().GetLabelSize())
+		p.GetZaxis().SetNoExponent(1)
+		offset=1.2
+		p.GetXaxis().SetTitleOffset(offset*p.GetXaxis().GetTitleOffset())
+		p.GetYaxis().SetTitleOffset(offset*p.GetYaxis().GetTitleOffset())
+		p.GetZaxis().SetTitleOffset(1.4*p.GetZaxis().GetTitleOffset())
 		print 'masspoint',name
 		for i in range(len(values[tipo][masspoint][0])):
 			p.Fill(values[tipo][masspoint][0][i],values[tipo][masspoint][1][i],values[tipo][masspoint][2][i])
 			#print values[tipo][masspoint][0][i],values[tipo][masspoint][1][i],values[tipo][masspoint][2][i]
-		#p.SetMinimum(the_minimum)
-		#p.SetMaximum(the_maximum)
-		p.SetMinimum(min(values_obs[masspoint][2]+values_exp[masspoint][2]))
-		p.SetMaximum(max(values_obs[masspoint][2]+values_exp[masspoint][2]))
+		p.SetMinimum(the_minimum)
+		p.SetMaximum(the_maximum)
+		#p.SetMinimum(min(values_obs[masspoint][2]+values_exp[masspoint][2]))
+		#p.SetMaximum(max(values_obs[masspoint][2]+values_exp[masspoint][2]))
 		p.GetZaxis().SetMoreLogLabels(1)
 		p.SetStats(0)
 
@@ -240,8 +257,9 @@ for tipo in values:
 		p.SetMarkerSize(1.8)
 		#p.SetMarkerColor(14)
 		#p.Draw('atext45 same')
-		#c.SetLogz(1)
+		c.SetLogz(1)
 		#p.GetZaxis().SetMoreLogLabels(1)
+		CMS_lumi.CMS_lumi(c, 4, 33)
 		c.SaveAs('pdf/'+name+'.pdf')
 	
 outfile.Close()

@@ -1,9 +1,10 @@
-from ROOT import TFile,TCanvas,gROOT,gStyle,TGraph2D,TH2F,TPolyLine,TPolyLine3D,TLine,TGraph,TPad,TColor,TGraphAsymmErrors,TGraph,kYellow,kGreen
+from ROOT import TFile,TCanvas,gROOT,gStyle,TGraph2D,TH2F,TPolyLine,TPolyLine3D,TLine,TGraph,TPad,TColor,TGraphAsymmErrors,TGraph,kYellow,kGreen,kOrange,TLegend
 from os import system
 from sys import argv
 from os import mkdir
 from os.path import exists
 from array import array
+import CMS_lumi
 
 from utils import compare,hadd,doeff,make_plot,make_ratioplot
 gROOT.SetBatch()
@@ -149,8 +150,13 @@ if doresults:
 		theta_obs_lines=theta_obs_result.readlines()
 		if triplet in [[0.6,0.2,0.2],[1.0,0.0,0.0]]:
 			plotcounter=plotcounter+1
-			c=TCanvas('unodlimit'+str(plotcounter),'')
-			c.SetLogy();
+			c=TCanvas('unodlimit'+str(plotcounter),'',1200,1000)
+			c.SetLogy()
+			margine=0.15
+			c.SetRightMargin(0.10)
+			c.SetLeftMargin(margine)
+			c.SetTopMargin(0.10)
+			c.SetBottomMargin(margine)
 			x=array('d',[1.5,2.0,2.5])
 			lines_exp=[filter(None, theta_exp_lines[2+1].split(' ')),filter(None, theta_exp_lines[4+1].split(' ')),filter(None, theta_exp_lines[6+1].split(' '))]
 			lines_obs=[filter(None, theta_obs_lines[2+1].split(' ')),filter(None, theta_obs_lines[4+1].split(' ')),filter(None, theta_obs_lines[6+1].split(' '))]
@@ -185,8 +191,8 @@ if doresults:
 			exp2sigma=TGraphAsymmErrors(3,x,y_exp,zeros,zeros,y_err2down,y_err2up)
 			explim=TGraph(3,x,y_exp)
 			obslim=TGraph(3,x,y_obs)
-			obslim.SetLineWidth(2)
-			explim.SetLineWidth(2)
+			obslim.SetLineWidth(3)
+			explim.SetLineWidth(3)
 			explim.SetLineStyle(2)
 			explim.SetTitle('')
 			obslim.SetTitle('')
@@ -194,15 +200,46 @@ if doresults:
 			exp1sigma.SetTitle('')
 			#obslim.SetMinimum(0.001);
 			#duesigma=TGraphAsymmErrors(3,)
-			exp1sigma.SetFillColor(kGreen)
-			exp2sigma.SetFillColor(kYellow)
+			exp1sigma.SetFillColor(kGreen+1)
+			exp2sigma.SetFillColor(kOrange)
+			exp2sigma.SetMaximum(80)
 			exp2sigma.Draw('a3lp')
-			exp2sigma.GetXaxis().SetTitle("Z' mass (TeV)")
-			exp2sigma.GetYaxis().SetTitle("Upper cross section limit (pb)")
+			exp2sigma.GetXaxis().SetTitle("Z' mass [TeV]")
+			exp2sigma.GetXaxis().SetRangeUser(1.4,2.6)
+			exp2sigma.GetYaxis().SetTitle("Upper cross section limit [pb]")
+
+			sizefactor=1.6
+			exp2sigma.GetXaxis().SetTitleSize(sizefactor*exp2sigma.GetXaxis().GetTitleSize())
+			exp2sigma.GetYaxis().SetTitleSize(sizefactor*exp2sigma.GetYaxis().GetTitleSize())
+			exp2sigma.GetXaxis().SetLabelSize(sizefactor*exp2sigma.GetXaxis().GetLabelSize())
+			exp2sigma.GetYaxis().SetLabelSize(sizefactor*exp2sigma.GetYaxis().GetLabelSize())
+			#exp2sigma.GetYaxis().SetMoreLogLabels(1)
+			offset=1.2
+			exp2sigma.GetXaxis().SetTitleOffset(offset*exp2sigma.GetXaxis().GetTitleOffset())
+			exp2sigma.GetYaxis().SetTitleOffset(offset*exp2sigma.GetYaxis().GetTitleOffset())
+
 			exp1sigma.Draw('3')
 			explim.Draw('lp')
 			obslim.Draw('lp')
-			
+
+			legend=TLegend(0.5,0.6,0.9,0.9)
+ 			legend.SetTextSize(0.045)
+  			legend.SetBorderSize(0)
+  			legend.SetTextFont(42)
+  			legend.SetLineColor(1)
+  			legend.SetLineStyle(1)
+  			legend.SetLineWidth(1)
+  			legend.SetFillColor(0)
+  			legend.SetFillStyle(0)
+  			legend.SetHeader('BR(bW)=1')
+  			if triplet[0]==1.0:
+  				legend.SetHeader('BR(bW,tH,tZ)=0.6,0.2,0.2')
+  			legend.AddEntry(obslim,'Observed','l')
+  			legend.AddEntry(explim,'Expected','l')
+  			legend.AddEntry(exp1sigma,'#pm 1 std. deviation','f')
+  			legend.AddEntry(exp2sigma,'#pm 2 std. deviation','f')
+  			legend.Draw()
+			CMS_lumi.CMS_lumi(c, 4, 11)
 			c.SaveAs('pdf/unodlimit'+str(plotcounter)+'.pdf')
 
 		if triplet in [[1.0,0.0,0.0],[0.0,1.0,0.0],[0.0,0.0,1.0]]:

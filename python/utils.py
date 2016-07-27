@@ -6,6 +6,7 @@ from sys import argv
 from os import mkdir
 from os.path import exists
 import math
+import CMS_lumi
 
 def envelope(plots):
   output=[]
@@ -152,6 +153,61 @@ def domistag(infile,outfile,mistag_den,mistag_num,outname):
   slice_and_save(outname,num_histo,outfile)
   slice_and_save(outname,den_histo,outfile)
 
+def make_fitplot(ratio,ratiomean,ratioup,ratiodown,btag):
+  c=TCanvas('fitplot'+btag.replace(' ',''),'',1200,1000)
+  margine=0.15
+  c.SetRightMargin(0.10)
+  c.SetLeftMargin(margine)
+  c.SetTopMargin(0.10)
+  c.SetBottomMargin(margine)
+  ratio.Draw()
+  ratio.SetMinimum(0.21)
+  ratio.SetMaximum(2.2)
+  if '1' in btag:
+    ratio.SetMinimum(0.61)
+    ratio.SetMaximum(1.8)
+
+
+  sizefactor=1.6
+  ratio.SetLineWidth(3)
+  ratio.SetLineColor(kBlack)
+  ratio.GetXaxis().SetTitle("m_{Z'} [GeV]")
+  ratio.GetYaxis().SetTitle("Correction factor")
+  ratio.GetXaxis().SetTitleSize(sizefactor*ratio.GetXaxis().GetTitleSize())
+  ratio.GetYaxis().SetTitleSize(sizefactor*ratio.GetYaxis().GetTitleSize())
+  ratio.GetXaxis().SetLabelSize(sizefactor*ratio.GetXaxis().GetLabelSize())
+  ratio.GetYaxis().SetLabelSize(sizefactor*ratio.GetYaxis().GetLabelSize())
+  offset=1.2
+  ratio.GetXaxis().SetTitleOffset(offset*ratio.GetXaxis().GetTitleOffset())
+  ratio.GetYaxis().SetTitleOffset(offset*ratio.GetYaxis().GetTitleOffset())
+  ratio.SetStats(0)
+  ratiomean.SetLineWidth(3)
+  ratioup.SetLineWidth(3)
+  ratiodown.SetLineWidth(3)
+  ratiomean.Draw('SAME')
+  ratioup.Draw('SAME')
+  ratiodown.Draw('SAME')
+
+  legend=TLegend(0.5,0.65,0.9,0.9)
+  legend.SetHeader('2 b tags category')
+  if '1' in btag:
+    legend.SetHeader('1 b tag category')
+  legend.SetBorderSize(0)
+  legend.SetTextFont(42)
+  legend.SetLineColor(1)
+  legend.SetLineStyle(1)
+  legend.SetLineWidth(1)
+  legend.SetFillColor(0)
+  legend.SetFillStyle(0)
+  legend.AddEntry(ratio,'Binned','l')
+  legend.AddEntry(ratiomean,'Fit','l')
+  legend.AddEntry(ratioup,'#pm 1 std. deviation','l')
+  legend.SetTextSize(0.05)
+  legend.Draw()
+
+  CMS_lumi.CMS_lumi(c, 4, 11)
+  c.SaveAs('pdf/fitplot'+btag.replace(' ','')+'.pdf')
+  
 
 def make_plot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_qcd='',histo_signal='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,logy=False):
   c=TCanvas(name,'',600,600)
@@ -257,7 +313,7 @@ def make_plot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_
 us='_'
 def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[], histo=0, histo_qcd='',histo_signal='',histo_ttbar='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,
                     xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False, signal_zoom=1, qcd_zoom=1, ttbar_zoom=1,normalize=False,
-                    ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='Data',dosys=False,sysdict={},
+                    ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='data',dosys=False,sysdict={},
                     syspath='/nfs/dust/cms/user/usaiem/sys/top_added',bkgup=0,bkgdown=0,blind=False,
                     systtbarpath='/nfs/dust/cms/user/usaiem/sys/uhh2.AnalysisModuleRunner.MC.TTbar',bkgfitup=0,bkgfitdown=0,drawratio=True):
   
@@ -307,10 +363,17 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   latex.SetTextFont(42)
 
   ###legend setting up
-  legend=TLegend(0.0,0.75,0.99,1.04)
+  #legend=TLegend(0.0,0.75,0.99,1.04)
+  legend=TLegend(0.47,0.43,0.9,0.9)
   legend.SetNColumns(2)
   legend.SetHeader('')
-  #legend.SetTextSize(0.03)
+  if 'parabola' in name and '2' in name:
+    legend.SetHeader('2 b tags category')
+  elif 'parabola' in name and '1' in name:
+    legend.SetHeader('1 b tag category')
+  if 'parabola' in name:
+    legend.SetNColumns(1)
+    legend.SetTextSize(0.05)
   legend.SetBorderSize(0)
   legend.SetTextFont(42)
   legend.SetLineColor(1)
@@ -378,6 +441,8 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
     stack.Add(ttbar_histo)
   stack.Add(qcd_histo)
   
+  legend.AddEntry(0,"Z'#rightarrowT't, T'#rightarrowbW",'')
+
   ###signal setting up
   signal_histos=[]
   colors=[30,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60]
@@ -620,7 +685,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
       stack.SetMaximum(stack.GetMaximum()*10)
       stack.SetMinimum(0.2)
     else:
-      stack.SetMaximum(stack.GetMaximum()*1.5)
+      stack.SetMaximum(stack.GetMaximum()*2.0)
       stack.SetMinimum(0.001)
   err.Draw('2')
   sum_mc.Draw('samehist')
@@ -634,7 +699,8 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
     top_pad.SetLogy()
   if not separate_legend:
     legend.Draw()
-  latex.Draw()
+  legend.Draw()
+  #latex.Draw()
 
 
 
@@ -675,7 +741,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
 
     line1.Draw()
 
-
+  CMS_lumi.CMS_lumi(top_pad, 4, 11)
 
   ###saving
   canvas.SaveAs('pdf/'+name+'.pdf')
@@ -685,18 +751,18 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
 
 
   ###separate legend
-  if separate_legend:
-    legendcanvas=TCanvas(name+'_legend','',0,0,600,600)
-    legendcanvas.cd()
-    legend.SetNColumns(1)
-    legend.SetX1(0.0)
-    legend.SetX2(1.0)
-    legend.SetY1(0.0)
-    legend.SetY2(1.0)
-    legend.Draw()
-    legendcanvas.SaveAs('pdf/'+name+'_legend.pdf')
-    if outfile!=0:
-      legendcanvas.Write()
+  # if separate_legend:
+  #   legendcanvas=TCanvas(name+'_legend','',0,0,600,600)
+  #   legendcanvas.cd()
+  #   legend.SetNColumns(1)
+  #   legend.SetX1(0.0)
+  #   legend.SetX2(1.0)
+  #   legend.SetY1(0.0)
+  #   legend.SetY2(1.0)
+  #   legend.Draw()
+  #   legendcanvas.SaveAs('pdf/'+name+'_legend.pdf')
+  #   if outfile!=0:
+  #     legendcanvas.Write()
   
 
 
@@ -1055,7 +1121,7 @@ def make_comp(mean_histo_orig,up_histo_orig,down_histo_orig,cname,rebin=1):
     mean_histo.SetFillColor(0)
     up_histo.SetLineColor(kRed)
     down_histo.SetLineColor(kBlue)
-    up_histo.GetYaxis().SetTitle('Events')
+    up_histo.GetYaxis().SetTitle('Events / 100 GeV')
     up_histo.GetYaxis().SetLabelSize(0.07)
     up_histo.GetYaxis().SetTitleSize(0.07)
     up_histo.GetYaxis().SetTitleOffset(1.15)
