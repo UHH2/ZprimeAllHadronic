@@ -4,6 +4,7 @@ from sys import argv
 from os import mkdir
 from os.path import exists
 from array import array
+import math
 
 from utils import compare,hadd,doeff,make_plot,make_ratioplot
 gROOT.SetBatch()
@@ -92,6 +93,15 @@ for i in range(len(signal_names)):
 	eff=(num1+num2)*100/den
 	eff1=(num1)*100/den
 	eff2=(num2)*100/den
+	err1=eff1*math.sqrt(pow(math.sqrt(num1)/num1,2)+pow(math.sqrt(den)/den,2))
+	err2=eff2*math.sqrt(pow(math.sqrt(num2)/num2,2)+pow(math.sqrt(den)/den,2))
 	#print signal_legends[i], "%.0f" % den,'&',"%.0f" % num1,'&',"%.0f" % num2,'&', "%.1f" % eff,'\% \\\\'
 	#print eff,eff1,eff2
-	print signal_legends[i],"%.1f" % eff1,'\% &', "%.1f" % eff2,'\% \\\\'
+	if  eff1>1:
+		print signal_legends[i],"$( %.1f" % eff1,'\pm %.1f' % err1 ,')\%$ & '
+	else:
+		print signal_legends[i],"$( %.2f" % eff1,'\pm %.2f' % err1 ,')\%$ & '
+	if  eff2>1:
+		print "$( %.1f" % eff2,'\pm %.1f' % err2 ,')\%$ \\\\'
+	else:
+		print "$( %.2f" % eff2,'\pm %.2f' % err2 ,')\%$ \\\\'

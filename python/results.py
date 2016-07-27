@@ -188,7 +188,7 @@ for tipo in values:
 		if tipo=='obs':
 			name='o'+name
 		p=TH2F(name,'',11,-0.05,1.05,11,-0.05,1.05)
-		c=TCanvas(name+u+'c','',1100,1000)
+		c=TCanvas(name+u+'c','',1300,1000)
 		margine=0.15
 		c.SetRightMargin(0.20)
 		c.SetLeftMargin(margine)

@@ -2468,7 +2468,7 @@ for names in [
   if 'tp' in names[0]:
   	xtitle="m_{T'} [GeV]"
   elif 'ht' in names[0]:
-  	xtitle="HT [GeV]"
+  	xtitle="H_{T} [GeV]"
 
   make_ratioplot(
     name=names[2],
