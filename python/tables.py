@@ -203,6 +203,7 @@ if doresults:
 			exp1sigma.SetFillColor(kGreen+1)
 			exp2sigma.SetFillColor(kOrange)
 			exp2sigma.SetMaximum(80)
+			exp2sigma.SetMinimum(0.09)
 			exp2sigma.Draw('a3lp')
 			exp2sigma.GetXaxis().SetTitle("Z' mass [TeV]")
 			exp2sigma.GetXaxis().SetRangeUser(1.4,2.6)

@@ -994,7 +994,8 @@ for i in [
 	ratiomean.SetParameter(0,fitresult.Parameter(0))
 	ratiomean.SetParameter(1,fitresult.Parameter(1))
 	ratiomean.SetParameter(2,fitresult.Parameter(2))
-	make_fitplot(ratioinput,ratiomean,ratioup,ratiodown,'2 b tag')
+ 	if 'anti' in i:
+		make_fitplot(ratioinput,ratiomean,ratioup,ratiodown,'2 b tag')
 
 
 	# make_ratioplot2(
@@ -1374,7 +1375,8 @@ for i in [
 	ratiomean.SetParameter(0,fitresult.Parameter(0))
 	ratiomean.SetParameter(1,fitresult.Parameter(1))
 	ratiomean.SetParameter(2,fitresult.Parameter(2))
-	make_fitplot(ratioinput,ratiomean,ratioup,ratiodown,'1 b tag')
+ 	if 'anti' in i:
+		make_fitplot(ratioinput,ratiomean,ratioup,ratiodown,'1 b tag')
 
 	# make_ratioplot2(
 	# 	name='SRnobtagdata_vs_'+i,
@@ -3126,6 +3128,8 @@ if dotheta:
         model.add_lognormal_uncertainty('trigger', math.log(1.03), p)\n\
         if p == 'ttbar':\n\
           model.add_lognormal_uncertainty('ttbar_rate', math.log(1.15), p)\n\
+        if p == 'singletop':\n\
+          model.add_lognormal_uncertainty('singletop_rate', math.log(1.15), p)\n\
         #if 'signal' in p:\n\
         #    model.add_lognormal_uncertainty(p+'_rate', math.log(1.15), p)\n\
     return model\n\

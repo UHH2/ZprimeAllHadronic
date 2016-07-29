@@ -161,11 +161,11 @@ def make_fitplot(ratio,ratiomean,ratioup,ratiodown,btag):
   c.SetTopMargin(0.10)
   c.SetBottomMargin(margine)
   ratio.Draw()
-  ratio.SetMinimum(0.21)
-  ratio.SetMaximum(2.2)
-  if '1' in btag:
-    ratio.SetMinimum(0.61)
-    ratio.SetMaximum(1.8)
+  ratio.SetMinimum(0.41)
+  ratio.SetMaximum(2.5)
+  # if '1' in btag:
+  #   ratio.SetMinimum(0.61)
+  #   ratio.SetMaximum(1.8)
 
 
   sizefactor=1.6
