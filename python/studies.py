@@ -435,21 +435,36 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
   "wmass",  "wpt",  "wnsub",
   "toppt",  "topmass",  "topnsub", 
   "dRbt",  "dRbW",  "dRtW",  "dRtTp",
-  "ht",  "htca8",  "ht_twb",  "npv",  "nevt",]:
+  "ht",  "htca8",  "npv",  "nevt",]:
     signalzoom=100
   if i in ["Nm1wmass","Nm1wmass1","Nm1wmass2","Nm1wmass3","Nm1wmass4","Nm1wnsub","Nm1topmass","Nm1topnsub","Nm1wmassRndm","Nm1wnsubRndm","Nm1topmassRndm","Nm1topnsubRndm","csv_pthighest",]:
     signalzoom=20
-  if i in ["bmass","tprimemass",'tprimept',"topcsv"]:
+  if i in ["bmass","tprimemass",'tprimept',"topcsv","ht_twb"]:
     signalzoom=10
-  if i in ['topmass_res','topmass2_res', "csv_pthighest","bpt"]:
+  if i in ['topmass_res','topmass2_res', "csv_pthighest","bpt","bmass","csv_csvhighest"]:
     signalzoom=40
     rebinna=1
     uselog=False
-    minx=60
+    minx=0
     maxx=1000
   if i in ['npv']:
     rebinna=1
     maxx=40
+  if i in ["toppt_wpt",  "toppt_wbpt", 'toppt','topcsv','wpt' ,  'tprimemass','tprimemassbtag','tprimemassnobtag','tprimept','zprimept']:
+    signalzoom=4
+
+  qcdnorm=False
+  if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR"]:
+    qcdnorm=True
+
+  maxy=0
+  if i in ['Nm1topmass']:
+    maxy=600
+
+  xtitle=''
+  if i in ["ht_twbSR","ht_twbSRbtag","ht_twbSRnobtag"]:
+    xtitle='HT_{t+W+b}'
+
   # make_ratioplot(
   #   name=i+'NOSF',
   #   ttbar_file=ttbar_file,
@@ -517,12 +532,12 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
     minx=minx,
     maxx=maxx,
     miny=0,
-    maxy=0,
+    maxy=maxy,
     minratio=0,
     maxratio=0,
     blind=False,
     logy=False,
-        xtitle='',
+        xtitle=xtitle,
         ytitle='Events',
         ttbar_legend='top',
         qcd_legend='QCD from MC',
@@ -533,7 +548,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
         dosys=False,
-        sysdict=systypes)
+        sysdict=systypes, qcdnorm=qcdnorm)
 
   # make_ratioplot(
   #   name=i+'_ALL',
@@ -1796,60 +1811,65 @@ f.close()
 #gen and angular studies
 
 
-# for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
-#   "ptop",  "ptprime",  "pb",  "pw",  "ptb",  "ptw",  "pzprime",
-#   "mtop",  "mtprime",  "mb",  "mw",  "mtb",  "mtw",  "mzprime",
-#   "dRbW",  "dRtT",  "dRbt",  "dRtW",  "dR_tb_tW",  "dR_tb_W",  "dR_tb_b",  "dR_b_tW",  "dR_W_tW",
-#   "dR_W1_b1",  "dR_W2_b2",  "dR_W1_W2",  "dR_b1_b2",  "dR_W1_b2",  "dR_W2_b1",
-#   "pT_closest_topjet_to_top",  "mass_closest_topjet_to_top",  "nsub_closest_topjet_to_top",
-#   "pT_closest_topjet_to_tprime",  "mass_closest_topjet_to_tprime",  "nsub_closest_topjet_to_tprime",
-#   "pT_closest_wjet_to_w",  "mass_closest_wjet_to_w",  "nsub_closest_wjet_to_w",
-#   "pT_closest_bjet_to_b",  "csv_closest_bjet_to_b",
+for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
+  "ptop",  "ptprime",  "pb",  "pw",  "ptb",  "ptw",  "pzprime",
+  "mtop",  "mtprime",  "mb",  "mw",  "mtb",  "mtw",  "mzprime",
+  "dRbW",  "dRtT",  "dRbt",  "dRtW",  "dR_tb_tW",  "dR_tb_W",  "dR_tb_b",  "dR_b_tW",  "dR_W_tW",
+  "dR_W1_b1",  "dR_W2_b2",  "dR_W1_W2",  "dR_b1_b2",  "dR_W1_b2",  "dR_W2_b1",
+  "pT_closest_topjet_to_top",  "mass_closest_topjet_to_top",  "nsub_closest_topjet_to_top",
+  "pT_closest_topjet_to_tprime",  "mass_closest_topjet_to_tprime",  "nsub_closest_topjet_to_tprime",
+  "pT_closest_wjet_to_w",  "mass_closest_wjet_to_w",  "nsub_closest_wjet_to_w",
+  "pT_closest_bjet_to_b",  "csv_closest_bjet_to_b",
 
-#   "pT_closest_wjet_to_tw",  "mass_closest_wjet_to_tw",  "nsub_closest_wjet_to_tw",
-#   "pT_closest_bjet_to_tb",  "csv_closest_bjet_to_tb",
+  "pT_closest_wjet_to_tw",  "mass_closest_wjet_to_tw",  "nsub_closest_wjet_to_tw",
+  "pT_closest_bjet_to_tb",  "csv_closest_bjet_to_tb",
 
-#   "pT_closest_wjet_to_w1",  "mass_closest_wjet_to_w1",  "nsub_closest_wjet_to_w1",
-#   "pT_closest_bjet_to_b1",  "csv_closest_bjet_to_b1",
-#   "pT_closest_wjet_to_w2",  "mass_closest_wjet_to_w2",  "nsub_closest_wjet_to_w2",
-#   "pT_closest_bjet_to_b2",  "csv_closest_bjet_to_b2",
-#   "matched_top_mass",
-#   "matched_top_res_mass",
-#   "matched_tprime_mass",
-#   "matched_zprime_mass",
-#   "matched_zprime_res_mass",
-#   "matched_tprime1_mass",
-#   "matched_tprime2_mass",
-#   ]:
-#   rebinna=1
-#   minx=0
-#   maxx=0
-#   if 'top_mass' in i or 'mass_closest_wjet' in i or 'mass_closest_topjet' in i or 'top_res_mass' in i:
-#      minx=0
-#      maxx=300
-#   if 'pTtb' in i :
-#      minx=0
-#      maxx=1000
-#   compare(name='GEN_'+i,#signalWB_names[i]+'dRbW',
-# 		file_list=signal_files_pre2,#[signal_files[i],signal_files_pre[i]],
-# 		name_list=['NoCuts/'+i]*len(signal_files_pre2),
-# 		legend_list=signalWB_legendnames,
-# 		normalize=True,drawoption='hE',
-# 		xtitle='',ytitle='',
-# 		minx=minx,maxx=maxx,
-# 		rebin=rebinna,
-# 		miny=0,maxy=0,
-# 		textsizefactor=1,logy=False)
-#   compare(name='GENTT_'+i,#signalWB_names[i]+'dRbW',
-# 		file_list=signalTT_files,#[signal_files[i],signal_files_pre[i]],
-# 		name_list=['NoCuts/'+i]*len(signal_files),
-# 		legend_list=signalTT_legendnames,
-# 		normalize=True,drawoption='hE',
-# 		xtitle='',ytitle='',
-# 		minx=minx,maxx=maxx,
-# 		rebin=rebinna,
-# 		miny=0,maxy=0,
-# 		textsizefactor=1,logy=False)
+  "pT_closest_wjet_to_w1",  "mass_closest_wjet_to_w1",  "nsub_closest_wjet_to_w1",
+  "pT_closest_bjet_to_b1",  "csv_closest_bjet_to_b1",
+  "pT_closest_wjet_to_w2",  "mass_closest_wjet_to_w2",  "nsub_closest_wjet_to_w2",
+  "pT_closest_bjet_to_b2",  "csv_closest_bjet_to_b2",
+  "matched_top_mass",
+  "matched_top_res_mass",
+  "matched_tprime_mass",
+  "matched_zprime_mass",
+  "matched_zprime_res_mass",
+  "matched_tprime1_mass",
+  "matched_tprime2_mass",
+  ]:
+  rebinna=1
+  minx=0
+  maxx=0
+  if 'top_mass' in i or 'mass_closest_wjet' in i or 'mass_closest_topjet' in i or 'top_res_mass' in i or 'pTzprime' in i:
+     minx=0
+     maxx=300
+  if 'pTtb' in i :
+     minx=0
+     maxx=1000
+  xtitle=''
+  if i=='dR_tb_W':
+    xtitle="#Delta R(b from t, W from T')"
+  if i=='dR_W_tW':
+    xtitle="#Delta R(W from t, W form T')"
+  compare(name='GEN_'+i,#signalWB_names[i]+'dRbW',
+		file_list=signal_files_pre2,#[signal_files[i],signal_files_pre[i]],
+		name_list=['NoCuts/'+i]*len(signal_files_pre2),
+		legend_list=signalWB_legendnames,
+		normalize=True,drawoption='hE',
+		xtitle=xtitle,ytitle='',
+		minx=minx,maxx=maxx,
+		rebin=rebinna,
+		miny=0,maxy=0,
+		textsizefactor=1,logy=False)
+  compare(name='GENTT_'+i,#signalWB_names[i]+'dRbW',
+		file_list=signalTT_files,#[signal_files[i],signal_files_pre[i]],
+		name_list=['NoCuts/'+i]*len(signal_files),
+		legend_list=signalTT_legendnames,
+		normalize=True,drawoption='hE',
+		xtitle='',ytitle='',
+		minx=minx,maxx=maxx,
+		rebin=rebinna,
+		miny=0,maxy=0,
+		textsizefactor=1,logy=False)
 
 # for i in range(len(signalWB_names)):
 # 	rebinna=10
@@ -2395,8 +2415,9 @@ for names in [
   sgnbkg=[]
   for i in range(len(signal_files_short)):
     print names[2],signalWB_names_short[i]
-    print signal_files_short[i].Get(names[0]).Clone().Integral(blow,bhigh)*100.0/ncr
-    sgnbkg.append(signal_files_short[i].Get(names[0]).Clone().Integral(blow,bhigh))
+    nsig=signal_files_short[i].Get(names[0]).Clone().Integral(blow,bhigh)
+    print nsig,nsig*100.0/ncr
+    sgnbkg.append(nsig)
   
   qcdbkg_down=data_file.Get(names[3]).Clone(names[2]+'_bkgdown')
   qcdbkg_up=data_file.Get(names[4]).Clone(names[2]+'_bkgup')

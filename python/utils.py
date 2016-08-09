@@ -62,6 +62,8 @@ def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE'
       histo_list[-1].SetStats(0)
     histo_list[-1].SetLineWidth(3)
     histo_list[-1].SetLineColor(i+1)
+    if i>6:
+      histo_list[-1].SetLineColor(i+4)
     histo_list[-1].SetTitle('')
     legend.AddEntry(histo_list[-1],legend_list[i],'l')
     if rebin!=1:
@@ -315,7 +317,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
                     xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False, signal_zoom=1, qcd_zoom=1, ttbar_zoom=1,normalize=False,
                     ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='data',dosys=False,sysdict={},
                     syspath='/nfs/dust/cms/user/usaiem/sys/top_added',bkgup=0,bkgdown=0,blind=False,
-                    systtbarpath='/nfs/dust/cms/user/usaiem/sys/uhh2.AnalysisModuleRunner.MC.TTbar',bkgfitup=0,bkgfitdown=0,drawratio=True):
+                    systtbarpath='/nfs/dust/cms/user/usaiem/sys/uhh2.AnalysisModuleRunner.MC.TTbar',bkgfitup=0,bkgfitdown=0,drawratio=True,qcdnorm=False):
   
   ###canvas setting up
   canvas=0
@@ -422,6 +424,9 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   if qcd_zoom!=1:
       qcd_histo.Scale(qcd_zoom)
   legend.AddEntry(qcd_histo,qcd_legend,'f')
+
+  if qcdnorm:
+    qcd_histo.Scale((data_histo.Integral()-ttbar_histo.Integral())/qcd_histo.Integral())
 
   sum_mc=qcd_histo.Clone(histo+'tmp')
   #sum_mc.SetLineWidth(3)
