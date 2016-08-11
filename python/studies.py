@@ -438,7 +438,7 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
   "ht",  "htca8",  "npv",  "nevt",]:
     signalzoom=100
   if i in ["Nm1wmass","Nm1wmass1","Nm1wmass2","Nm1wmass3","Nm1wmass4","Nm1wnsub","Nm1topmass","Nm1topnsub","Nm1wmassRndm","Nm1wnsubRndm","Nm1topmassRndm","Nm1topnsubRndm","csv_pthighest",]:
-    signalzoom=20
+    signalzoom=10
   if i in ["bmass","tprimemass",'tprimept',"topcsv","ht_twb"]:
     signalzoom=10
   if i in ['topmass_res','topmass2_res', "csv_pthighest","bpt","bmass","csv_csvhighest"]:
@@ -450,12 +450,19 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
   if i in ['npv']:
     rebinna=1
     maxx=40
-  if i in ["toppt_wpt",  "toppt_wbpt", 'toppt','topcsv','wpt' ,  'tprimemass','tprimemassbtag','tprimemassnobtag','tprimept','zprimept']:
+  if i in ["toppt_wpt",  "toppt_wbpt", 'toppt','topcsv','wpt' ]:
+    signalzoom=10
+
+  if i in ['tprimemass','tprimemassbtag','tprimemassnobtag','tprimept','zprimept']:
     signalzoom=4
+
+  if i in ["dRbt",  "dRbW",  "dRtW",  "dRtTp"]:
+    signalzoom=10
 
   qcdnorm=False
   if i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_btags_good",  "N_subjetbtags", "N_btags_ttbarCR", "N_btags_good_ttbarCR"]:
     qcdnorm=True
+    signalzoom=500
 
   maxy=0
   if i in ['Nm1topmass']:

@@ -53,15 +53,6 @@ signal_names=[
 'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH']
 
 signal_legends=[
-"$Z'(1500\\GeV)\\rightarrow T't$, $T'(700\\GeV)\\rightarrow Wb$ & ",
-"$Z'(1500\\GeV)\\rightarrow T't$, $T'(900\\GeV)\\rightarrow Wb$ & ",
-"$Z'(1500\\GeV)\\rightarrow T't$, $T'(1200\\GeV)\\rightarrow Wb$ & ",
-"$Z'(2000\\GeV)\\rightarrow T't$, $T'(900\\GeV)\\rightarrow Wb$ & ",
-"$Z'(2000\\GeV)\\rightarrow T't$, $T'(1200\\GeV)\\rightarrow Wb$ & ",
-"$Z'(2000\\GeV)\\rightarrow T't$, $T'(1500\\GeV)\\rightarrow Wb$ & ",
-"$Z'(2500\\GeV)\\rightarrow T't$, $T'(1200\\GeV)\\rightarrow Wb$ & ",
-"$Z'(2500\\GeV)\\rightarrow T't$, $T'(1500\\GeV)\\rightarrow Wb$ & ",
-
 "$Z'(1500\\GeV)\\rightarrow T't$, $T'(900\\GeV)\\rightarrow Ht$ & ",
 "$Z'(1500\\GeV)\\rightarrow T't$, $T'(700\\GeV)\\rightarrow Ht$ & ",
 "$Z'(1500\\GeV)\\rightarrow T't$, $T'(1200\\GeV)\\rightarrow Ht$ & ",
@@ -79,6 +70,18 @@ signal_legends=[
 "$Z'(2000\\GeV)\\rightarrow T't$, $T'(1500\\GeV)\\rightarrow Zt$ & ",
 "$Z'(2500\\GeV)\\rightarrow T't$, $T'(1200\\GeV)\\rightarrow Zt$ & ",
 "$Z'(2500\\GeV)\\rightarrow T't$, $T'(1500\\GeV)\\rightarrow Zt$ & ",
+
+"$Z'(1500\\GeV)\\rightarrow T't$, $T'(700\\GeV)\\rightarrow Wb$ & ",
+"$Z'(1500\\GeV)\\rightarrow T't$, $T'(900\\GeV)\\rightarrow Wb$ & ",
+"$Z'(1500\\GeV)\\rightarrow T't$, $T'(1200\\GeV)\\rightarrow Wb$ & ",
+"$Z'(2000\\GeV)\\rightarrow T't$, $T'(900\\GeV)\\rightarrow Wb$ & ",
+"$Z'(2000\\GeV)\\rightarrow T't$, $T'(1200\\GeV)\\rightarrow Wb$ & ",
+"$Z'(2000\\GeV)\\rightarrow T't$, $T'(1500\\GeV)\\rightarrow Wb$ & ",
+"$Z'(2500\\GeV)\\rightarrow T't$, $T'(1200\\GeV)\\rightarrow Wb$ & ",
+"$Z'(2500\\GeV)\\rightarrow T't$, $T'(1500\\GeV)\\rightarrow Wb$ & ",
+
+
+
 ]
 
 for i in range(len(signal_names)):
