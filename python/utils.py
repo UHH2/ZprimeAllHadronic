@@ -317,7 +317,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
                     xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False, signal_zoom=1, qcd_zoom=1, ttbar_zoom=1,normalize=False,
                     ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='data',dosys=False,sysdict={},
                     syspath='/nfs/dust/cms/user/usaiem/sys/top_added',bkgup=0,bkgdown=0,blind=False,
-                    systtbarpath='/nfs/dust/cms/user/usaiem/sys/uhh2.AnalysisModuleRunner.MC.TTbar',bkgfitup=0,bkgfitdown=0,drawratio=True,qcdnorm=False):
+                    systtbarpath='/nfs/dust/cms/user/usaiem/sys/uhh2.AnalysisModuleRunner.MC.TTbar',bkgfitup=0,bkgfitdown=0,drawratio=True,qcdnorm=False,docms=True):
   
   ###canvas setting up
   canvas=0
@@ -589,6 +589,9 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
       #15% ttbar
       sys_diff_ttbar[imtt-1].append(0.15*ttbar_histo.GetBinContent(imtt))
       sys_diff_ttbar[imtt-1].append(-0.15*ttbar_histo.GetBinContent(imtt))
+      #2.8% QCD
+      sys_diff_qcd[imtt-1].append(0.028*qcd_histo.GetBinContent(imtt))
+      sys_diff_qcd[imtt-1].append(-0.028*qcd_histo.GetBinContent(imtt))
     #combining uncertainties
     sys_tot_ttbar=[]
     sys_tot_qcd=[]
@@ -746,7 +749,8 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
 
     line1.Draw()
 
-  CMS_lumi.CMS_lumi(top_pad, 4, 11)
+  if docms:
+    CMS_lumi.CMS_lumi(top_pad, 4, 11)
 
   ###saving
   canvas.SaveAs('pdf/'+name+'.pdf')

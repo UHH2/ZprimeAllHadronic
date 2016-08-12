@@ -3,6 +3,8 @@ def get_model():
     model.fill_histogram_zerobins()
     model.set_signal_processes('signal*')
     model.add_lognormal_uncertainty('ttbar_rate', math.log(1.15), 'ttbar')
+    model.add_lognormal_uncertainty('singletop_rate', math.log(1.15), 'singletop')
+    model.add_lognormal_uncertainty('qcd_rate', math.log(1.028), 'qcd')
     #model.add_lognormal_uncertainty('qcd_rate', math.log(1.15), 'qcd')
     for p in model.processes:
         if p == 'qcd': continue

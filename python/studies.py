@@ -851,7 +851,15 @@ f=open('fitresult.txt','w')
 #ratioList=[900,1300,1500,1800,2100,2400,2700,3000,3500]
 
 #ratioList=[900,1300,1500,1700,1900,2100,2300,2500,2700,2900,3100,3300,3500]
+
 ratioList=[900,1300,1500,1700,1900,2100,2400,2700,3000,3500]
+#ratioList=[900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000,3100,3200,3300,3400,3500]
+#ratioList=[900,1100,1300,1500,1700,1900,2100,2300,2500,2700,2900,3100,3300,3500]
+#ratioList=[900,1200,1500,1800,2100,2400,2700,3000,3300,3500]
+#ratioList=[900,1300,1700,2100,2500,2900,3300,3500]
+#ratioList=[900,1400,1900,2400,2900,3400]
+
+
 #ratioList=[900,1200,1500,1800,2100,2400,2700,3000,3500]
 
 #ratioList=[1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200,3500]
@@ -868,7 +876,7 @@ for i in [
  #"antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
  #"antibcsvCRmass_zprimemass",# "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
  #"antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
- "antibcsvCRbtag_zprimemass",#,"antibcsvlooseCRbtag_zprimemass","antitpmassCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
+ "antibcsvCRbtag_zprimemass","antibcsvCRnobtag_zprimemass",#,"antibcsvlooseCRbtag_zprimemass","antitpmassCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
 #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass", 
  #"antibcsvCRnobtag_zprimemass",#  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
  #"bkg1",
@@ -969,7 +977,11 @@ for i in [
 	denominator_CR=denominator_CR.Rebin(ratioLen,i+"denrebinned",ratioArray)
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio2_SRbtag_vs_'+i+'_c')
-	ratio_to_fit.Draw()
+	ratio_to_fit=ratio_to_fit.Clone()
+	ratio_to_fit.Draw('e0')
+	ratio_to_fit.SetMaximum(3)
+	ratio_to_fit.SetMinimum(0.1)
+	#ratio_to_fit.Draw('e0 same')
 	ratioinput=ratio_to_fit.Clone()
 	fitresult=ratio_to_fit.Fit('pol2','SE','',ratioList[0],ratioList[-1])
 	if 'bkg' not in i:
@@ -1004,7 +1016,7 @@ for i in [
 	ratiodown.SetParameter(7,fitresult.CovMatrix(1,2))
 	ratiodown.SetParameter(8,fitresult.CovMatrix(2,2))
 	ratio_to_fit.GetXaxis().SetRangeUser(ratioList[0],ratioList[-1])
-	ratio_to_fit.Draw()
+	#ratio_to_fit.Draw()
 	ratioup.SetLineStyle(2)
 	ratiodown.SetLineStyle(2)
 	ratioup.Draw('SAME')
@@ -1350,7 +1362,9 @@ for i in [
 	denominator_CR=denominator_CR.Rebin(ratioLen,i+"denrebinned",ratioArray)
 	ratio_to_fit.Divide(denominator_CR)
 	ratioc=TCanvas('ratio2_SRnobtag_vs_'+i+'_c')
-	ratio_to_fit.Draw()
+	ratio_to_fit.Draw('e0')
+	ratio_to_fit.SetMaximum(3)
+	ratio_to_fit.SetMinimum(0.1)
 	ratioinput=ratio_to_fit.Clone()
 	fitresult=ratio_to_fit.Fit('pol2','SE','',ratioList[0],ratioList[-1])
 	if 'bkg' not in i:
@@ -1385,7 +1399,7 @@ for i in [
 	ratiodown.SetParameter(7,fitresult.CovMatrix(1,2))
 	ratiodown.SetParameter(8,fitresult.CovMatrix(2,2))
 	ratio_to_fit.GetXaxis().SetRangeUser(ratioList[0],ratioList[-1])
-	ratio_to_fit.Draw()
+	#ratio_to_fit.Draw()
 	ratioup.SetLineStyle(2)
 	ratiodown.SetLineStyle(2)
 	ratioup.Draw('SAME')
@@ -1818,65 +1832,65 @@ f.close()
 #gen and angular studies
 
 
-for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
-  "ptop",  "ptprime",  "pb",  "pw",  "ptb",  "ptw",  "pzprime",
-  "mtop",  "mtprime",  "mb",  "mw",  "mtb",  "mtw",  "mzprime",
-  "dRbW",  "dRtT",  "dRbt",  "dRtW",  "dR_tb_tW",  "dR_tb_W",  "dR_tb_b",  "dR_b_tW",  "dR_W_tW",
-  "dR_W1_b1",  "dR_W2_b2",  "dR_W1_W2",  "dR_b1_b2",  "dR_W1_b2",  "dR_W2_b1",
-  "pT_closest_topjet_to_top",  "mass_closest_topjet_to_top",  "nsub_closest_topjet_to_top",
-  "pT_closest_topjet_to_tprime",  "mass_closest_topjet_to_tprime",  "nsub_closest_topjet_to_tprime",
-  "pT_closest_wjet_to_w",  "mass_closest_wjet_to_w",  "nsub_closest_wjet_to_w",
-  "pT_closest_bjet_to_b",  "csv_closest_bjet_to_b",
+# for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
+#   "ptop",  "ptprime",  "pb",  "pw",  "ptb",  "ptw",  "pzprime",
+#   "mtop",  "mtprime",  "mb",  "mw",  "mtb",  "mtw",  "mzprime",
+#   "dRbW",  "dRtT",  "dRbt",  "dRtW",  "dR_tb_tW",  "dR_tb_W",  "dR_tb_b",  "dR_b_tW",  "dR_W_tW",
+#   "dR_W1_b1",  "dR_W2_b2",  "dR_W1_W2",  "dR_b1_b2",  "dR_W1_b2",  "dR_W2_b1",
+#   "pT_closest_topjet_to_top",  "mass_closest_topjet_to_top",  "nsub_closest_topjet_to_top",
+#   "pT_closest_topjet_to_tprime",  "mass_closest_topjet_to_tprime",  "nsub_closest_topjet_to_tprime",
+#   "pT_closest_wjet_to_w",  "mass_closest_wjet_to_w",  "nsub_closest_wjet_to_w",
+#   "pT_closest_bjet_to_b",  "csv_closest_bjet_to_b",
 
-  "pT_closest_wjet_to_tw",  "mass_closest_wjet_to_tw",  "nsub_closest_wjet_to_tw",
-  "pT_closest_bjet_to_tb",  "csv_closest_bjet_to_tb",
+#   "pT_closest_wjet_to_tw",  "mass_closest_wjet_to_tw",  "nsub_closest_wjet_to_tw",
+#   "pT_closest_bjet_to_tb",  "csv_closest_bjet_to_tb",
 
-  "pT_closest_wjet_to_w1",  "mass_closest_wjet_to_w1",  "nsub_closest_wjet_to_w1",
-  "pT_closest_bjet_to_b1",  "csv_closest_bjet_to_b1",
-  "pT_closest_wjet_to_w2",  "mass_closest_wjet_to_w2",  "nsub_closest_wjet_to_w2",
-  "pT_closest_bjet_to_b2",  "csv_closest_bjet_to_b2",
-  "matched_top_mass",
-  "matched_top_res_mass",
-  "matched_tprime_mass",
-  "matched_zprime_mass",
-  "matched_zprime_res_mass",
-  "matched_tprime1_mass",
-  "matched_tprime2_mass",
-  ]:
-  rebinna=1
-  minx=0
-  maxx=0
-  if 'top_mass' in i or 'mass_closest_wjet' in i or 'mass_closest_topjet' in i or 'top_res_mass' in i or 'pTzprime' in i:
-     minx=0
-     maxx=300
-  if 'pTtb' in i :
-     minx=0
-     maxx=1000
-  xtitle=''
-  if i=='dR_tb_W':
-    xtitle="#Delta R(b from t, W from T')"
-  if i=='dR_W_tW':
-    xtitle="#Delta R(W from t, W form T')"
-  compare(name='GEN_'+i,#signalWB_names[i]+'dRbW',
-		file_list=signal_files_pre2,#[signal_files[i],signal_files_pre[i]],
-		name_list=['NoCuts/'+i]*len(signal_files_pre2),
-		legend_list=signalWB_legendnames,
-		normalize=True,drawoption='hE',
-		xtitle=xtitle,ytitle='',
-		minx=minx,maxx=maxx,
-		rebin=rebinna,
-		miny=0,maxy=0,
-		textsizefactor=1,logy=False)
-  compare(name='GENTT_'+i,#signalWB_names[i]+'dRbW',
-		file_list=signalTT_files,#[signal_files[i],signal_files_pre[i]],
-		name_list=['NoCuts/'+i]*len(signal_files),
-		legend_list=signalTT_legendnames,
-		normalize=True,drawoption='hE',
-		xtitle='',ytitle='',
-		minx=minx,maxx=maxx,
-		rebin=rebinna,
-		miny=0,maxy=0,
-		textsizefactor=1,logy=False)
+#   "pT_closest_wjet_to_w1",  "mass_closest_wjet_to_w1",  "nsub_closest_wjet_to_w1",
+#   "pT_closest_bjet_to_b1",  "csv_closest_bjet_to_b1",
+#   "pT_closest_wjet_to_w2",  "mass_closest_wjet_to_w2",  "nsub_closest_wjet_to_w2",
+#   "pT_closest_bjet_to_b2",  "csv_closest_bjet_to_b2",
+#   "matched_top_mass",
+#   "matched_top_res_mass",
+#   "matched_tprime_mass",
+#   "matched_zprime_mass",
+#   "matched_zprime_res_mass",
+#   "matched_tprime1_mass",
+#   "matched_tprime2_mass",
+#   ]:
+#   rebinna=1
+#   minx=0
+#   maxx=0
+#   if 'top_mass' in i or 'mass_closest_wjet' in i or 'mass_closest_topjet' in i or 'top_res_mass' in i or 'pTzprime' in i:
+#      minx=0
+#      maxx=300
+#   if 'pTtb' in i :
+#      minx=0
+#      maxx=1000
+#   xtitle=''
+#   if i=='dR_tb_W':
+#     xtitle="#Delta R(b from t, W from T')"
+#   if i=='dR_W_tW':
+#     xtitle="#Delta R(W from t, W form T')"
+#   compare(name='GEN_'+i,#signalWB_names[i]+'dRbW',
+# 		file_list=signal_files_pre2,#[signal_files[i],signal_files_pre[i]],
+# 		name_list=['NoCuts/'+i]*len(signal_files_pre2),
+# 		legend_list=signalWB_legendnames,
+# 		normalize=True,drawoption='hE',
+# 		xtitle=xtitle,ytitle='',
+# 		minx=minx,maxx=maxx,
+# 		rebin=rebinna,
+# 		miny=0,maxy=0,
+# 		textsizefactor=1,logy=False)
+#   compare(name='GENTT_'+i,#signalWB_names[i]+'dRbW',
+# 		file_list=signalTT_files,#[signal_files[i],signal_files_pre[i]],
+# 		name_list=['NoCuts/'+i]*len(signal_files),
+# 		legend_list=signalTT_legendnames,
+# 		normalize=True,drawoption='hE',
+# 		xtitle='',ytitle='',
+# 		minx=minx,maxx=maxx,
+# 		rebin=rebinna,
+# 		miny=0,maxy=0,
+# 		textsizefactor=1,logy=False)
 
 # for i in range(len(signalWB_names)):
 # 	rebinna=10
@@ -2552,7 +2566,7 @@ for names in [
   #   miny=0,maxy=0,
   #   textsizefactor=1,logy=False)
 
-assert(False)
+#assert(False)
 
 compare(name='qcdcorrsystbtag',
 		file_list=[qcd_file,qcd_file,qcd_file],
@@ -3151,6 +3165,8 @@ if dotheta:
     #model.add_lognormal_uncertainty('ttbar_rate', math.log(1.15), 'ttbar')\n\
     #model.add_lognormal_uncertainty('qcd_rate', math.log(1.15), 'qcd')\n\
     for p in model.processes:\n\
+        if p == 'qcd':\n\
+          model.add_lognormal_uncertainty('qcd_rate', math.log(1.028), p)\n\
         if p == 'qcd': continue\n\
         model.add_lognormal_uncertainty('lumi', math.log(1.027), p)\n\
         model.add_lognormal_uncertainty('trigger', math.log(1.03), p)\n\
@@ -3257,7 +3273,7 @@ for masspoint in [0,3,6]:
         qcd_zoom=den2/den2bk,
         fixratio=True,
         ttbar_legend='signal in bkg estimate (MC)',qcd_legend='background estimate (MC)', data_legend='observed background (MC)',
-        normalize=False, drawratio=False
+        normalize=False, drawratio=False,docms=False
         #signal_colors=[1,2,3,1,2,3,1,2]
         )
 
@@ -3266,7 +3282,7 @@ for masspoint in [0,3,6]:
 		qcd_file=qcd_file,data_file=qcd_file,signal_files=[signal_files[masspoint]],
 		histo="Selection/zprimemassnobtag",histo_qcd='Selection/bkg1_par',
 		histo_ttbar='Selection/bkg1_par',histo_signal="Selection/zprimemassnobtag",
-		rebin=rebinna,minx=minx,drawratio=False,maxx=maxx,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,xtitle='',ytitle='Events',textsizefactor=1,signal_legend=[signalWB_legendnames[masspoint]],separate_legend=False,signal_zoom=1,ttbar_zoom=den1/den1bk,qcd_zoom=den1/den1bk,fixratio=True,ttbar_legend='signal in bkg estimate (MC)',qcd_legend='background estimate (MC)',data_legend="observed background (MC)",normalize=False)
+		rebin=rebinna,minx=minx,docms=False,drawratio=False,maxx=maxx,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,xtitle='',ytitle='Events',textsizefactor=1,signal_legend=[signalWB_legendnames[masspoint]],separate_legend=False,signal_zoom=1,ttbar_zoom=den1/den1bk,qcd_zoom=den1/den1bk,fixratio=True,ttbar_legend='signal in bkg estimate (MC)',qcd_legend='background estimate (MC)',data_legend="observed background (MC)",normalize=False)
 		
 		#)
 

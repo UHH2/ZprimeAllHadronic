@@ -10,9 +10,10 @@ def get_model_nosig():
     and ('_jec_' not in x)
     and ('_wtag_' not in x)
     and ('_bkgcorr_' not in x)
+    and ('_bkgfit_' not in x)
     and ('_pu_' not in x) )#mc uncertainties=true
     model.fill_histogram_zerobins()
-    model.add_lognormal_uncertainty('qcdnorm', math.log(1.20), 'qcd')
+    model.add_lognormal_uncertainty('qcdnorm', math.log(1.10), 'qcd')
     #model.add_lognormal_uncertainty('ttbarnorm', math.log(1.20), 'ttbar')
     #model.set_signal_processes('signal*')
     #model.add_lognormal_uncertainty('ttbar_rate', math.log(1.15), 'ttbar')
@@ -51,8 +52,13 @@ f.close()
 
 sigma=postfit['']['qcdnorm'][0][0]
 err=postfit['']['qcdnorm'][0][1]
-print 'sigma qcd',math.pow(1.20,sigma)
-print 'err qcd',math.pow(1.20,err)
+print 'sigma qcd',math.pow(1.10,sigma)
+print 'err qcd',math.pow(1.10,err)
+
+# sigma=postfit['']['ttbar_rate'][0][0]
+# err=postfit['']['ttbar_rate'][0][1]
+# print 'sigma qcd',math.pow(1.15,sigma)
+# print 'err qcd',math.pow(1.15,err)
 
 #sigma=postfit['']['ttbarnorm'][0][0]
 #err=postfit['']['ttbarnorm'][0][1]
