@@ -191,9 +191,9 @@ def make_fitplot(ratio,ratiomean,ratioup,ratiodown,btag):
   ratiodown.Draw('SAME')
 
   legend=TLegend(0.5,0.65,0.9,0.9)
-  legend.SetHeader('2 b tags category')
+  legend.SetHeader('2 b-tag category')
   if '1' in btag:
-    legend.SetHeader('1 b tag category')
+    legend.SetHeader('1 b-tag category')
   legend.SetBorderSize(0)
   legend.SetTextFont(42)
   legend.SetLineColor(1)
@@ -370,9 +370,9 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   legend.SetNColumns(2)
   legend.SetHeader('')
   if 'parabola' in name and '2' in name:
-    legend.SetHeader('2 b tags category')
+    legend.SetHeader('2 b-tag category')
   elif 'parabola' in name and '1' in name:
-    legend.SetHeader('1 b tag category')
+    legend.SetHeader('1 b-tag category')
   if 'parabola' in name:
     legend.SetNColumns(1)
     legend.SetTextSize(0.05)
