@@ -317,7 +317,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
                     xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False, signal_zoom=1, qcd_zoom=1, ttbar_zoom=1,normalize=False,
                     ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='data',dosys=False,sysdict={},
                     syspath='/nfs/dust/cms/user/usaiem/sys/top_added',bkgup=0,bkgdown=0,blind=False,
-                    systtbarpath='/nfs/dust/cms/user/usaiem/sys/uhh2.AnalysisModuleRunner.MC.TTbar',bkgfitup=0,bkgfitdown=0,drawratio=True,qcdnorm=False,docms=True):
+                    systtbarpath='/nfs/dust/cms/user/usaiem/sys/uhh2.AnalysisModuleRunner.MC.TTbar',bkgfitup=0,bkgfitdown=0,drawratio=True,qcdnorm=False,docms=True,legendtitle=''):
   
   ###canvas setting up
   canvas=0
@@ -446,7 +446,10 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
     stack.Add(ttbar_histo)
   stack.Add(qcd_histo)
   
-  legend.AddEntry(0,"Z'#rightarrowT't, T'#rightarrowbW",'')
+  if legendtitle=='':
+    legend.AddEntry(0,"Z'#rightarrowT't, T'#rightarrowbW",'')
+  else:
+    legend.AddEntry(0,legendtitle,'')
 
   ###signal setting up
   signal_histos=[]

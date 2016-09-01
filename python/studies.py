@@ -23,10 +23,10 @@ signalHT_names=[
 'MC.ZpToTpT_TpToHT_MZp1500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp900Nar_LH',
 'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_LH',
-#'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_RH',
-#'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Wid_LH',
+'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_RH',
+'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Wid_LH',
 'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1500Nar_LH',
-#'MC.ZpToTpT_TpToHT_MZp2000Wid_MTp1200Nar_LH',
+'MC.ZpToTpT_TpToHT_MZp2000Wid_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToHT_MZp2500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToHT_MZp2500Nar_MTp1500Nar_LH']
 signalZT_names=[
@@ -35,10 +35,10 @@ signalZT_names=[
 'MC.ZpToTpT_TpToZT_MZp1500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp900Nar_LH',
 'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_LH',
-#'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_RH',
-#'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Wid_LH',
+'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_RH',
+'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Wid_LH',
 'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1500Nar_LH',
-#'MC.ZpToTpT_TpToZT_MZp2000Wid_MTp1200Nar_LH',
+'MC.ZpToTpT_TpToZT_MZp2000Wid_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToZT_MZp2500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToZT_MZp2500Nar_MTp1500Nar_LH']
 signalWB_names=[
@@ -47,10 +47,10 @@ signalWB_names=[
 'MC.ZpToTpT_TpToWB_MZp1500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp900Nar_LH',
 'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_LH',
-#'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_RH',
-#'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Wid_LH',
+'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_RH',
+'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Wid_LH',
 'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1500Nar_LH',
-#'MC.ZpToTpT_TpToWB_MZp2000Wid_MTp1200Nar_LH',
+'MC.ZpToTpT_TpToWB_MZp2000Wid_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH']
 
@@ -60,10 +60,10 @@ signalWB_thetanames=[
 'MZp1512',
 'MZp2009',
 'MZp2012',
-#'MZp2000_MTp1200_RH',
-#'MZp2000_MTp1200Wid',
+'MZp2011',#'MZp2012R',
+'MZp2013',#'MZp2012W',
 'MZp2015',
-#'MZp2000Wid_MTp1200',
+'MZp2014',#'MZp20W12',
 'MZp2512',
 'MZp2515']
 
@@ -125,18 +125,48 @@ signalTT_masses=[
 ]
 
 signalWB_legendnames=[
-"m_{Z'}=1.5TeV, m_{T'}=0.7TeV, BR(bW)=1",
-#"Z'(1.5TeV)#rightarrowT't, T'(0.7TeV)#rightarrowbW",
+#"m_{Z'}=1.5TeV, m_{T'}=0.7TeV, BR(bW)=1",
+"Z'(1.5TeV)#rightarrowT't, T'(0.7TeV)#rightarrowbW",
 "Z'(1.5TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
 "Z'(1.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
 "Z'(2.0TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
 "Z'(2.0TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
-#"Z'(2TeV)#rightarrowT't, T'(1.2TeV,RH)#rightarrowbW 1pb",
-#"Z'(2TeV)#rightarrowT't, T'(1.2TeV,Wide)#rightarrowbW 1pb",
+"Z'(2TeV)#rightarrowT't, T'(1.2TeV,RH)#rightarrowbW 1pb",
+"Z'(2TeV)#rightarrowT't, T'(1.2TeV,Wide)#rightarrowbW 1pb",
 "Z'(2.0TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
-#"Z'(2TeV,Wide)#rightarrowT't, T'(1.2TeV)#rightarrowbW 1pb",
+"Z'(2TeV,Wide)#rightarrowT't, T'(1.2TeV)#rightarrowbW 1pb",
 "Z'(2.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
 "Z'(2.5TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
+]
+
+signalHT_legendnames=[
+#"m_{Z'}=1.5TeV, m_{T'}=0.7TeV, BR( tH)=1",
+"Z'(1.5TeV)#rightarrowT't, T'(0.7TeV)#rightarrow tH",
+"Z'(1.5TeV)#rightarrowT't, T'(0.9TeV)#rightarrow tH",
+"Z'(1.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrow tH",
+"Z'(2.0TeV)#rightarrowT't, T'(0.9TeV)#rightarrow tH",
+"Z'(2.0TeV)#rightarrowT't, T'(1.2TeV)#rightarrow tH",
+"Z'(2TeV)#rightarrowT't, T'(1.2TeV,RH)#rightarrow tH 1pb",
+"Z'(2TeV)#rightarrowT't, T'(1.2TeV,Wide)#rightarrow tH 1pb",
+"Z'(2.0TeV)#rightarrowT't, T'(1.5TeV)#rightarrow tH",
+"Z'(2TeV,Wide)#rightarrowT't, T'(1.2TeV)#rightarrow tH 1pb",
+"Z'(2.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrow tH",
+"Z'(2.5TeV)#rightarrowT't, T'(1.5TeV)#rightarrow tH",
+]
+
+signalZT_legendnames=[
+#"m_{Z'}=1.5TeV, m_{T'}=0.7TeV, BR( tZ)=1",
+"Z'(1.5TeV)#rightarrowT't, T'(0.7TeV)#rightarrow tZ",
+"Z'(1.5TeV)#rightarrowT't, T'(0.9TeV)#rightarrow tZ",
+"Z'(1.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrow tZ",
+"Z'(2.0TeV)#rightarrowT't, T'(0.9TeV)#rightarrow tZ",
+"Z'(2.0TeV)#rightarrowT't, T'(1.2TeV)#rightarrow tZ",
+"Z'(2TeV)#rightarrowT't, T'(1.2TeV,RH)#rightarrow tZ 1pb",
+"Z'(2TeV)#rightarrowT't, T'(1.2TeV,Wide)#rightarrow tZ 1pb",
+"Z'(2.0TeV)#rightarrowT't, T'(1.5TeV)#rightarrow tZ",
+"Z'(2TeV,Wide)#rightarrowT't, T'(1.2TeV)#rightarrow tZ 1pb",
+"Z'(2.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrow tZ",
+"Z'(2.5TeV)#rightarrowT't, T'(1.5TeV)#rightarrow tZ",
 ]
 
 signal_Zp_masses=[
@@ -145,10 +175,10 @@ signal_Zp_masses=[
 "1p5",
 "2",
 "2",
-#"2",
-#"2",
 "2",
-#"2",
+"2",
+"2",
+"2W",
 "2p5",
 "2p5",
 ]
@@ -159,10 +189,10 @@ signal_Tp_masses=[
 "1p2",
 "0p9",
 "1p2",
-#1p2",
-#1p2",
+"1p2R",
+"1p2W",
 "1p5",
-#"1p2",
+"1p2",
 "1p2",
 "1p5",
 ]
@@ -345,11 +375,21 @@ signal_files=[]
 #signalWB_files=[]
 signal_files_pre=[]
 signal_files_short=[]
+signal_files_short_tH=[]
+signal_files_short_tZ=[]
 for i in signalWB_names:
 	signal_files.append(TFile(path+filename_base+i+root,'READ'))
 	#signalWB_files.append(TFile(path+filename_base+i+root,'READ'))
+
 for i in signalWB_names_short:
 	signal_files_short.append(TFile(path+filename_base+i+root,'READ'))
+
+for i in signalHT_names_short:
+  signal_files_short_tH.append(TFile(path+filename_base+i+root,'READ'))
+
+for i in signalZT_names_short:
+  signal_files_short_tZ.append(TFile(path+filename_base+i+root,'READ'))
+
 for i in signalWB_names:
 	signal_files_pre.append(TFile(prepath+filename_base+i+root,'READ'))
 signalTT_files=[]
@@ -556,6 +596,70 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
         dosys=False,
         sysdict=systypes, qcdnorm=qcdnorm)
+
+  make_ratioplot(
+    name=i+'_tH_NOLOG',
+    ttbar_file=top_file,
+    qcd_file=qcd_file,
+    data_file=data_file,
+    signal_files=signal_files_short_tH,
+    histo='Selection/'+i, 
+    histo_qcd='Selection/'+i,
+    histo_signal='Selection/'+i,
+    rebin=rebinna,
+    minx=minx,
+    maxx=maxx,
+    miny=0,
+    maxy=maxy,
+    minratio=0,
+    maxratio=0,
+    blind=False,
+    logy=False,
+        xtitle=xtitle,
+        ytitle='Events',
+        ttbar_legend='top',
+        qcd_legend='QCD from MC',
+        textsizefactor=1,
+        signal_legend=signalWB_legendnames_short,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        fixratio=True,
+        signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        dosys=False,
+        sysdict=systypes, qcdnorm=qcdnorm,
+        legendtitle="Z'#rightarrowT't, T'#rightarrow tH")
+
+  make_ratioplot(
+    name=i+'_tZ_NOLOG',
+    ttbar_file=top_file,
+    qcd_file=qcd_file,
+    data_file=data_file,
+    signal_files=signal_files_short_tZ,
+    histo='Selection/'+i, 
+    histo_qcd='Selection/'+i,
+    histo_signal='Selection/'+i,
+    rebin=rebinna,
+    minx=minx,
+    maxx=maxx,
+    miny=0,
+    maxy=maxy,
+    minratio=0,
+    maxratio=0,
+    blind=False,
+    logy=False,
+        xtitle=xtitle,
+        ytitle='Events',
+        ttbar_legend='top',
+        qcd_legend='QCD from MC',
+        textsizefactor=1,
+        signal_legend=signalWB_legendnames_short,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        fixratio=True,
+        signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        dosys=False,
+        sysdict=systypes, qcdnorm=qcdnorm,
+        legendtitle="Z'#rightarrowT't, T'#rightarrow tZ")
 
   # make_ratioplot(
   #   name=i+'_ALL',
@@ -1826,10 +1930,52 @@ f.close()
 
 
 #assert(False)
-
+signal_filesWB=[]
+signal_filesZT=[]
+signal_filesHT=[]
+for i in signalWB_names:
+  signal_filesWB.append(TFile(path+filename_base+i+root,'READ'))
+for i in signalZT_names:
+  signal_filesZT.append(TFile(path+filename_base+i+root,'READ'))
+for i in signalHT_names:
+  signal_filesHT.append(TFile(path+filename_base+i+root,'READ'))
 
 ################################################################################################################
 #gen and angular studies
+
+
+compare(name='dRbW_allWB',#signalWB_names[i]+'dRbW',
+    file_list=signal_filesWB ,#[signal_files[i],signal_files_pre[i]],
+    name_list=['Selection/dRbW']*len(signal_filesWB),
+    legend_list=signalWB_legendnames,
+    normalize=True,drawoption='hE',
+    xtitle=xtitle,ytitle='',
+    minx=minx,maxx=maxx,
+    rebin=rebinna,
+    miny=0,maxy=0,
+    textsizefactor=1,logy=False)
+
+compare(name='dRbW_allZT',#signalWB_names[i]+'dRbW',
+    file_list=signal_filesZT ,#[signal_files[i],signal_files_pre[i]],
+    name_list=['Selection/dRbW']*len(signal_filesZT),
+    legend_list=signalZT_legendnames,
+    normalize=True,drawoption='hE',
+    xtitle=xtitle,ytitle='',
+    minx=minx,maxx=maxx,
+    rebin=rebinna,
+    miny=0,maxy=0,
+    textsizefactor=1,logy=False)
+
+compare(name='dRbW_allHT',#signalWB_names[i]+'dRbW',
+    file_list=signal_filesHT ,#[signal_files[i],signal_files_pre[i]],
+    name_list=['Selection/dRbW']*len(signal_filesHT),
+    legend_list=signalHT_legendnames,
+    normalize=True,drawoption='hE',
+    xtitle=xtitle,ytitle='',
+    minx=minx,maxx=maxx,
+    rebin=rebinna,
+    miny=0,maxy=0,
+    textsizefactor=1,logy=False)
 
 
 # for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
@@ -2548,6 +2694,76 @@ for names in [
         bkgfitup=names[2]+'_bkgfitup',bkgfitdown=names[2]+'_bkgfitdown'
         )
 
+  make_ratioplot(
+    name=names[2]+'_tH',
+    ttbar_file=top_file,
+    qcd_file=outfile,
+    data_file=data_file,
+    signal_files=signal_files_short_tH,
+    histo=names[1], 
+    histo_qcd=names[2]+'_bkg',
+    histo_signal=names[1],
+    rebin=rebinna,
+    minx=500,
+    maxx=3500,
+    miny=0,
+    maxy=0,
+    minratio=0,
+    maxratio=0,
+    blind=False,
+    logy=False,
+        xtitle=xtitle,
+        ytitle='Events / 100 GeV',
+        textsizefactor=1,
+        signal_legend=signalWB_legendnames_short,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        qcd_legend='QCD from sideband',
+        ttbar_legend='top',
+        fixratio=True,
+        signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        dosys=True,
+        sysdict=systypes,
+        bkgup=names[2]+'_bkgup',bkgdown=names[2]+'_bkgdown',
+        bkgfitup=names[2]+'_bkgfitup',bkgfitdown=names[2]+'_bkgfitdown',
+        legendtitle="Z'#rightarrowT't, T'#rightarrow tH"
+        )
+
+  make_ratioplot(
+    name=names[2]+'_tZ',
+    ttbar_file=top_file,
+    qcd_file=outfile,
+    data_file=data_file,
+    signal_files=signal_files_short_tZ,
+    histo=names[1], 
+    histo_qcd=names[2]+'_bkg',
+    histo_signal=names[1],
+    rebin=rebinna,
+    minx=500,
+    maxx=3500,
+    miny=0,
+    maxy=0,
+    minratio=0,
+    maxratio=0,
+    blind=False,
+    logy=False,
+        xtitle=xtitle,
+        ytitle='Events / 100 GeV',
+        textsizefactor=1,
+        signal_legend=signalWB_legendnames_short,
+        separate_legend=True,
+        signal_zoom=signalzoom,
+        qcd_legend='QCD from sideband',
+        ttbar_legend='top',
+        fixratio=True,
+        signal_colors=[kOrange+10,kAzure+1,kSpring-6],
+        dosys=True,
+        sysdict=systypes,
+        bkgup=names[2]+'_bkgup',bkgdown=names[2]+'_bkgdown',
+        bkgfitup=names[2]+'_bkgfitup',bkgfitdown=names[2]+'_bkgfitdown',
+        legendtitle="Z'#rightarrowT't, T'#rightarrow tZ"
+        )
+
 
 
   if len(names)>3:
@@ -2592,20 +2808,12 @@ compare(name='qcdcorrsystnobtag',
 
 
 
-#assert(False)
+assert(False)
 outfile.Close()
 outfile=TFile('outfile.root','READ')
 outfile2=TFile('outfile2.root','RECREATE')
 
-signal_filesWB=[]
-signal_filesZT=[]
-signal_filesHT=[]
-for i in signalWB_names:
-  signal_filesWB.append(TFile(path+filename_base+i+root,'READ'))
-for i in signalZT_names:
-  signal_filesZT.append(TFile(path+filename_base+i+root,'READ'))
-for i in signalHT_names:
-  signal_filesHT.append(TFile(path+filename_base+i+root,'READ'))
+
 
 dotheta=True
 if dotheta:
@@ -3153,8 +3361,8 @@ if dotheta:
         sysfileZT_MURMUFUP.Close()
         sysfileZT_MURMUFDOWN.Close()
         
-      
-      counter+=1
+      if not ('Wid' in signalWB_names[masspoint] or 'RH' in signalWB_names[masspoint]):
+        counter+=1
     thetafile.Close()
 
     theta_config = open('theta/model'+filename_postfix+'.py','w')
