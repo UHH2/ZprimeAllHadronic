@@ -230,6 +230,7 @@ TopJet the_top, the_w;
 Jet the_b;
   bool has_tw=false;
   bool has_twb=false;
+
   if (topjets->size()>1)
  {
   if (TopTag_nopt(event.topjets->at(0))&&WTag_nopt(event.topjets->at(1)))

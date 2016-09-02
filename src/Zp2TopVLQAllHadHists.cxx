@@ -1258,6 +1258,7 @@ TriggerHists::TriggerHists(Context & ctx, const string & dirname): Hists(ctx, di
   book<TH1F>("HTCA8", ";HT_{CA8};Events", 200, 0, 10000);
   book<TH1F>("pt1", ";leading topjet p_{T};Events", 200, 0, 4000);
   book<TH1F>("pt2", ";subleading topjet p_{T};Events", 200, 0, 4000);
+  book<TH1F>("Nsubjets", ";N_{subjets};Events", 10, 0, 10);
   h_ht=ctx.get_handle<float>("ht");
   h_htca8=ctx.get_handle<float>("htca8");
   h_pt1ca8=ctx.get_handle<float>("pt1ca8");
@@ -1270,6 +1271,11 @@ void TriggerHists::fill(const Event & event){
   hist("HTCA8")->Fill(event.get(h_htca8),weight);
   hist("pt1")->Fill(event.get(h_pt1ca8),weight);
   hist("pt2")->Fill(event.get(h_pt2ca8),weight);
+  for(auto i: *event.topjets)
+{
+  hist("Nsubjets")->Fill(i.subjets().size());
+}
+
 }
 TriggerHists::~TriggerHists(){
 
