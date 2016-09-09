@@ -23,10 +23,10 @@ signalHT_names=[
 'MC.ZpToTpT_TpToHT_MZp1500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp900Nar_LH',
 'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_LH',
-'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_RH',
-'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Wid_LH',
+#'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_RH',
+#'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1200Wid_LH',
 'MC.ZpToTpT_TpToHT_MZp2000Nar_MTp1500Nar_LH',
-'MC.ZpToTpT_TpToHT_MZp2000Wid_MTp1200Nar_LH',
+#'MC.ZpToTpT_TpToHT_MZp2000Wid_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToHT_MZp2500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToHT_MZp2500Nar_MTp1500Nar_LH']
 signalZT_names=[
@@ -35,10 +35,10 @@ signalZT_names=[
 'MC.ZpToTpT_TpToZT_MZp1500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp900Nar_LH',
 'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_LH',
-'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_RH',
-'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Wid_LH',
+#'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_RH',
+#'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1200Wid_LH',
 'MC.ZpToTpT_TpToZT_MZp2000Nar_MTp1500Nar_LH',
-'MC.ZpToTpT_TpToZT_MZp2000Wid_MTp1200Nar_LH',
+#'MC.ZpToTpT_TpToZT_MZp2000Wid_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToZT_MZp2500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToZT_MZp2500Nar_MTp1500Nar_LH']
 signalWB_names=[
@@ -47,10 +47,10 @@ signalWB_names=[
 'MC.ZpToTpT_TpToWB_MZp1500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp900Nar_LH',
 'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_LH',
-'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_RH',
-'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Wid_LH',
+#'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_RH',
+#'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Wid_LH',
 'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1500Nar_LH',
-'MC.ZpToTpT_TpToWB_MZp2000Wid_MTp1200Nar_LH',
+#'MC.ZpToTpT_TpToWB_MZp2000Wid_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1200Nar_LH',
 'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH']
 
@@ -60,10 +60,10 @@ signalWB_thetanames=[
 'MZp1512',
 'MZp2009',
 'MZp2012',
-'MZp2011',#'MZp2012R',
-'MZp2013',#'MZp2012W',
+#'MZp2011',#'MZp2012R',
+#'MZp2013',#'MZp2012W',
 'MZp2015',
-'MZp2014',#'MZp20W12',
+#'MZp2014',#'MZp20W12',
 'MZp2512',
 'MZp2515']
 
@@ -131,10 +131,10 @@ signalWB_legendnames=[
 "Z'(1.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
 "Z'(2.0TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
 "Z'(2.0TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
-"Z'(2TeV)#rightarrowT't, T'(1.2TeV,RH)#rightarrowbW",
-"Z'(2TeV)#rightarrowT't, T'(1.2TeV,Wide)#rightarrowbW",
+#"Z'(2TeV)#rightarrowT't, T'(1.2TeV,RH)#rightarrowbW",
+#"Z'(2TeV)#rightarrowT't, T'(1.2TeV,Wide)#rightarrowbW",
 "Z'(2.0TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
-"Z'(2TeV,Wide)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
+#"Z'(2TeV,Wide)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
 "Z'(2.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
 "Z'(2.5TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
 ]
@@ -146,10 +146,10 @@ signalHT_legendnames=[
 "Z'(1.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrow tH",
 "Z'(2.0TeV)#rightarrowT't, T'(0.9TeV)#rightarrow tH",
 "Z'(2.0TeV)#rightarrowT't, T'(1.2TeV)#rightarrow tH",
-"Z'(2TeV)#rightarrowT't, T'(1.2TeV,RH)#rightarrow tH",
-"Z'(2TeV)#rightarrowT't, T'(1.2TeV,Wide)#rightarrow tH",
+#"Z'(2TeV)#rightarrowT't, T'(1.2TeV,RH)#rightarrow tH",
+#"Z'(2TeV)#rightarrowT't, T'(1.2TeV,Wide)#rightarrow tH",
 "Z'(2.0TeV)#rightarrowT't, T'(1.5TeV)#rightarrow tH",
-"Z'(2TeV,Wide)#rightarrowT't, T'(1.2TeV)#rightarrow tH",
+#"Z'(2TeV,Wide)#rightarrowT't, T'(1.2TeV)#rightarrow tH",
 "Z'(2.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrow tH",
 "Z'(2.5TeV)#rightarrowT't, T'(1.5TeV)#rightarrow tH",
 ]
@@ -161,10 +161,10 @@ signalZT_legendnames=[
 "Z'(1.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrow tZ",
 "Z'(2.0TeV)#rightarrowT't, T'(0.9TeV)#rightarrow tZ",
 "Z'(2.0TeV)#rightarrowT't, T'(1.2TeV)#rightarrow tZ",
-"Z'(2TeV)#rightarrowT't, T'(1.2TeV,RH)#rightarrow tZ",
-"Z'(2TeV)#rightarrowT't, T'(1.2TeV,Wide)#rightarrow tZ",
+#"Z'(2TeV)#rightarrowT't, T'(1.2TeV,RH)#rightarrow tZ",
+#"Z'(2TeV)#rightarrowT't, T'(1.2TeV,Wide)#rightarrow tZ",
 "Z'(2.0TeV)#rightarrowT't, T'(1.5TeV)#rightarrow tZ",
-"Z'(2TeV,Wide)#rightarrowT't, T'(1.2TeV)#rightarrow tZ",
+#"Z'(2TeV,Wide)#rightarrowT't, T'(1.2TeV)#rightarrow tZ",
 "Z'(2.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrow tZ",
 "Z'(2.5TeV)#rightarrowT't, T'(1.5TeV)#rightarrow tZ",
 ]
@@ -175,10 +175,10 @@ signal_Zp_masses=[
 "1p5",
 "2",
 "2",
+# "2",
+# "2",
 "2",
-"2",
-"2",
-"2W",
+# "2W",
 "2p5",
 "2p5",
 ]
@@ -189,10 +189,10 @@ signal_Tp_masses=[
 "1p2",
 "0p9",
 "1p2",
-"1p2R",
-"1p2W",
+# "1p2R",
+# "1p2W",
 "1p5",
-"1p2",
+# "1p2",
 "1p2",
 "1p5",
 ]
@@ -1994,51 +1994,51 @@ compare(name='dRbW_allHT',#signalWB_names[i]+'dRbW',
 # 9 'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1200Nar_LH',
 # 10 'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH']
 
-for liste in [['bW',signal_filesWB,signalWB_legendnames],['tH',signal_filesHT,signalHT_legendnames],['tZ',signal_filesZT,signalZT_legendnames]]:
+# for liste in [['bW',signal_filesWB,signalWB_legendnames],['tH',signal_filesHT,signalHT_legendnames],['tZ',signal_filesZT,signalZT_legendnames]]:
 
-  compare(name='LH_RH_'+liste[0]+'2',#signalWB_names[i]+'dRbW',
-    file_list=[liste[1][4],liste[1][5]] ,#[signal_files[i],signal_files_pre[i]],
-    name_list=['Selection/zprimemassbtag']*2,
-    legend_list=[liste[2][4],liste[2][5]],
-    normalize=False,drawoption='hE',
-    xtitle=xtitle,ytitle='',
-    minx=minx,maxx=maxx,
-    rebin=rebinna,
-    miny=0,maxy=0,
-    textsizefactor=1,logy=False)
+#   compare(name='LH_RH_'+liste[0]+'2',#signalWB_names[i]+'dRbW',
+#     file_list=[liste[1][4],liste[1][5]] ,#[signal_files[i],signal_files_pre[i]],
+#     name_list=['Selection/zprimemassbtag']*2,
+#     legend_list=[liste[2][4],liste[2][5]],
+#     normalize=False,drawoption='hE',
+#     xtitle=xtitle,ytitle='',
+#     minx=minx,maxx=maxx,
+#     rebin=rebinna,
+#     miny=0,maxy=0,
+#     textsizefactor=1,logy=False)
 
-  compare(name='LH_RH_'+liste[0],#signalWB_names[i]+'dRbW',
-    file_list=[liste[1][4],liste[1][5]] ,#[signal_files[i],signal_files_pre[i]],
-    name_list=['Selection/zprimemassnobtag']*2,
-    legend_list=[liste[2][4],liste[2][5]],
-    normalize=False,drawoption='hE',
-    xtitle=xtitle,ytitle='',
-    minx=minx,maxx=maxx,
-    rebin=rebinna,
-    miny=0,maxy=0,
-    textsizefactor=1,logy=False)
+#   compare(name='LH_RH_'+liste[0],#signalWB_names[i]+'dRbW',
+#     file_list=[liste[1][4],liste[1][5]] ,#[signal_files[i],signal_files_pre[i]],
+#     name_list=['Selection/zprimemassnobtag']*2,
+#     legend_list=[liste[2][4],liste[2][5]],
+#     normalize=False,drawoption='hE',
+#     xtitle=xtitle,ytitle='',
+#     minx=minx,maxx=maxx,
+#     rebin=rebinna,
+#     miny=0,maxy=0,
+#     textsizefactor=1,logy=False)
 
-  compare(name='LH_RH_ZW_TW_'+liste[0]+'2',#signalWB_names[i]+'dRbW',
-    file_list=[liste[1][4],liste[1][5],liste[1][6],liste[1][8]] ,#[signal_files[i],signal_files_pre[i]],
-    name_list=['Selection/zprimemassbtag']*4,
-    legend_list=[liste[2][4],liste[2][5],liste[2][6],liste[2][8]],
-    normalize=False,drawoption='hE',
-    xtitle=xtitle,ytitle='',
-    minx=minx,maxx=maxx,
-    rebin=rebinna,
-    miny=0,maxy=0,
-    textsizefactor=1,logy=False)
+#   compare(name='LH_RH_ZW_TW_'+liste[0]+'2',#signalWB_names[i]+'dRbW',
+#     file_list=[liste[1][4],liste[1][5],liste[1][6],liste[1][8]] ,#[signal_files[i],signal_files_pre[i]],
+#     name_list=['Selection/zprimemassbtag']*4,
+#     legend_list=[liste[2][4],liste[2][5],liste[2][6],liste[2][8]],
+#     normalize=False,drawoption='hE',
+#     xtitle=xtitle,ytitle='',
+#     minx=minx,maxx=maxx,
+#     rebin=rebinna,
+#     miny=0,maxy=0,
+#     textsizefactor=1,logy=False)
 
-  compare(name='LH_RH_ZW_TW_'+liste[0],#signalWB_names[i]+'dRbW',
-    file_list=[liste[1][4],liste[1][5],liste[1][6],liste[1][8]] ,#[signal_files[i],signal_files_pre[i]],
-    name_list=['Selection/zprimemassnobtag']*4,
-    legend_list=[liste[2][4],liste[2][5],liste[2][6],liste[2][8]],
-    normalize=False,drawoption='hE',
-    xtitle=xtitle,ytitle='',
-    minx=minx,maxx=maxx,
-    rebin=rebinna,
-    miny=0,maxy=0,
-    textsizefactor=1,logy=False)
+#   compare(name='LH_RH_ZW_TW_'+liste[0],#signalWB_names[i]+'dRbW',
+#     file_list=[liste[1][4],liste[1][5],liste[1][6],liste[1][8]] ,#[signal_files[i],signal_files_pre[i]],
+#     name_list=['Selection/zprimemassnobtag']*4,
+#     legend_list=[liste[2][4],liste[2][5],liste[2][6],liste[2][8]],
+#     normalize=False,drawoption='hE',
+#     xtitle=xtitle,ytitle='',
+#     minx=minx,maxx=maxx,
+#     rebin=rebinna,
+#     miny=0,maxy=0,
+#     textsizefactor=1,logy=False)
 
 for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
   "ptop",  "ptprime",  "pb",  "pw",  "ptb",  "ptw",  "pzprime",
@@ -2652,8 +2652,8 @@ maxx=0
 
 outfile.cd()
 
-qcdsfnobtag2=0.0934509126798*0.996022971801#*0.97126320051
-qcdsfbtag2=0.124318746802*0.996022971801#*0.97126320051
+qcdsfnobtag2=0.0934509126798*0.996022971801#*0.97126320051 0.0925645406825
+qcdsfbtag2=0.124318746802*0.996022971801#*0.97126320051 0.1246086977
 
 #prove
 for names in [
@@ -2669,7 +2669,8 @@ for names in [
 ['Selection/bkgloose2_par','Selection/CA15_zprimemassbtag','parabolaloose2','Selection/bkgloose2down_par_fit','Selection/bkgloose2up_par_fit','Selection/bkgloose2'],
 ]:
   qcdbkg=data_file.Get(names[0]).Clone(names[2]+'_bkg')
-  blow=qcdbkg.GetXaxis().FindFixBin(900)
+  blow=qcdbkg.GetXaxis().FindFixBin(500)
+  #blow=qcdbkg.GetXaxis().FindFixBin(900)
   bhigh=qcdbkg.GetXaxis().FindFixBin(3500)
   qcdbkg.Add(top_file.Get(names[0]).Clone(),-1.0)
   dratio=data_file.Get(names[1]).Clone()
@@ -2923,16 +2924,24 @@ if dotheta:
   nscan=10
   counter=1
   filecounter=1
+
   onebtag='Selection/zprimemassnobtag'
   twobtags='Selection/zprimemassbtag'
+  bkgcats={onebtag:'parabola1_bkg',twobtags:'parabola2_bkg'}
+  # onebtag='Selection/ht_twbSRnobtag'
+  # twobtags='Selection/ht_twbSRbtag'
+  # bkgcats={onebtag:'parabolaht1_bkg',twobtags:'parabolaht2_bkg'}
+
+
   onebtag15='Selection/CA15_zprimemassnobtag'
   twobtags15='Selection/CA15_zprimemassbtag'
   sides={'UP':'plus','DOWN':'minus'}
   cats={onebtag:'1btag',twobtags:'2btag'}
   cats15={onebtag:'1btag',twobtags:'2btag',onebtag15:'1btagCA15',twobtags15:'2btagCA15'}
   #bkgcats={onebtag:'Selection/bkg1_par',twobtags:'Selection/bkg2_par',onebtag15:onebtag15,twobtags15:twobtags15}
-  bkgcats={onebtag:'parabola1_bkg',twobtags:'parabola2_bkg'}
   #cats2={'Selection/bkg1':'1btag','Selection/bkg2':'2btag'}
+
+
 
 
 
@@ -3458,8 +3467,8 @@ if dotheta:
         sysfileZT_MURMUFUP.Close()
         sysfileZT_MURMUFDOWN.Close()
         
-      if not ('Wid' in signalWB_names[masspoint] or 'RH' in signalWB_names[masspoint]):
-        counter+=1
+      #if not ('Wid' in signalWB_names[masspoint] or 'RH' in signalWB_names[masspoint]):
+      counter+=1
     thetafile.Close()
 
     theta_config = open('theta/model'+filename_postfix+'.py','w')
@@ -3471,7 +3480,7 @@ if dotheta:
     #model.add_lognormal_uncertainty('qcd_rate', math.log(1.15), 'qcd')\n\
     for p in model.processes:\n\
         if p == 'qcd':\n\
-          model.add_lognormal_uncertainty('qcd_rate', math.log(1.028), p)\n\
+          model.add_lognormal_uncertainty('qcd_rate', math.log(1.50), p)\n\
         if p == 'qcd': continue\n\
         model.add_lognormal_uncertainty('lumi', math.log(1.027), p)\n\
         model.add_lognormal_uncertainty('trigger', math.log(1.03), p)\n\
