@@ -142,13 +142,13 @@ if doresults:
 
 	#values = [[[] for i in range(3)] for i in range(len(signalWB_names))]
 	plotcounter=0
-	for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]:
+	for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]+[[0.5,0.25,0.25]]:
 		filename_postfix=u+str(filecounter)+u+str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')
 		theta_obs_result = open('theta/limits_obs'+filename_postfix+'.txt','r')
 		theta_exp_result = open('theta/limits_exp'+filename_postfix+'.txt','r')
 		theta_exp_lines=theta_exp_result.readlines()
 		theta_obs_lines=theta_obs_result.readlines()
-		if triplet in [[0.6,0.2,0.2],[1.0,0.0,0.0]]:
+		if triplet in [[0.5,0.25,0.25],[1.0,0.0,0.0]]:
 			plotcounter=plotcounter+1
 			c=TCanvas('unodlimit'+str(plotcounter),'',1200,1000)
 			c.SetLogy()
@@ -202,8 +202,8 @@ if doresults:
 			#duesigma=TGraphAsymmErrors(3,)
 			exp1sigma.SetFillColor(kGreen+1)
 			exp2sigma.SetFillColor(kOrange)
-			exp2sigma.SetMaximum(80)
-			exp2sigma.SetMinimum(0.09)
+			exp2sigma.SetMaximum(150)
+			exp2sigma.SetMinimum(0.07)
 			exp2sigma.Draw('a3lp')
 			exp2sigma.GetXaxis().SetTitle("Z' mass [TeV]")
 			exp2sigma.GetXaxis().SetRangeUser(1.4,2.6)
@@ -223,7 +223,7 @@ if doresults:
 			explim.Draw('lp')
 			obslim.Draw('lp')
 
-			legend=TLegend(0.5,0.6,0.9,0.9)
+			legend=TLegend(0.45,0.6,0.9,0.9)
  			legend.SetTextSize(0.045)
   			legend.SetBorderSize(0)
   			legend.SetTextFont(42)
@@ -234,7 +234,7 @@ if doresults:
   			legend.SetFillStyle(0)
   			legend.SetHeader('BR(bW)=1')
   			if triplet[0]==1.0:
-  				legend.SetHeader('BR(bW,tH,tZ)=0.6,0.2,0.2')
+  				legend.SetHeader('BR(bW,tH,tZ)=0.5,0.25,0.25')
   			legend.AddEntry(obslim,'Observed','l')
   			legend.AddEntry(explim,'Expected','l')
   			legend.AddEntry(exp1sigma,'#pm 1 std. deviation','f')

@@ -3073,7 +3073,7 @@ if dotheta:
   # allhad2btag__DATA.Write('allhad2btag__DATA')
   # allhad1btag__DATA.Write('allhad1btag__DATA')
 
-  for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]:#+[[0,0,0]]:
+  for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]+[[0.5,0.25,0.25]]:#+[[0,0,0]]:
     print counter
     filename_postfix=u+str(filecounter)+u+str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')
     thetafile=TFile('theta/theta'+filename_postfix+'.root','RECREATE')

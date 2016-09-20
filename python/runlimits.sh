@@ -65,3 +65,5 @@
 ~/xxl-af-cms/code/theta/theta/utils2/theta-auto.py theta/model_7_0p0_0p6_0p4.py 
 ~/xxl-af-cms/code/theta/theta/utils2/theta-auto.py theta/model_8_0p0_0p7_0p3.py 
 ~/xxl-af-cms/code/theta/theta/utils2/theta-auto.py theta/model_9_0p0_0p8_0p2.py 
+
+~/xxl-af-cms/code/theta/theta/utils2/theta-auto.py theta/model_67_0p5_0p25_0p25.py 
