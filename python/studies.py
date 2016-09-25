@@ -3326,70 +3326,70 @@ if dotheta:
             sys_fileHT.Close()
             sys_fileZT.Close()
 
-      # if ('pdf' in systypes):
-      #   WB_pdf=TFile(syspath+filename_base+signalWB_names[masspoint]+systypes['pdf']+'UP.root','READ')
-      #   HT_pdf=TFile(syspath+filename_base+signalHT_names[masspoint]+systypes['pdf']+'UP.root','READ')
-      #   ZT_pdf=TFile(syspath+filename_base+signalZT_names[masspoint]+systypes['pdf']+'UP.root','READ')
-      #   for cat in cats:
-      #     pdfplotsWB=[]
-      #     pdfplotsHT=[]
-      #     pdfplotsZT=[]
-      #     for i in range(100):
-      #       pdfplotsWB.append(WB_pdf.Get(cat.split('/')[0]+'PDF'+str(i)+'/'+cat.split('/')[1]).Clone())
-      #       pdfplotsHT.append(HT_pdf.Get(cat.split('/')[0]+'PDF'+str(i)+'/'+cat.split('/')[1]).Clone())
-      #       pdfplotsZT.append(ZT_pdf.Get(cat.split('/')[0]+'PDF'+str(i)+'/'+cat.split('/')[1]).Clone())
-      #     pdfUP_WB=WB_pdf.Get(cat).Clone()
-      #     pdfDOWN_WB=WB_pdf.Get(cat).Clone()
-      #     pdfAVG_WB=WB_pdf.Get(cat).Clone()
-      #     pdfUP_HT=HT_pdf.Get(cat).Clone()
-      #     pdfDOWN_HT=HT_pdf.Get(cat).Clone()
-      #     pdfAVG_HT=HT_pdf.Get(cat).Clone()
-      #     pdfUP_ZT=ZT_pdf.Get(cat).Clone()
-      #     pdfDOWN_ZT=ZT_pdf.Get(cat).Clone()
-      #     pdfAVG_ZT=ZT_pdf.Get(cat).Clone()
-      #     for imtt in range(1,pdfAVG_WB.GetNbinsX()+1):
-      #       rmsWB=0.0
-      #       rmsHT=0.0
-      #       rmsZT=0.0
-      #       for i in pdfplotsWB:
-      #         rmsWB=rmsWB+math.pow(i.GetBinContent(imtt)-pdfAVG_WB.GetBinContent(imtt),2)
-      #       for i in pdfplotsHT:
-      #         rmsHT=rmsHT+math.pow(i.GetBinContent(imtt)-pdfAVG_HT.GetBinContent(imtt),2)
-      #       for i in pdfplotsZT:
-      #         rmsZT=rmsZT+math.pow(i.GetBinContent(imtt)-pdfAVG_ZT.GetBinContent(imtt),2)
-      #       rmsWB=math.sqrt(rmsWB/100)
-      #       rmsHT=math.sqrt(rmsHT/100)
-      #       rmsZT=math.sqrt(rmsZT/100)
-      #       pdfUP_WB.SetBinContent(imtt,pdfUP_WB.GetBinContent(imtt)+rmsWB)
-      #       pdfDOWN_WB.SetBinContent(imtt,pdfDOWN_WB.GetBinContent(imtt)-rmsWB)
-      #       pdfUP_HT.SetBinContent(imtt,pdfUP_HT.GetBinContent(imtt)+rmsHT)
-      #       pdfDOWN_HT.SetBinContent(imtt,pdfDOWN_HT.GetBinContent(imtt)-rmsHT)
-      #       pdfUP_ZT.SetBinContent(imtt,pdfUP_ZT.GetBinContent(imtt)+rmsZT)
-      #       pdfDOWN_ZT.SetBinContent(imtt,pdfDOWN_ZT.GetBinContent(imtt)-rmsZT)
-      #     pdfUP_WB.Scale(triplet[0]*addscale)
-      #     pdfDOWN_WB.Scale(triplet[0]*addscale)
-      #     pdfUP_HT.Scale(triplet[1])
-      #     pdfDOWN_HT.Scale(triplet[1])
-      #     pdfUP_ZT.Scale(triplet[2])
-      #     pdfDOWN_ZT.Scale(triplet[2])
-      #     pdfUP=pdfUP_WB
-      #     pdfUP.Add(pdfUP_HT)
-      #     pdfUP.Add(pdfUP_ZT)
-      #     pdfDOWN=pdfDOWN_WB
-      #     pdfDOWN.Add(pdfDOWN_HT)
-      #     pdfDOWN.Add(pdfDOWN_ZT)
-      #     pdfUP.Rebin(rebinna)
-      #     pdfUP=pdfUP.Rebin(runLen,'',runArray)
-      #     pdfDOWN.Rebin(rebinna)
-      #     pdfDOWN=pdfDOWN.Rebin(runLen,'',runArray)
-      #     thetafile.cd()
-      #     pdfUP.Write('allhad'+cats[cat]+uu+'signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
-      #   str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')+uu+'pdf'+uu+'plus')
-      #     pdfDOWN.Write('allhad'+cats[cat]+uu+'signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
-      #   str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')+uu+'pdf'+uu+'minus')
-      #   WB_pdf.Close()
-      #   HT_pdf.Close()
-      #   ZT_pdf.Close()
+      if ('pdf' in systypes):
+        WB_pdf=TFile(syspath+filename_base+signalWB_names[masspoint]+systypes['pdf']+'UP.root','READ')
+        HT_pdf=TFile(syspath+filename_base+signalHT_names[masspoint]+systypes['pdf']+'UP.root','READ')
+        ZT_pdf=TFile(syspath+filename_base+signalZT_names[masspoint]+systypes['pdf']+'UP.root','READ')
+        for cat in cats:
+          pdfplotsWB=[]
+          pdfplotsHT=[]
+          pdfplotsZT=[]
+          for i in range(100):
+            pdfplotsWB.append(WB_pdf.Get(cat.split('/')[0]+'PDF'+str(i)+'/'+cat.split('/')[1]).Clone())
+            pdfplotsHT.append(HT_pdf.Get(cat.split('/')[0]+'PDF'+str(i)+'/'+cat.split('/')[1]).Clone())
+            pdfplotsZT.append(ZT_pdf.Get(cat.split('/')[0]+'PDF'+str(i)+'/'+cat.split('/')[1]).Clone())
+          pdfUP_WB=WB_pdf.Get(cat).Clone()
+          pdfDOWN_WB=WB_pdf.Get(cat).Clone()
+          pdfAVG_WB=WB_pdf.Get(cat).Clone()
+          pdfUP_HT=HT_pdf.Get(cat).Clone()
+          pdfDOWN_HT=HT_pdf.Get(cat).Clone()
+          pdfAVG_HT=HT_pdf.Get(cat).Clone()
+          pdfUP_ZT=ZT_pdf.Get(cat).Clone()
+          pdfDOWN_ZT=ZT_pdf.Get(cat).Clone()
+          pdfAVG_ZT=ZT_pdf.Get(cat).Clone()
+          for imtt in range(1,pdfAVG_WB.GetNbinsX()+1):
+            rmsWB=0.0
+            rmsHT=0.0
+            rmsZT=0.0
+            for i in pdfplotsWB:
+              rmsWB=rmsWB+math.pow(i.GetBinContent(imtt)-pdfAVG_WB.GetBinContent(imtt),2)
+            for i in pdfplotsHT:
+              rmsHT=rmsHT+math.pow(i.GetBinContent(imtt)-pdfAVG_HT.GetBinContent(imtt),2)
+            for i in pdfplotsZT:
+              rmsZT=rmsZT+math.pow(i.GetBinContent(imtt)-pdfAVG_ZT.GetBinContent(imtt),2)
+            rmsWB=math.sqrt(rmsWB/100)
+            rmsHT=math.sqrt(rmsHT/100)
+            rmsZT=math.sqrt(rmsZT/100)
+            pdfUP_WB.SetBinContent(imtt,pdfUP_WB.GetBinContent(imtt)+rmsWB)
+            pdfDOWN_WB.SetBinContent(imtt,pdfDOWN_WB.GetBinContent(imtt)-rmsWB)
+            pdfUP_HT.SetBinContent(imtt,pdfUP_HT.GetBinContent(imtt)+rmsHT)
+            pdfDOWN_HT.SetBinContent(imtt,pdfDOWN_HT.GetBinContent(imtt)-rmsHT)
+            pdfUP_ZT.SetBinContent(imtt,pdfUP_ZT.GetBinContent(imtt)+rmsZT)
+            pdfDOWN_ZT.SetBinContent(imtt,pdfDOWN_ZT.GetBinContent(imtt)-rmsZT)
+          pdfUP_WB.Scale(triplet[0]*addscale)
+          pdfDOWN_WB.Scale(triplet[0]*addscale)
+          pdfUP_HT.Scale(triplet[1])
+          pdfDOWN_HT.Scale(triplet[1])
+          pdfUP_ZT.Scale(triplet[2])
+          pdfDOWN_ZT.Scale(triplet[2])
+          pdfUP=pdfUP_WB
+          pdfUP.Add(pdfUP_HT)
+          pdfUP.Add(pdfUP_ZT)
+          pdfDOWN=pdfDOWN_WB
+          pdfDOWN.Add(pdfDOWN_HT)
+          pdfDOWN.Add(pdfDOWN_ZT)
+          pdfUP.Rebin(rebinna)
+          pdfUP=pdfUP.Rebin(runLen,'',runArray)
+          pdfDOWN.Rebin(rebinna)
+          pdfDOWN=pdfDOWN.Rebin(runLen,'',runArray)
+          thetafile.cd()
+          pdfUP.Write('allhad'+cats[cat]+uu+'signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
+        str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')+uu+'pdf'+uu+'plus')
+          pdfDOWN.Write('allhad'+cats[cat]+uu+'signal_'+str(counter)+u+signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+u+
+        str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')+uu+'pdf'+uu+'minus')
+        WB_pdf.Close()
+        HT_pdf.Close()
+        ZT_pdf.Close()
 
       if ('mur' in systypes) and ('muf' in systypes) and ('murmuf' in systypes):
         sysfileWB_MURUP=TFile(syspath+filename_base+signalWB_names[masspoint]+systypes['mur']+'UP.root','READ')

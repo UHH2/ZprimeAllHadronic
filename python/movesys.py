@@ -1,18 +1,19 @@
 from shutil import copyfile
 
-systypes={'mur':'_MUR',
-          'muf':'_MUF',
-          'murmuf':'_MURMUF',
-          'jec':'_JEC',
-          'jer':'_JER',
-          'pu':'_PU',
-          'btag':'_BAK4SF',
-          # 'subjetbtag':'_BAK8SF',
-#          'ttbar':'_TTBAR',
-          'toptag':'_TSF',
-          'wtag':'_WSF',
-          'pdf':'_PDF',
-          'mean':''
+systypes={
+#           'mur':'_MUR',
+#           'muf':'_MUF',
+#           'murmuf':'_MURMUF',
+#           'jec':'_JEC',
+#           'jer':'_JER',
+#           'pu':'_PU',
+#           'btag':'_BAK4SF',
+#           # 'subjetbtag':'_BAK8SF',
+# #          'ttbar':'_TTBAR',
+#           'toptag':'_TSF',
+#           'wtag':'_WSF',
+           'pdf':'_PDF',
+#           'mean':''
           }
 
 sides={'UP':'plus','DOWN':'minus'}

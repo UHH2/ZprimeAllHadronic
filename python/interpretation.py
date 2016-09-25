@@ -6,9 +6,7 @@ from os.path import exists
 from array import array
 import CMS_lumi
 
-from utils import compare,hadd,doeff,make_plot,make_ratioplot
 gROOT.SetBatch()
-
 
 def set_palette(name='', ncontours=999):
     """Set a color palette from a given RGB list
@@ -131,6 +129,28 @@ signal_Tp_masses2=[
 "1.5",
 ]
 
+theory_files=['ZPRIME_CS_lhc13tev_NNPDF30_nnlo_as_0118_q=0.5m.txt',
+'ZPRIME_CS_lhc13tev_NNPDF30_nnlo_as_0118_q=1.0m.txt',
+'ZPRIME_CS_lhc13tev_NNPDF30_nnlo_as_0118_q=2.0m.txt']
+
+theory_values=[]
+for i in theory_files:
+	pairs=[]
+	the_file=open(i,'r')
+	lines=the_file.readlines()
+	for line in lines:
+		splitted=filter(None, line.split(' '))
+		pairs.append([float(splitted[0]),float(splitted[2])])
+	theory_values.append(pairs)
+	the_file.close()
+
+x_theory=array('d',[theory_values[0][i][0] for i in range(len(theory_values[0]))])
+y_theory=array('d',[float(lines_obs[0][1]),
+				         float(lines_obs[1][1]),
+				         float(lines_obs[2][1])])
+print theory_values
+
+
 doresults=True
 if doresults:
 	u='_'
@@ -138,9 +158,7 @@ if doresults:
 	nscan=10
 	counter=1
 	filecounter=1
-	outfile=open('tables.txt','w')
 
-	#values = [[[] for i in range(3)] for i in range(len(signalWB_names))]
 	plotcounter=0
 	for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]+[[0.5,0.25,0.25]]:
 		filename_postfix=u+str(filecounter)+u+str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')
@@ -241,7 +259,7 @@ if doresults:
   			legend.AddEntry(exp2sigma,'#pm 2 std. deviation','f')
   			legend.Draw()
 			CMS_lumi.CMS_lumi(c, 4, 11)
-			#c.SaveAs('pdf/unodlimit'+str(plotcounter)+'.pdf')
+			c.SaveAs('pdf/unodlimit'+str(plotcounter)+'.pdf')
 
 		if triplet in [[1.0,0.0,0.0],[0.0,1.0,0.0],[0.0,0.0,1.0]]:
 			print 'bW',triplet[0],'tH',triplet[1],'tZ',triplet[2]
@@ -266,4 +284,4 @@ if doresults:
 		filecounter+=1
 
 
-	outfile.close()
+

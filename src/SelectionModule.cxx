@@ -118,8 +118,8 @@ SelectionModule::SelectionModule(Context & ctx){
         }
         if (contains(version,"ZpToTpT") || contains(version,"TpTp"))
         {
-            pdf_set_type=2;
-            pdf_norm_type=2;
+            pdf_set_type=1;
+            pdf_norm_type=1;
         }
         if (contains(version,"QCD") || contains(version,"SingleT_W"))
         {
