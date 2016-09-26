@@ -1,4 +1,5 @@
-from ROOT import TFile,TCanvas,gROOT,gStyle,TGraph2D,TH2F,TPolyLine,TPolyLine3D,TLine,TGraph,TPad,TColor
+from ROOT import TFile,TCanvas,gROOT,gStyle,TGraph2D,TH2F,TPolyLine,TPolyLine3D,TLine,TGraph,TPad,TColor,TPaletteAxis,gPad
+from time import sleep
 from os import system
 from sys import argv
 from os import mkdir
@@ -103,6 +104,10 @@ signal_Tp_masses=[
 "1p5",
 ]
 
+
+theory_dictionary={'2': 0.667, '2p5': 0.186, '1p5': 2.83}
+
+
 doresults=True
 if doresults:
 	u='_'
@@ -188,6 +193,7 @@ for tipo in values:
 		if tipo=='obs':
 			name='o'+name
 		p=TH2F(name,'',11,-0.05,1.05,11,-0.05,1.05)
+		exclusion=TH2F(name+'excl','',11,-0.05,1.05,11,-0.05,1.05)
 		c=TCanvas(name+u+'c','',1300,1000)
 		margine=0.15
 		c.SetRightMargin(0.20)
@@ -213,6 +219,10 @@ for tipo in values:
 		print 'masspoint',name
 		for i in range(len(values[tipo][masspoint][0])):
 			p.Fill(values[tipo][masspoint][0][i],values[tipo][masspoint][1][i],values[tipo][masspoint][2][i])
+			if theory_dictionary[signal_Zp_masses[masspoint]]>values[tipo][masspoint][2][i]:
+				exclusion.Fill(values[tipo][masspoint][0][i],values[tipo][masspoint][1][i],200)
+			#else:
+			# 	exclusion.Fill(values[tipo][masspoint][0][i],values[tipo][masspoint][1][i],0.0)
 			#print values[tipo][masspoint][0][i],values[tipo][masspoint][1][i],values[tipo][masspoint][2][i]
 		p.SetMinimum(the_minimum)
 		p.SetMaximum(the_maximum)
@@ -220,20 +230,22 @@ for tipo in values:
 		#p.SetMaximum(max(values_obs[masspoint][2]+values_exp[masspoint][2]))
 		p.GetZaxis().SetMoreLogLabels(1)
 		p.SetStats(0)
+		exclusion.SetStats(0)
 
 		p.Draw('cont4z')
+		# gPad.Update()
+		# palette = exclusion.GetListOfFunctions().FindObject("palette")
+		# palette.SetX1NDC(1.1)
+		# palette.SetX2NDC(1.2)
+		# palette.SetY1NDC(1.1)
+		# palette.SetY2NDC(1.2)
 		p.Write()
 		plots.append(p)
 		xx=array('d',[-0.05,1.04,1.04])
 		yy=array('d',[1.04,1.04,-0.05])
 	
-		null = TPad("null","",0,0,1,1)
-   		null.SetFillStyle(0)
-   		null.SetFrameFillStyle(0)
-   		null.Draw()
-   		null.cd()
 
-   		bm = c.GetBottomMargin()
+		bm = c.GetBottomMargin()
    		lm = c.GetLeftMargin()
    		rm = c.GetRightMargin()
    		to = c.GetTopMargin()
@@ -248,7 +260,28 @@ for tipo in values:
    		RM = Xa*(rm/(lm+rm))
    		BM = Ya*(bm/(bm+to))
    		TM = Ya*(to/(bm+to))
+
+		null2 = TPad("null2","",0,0,1,1)
+   		null2.SetFillStyle(0)
+   		null2.SetFrameFillStyle(0)
+   		null2.Draw()
+   		null2.cd()
+   		null2.Range(x1-LM,yf-BM,x2+RM,y2+TM)
+   		null2.SetRightMargin(0.20)
+		null2.SetLeftMargin(margine)
+		null2.SetTopMargin(0.10)
+		null2.SetBottomMargin(margine)
+		#exclusion.SetMinimum(the_minimum)
+		#exclusion.SetMaximum(the_maximum)
+   		exclusion.Draw('')
+
+		null = TPad("null","",0,0,1,1)
+   		null.SetFillStyle(0)
+   		null.SetFrameFillStyle(0)
+   		null.Draw()
+   		null.cd()
    		null.Range(x1-LM,yf-BM,x2+RM,y2+TM)
+   		
 		tri=TPolyLine(3,xx,yy)
 		tri.SetFillColor(0)
 		#p.Draw('atext')
@@ -259,7 +292,7 @@ for tipo in values:
 		#p.Draw('atext45 same')
 		c.SetLogz(1)
 		#p.GetZaxis().SetMoreLogLabels(1)
-		CMS_lumi.CMS_lumi(c, 4, 33)
+		#CMS_lumi.CMS_lumi(c, 4, 33)
 		c.SaveAs('pdf/'+name+'.pdf')
 	
 outfile.Close()

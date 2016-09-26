@@ -1,4 +1,4 @@
-from ROOT import TFile,TCanvas,gROOT,gStyle,TGraph2D,TH2F,TPolyLine,TPolyLine3D,TLine,TGraph,TPad,TColor,TGraphAsymmErrors,TGraph,kYellow,kGreen,kOrange,TLegend
+from ROOT import TFile,TCanvas,gROOT,gStyle,TGraph2D,TH2F,TPolyLine,TPolyLine3D,TLine,TGraph,TPad,TColor,TGraphAsymmErrors,TGraph,kYellow,kRed,kGreen,kOrange,TLegend
 from os import system
 from sys import argv
 from os import mkdir
@@ -140,16 +140,31 @@ for i in theory_files:
 	lines=the_file.readlines()
 	for line in lines:
 		splitted=filter(None, line.split(' '))
-		pairs.append([float(splitted[0]),float(splitted[2])])
+		#if float(splitted[0])>=1500 and float(splitted[0])<=2500:
+		pairs.append([float(splitted[0])/1000,float(splitted[2])])
 	theory_values.append(pairs)
 	the_file.close()
 
-x_theory=array('d',[theory_values[0][i][0] for i in range(len(theory_values[0]))])
-y_theory=array('d',[float(lines_obs[0][1]),
-				         float(lines_obs[1][1]),
-				         float(lines_obs[2][1])])
-print theory_values
+def find_limit(theory,limit):
+	return 0
 
+x_theory=array('d',[theory_values[1][i][0] for i in range(len(theory_values[1]))])
+y_theory=array('d',[theory_values[1][i][1] for i in range(len(theory_values[1]))])
+y_theory_up=array('d',[abs(max(theory_values[0][i][1]-theory_values[1][i][1],theory_values[2][i][1]-theory_values[1][i][1])) for i in range(len(theory_values[1]))])
+y_theory_down=array('d',[abs(min(theory_values[0][i][1]-theory_values[1][i][1],theory_values[2][i][1]-theory_values[1][i][1])) for i in range(len(theory_values[1]))])
+theory_curve=TGraph(len(theory_values[1]),x_theory,y_theory)
+zeros_theory=array('d',[0 for i in range(len(theory_values[1]))])
+theory_sigma=TGraphAsymmErrors(len(theory_values[1]),x_theory,y_theory,zeros_theory,zeros_theory,y_theory_down,y_theory_up)
+print theory_values
+theory_curve.SetLineWidth(3)
+theory_curve.SetLineColor(kRed)
+theory_curve.SetMarkerColor(kRed)
+#theory_sigma
+b=TCanvas('theory_curve','',1200,1000)
+b.SetLogy()
+theory_sigma.Draw('a3')
+#theory_curve.Draw('alp')
+b.SaveAs('pdf/theory_curve.pdf')
 
 doresults=True
 if doresults:
@@ -240,8 +255,9 @@ if doresults:
 			exp1sigma.Draw('3')
 			explim.Draw('lp')
 			obslim.Draw('lp')
+			theory_curve.Draw('lp')
 
-			legend=TLegend(0.45,0.6,0.9,0.9)
+			legend=TLegend(0.45,0.55,0.9,0.9)
  			legend.SetTextSize(0.045)
   			legend.SetBorderSize(0)
   			legend.SetTextFont(42)
@@ -257,6 +273,7 @@ if doresults:
   			legend.AddEntry(explim,'Expected','l')
   			legend.AddEntry(exp1sigma,'#pm 1 std. deviation','f')
   			legend.AddEntry(exp2sigma,'#pm 2 std. deviation','f')
+  			legend.AddEntry(theory_curve,"SSM Z' NNLO",'l')
   			legend.Draw()
 			CMS_lumi.CMS_lumi(c, 4, 11)
 			c.SaveAs('pdf/unodlimit'+str(plotcounter)+'.pdf')
