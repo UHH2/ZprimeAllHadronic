@@ -238,10 +238,23 @@ if (!common_modules_with_lumi_sel->process(event)) {
             if (pdf_norm_type==1)
             {
                 pdf_weight = event.genInfo->systweights().at(i+first_pdf_index) / event.genInfo->originalXWGTUP();
+                if (pdf_weight>100.0)
+                {
+                    pdf_weight=1.0;
+                }
+                // if (fabs(event.genInfo->systweights().at(i+first_pdf_index) / event.genInfo->originalXWGTUP() - 1)>10.0)
+                // {
+                //     cout<<"i "<<i<<" i+first "<<i+first_pdf_index<<" sysw "<<event.genInfo->systweights().at(i+first_pdf_index)<<" XWGTUP "<<event.genInfo->originalXWGTUP()<<" w "<< event.genInfo->systweights().at(i+first_pdf_index) / event.genInfo->originalXWGTUP()<<" pdf_scale "<<event.genInfo->pdf_scalePDF() <<"\n";
+                // }
             }
             else if (pdf_norm_type==2)
             {
                 pdf_weight = event.genInfo->systweights().at(i+first_pdf_index) / event.genInfo->pdf_scalePDF();
+                if (pdf_weight>100.0)
+                {
+                    pdf_weight=1.0;
+                }
+                //cout<<"i "<<i<<" i+first "<<i+first_pdf_index<<" sysw "<<event.genInfo->systweights().at(i+first_pdf_index)<<" pdf_scale "<<event.genInfo->pdf_scalePDF()<<" w "<< event.genInfo->systweights().at(i+first_pdf_index) / event.genInfo->pdf_scalePDF() <<"\n";
             }
             pdf_hists[i]->setPDFWeight(pdf_weight);
             pdf_hists[i]->fill(event);

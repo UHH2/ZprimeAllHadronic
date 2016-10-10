@@ -2911,7 +2911,7 @@ outfile.Close()
 outfile=TFile('outfile.root','READ')
 outfile2=TFile('outfile2.root','RECREATE')
 
-
+#assert(False)
 
 dotheta=True
 if dotheta:
@@ -2921,7 +2921,8 @@ if dotheta:
   runArray = array('d',runList)
   u='_'
   uu='__'
-  nscan=10
+  nscan=40
+  thetadir='theta3'
   counter=1
   filecounter=1
 
@@ -3076,7 +3077,8 @@ if dotheta:
   for triplet in [[i/float(nscan),j/float(nscan),(nscan-i-j)/float(nscan)] for i in range(nscan+1) for j in range(nscan+1-i)]+[[0.5,0.25,0.25]]:#+[[0,0,0]]:
     print counter
     filename_postfix=u+str(filecounter)+u+str(triplet[0]).replace('.','p')+u+str(triplet[1]).replace('.','p')+u+str(triplet[2]).replace('.','p')
-    thetafile=TFile('theta/theta'+filename_postfix+'.root','RECREATE')
+    #thetafile=TFile('theta/theta'+filename_postfix+'.root','RECREATE')
+    thetafile=TFile(thetadir+'/theta'+filename_postfix+'.root','RECREATE')
     thetafile.cd()
     for cat in cats:
       allhad__ttbar=ttbar_file.Get(cat).Clone()
@@ -3353,6 +3355,7 @@ if dotheta:
             rmsZT=0.0
             for i in pdfplotsWB:
               rmsWB=rmsWB+math.pow(i.GetBinContent(imtt)-pdfAVG_WB.GetBinContent(imtt),2)
+              #print i.GetBinContent(imtt)-pdfAVG_WB.GetBinContent(imtt)
             for i in pdfplotsHT:
               rmsHT=rmsHT+math.pow(i.GetBinContent(imtt)-pdfAVG_HT.GetBinContent(imtt),2)
             for i in pdfplotsZT:
@@ -3471,9 +3474,40 @@ if dotheta:
       counter+=1
     thetafile.Close()
 
-    theta_config = open('theta/model'+filename_postfix+'.py','w')
+#     theta_config = open('theta/model'+filename_postfix+'.py','w')
+#     theta_config.write("def get_model():\n\
+#     model = build_model_from_rootfile('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/theta"+filename_postfix+".root', include_mc_uncertainties = True)#mc uncertainties=true\n\
+#     model.fill_histogram_zerobins()\n\
+#     model.set_signal_processes('signal*')\n\
+#     #model.add_lognormal_uncertainty('ttbar_rate', math.log(1.15), 'ttbar')\n\
+#     #model.add_lognormal_uncertainty('qcd_rate', math.log(1.15), 'qcd')\n\
+#     for p in model.processes:\n\
+#         if p == 'qcd':\n\
+#           model.add_lognormal_uncertainty('qcd_rate', math.log(1.50), p)\n\
+#         if p == 'qcd': continue\n\
+#         model.add_lognormal_uncertainty('lumi', math.log(1.027), p)\n\
+#         model.add_lognormal_uncertainty('trigger', math.log(1.03), p)\n\
+#         if p == 'ttbar':\n\
+#           model.add_lognormal_uncertainty('ttbar_rate', math.log(1.15), p)\n\
+#         if p == 'singletop':\n\
+#           model.add_lognormal_uncertainty('singletop_rate', math.log(1.15), p)\n\
+#         #if 'signal' in p:\n\
+#         #    model.add_lognormal_uncertainty(p+'_rate', math.log(1.15), p)\n\
+#     return model\n\
+# model = get_model()\n\
+# model_summary(model)\n\
+# options = Options()\n\
+# options.set('main', 'n_threads', '20')\n\
+# #plot_exp, plot_obs = asymptotic_cls_limits(model,use_data=False,options=options)#bayesian_limits ,what='expected'\n\
+# plot_exp, plot_obs = bayesian_limits(model,what='all')#bayesian_limits ,what='expected'\n\
+# plot_exp.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/limits_exp"+filename_postfix+".txt')\n\
+# plot_obs.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/limits_obs"+filename_postfix+".txt')\n\
+# report.write_html('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/htmlout"+filename_postfix+"')")
+#     filecounter+=1
+
+    theta_config = open(thetadir+'/model'+filename_postfix+'.py','w')
     theta_config.write("def get_model():\n\
-    model = build_model_from_rootfile('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/theta"+filename_postfix+".root', include_mc_uncertainties = True)#mc uncertainties=true\n\
+    model = build_model_from_rootfile('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/"+thetadir+"/theta"+filename_postfix+".root', include_mc_uncertainties = True)#mc uncertainties=true\n\
     model.fill_histogram_zerobins()\n\
     model.set_signal_processes('signal*')\n\
     #model.add_lognormal_uncertainty('ttbar_rate', math.log(1.15), 'ttbar')\n\
@@ -3484,10 +3518,10 @@ if dotheta:
         if p == 'qcd': continue\n\
         model.add_lognormal_uncertainty('lumi', math.log(1.027), p)\n\
         model.add_lognormal_uncertainty('trigger', math.log(1.03), p)\n\
-        if p == 'ttbar':\n\
-          model.add_lognormal_uncertainty('ttbar_rate', math.log(1.15), p)\n\
-        if p == 'singletop':\n\
-          model.add_lognormal_uncertainty('singletop_rate', math.log(1.15), p)\n\
+        #if p == 'ttbar':\n\
+        #  model.add_lognormal_uncertainty('ttbar_rate', math.log(1.15), p)\n\
+        #if p == 'singletop':\n\
+        #  model.add_lognormal_uncertainty('singletop_rate', math.log(1.15), p)\n\
         #if 'signal' in p:\n\
         #    model.add_lognormal_uncertainty(p+'_rate', math.log(1.15), p)\n\
     return model\n\
@@ -3496,10 +3530,10 @@ model_summary(model)\n\
 options = Options()\n\
 options.set('main', 'n_threads', '20')\n\
 #plot_exp, plot_obs = asymptotic_cls_limits(model,use_data=False,options=options)#bayesian_limits ,what='expected'\n\
-plot_exp, plot_obs = bayesian_limits(model,what='all')#bayesian_limits ,what='expected'\n\
-plot_exp.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/limits_exp"+filename_postfix+".txt')\n\
-plot_obs.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/limits_obs"+filename_postfix+".txt')\n\
-report.write_html('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/htmlout"+filename_postfix+"')")
+plot_exp, plot_obs = bayesian_limits(model,what='observed')#bayesian_limits ,what='expected'\n\
+#plot_exp.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/"+thetadir+"/limits_exp"+filename_postfix+".txt')\n\
+plot_obs.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/"+thetadir+"/limits_obs"+filename_postfix+".txt')\n\
+report.write_html('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/"+thetadir+"/htmlout"+filename_postfix+"')")
     filecounter+=1
 
 

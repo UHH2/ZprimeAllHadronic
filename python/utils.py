@@ -590,8 +590,8 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
       sys_diff_ttbar[imtt-1].append(0.027*ttbar_histo.GetBinContent(imtt))
       sys_diff_ttbar[imtt-1].append(-0.027*ttbar_histo.GetBinContent(imtt))
       #15% ttbar
-      sys_diff_ttbar[imtt-1].append(0.15*ttbar_histo.GetBinContent(imtt))
-      sys_diff_ttbar[imtt-1].append(-0.15*ttbar_histo.GetBinContent(imtt))
+      #sys_diff_ttbar[imtt-1].append(0.15*ttbar_histo.GetBinContent(imtt))
+      #sys_diff_ttbar[imtt-1].append(-0.15*ttbar_histo.GetBinContent(imtt))
       #2.8% QCD
       sys_diff_qcd[imtt-1].append(0.028*qcd_histo.GetBinContent(imtt))
       sys_diff_qcd[imtt-1].append(-0.028*qcd_histo.GetBinContent(imtt))
