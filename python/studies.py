@@ -2783,7 +2783,7 @@ for names in [
         separate_legend=True,
         signal_zoom=signalzoom,
         qcd_legend='QCD from sideband',
-        ttbar_legend='top',
+        ttbar_legend='Top',
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
         dosys=True,
@@ -2911,7 +2911,7 @@ outfile.Close()
 outfile=TFile('outfile.root','READ')
 outfile2=TFile('outfile2.root','RECREATE')
 
-#assert(False)
+assert(False)
 
 dotheta=True
 if dotheta:

@@ -207,9 +207,10 @@ def make_fitplot(ratio,ratiomean,ratioup,ratiodown,btag):
   legend.SetTextSize(0.05)
   legend.Draw()
 
+  CMS_lumi.writeExtraText = True
   CMS_lumi.CMS_lumi(c, 4, 11)
   c.SaveAs('pdf/fitplot'+btag.replace(' ','')+'.pdf')
-  
+  CMS_lumi.writeExtraText = False
 
 def make_plot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_qcd='',histo_signal='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,logy=False):
   c=TCanvas(name,'',600,600)
@@ -315,7 +316,7 @@ def make_plot(name, ttbar_file, qcd_file, data_file, signal_files, histo, histo_
 us='_'
 def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[], histo=0, histo_qcd='',histo_signal='',histo_ttbar='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,
                     xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False, signal_zoom=1, qcd_zoom=1, ttbar_zoom=1,normalize=False,
-                    ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='data',dosys=False,sysdict={},
+                    ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='Data',dosys=False,sysdict={},
                     syspath='/nfs/dust/cms/user/usaiem/sys/top_added',bkgup=0,bkgdown=0,blind=False,
                     systtbarpath='/nfs/dust/cms/user/usaiem/sys/uhh2.AnalysisModuleRunner.MC.TTbar',bkgfitup=0,bkgfitdown=0,drawratio=True,qcdnorm=False,docms=True,legendtitle=''):
   

@@ -9,8 +9,8 @@ import ROOT as rt
 cmsText     = "CMS";
 cmsTextFont   = 61  
 
-writeExtraText = True
-extraText   = "Preliminary"
+writeExtraText = False
+extraText   = "Simulation"
 extraTextFont = 52 
 
 lumiTextSize     = 0.6
