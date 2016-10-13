@@ -1,4 +1,4 @@
-from ROOT import TFile,TCanvas,gROOT,gStyle,TGraph2D,TH2F,TPolyLine,TPolyLine3D,TLine,TGraph,TPad,TColor,TPaletteAxis,gPad,TBox,TLatex
+from ROOT import TFile,TCanvas,gROOT,gStyle,TGraph2D,TH2F,TPolyLine,TPolyLine3D,TLine,TGraph,TPad,TColor,TPaletteAxis,gPad,TBox,TLatex,TLegend,TH1D
 from time import sleep
 from os import system
 from sys import argv#,settrace
@@ -139,6 +139,21 @@ signalWB_legendnames_obs=[
 "#splitline{Observed}{#splitline{m_{Z'} = 2.5 TeV}{m_{T'} = 1.5 TeV}}",
 ]
 
+signalWB_legendnames_obs2=[
+#"m_{Z'}=1.5TeV, m_{T'}=0.7TeV, BR(bW)=1",
+"m_{Z'}=1.5TeV, m_{T'}=0.7TeV",
+"m_{Z'}=1.5TeV, m_{T'}=0.9TeV",
+"m_{Z'}=1.5TeV, m_{T'}=1.2TeV",
+"m_{Z'}=2.0TeV, m_{T'}=0.9, 1.2TeV",
+"m_{Z'}=2.0TeV, m_{T'}=1.2TeV",
+#"m_{Z'}=2TeV),, {T'}=1.2TeVRH)",
+#"m_{Z'}=2TeV),, {T'}=1.2TeVWide)",
+"m_{Z'}=2.0TeV, m_{T'}=1.5TeV",
+#"m_{Z'}=2TeV,W, ), m_{T'}=1.2TeV",
+"m_{Z'}=2.5TeV, m_{T'}=1.2TeV",
+"m_{Z'}=2.5TeV, m_{T'}=1.5TeV",
+]
+
 theory_dictionary={'2': 0.667, '2p5': 0.186, '1p5': 2.83}
 
 doresults=True
@@ -267,6 +282,12 @@ the_maximum=11.393
 
 values={'exp':values_exp,'obs':values_obs}
 
+tutti=[]
+
+xx=array('d',[-0.05,1.05,1.05])
+yy=array('d',[1.05,1.05,-0.05])
+
+
 for tipo in values:
 	for masspoint in range(len(signalWB_names)):
 		name=signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]+'_v2'
@@ -279,15 +300,42 @@ for tipo in values:
 		contArray=0
 		#p2=TH2F(name+'2','',10,0,1,10,0,1)
 
+		sizefactor=1.6
+		margine=0.15
+		offset=1.2
+
+		legend=0
+
 		if tipo=='obs':
 			th_value=theory_dictionary[signal_Zp_masses[masspoint]]
-			contList=[th_value*0.95,th_value,th_value*1.05]
+			contList=[th_value*0.97,th_value,th_value*1.03]
 			contLen=len(contList)
 			contArray = array('d',contList)
 			exclusion=TH2F(name+'excl','',11,-0.05,1.05,11,-0.05,1.05)
+			exclusion2=TH2F(name+'excl2','',11,-0.05,1.05,11,-0.05,1.05)
 			exclusion.SetContour(contLen,contArray)
+			exclusion2.GetXaxis().SetTitle("T' #rightarrow bW branching fraction")
+			exclusion2.GetXaxis().SetRangeUser(-0.05,1.05)
+			exclusion2.GetYaxis().SetRangeUser(-0.05,1.05)
+			exclusion2.GetYaxis().SetTitle("T' #rightarrow tH branching fraction")
+			exclusion2.GetZaxis().SetTitle("Upper cross section limit (pb)")
+			#sizefactor=1.6
+			exclusion2.GetXaxis().SetTitleSize(sizefactor*exclusion2.GetXaxis().GetTitleSize())
+			exclusion2.GetYaxis().SetTitleSize(sizefactor*exclusion2.GetYaxis().GetTitleSize())
+			exclusion2.GetZaxis().SetTitleSize(sizefactor*exclusion2.GetZaxis().GetTitleSize())
+			exclusion2.GetXaxis().SetLabelSize(sizefactor*exclusion2.GetXaxis().GetLabelSize())
+			exclusion2.GetYaxis().SetLabelSize(sizefactor*exclusion2.GetYaxis().GetLabelSize())
+			exclusion2.GetZaxis().SetLabelSize(sizefactor*exclusion2.GetZaxis().GetLabelSize())
+			exclusion2.GetZaxis().SetNoExponent(1)
+			exclusion2.GetZaxis().SetMoreLogLabels(1)
+			#offset=1.2
+			exclusion2.SetStats(0)
+			exclusion2.GetXaxis().SetTitleOffset(offset*exclusion2.GetXaxis().GetTitleOffset())
+			exclusion2.GetYaxis().SetTitleOffset(offset*exclusion2.GetYaxis().GetTitleOffset())
+			exclusion2.GetZaxis().SetTitleOffset(1.4*exclusion2.GetZaxis().GetTitleOffset())
 
 		p=TH2F(name,'',11,-0.05,1.05,11,-0.05,1.05)
+		#p=TH2F(name,'',11,-0.10,1.00,11,-0.10,1.00)
 		
 		# if tipo=='exp':
 		# 	p=TH2F(name,'',11,-0.05,1.05,11,-0.05,1.05)
@@ -298,7 +346,7 @@ for tipo in values:
 		# 	p=TH2F(name,'',41,-0.0125,1.0125,41,-0.0125,1.0125)
 		# 	exclusion=TH2F(name+'excl','',41,-0.0125,1.0125,41,-0.0125,1.0125)
 		c=TCanvas(name+u+'c','',1300,1000)
-		margine=0.15
+		
 		c.SetRightMargin(0.20)
 		c.SetLeftMargin(margine)
 		c.SetTopMargin(0.10)
@@ -308,7 +356,7 @@ for tipo in values:
 		p.GetYaxis().SetRangeUser(0,1)
 		p.GetYaxis().SetTitle("T' #rightarrow tH branching fraction")
 		p.GetZaxis().SetTitle("Upper cross section limit (pb)")
-		sizefactor=1.6
+		
 		p.GetXaxis().SetTitleSize(sizefactor*p.GetXaxis().GetTitleSize())
 		p.GetYaxis().SetTitleSize(sizefactor*p.GetYaxis().GetTitleSize())
 		p.GetZaxis().SetTitleSize(sizefactor*p.GetZaxis().GetTitleSize())
@@ -317,7 +365,7 @@ for tipo in values:
 		p.GetZaxis().SetLabelSize(sizefactor*p.GetZaxis().GetLabelSize())
 		p.GetZaxis().SetNoExponent(1)
 		p.GetZaxis().SetMoreLogLabels(1)
-		offset=1.2
+		
 		p.GetXaxis().SetTitleOffset(offset*p.GetXaxis().GetTitleOffset())
 		p.GetYaxis().SetTitleOffset(offset*p.GetYaxis().GetTitleOffset())
 		p.GetZaxis().SetTitleOffset(1.4*p.GetZaxis().GetTitleOffset())
@@ -342,6 +390,7 @@ for tipo in values:
 
 		#p2.Draw('')
 		p.Draw('cont4z')
+
 		#p2.GetXaxis().SetRangeUser(0,1)
 		# gPad.Update()
 		# palette = exclusion.GetListOfFunctions().FindObject("palette")
@@ -351,11 +400,7 @@ for tipo in values:
 		# palette.SetY2NDC(1.2)
 		#p.Write()
 		#plots.append(p)
-		xx=array('d',[-0.05,1.05,1.05])
-		yy=array('d',[1.05,1.05,-0.05])
 	
-
-		
 
 		if tipo=='obs':
 			bm = c.GetBottomMargin()
@@ -389,19 +434,61 @@ for tipo in values:
 			exclusion.GetYaxis().SetRangeUser(-0.05,1.05)
 			exclusion.GetXaxis().SetLabelOffset(100)
 			exclusion.GetYaxis().SetLabelOffset(100)
-			exclusion.Draw('CONT3')
+			#exclusion.Draw('CONT3')
+			exclusion2.Draw()
 			c2=TCanvas(name+'_c2')
 			c2.cd()
 			exclusion.Draw('CONT Z LIST')
 			c2.Update()
 			conts=gROOT.GetListOfSpecials().FindObject("contours")
+			c.cd()
+			null2.cd()
+			codes=[
+			[0,0,0],
+			[1,0,1],
+			[2,0,10],
+			[3,0,10],
+			[4,0,10],
+			[5,0,0],
+			[6,2,0],
+			[7,2,0],
+			]
 			print 'total',conts.GetSize()
 			for i in range(conts.GetSize()):
 				cont=conts.At(i)
 				print i,cont.GetSize()
 				for j in range(cont.GetSize()):
-					cont.At(j)
-			c.cd()
+					contour=cont.At(j)
+					contour.SetLineColor(2)
+					if [masspoint,i,j] in codes:
+						contour.SetLineWidth(1003)
+						contour.SetFillStyle(3005)
+						contour.SetFillColor(2)
+						contour.Draw('c')
+						tutti.append(contour.Clone())
+			if masspoint in [3,4]:
+				xcont=array('d',[0,1])
+				ycont=array('d',[1,0])
+				allcont=TGraph(2,ycont,xcont)
+				allcont.SetLineWidth(1006)
+				allcont.SetFillStyle(3005)
+				allcont.SetFillColor(2)
+				allcont.SetLineColor(2)
+				allcont.Draw('c')
+				tutti.append(allcont.Clone())
+			if masspoint in [2]:
+				xcont=array('d',[0])
+				ycont=array('d',[0])
+				allcont=TGraph(1,ycont,xcont)
+				allcont.SetLineWidth(1006)
+				allcont.SetFillStyle(3005)
+				allcont.SetFillColor(2)
+				allcont.SetLineColor(2)
+				allcont.Draw('c')
+				tutti.append(allcont.Clone())
+
+  						
+
 			#print conts
 			#print conts.GetSize()
 
@@ -431,8 +518,65 @@ for tipo in values:
 
 		tri=TPolyLine(3,xx,yy)
 		tri.SetFillColor(0)
+		box1=TBox(-0.2,-0.2,1.05,0)
+		box2=TBox(-0.2,-0.2,0,1.05)
+		box1.SetFillColor(0)
+		box2.SetFillColor(0)
 		#p.Draw('atext')
 		tri.Draw('f')
+		box1.Draw('f')
+		box2.Draw('f')
+		tri.Draw('f')
+
+		if tipo=='obs':
+			bm = c.GetBottomMargin()
+			lm = c.GetLeftMargin()
+			rm = c.GetRightMargin()
+			to = c.GetTopMargin()
+			x1 = p.GetXaxis().GetXmin()
+			yf = p.GetYaxis().GetXmin()
+			x2 = p.GetXaxis().GetXmax()
+			y2 = p.GetYaxis().GetXmax()
+
+			Xa = (x2-x1)/(1-lm-rm)-(x2-x1)
+			Ya = (y2-yf)/(1-bm-to)-(y2-yf)
+			LM = Xa*(lm/(lm+rm))
+			RM = Xa*(rm/(lm+rm))
+			BM = Ya*(bm/(bm+to))
+			TM = Ya*(to/(bm+to))
+
+			null3 = TPad("null3","",0,0,1,1)
+			null3.SetFillStyle(0)
+			null3.SetFrameFillStyle(0)
+			null3.Draw()
+			null3.cd()
+			null3.Range(x1-LM,yf-BM,x2+RM,y2+TM)
+			null3.SetRightMargin(0.20)
+			null3.SetLeftMargin(margine)
+			null3.SetTopMargin(0.10)
+			null3.SetBottomMargin(margine)
+
+			# exclusion2.GetXaxis().SetTitle("T' #rightarrow bW branching fraction")
+			# exclusion2.GetXaxis().SetRangeUser(-0.05,1.05)
+			# exclusion2.GetYaxis().SetRangeUser(-0.05,1.05)
+			# exclusion2.GetYaxis().SetTitle("T' #rightarrow tH branching fraction")
+			# exclusion2.GetZaxis().SetTitle("Upper cross section limit (pb)")
+			# #sizefactor=1.6
+			# exclusion2.GetXaxis().SetTitleSize(sizefactor*exclusion2.GetXaxis().GetTitleSize())
+			# exclusion2.GetYaxis().SetTitleSize(sizefactor*exclusion2.GetYaxis().GetTitleSize())
+			# exclusion2.GetZaxis().SetTitleSize(sizefactor*exclusion2.GetZaxis().GetTitleSize())
+			# exclusion2.GetXaxis().SetLabelSize(sizefactor*exclusion2.GetXaxis().GetLabelSize())
+			# exclusion2.GetYaxis().SetLabelSize(sizefactor*exclusion2.GetYaxis().GetLabelSize())
+			# exclusion2.GetZaxis().SetLabelSize(sizefactor*exclusion2.GetZaxis().GetLabelSize())
+			# exclusion2.GetZaxis().SetNoExponent(1)
+			# exclusion2.GetZaxis().SetMoreLogLabels(1)
+			# #offset=1.2
+			# exclusion2.SetStats(0)
+			# exclusion2.GetXaxis().SetTitleOffset(offset*exclusion2.GetXaxis().GetTitleOffset())
+			# exclusion2.GetYaxis().SetTitleOffset(offset*exclusion2.GetYaxis().GetTitleOffset())
+			# exclusion2.GetZaxis().SetTitleOffset(1.4*exclusion2.GetZaxis().GetTitleOffset())
+			exclusion2.Draw()
+
 		gStyle.SetPaintTextFormat('4.2f')
 		p.SetMarkerSize(0.4)
 		#p.SetMarkerColor(14)
@@ -450,6 +594,102 @@ for tipo in values:
 		#latex.SetTextSize(latex.GetTextSize()*0.85)
 		#latex.SetTextAlign(11)
 		latex.Draw()
+		if tipo=='obs':
+			leg_x=0.3
+			leg_y=0.8
+			legend=TLegend(leg_x,leg_y,leg_x+0.20,leg_y+0.15)
+ 			legend.SetTextSize(latex.GetTextSize())
+  			legend.SetBorderSize(0)
+  			legend.SetTextFont(42)
+  			legend.SetLineColor(1)
+  			legend.SetLineStyle(1)
+  			legend.SetLineWidth(1)
+  			legend.SetFillColor(0)
+  			legend.SetFillStyle(0)
+  			legend.SetHeader('')
+  			tg=TGraph(3,xx,yy)
+  			tg.SetLineColor(2)
+			tg.SetLineWidth(503)
+			tg.SetFillStyle(3005)
+			tg.SetFillColor(2)
+  			legend.AddEntry(tg,"SSM Z' excl.",'lf')
+			legend.Draw()
 		c.SaveAs('pdf/'+name+'.pdf')
-	
+
+#hexcolor=["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"]
+#             1.5 0    1.5 1     1.5d 2     2.0 3     2.0d 4
+hexcolor=["#1f77b4", "#ff7f0e","#ff7f0e", "#2ca02c", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"]
+intcolor=[TColor.GetColor(i) for i in hexcolor]
+
+ctutti=TCanvas('tuttic','',1000,1000)		
+ctutti.SetRightMargin(0.05)
+ctutti.SetLeftMargin(margine)
+ctutti.SetTopMargin(0.05)
+ctutti.SetBottomMargin(margine)
+ctutti.cd()
+bogus=TH1D('','',1,0,1)
+bogus.Draw()
+bogus.SetMinimum(0)
+bogus.SetMaximum(1)
+bogus.GetXaxis().SetTitle("T' #rightarrow bW branching fraction")
+bogus.GetXaxis().SetRangeUser(0,1)
+bogus.GetYaxis().SetRangeUser(0,1)
+bogus.GetYaxis().SetTitle("T' #rightarrow tH branching fraction")
+sizefactor=sizefactor*0.9
+bogus.GetXaxis().SetTitleSize(sizefactor*bogus.GetXaxis().GetTitleSize())
+bogus.GetYaxis().SetTitleSize(sizefactor*bogus.GetYaxis().GetTitleSize())
+bogus.GetXaxis().SetLabelSize(sizefactor*bogus.GetXaxis().GetLabelSize())
+bogus.GetYaxis().SetLabelSize(sizefactor*bogus.GetYaxis().GetLabelSize())
+bogus.SetStats(0)		
+bogus.GetXaxis().SetTitleOffset(offset*bogus.GetXaxis().GetTitleOffset())
+bogus.GetYaxis().SetTitleOffset(offset*bogus.GetYaxis().GetTitleOffset())
+legend=TLegend(0.55,0.55,0.94,0.94)
+#legend.SetTextSize(latex.GetTextSize())
+legend.SetBorderSize(0)
+legend.SetTextFont(42)
+legend.SetLineColor(1)
+legend.SetLineStyle(1)
+legend.SetLineWidth(1)
+legend.SetFillColor(0)
+legend.SetFillStyle(0)
+legend.SetHeader("SSM Z' exclusion")
+tutti2=[i.Clone() for i in tutti]
+for i in range(len(tutti)):
+	tutti[i].SetLineColor(intcolor[i])
+	tutti[i].SetFillColor(intcolor[i])
+	tutti[i].Draw('c')
+	tutti2[i].SetLineColor(intcolor[i])
+	tutti2[i].SetFillColor(intcolor[i])
+	tutti2[i].SetLineWidth(303)
+	if i not in [2,4]:
+		tutti[i].Draw('c')
+		legend.AddEntry(tutti2[i],signalWB_legendnames_obs2[i],'lf')
+	#else:
+	#	tutti[i].Draw('c')
+	#	tutti[i].GetXaxis().SetRangeUser(0.0,1.0)
+	#	ctutti.Update()
+xx=array('d',[0.0,1.0,1.0])
+yy=array('d',[1.0,1.0,0.0])
+tri=TPolyLine(3,xx,yy)
+tri.SetFillColor(0)
+tri.Draw('f')
+xborder=array('d',[0.0,1.0])
+yborder=array('d',[1.0,0.0])
+bor=TPolyLine(2,xborder,yborder)
+bor.SetLineColor(1)
+bor.SetLineWidth(1)
+bor.Draw('l')
+legend.Draw()
+
+ctutti.SaveAs('pdf/observed.pdf')
+
+# if masspoint==0:
+# 	ctutti.cd()
+# 	p.Draw('cont4z')
+# 	xwhite=array('d',[-0.05,-0.05,1.05])
+# 	ywhite=array('d',[1.05,-0.05,-0.05])
+# 	twhite=TGraph(3,xwhite,ywhite)
+# 	twhite.SetFillColor(0)
+# 	twhite.Draw()
+
 #outfile.Close()
