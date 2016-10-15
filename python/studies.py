@@ -2911,7 +2911,7 @@ outfile.Close()
 outfile=TFile('outfile.root','READ')
 outfile2=TFile('outfile2.root','RECREATE')
 
-assert(False)
+#assert(False)
 
 dotheta=True
 if dotheta:
@@ -2921,8 +2921,8 @@ if dotheta:
   runArray = array('d',runList)
   u='_'
   uu='__'
-  nscan=40
-  thetadir='theta3'
+  nscan=10
+  thetadir='theta'
   counter=1
   filecounter=1
 
@@ -3530,7 +3530,7 @@ model_summary(model)\n\
 options = Options()\n\
 options.set('main', 'n_threads', '20')\n\
 #plot_exp, plot_obs = asymptotic_cls_limits(model,use_data=False,options=options)#bayesian_limits ,what='expected'\n\
-plot_exp, plot_obs = bayesian_limits(model,what='observed')#bayesian_limits ,what='expected'\n\
+plot_exp, plot_obs = bayesian_limits(model,what='observed',n_data = 1000)#bayesian_limits ,what='expected'\n\
 #plot_exp.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/"+thetadir+"/limits_exp"+filename_postfix+".txt')\n\
 plot_obs.write_txt('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/"+thetadir+"/limits_obs"+filename_postfix+".txt')\n\
 report.write_html('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/"+thetadir+"/htmlout"+filename_postfix+"')")

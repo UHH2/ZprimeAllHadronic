@@ -271,14 +271,26 @@ gStyle.SetNumberContours(99)#999
 
 the_maximum=-100.0
 the_minimum=1000000.0
+the_maximum_obs=-100.0
+the_minimum_obs=1000000.0
+the_maximum_exp=-100.0
+the_minimum_exp=1000000.0
 for masspoint in range(len(signalWB_names)):
 	the_minimum = min(min(values_obs[masspoint][2]+values_exp[masspoint][2]),the_minimum)
 	the_maximum = max(max(values_obs[masspoint][2]+values_exp[masspoint][2]),the_maximum)
+	the_minimum_obs = min(min(values_obs[masspoint][2]),the_minimum_obs)
+	the_maximum_obs = max(max(values_obs[masspoint][2]),the_maximum_obs)
+	the_minimum_exp = min(min(values_exp[masspoint][2]),the_minimum_exp)
+	the_maximum_exp = max(max(values_exp[masspoint][2]),the_maximum_exp)
 
 print the_minimum, the_maximum
+print 'obs',the_minimum_obs, the_maximum_obs
+print 'exp',the_minimum_exp, the_maximum_exp
 
-the_minimum=0.12526
-the_maximum=11.393
+the_minimum=0.13231
+the_maximum=10.163
+
+
 
 values={'exp':values_exp,'obs':values_obs}
 
@@ -435,7 +447,7 @@ for tipo in values:
 			exclusion.GetXaxis().SetLabelOffset(100)
 			exclusion.GetYaxis().SetLabelOffset(100)
 			#exclusion.Draw('CONT3')
-			exclusion2.Draw()
+			#exclusion2.Draw()
 			c2=TCanvas(name+'_c2')
 			c2.cd()
 			exclusion.Draw('CONT Z LIST')
@@ -444,14 +456,14 @@ for tipo in values:
 			c.cd()
 			null2.cd()
 			codes=[
-			[0,0,0],
-			[1,0,1],
+			[0,1,0],
+			[1,1,0],
 			[2,0,10],
 			[3,0,10],
 			[4,0,10],
-			[5,0,0],
-			[6,2,0],
-			[7,2,0],
+			[5,1,0],
+			[6,1,0],
+			[7,1,0],
 			]
 			print 'total',conts.GetSize()
 			for i in range(conts.GetSize()):
@@ -622,10 +634,10 @@ hexcolor=["#1f77b4", "#ff7f0e","#ff7f0e", "#2ca02c", "#2ca02c", "#d62728", "#946
 intcolor=[TColor.GetColor(i) for i in hexcolor]
 
 ctutti=TCanvas('tuttic','',1000,1000)		
-ctutti.SetRightMargin(0.05)
-ctutti.SetLeftMargin(margine)
-ctutti.SetTopMargin(0.05)
-ctutti.SetBottomMargin(margine)
+ctutti.SetRightMargin(0.02)
+ctutti.SetLeftMargin(0.2)
+ctutti.SetTopMargin(0.1)
+ctutti.SetBottomMargin(0.2)
 ctutti.cd()
 bogus=TH1D('','',1,0,1)
 bogus.Draw()
@@ -633,17 +645,24 @@ bogus.SetMinimum(0)
 bogus.SetMaximum(1)
 bogus.GetXaxis().SetTitle("T' #rightarrow bW branching fraction")
 bogus.GetXaxis().SetRangeUser(0,1)
-bogus.GetYaxis().SetRangeUser(0,1)
+bogus.GetYaxis().SetRangeUser(0,1.3)
 bogus.GetYaxis().SetTitle("T' #rightarrow tH branching fraction")
-sizefactor=sizefactor*0.9
+sizefactor=sizefactor*1
 bogus.GetXaxis().SetTitleSize(sizefactor*bogus.GetXaxis().GetTitleSize())
 bogus.GetYaxis().SetTitleSize(sizefactor*bogus.GetYaxis().GetTitleSize())
 bogus.GetXaxis().SetLabelSize(sizefactor*bogus.GetXaxis().GetLabelSize())
 bogus.GetYaxis().SetLabelSize(sizefactor*bogus.GetYaxis().GetLabelSize())
 bogus.SetStats(0)		
+offset=offset*1.5
+offset2=offset*2
 bogus.GetXaxis().SetTitleOffset(offset*bogus.GetXaxis().GetTitleOffset())
 bogus.GetYaxis().SetTitleOffset(offset*bogus.GetYaxis().GetTitleOffset())
-legend=TLegend(0.55,0.55,0.94,0.94)
+bogus.GetXaxis().SetLabelOffset(offset2*bogus.GetXaxis().GetLabelOffset())
+bogus.GetYaxis().SetLabelOffset(offset2*bogus.GetYaxis().GetLabelOffset())
+#print bogus.GetNdivisions()
+bogus.GetXaxis().SetNdivisions(505)
+bogus.GetYaxis().SetNdivisions(507)
+legend=TLegend(0.46,0.55,0.98,0.96)
 #legend.SetTextSize(latex.GetTextSize())
 legend.SetBorderSize(0)
 legend.SetTextFont(42)
@@ -652,7 +671,8 @@ legend.SetLineStyle(1)
 legend.SetLineWidth(1)
 legend.SetFillColor(0)
 legend.SetFillStyle(0)
-legend.SetHeader("SSM Z' exclusion")
+#legend.SetHeader("SSM Z' exclusion")
+legend.SetHeader("")
 tutti2=[i.Clone() for i in tutti]
 for i in range(len(tutti)):
 	tutti[i].SetLineColor(intcolor[i])
@@ -668,9 +688,9 @@ for i in range(len(tutti)):
 	#	tutti[i].Draw('c')
 	#	tutti[i].GetXaxis().SetRangeUser(0.0,1.0)
 	#	ctutti.Update()
-xx=array('d',[0.0,1.0,1.0])
-yy=array('d',[1.0,1.0,0.0])
-tri=TPolyLine(3,xx,yy)
+xx=array('d',[0.0,0.0,1.0,1.0])
+yy=array('d',[1.0,1.3,1.3,0.0])
+tri=TPolyLine(4,xx,yy)
 tri.SetFillColor(0)
 tri.Draw('f')
 xborder=array('d',[0.0,1.0])
@@ -680,6 +700,38 @@ bor.SetLineColor(1)
 bor.SetLineWidth(1)
 bor.Draw('l')
 legend.Draw()
+
+CMS_lumi.writeExtraText=False
+CMS_lumi.CMS_lumi(ctutti, 4, 11)
+
+bm = ctutti.GetBottomMargin()
+lm = ctutti.GetLeftMargin()
+rm = ctutti.GetRightMargin()
+to = ctutti.GetTopMargin()
+x1 = bogus.GetXaxis().GetXmin()
+yf = bogus.GetYaxis().GetXmin()
+x2 = bogus.GetXaxis().GetXmax()
+y2 = bogus.GetYaxis().GetXmax()
+
+Xa = (x2-x1)/(1-lm-rm)-(x2-x1)
+Ya = (y2-yf)/(1-bm-to)-(y2-yf)
+LM = Xa*(lm/(lm+rm))
+RM = Xa*(rm/(lm+rm))
+BM = Ya*(bm/(bm+to))
+TM = Ya*(to/(bm+to))
+
+null4 = TPad("null4","",0,0,1,1)
+null4.SetFillStyle(0)
+null4.SetFrameFillStyle(0)
+null4.Draw()
+null4.cd()
+null4.Range(x1-LM,yf-BM,x2+RM,y2+TM)
+null4.SetRightMargin(0.02)
+null4.SetLeftMargin(0.2)
+null4.SetTopMargin(0.1)
+null4.SetBottomMargin(0.2)
+bogus.Draw('')
+
 
 ctutti.SaveAs('pdf/observed.pdf')
 
