@@ -13,6 +13,18 @@ dataht_filenames=["DATA.JetHT_Run2015D_05Oct2015_v1","DATA.JetHT_Run2015D_Prompt
 ttbar_filenames=['MC.TTbar']
 qcd_filenames=["MC.QCD_HT500to700","MC.QCD_HT700to1000","MC.QCD_HT1000to1500","MC.QCD_HT1500to2000","MC.QCD_HT2000toInf"]
 mc_filenames=ttbar_filenames+qcd_filenames
+signals_filenames=[
+'MC.ZpToTpT_TpToWB_MZp1500Nar_MTp700Nar_LH',
+'MC.ZpToTpT_TpToWB_MZp1500Nar_MTp900Nar_LH',
+'MC.ZpToTpT_TpToWB_MZp1500Nar_MTp1200Nar_LH',
+'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp900Nar_LH',
+'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_LH',
+#'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_RH',
+#'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1200Wid_LH',
+'MC.ZpToTpT_TpToWB_MZp2000Nar_MTp1500Nar_LH',
+#'MC.ZpToTpT_TpToWB_MZp2000Wid_MTp1200Nar_LH',
+'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1200Nar_LH',
+'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH']
 
 force=True
 datamu_filename=hadd(path_base,name_base,datamu_filenames,'datamu_trigger_merge',force)
@@ -20,13 +32,18 @@ dataht_filename=hadd(path_base,name_base,dataht_filenames,'dataht_trigger_merge'
 ttbar_filename=hadd(path_base,name_base,ttbar_filenames,'ttbar_trigger_merge',force)
 qcd_filename=hadd(path_base,name_base,qcd_filenames,'qcd_trigger_merge',force)
 mc_filename=hadd(path_base,name_base,mc_filenames,'mc_trigger_merge',force)
-
+signals_filename=[]
+for i in signals_filenames:
+  signals_filename.append(hadd(path_base,name_base,[i],i+'_trigger_merge',force))
 
 datamu_file=TFile(datamu_filename)
 dataht_file=TFile(dataht_filename)
 ttbar_file=TFile(ttbar_filename)
 qcd_file=TFile(qcd_filename)
 mc_file=TFile(mc_filename)
+signals_file=[]
+for i in signals_filename:
+  signals_file.append(TFile(i))
 
 outfile=TFile('outfile.root','RECREATE')
 
@@ -72,7 +89,7 @@ def getEff(name,den_input,num_input,rebin=0,xtitle='',ytitle=''):
     error_bars.GetYaxis().SetTitle(ytitle)
   error_bars.SetTitle('')
   error_bars.Draw('AP')
-  #c.SaveAs('pdf/'+name+'.pdf')
+  c.SaveAs('pdf/'+name+'.pdf')
   c.Write(name+'_Canvas')
   error_bars.Write(name)
 
@@ -256,9 +273,29 @@ for i in paths:
 
   
 # getEff('DATA',data_file.Get('Denom/HT'),data_file.Get('Num/HT'),2)
-# getEff('MC',mc_file.Get('Denom/HT'),mc_file.Get('Num/HT'),2)
+#getEff('MC',mc_file.Get('Denom/HT'),mc_file.Get('Num/HT'),2)
 # getSF('SF',data_file.Get('Denom/HT'),data_file.Get('Num/HT'),mc_file.Get('Denom/HT'),mc_file.Get('Num/HT'))
+signalWB_legendnames=[
+#"m_{Z'}=1.5TeV, m_{T'}=0.7TeV, BR(bW)=1",
+"Z'(1.5TeV)#rightarrowT't, T'(0.7TeV)#rightarrowbW",
+"Z'(1.5TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
+"Z'(1.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
+"Z'(2.0TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
+"Z'(2.0TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
+#"Z'(2TeV)#rightarrowT't, T'(1.2TeV,RH)#rightarrowbW",
+#"Z'(2TeV)#rightarrowT't, T'(1.2TeV,Wide)#rightarrowbW",
+"Z'(2.0TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
+#"Z'(2TeV,Wide)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
+"Z'(2.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
+"Z'(2.5TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
+]
 
+for i in range(len(signals_filenames)):
+  getEff('ZZZ'+signals_filenames[i],signals_file[i].Get('den_ht2pt/HT'),signals_file[i].Get('num_ht2pt/HT'),1)
+
+  #getEff(name+'_eff_mc_'+folder_postfix+'_'+histo_name,mc_file.Get(den),mc_file.Get(num),1)
+compare('ZZZcompHT',signals_file,['sel2pt/HT']*len(signals_file),signalWB_legendnames,normalize=False,drawoption='hE',xtitle='',ytitle='',minx=0,maxx=3000,rebin=2,miny=0,maxy=0,textsizefactor=0.7,logy=False)
+compare('ZZZcompHTCA8',signals_file,['sel2pt/HTCA8']*len(signals_file),signalWB_legendnames,normalize=False,drawoption='hE',xtitle='',ytitle='',minx=0,maxx=3000,rebin=2,miny=0,maxy=0,textsizefactor=0.7,logy=False)
 # compare(
 #   name='DATAMC',
 #   file_list=[outfile,outfile],

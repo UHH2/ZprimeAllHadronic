@@ -22,6 +22,41 @@
 <!ENTITY MC_QCD_HT1500to2000 SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_QCD_HT1500to2000.xml">
 <!ENTITY MC_QCD_HT2000toInf SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_QCD_HT2000toInf.xml">
 
+
+<!ENTITY MC_ZpToTpT_TpToHT_MZp1500Nar_MTp700Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToHT_MZp1500Nar_MTp700Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToHT_MZp1500Nar_MTp900Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToHT_MZp1500Nar_MTp900Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToHT_MZp1500Nar_MTp1200Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToHT_MZp1500Nar_MTp1200Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToHT_MZp2000Nar_MTp900Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToHT_MZp2000Nar_MTp900Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_RH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToHT_MZp2000Nar_MTp1200Nar_RH.xml">
+<!ENTITY MC_ZpToTpT_TpToHT_MZp2000Nar_MTp1200Wid_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToHT_MZp2000Nar_MTp1200Wid_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToHT_MZp2000Nar_MTp1500Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToHT_MZp2000Nar_MTp1500Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToHT_MZp2000Wid_MTp1200Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToHT_MZp2000Wid_MTp1200Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToHT_MZp2500Nar_MTp1200Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToHT_MZp2500Nar_MTp1200Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToHT_MZp2500Nar_MTp1500Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToHT_MZp2500Nar_MTp1500Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToWB_MZp1500Nar_MTp700Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToWB_MZp1500Nar_MTp700Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToWB_MZp1500Nar_MTp900Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToWB_MZp1500Nar_MTp900Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToWB_MZp1500Nar_MTp1200Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToWB_MZp1500Nar_MTp1200Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToWB_MZp2000Nar_MTp900Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToWB_MZp2000Nar_MTp900Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_RH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_RH.xml">
+<!ENTITY MC_ZpToTpT_TpToWB_MZp2000Nar_MTp1200Wid_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToWB_MZp2000Nar_MTp1200Wid_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToWB_MZp2000Nar_MTp1500Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToWB_MZp2000Nar_MTp1500Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToWB_MZp2000Wid_MTp1200Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToWB_MZp2000Wid_MTp1200Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToWB_MZp2500Nar_MTp1200Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToWB_MZp2500Nar_MTp1200Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToZT_MZp1500Nar_MTp700Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToZT_MZp1500Nar_MTp700Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToZT_MZp1500Nar_MTp900Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToZT_MZp1500Nar_MTp900Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToZT_MZp1500Nar_MTp1200Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToZT_MZp1500Nar_MTp1200Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToZT_MZp2000Nar_MTp900Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToZT_MZp2000Nar_MTp900Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_RH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToZT_MZp2000Nar_MTp1200Nar_RH.xml">
+<!ENTITY MC_ZpToTpT_TpToZT_MZp2000Nar_MTp1200Wid_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToZT_MZp2000Nar_MTp1200Wid_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToZT_MZp2000Nar_MTp1500Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToZT_MZp2000Nar_MTp1500Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToZT_MZp2000Wid_MTp1200Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToZT_MZp2000Wid_MTp1200Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToZT_MZp2500Nar_MTp1200Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToZT_MZp2500Nar_MTp1200Nar_LH.xml">
+<!ENTITY MC_ZpToTpT_TpToZT_MZp2500Nar_MTp1500Nar_LH SYSTEM "/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/common/datasets/RunII_76X_v1/MC_ZpToTpT_TpToZT_MZp2500Nar_MTp1500Nar_LH.xml">
+
 ]
 >
 
@@ -39,7 +74,7 @@
     <Package Name="SUHH2Zp2TopVLQAllHad.par" />
 
    <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/usaiem/miniaodv2/" PostFix="" TargetLumi="2690.64" > -->
-   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="20" OutputDirectory="/nfs/dust/cms/user/usaiem/miniaodv2/" PostFix="" TargetLumi="2690.64" > 
+   <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/usaiem/proof-wd/" ProofNodes="10" OutputDirectory="/nfs/dust/cms/user/usaiem/miniaodv2/" PostFix="" TargetLumi="2690.64" > 
 
 
    
@@ -72,11 +107,11 @@
     <InputTree Name="AnalysisTree" /> 
 </InputData> -->
 
-    <InputData Lumi="116421.0" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
+<!--     <InputData Lumi="116421.0" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
         <In FileName="/nfs/dust/cms/user/usaiem/preselection2/uhh2.AnalysisModuleRunner.MC.TTbar.root" Lumi="0.0"/>
         <InputTree Name="AnalysisTree" /> 
-    <!--     <OutputTree Name="AnalysisTree" />  -->
-    </InputData>
+        <OutputTree Name="AnalysisTree" /> 
+    </InputData> -->
 
 <!-- <InputData Lumi="76.605" NEventsMax="-1" Type="MC" Version="TT_Mtt0700to1000" Cacheable="True">
     &MC_TT_Mtt0700to1000;
@@ -115,7 +150,71 @@
 </InputData> -->
 
 
-
+<InputData Lumi="230068" NEventsMax="-1" Type="MC" Version="ZpToTpT_TpToWB_MZp1500Nar_MTp700Nar_LH" Cacheable="False">
+   &MC_ZpToTpT_TpToWB_MZp1500Nar_MTp700Nar_LH;
+   <InputTree Name="AnalysisTree" />
+   <OutputTree Name="AnalysisTree" /> 
+ </InputData>
+ 
+ <InputData Lumi="231939" NEventsMax="-1" Type="MC" Version="ZpToTpT_TpToWB_MZp1500Nar_MTp900Nar_LH" Cacheable="False">
+   &MC_ZpToTpT_TpToWB_MZp1500Nar_MTp900Nar_LH;
+   <InputTree Name="AnalysisTree" />
+   <OutputTree Name="AnalysisTree" /> 
+ </InputData>
+ 
+ <InputData Lumi="231140" NEventsMax="-1" Type="MC" Version="ZpToTpT_TpToWB_MZp1500Nar_MTp1200Nar_LH" Cacheable="False">
+   &MC_ZpToTpT_TpToWB_MZp1500Nar_MTp1200Nar_LH;
+   <InputTree Name="AnalysisTree" />
+   <OutputTree Name="AnalysisTree" /> 
+ </InputData>
+ 
+ <InputData Lumi="229644" NEventsMax="-1" Type="MC" Version="ZpToTpT_TpToWB_MZp2000Nar_MTp900Nar_LH" Cacheable="False">
+   &MC_ZpToTpT_TpToWB_MZp2000Nar_MTp900Nar_LH;
+   <InputTree Name="AnalysisTree" />
+   <OutputTree Name="AnalysisTree" /> 
+ </InputData>
+ 
+ <InputData Lumi="229123" NEventsMax="-1" Type="MC" Version="ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_LH" Cacheable="False">
+   &MC_ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_LH;
+   <InputTree Name="AnalysisTree" />
+   <OutputTree Name="AnalysisTree" /> 
+ </InputData>
+ 
+ <InputData Lumi="226842" NEventsMax="-1" Type="MC" Version="ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_RH" Cacheable="False">
+   &MC_ZpToTpT_TpToWB_MZp2000Nar_MTp1200Nar_RH;
+   <InputTree Name="AnalysisTree" />
+   <OutputTree Name="AnalysisTree" /> 
+ </InputData>
+ 
+ <InputData Lumi="230762" NEventsMax="-1" Type="MC" Version="ZpToTpT_TpToWB_MZp2000Nar_MTp1200Wid_LH" Cacheable="False">
+   &MC_ZpToTpT_TpToWB_MZp2000Nar_MTp1200Wid_LH;
+   <InputTree Name="AnalysisTree" />
+   <OutputTree Name="AnalysisTree" /> 
+ </InputData>
+ 
+ <InputData Lumi="226393" NEventsMax="-1" Type="MC" Version="ZpToTpT_TpToWB_MZp2000Nar_MTp1500Nar_LH" Cacheable="False">
+   &MC_ZpToTpT_TpToWB_MZp2000Nar_MTp1500Nar_LH;
+   <InputTree Name="AnalysisTree" />
+   <OutputTree Name="AnalysisTree" /> 
+ </InputData>
+ 
+ <InputData Lumi="231381" NEventsMax="-1" Type="MC" Version="ZpToTpT_TpToWB_MZp2000Wid_MTp1200Nar_LH" Cacheable="False">
+   &MC_ZpToTpT_TpToWB_MZp2000Wid_MTp1200Nar_LH;
+   <InputTree Name="AnalysisTree" />
+   <OutputTree Name="AnalysisTree" /> 
+ </InputData>
+ 
+ <InputData Lumi="228091" NEventsMax="-1" Type="MC" Version="ZpToTpT_TpToWB_MZp2500Nar_MTp1200Nar_LH" Cacheable="False">
+   &MC_ZpToTpT_TpToWB_MZp2500Nar_MTp1200Nar_LH;
+   <InputTree Name="AnalysisTree" />
+   <OutputTree Name="AnalysisTree" /> 
+ </InputData>
+ 
+ <InputData Lumi="218072" NEventsMax="-1" Type="MC" Version="ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH" Cacheable="False">
+   &MC_ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH;
+   <InputTree Name="AnalysisTree" />
+   <OutputTree Name="AnalysisTree" /> 
+ </InputData>
 
 
 

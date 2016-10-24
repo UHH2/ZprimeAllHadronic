@@ -188,10 +188,10 @@ uhh2::Event::TriggerIndex ti_Mu=event.get_trigger_index("HLT_Mu45_eta2p1_*");
 bool Mu_trigger = event.passes_trigger(ti_Mu);
 
 uhh2::Event::TriggerIndex ti_HT;
-if (event.isRealData)
+// if (event.isRealData)
     ti_HT=event.get_trigger_index("HLT_PFHT800_v*");
-else
-    ti_HT=event.get_trigger_index("HLT_PFHT800Emu_v*");
+// else
+    // ti_HT=event.get_trigger_index("HLT_PFHT800Emu_v*");
 
 bool HT_trigger = event.passes_trigger(ti_HT);
 
@@ -228,9 +228,9 @@ bool sel2pt=false;
 // selection
 TopJet the_top, the_w;
 Jet the_b;
+double tpmass=0;
   bool has_tw=false;
   bool has_twb=false;
-
   if (topjets->size()>1)
  {
   if (TopTag_nopt(event.topjets->at(0))&&WTag_nopt(event.topjets->at(1)))
@@ -249,6 +249,7 @@ Jet the_b;
   if (jet.btag_combinedSecondaryVertex()>medium_btag&&deltaR(jet,the_top)>0.8 &&deltaR(jet,the_w)>0.8 && jet.pt()>100.0)
   {
         the_b=jet; has_twb=true;
+        tpmass=TprimeMass(the_w, the_b);
         break;
   }
 }
@@ -281,7 +282,7 @@ sel1 = has_twb;
 sel2 = has_twb && btag2;
 sel0pt = sel0 && ptcond;
 sel1pt = sel1 && ptcond;
-sel2pt = sel2 && ptcond;
+sel2pt = sel2 && ptcond && tpmass>500.0;
 
 h_nocuts->fill(event);
 

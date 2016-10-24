@@ -540,7 +540,7 @@ for tipo in values:
 		box2.Draw('f')
 		tri.Draw('f')
 
-		if tipo=='obs':
+		if tipo in ['obs','exp']:
 			bm = c.GetBottomMargin()
 			lm = c.GetLeftMargin()
 			rm = c.GetRightMargin()
@@ -671,7 +671,7 @@ legend.SetLineStyle(1)
 legend.SetLineWidth(1)
 legend.SetFillColor(0)
 legend.SetFillStyle(0)
-legend.SetHeader("SSM Z' exclusion")
+legend.SetHeader("SSM Z' excluded")
 #legend.SetHeader("")
 tutti2=[i.Clone() for i in tutti]
 for i in range(len(tutti)):
