@@ -983,7 +983,7 @@ for i in [
  #"antitopmassCRmass_zprimemass", "antitopnsubCRmass_zprimemass", "antiwmassCRmass_zprimemass", "antiwnsubCRmass_zprimemass", 
  #"antibcsvCRmass_zprimemass",# "antibptCRmass_zprimemass", "antibmassCRmass_zprimemass", 
  #"antitopmassCRbtag_zprimemass", "antitopnsubCRbtag_zprimemass", "antiwmassCRbtag_zprimemass", "antiwnsubCRbtag_zprimemass", 
- "antibcsvCRbtag_zprimemass","antibcsvCRnobtag_zprimemass",#,"antibcsvlooseCRbtag_zprimemass","antitpmassCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
+ "antibcsvCRbtag_zprimemass",#"antibcsvCRnobtag_zprimemass",#,"antibcsvlooseCRbtag_zprimemass","antitpmassCRbtag_zprimemass",# "antibptCRbtag_zprimemass", "antibmassCRbtag_zprimemass",
 #"antitopmassCRnobtag_zprimemass",  "antitopnsubCRnobtag_zprimemass",  "antiwmassCRnobtag_zprimemass",  "antiwnsubCRnobtag_zprimemass", 
  #"antibcsvCRnobtag_zprimemass",#  "antibptCRnobtag_zprimemass",  "antibmassCRnobtag_zprimemass",
  #"bkg1",
@@ -1135,7 +1135,7 @@ for i in [
 	ratiomean.SetParameter(0,fitresult.Parameter(0))
 	ratiomean.SetParameter(1,fitresult.Parameter(1))
 	ratiomean.SetParameter(2,fitresult.Parameter(2))
- 	if 'anti' in i:
+	if 'anti' in i:
 		make_fitplot(ratioinput,ratiomean,ratioup,ratiodown,'2 b tag')
 
 
@@ -1518,7 +1518,7 @@ for i in [
 	ratiomean.SetParameter(0,fitresult.Parameter(0))
 	ratiomean.SetParameter(1,fitresult.Parameter(1))
 	ratiomean.SetParameter(2,fitresult.Parameter(2))
- 	if 'anti' in i:
+	if 'anti' in i:
 		make_fitplot(ratioinput,ratiomean,ratioup,ratiodown,'1 b tag')
 
 	# make_ratioplot2(

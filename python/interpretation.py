@@ -266,9 +266,9 @@ if doresults:
   			legend.SetLineWidth(1)
   			legend.SetFillColor(0)
   			legend.SetFillStyle(0)
-  			legend.SetHeader('BR(bW,tH,tZ)=0.5,0.25,0.25')
+  			legend.SetHeader('B(bW,tH,tZ)=0.5,0.25,0.25')
   			if triplet[0]==1.0:
-  				legend.SetHeader('BR(bW)=1')
+  				legend.SetHeader('B(bW)=1')
   			legend.AddEntry(obslim,'Observed','l')
   			legend.AddEntry(explim,'Expected','l')
   			legend.AddEntry(exp1sigma,'#pm 1 std. deviation','f')
