@@ -240,18 +240,18 @@ signalWB_names_short=[
 #'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH'
 ]
 signalWB_legendnames_short=[
-"m_{Z'}=1.5 TeV, m_{T'}=0.7 TeV",
+"m_{Z'}=1.5 TeV, m_{T}=0.7 TeV",
 #"Z'(1.5TeV)#rightarrowT't, T'(0.7TeV)#rightarrowbW",
 #"Z'(1.5TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
 #"Z'(1.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
-"m_{Z'}=2.0 TeV, m_{T'}=0.9 TeV",
+"m_{Z'}=2.0 TeV, m_{T}=0.9 TeV",
 #"Z'(2.0TeV)#rightarrowT't, T'(0.9TeV)#rightarrowbW",
 #"Z'(2TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
 #"Z'(2TeV)#rightarrowT't, T'(1.2TeV,RH)#rightarrowbW 1pb",
 #"Z'(2TeV)#rightarrowT't, T'(1.2TeV,Wide)#rightarrowbW 1pb",
 #"Z'(2TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
 #"Z'(2TeV,Wide)#rightarrowT't, T'(1.2TeV)#rightarrowbW 1pb",
-"m_{Z'}=2.5 TeV, m_{T'}=1.2 TeV",
+"m_{Z'}=2.5 TeV, m_{T}=1.2 TeV",
 #"Z'(2.5TeV)#rightarrowT't, T'(1.2TeV)#rightarrowbW",
 #"Z'(2.5TeV)#rightarrowT't, T'(1.5TeV)#rightarrowbW",
 ]
@@ -438,19 +438,19 @@ for i in ["N_toptags",  "N_wtags", "Pos_toptags",  "Pos_wtags",  "N_btags", "N_b
 "antibcsvCRbtagmass_tprimemass","antibcsvCRnobtagmass_tprimemass","antibcsvCRbtag_ht_twb","antibcsvCRnobtag_ht_twb",
 
 "ttbarCR_zprimemassnobtag","lowmassCR_zprimemassnobtag","ttbarCR_zprimemassnobtag_low","lowmassCR_zprimemassnobtag_low",
-"CA15_zprimemassbtag","CA15_ht_twbSRbtag","CA15_tprimemassbtag",
+# "CA15_zprimemassbtag","CA15_ht_twbSRbtag","CA15_tprimemassbtag",
 
-"CA15_zprimemassnobtag","CA15_ht_twbSRnobtag","CA15_tprimemassnobtag",
+# "CA15_zprimemassnobtag","CA15_ht_twbSRnobtag","CA15_tprimemassnobtag",
 
-"CA15_ttbarCR_zprimemassnobtag","CA15_ttbarCR_zprimemassbtag",
-"CA15_lowmassCR_zprimemassnobtag","CA15_lowmassCR_zprimemassbtag",
+# "CA15_ttbarCR_zprimemassnobtag","CA15_ttbarCR_zprimemassbtag",
+# "CA15_lowmassCR_zprimemassnobtag","CA15_lowmassCR_zprimemassbtag",
 
-"CA15_zprimemassbtag_low","CA15_ht_twbSRbtag_low","CA15_tprimemassbtag_low",
+# "CA15_zprimemassbtag_low","CA15_ht_twbSRbtag_low","CA15_tprimemassbtag_low",
 
-"CA15_zprimemassnobtag_low","CA15_ht_twbSRnobtag_low","CA15_tprimemassnobtag_low",
+# "CA15_zprimemassnobtag_low","CA15_ht_twbSRnobtag_low","CA15_tprimemassnobtag_low",
 
-"CA15_ttbarCR_zprimemassnobtag_low","CA15_ttbarCR_zprimemassbtag_low",
-"CA15_lowmassCR_zprimemassnobtag_low","CA15_lowmassCR_zprimemassbtag_low",
+# "CA15_ttbarCR_zprimemassnobtag_low","CA15_ttbarCR_zprimemassbtag_low",
+# "CA15_lowmassCR_zprimemassnobtag_low","CA15_lowmassCR_zprimemassbtag_low",
 "index_toptag","index_wtag","index_wtag1","index_wtag2",
 ]:
   rebinna=10
@@ -1947,38 +1947,38 @@ for i in signalHT_names:
 #gen and angular studies
 
 
-compare(name='dRbW_allWB',#signalWB_names[i]+'dRbW',
-    file_list=signal_filesWB ,#[signal_files[i],signal_files_pre[i]],
-    name_list=['Selection/dRbW']*len(signal_filesWB),
-    legend_list=signalWB_legendnames,
-    normalize=True,drawoption='hE',
-    xtitle=xtitle,ytitle='',
-    minx=minx,maxx=maxx,
-    rebin=rebinna,
-    miny=0,maxy=0,
-    textsizefactor=1,logy=False)
+# compare(name='dRbW_allWB',#signalWB_names[i]+'dRbW',
+#     file_list=signal_filesWB ,#[signal_files[i],signal_files_pre[i]],
+#     name_list=['Selection/dRbW']*len(signal_filesWB),
+#     legend_list=signalWB_legendnames,
+#     normalize=True,drawoption='hE',
+#     xtitle=xtitle,ytitle='',
+#     minx=minx,maxx=maxx,
+#     rebin=rebinna,
+#     miny=0,maxy=0,
+#     textsizefactor=1,logy=False)
 
-compare(name='dRbW_allZT',#signalWB_names[i]+'dRbW',
-    file_list=signal_filesZT ,#[signal_files[i],signal_files_pre[i]],
-    name_list=['Selection/dRbW']*len(signal_filesZT),
-    legend_list=signalZT_legendnames,
-    normalize=True,drawoption='hE',
-    xtitle=xtitle,ytitle='',
-    minx=minx,maxx=maxx,
-    rebin=rebinna,
-    miny=0,maxy=0,
-    textsizefactor=1,logy=False)
+# compare(name='dRbW_allZT',#signalWB_names[i]+'dRbW',
+#     file_list=signal_filesZT ,#[signal_files[i],signal_files_pre[i]],
+#     name_list=['Selection/dRbW']*len(signal_filesZT),
+#     legend_list=signalZT_legendnames,
+#     normalize=True,drawoption='hE',
+#     xtitle=xtitle,ytitle='',
+#     minx=minx,maxx=maxx,
+#     rebin=rebinna,
+#     miny=0,maxy=0,
+#     textsizefactor=1,logy=False)
 
-compare(name='dRbW_allHT',#signalWB_names[i]+'dRbW',
-    file_list=signal_filesHT ,#[signal_files[i],signal_files_pre[i]],
-    name_list=['Selection/dRbW']*len(signal_filesHT),
-    legend_list=signalHT_legendnames,
-    normalize=True,drawoption='hE',
-    xtitle=xtitle,ytitle='',
-    minx=minx,maxx=maxx,
-    rebin=rebinna,
-    miny=0,maxy=0,
-    textsizefactor=1,logy=False)
+# compare(name='dRbW_allHT',#signalWB_names[i]+'dRbW',
+#     file_list=signal_filesHT ,#[signal_files[i],signal_files_pre[i]],
+#     name_list=['Selection/dRbW']*len(signal_filesHT),
+#     legend_list=signalHT_legendnames,
+#     normalize=True,drawoption='hE',
+#     xtitle=xtitle,ytitle='',
+#     minx=minx,maxx=maxx,
+#     rebin=rebinna,
+#     miny=0,maxy=0,
+#     textsizefactor=1,logy=False)
 
 
 # signalWB_names=[
@@ -2040,90 +2040,90 @@ compare(name='dRbW_allHT',#signalWB_names[i]+'dRbW',
 #     miny=0,maxy=0,
 #     textsizefactor=1,logy=False)
 
-for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
-  "ptop",  "ptprime",  "pb",  "pw",  "ptb",  "ptw",  "pzprime",
-  "mtop",  "mtprime",  "mb",  "mw",  "mtb",  "mtw",  "mzprime",
-  "dRbW",  "dRtT",  "dRbt",  "dRtW",  "dR_tb_tW",  "dR_tb_W",  "dR_tb_b",  "dR_b_tW",  "dR_W_tW",
-  "dR_W1_b1",  "dR_W2_b2",  "dR_W1_W2",  "dR_b1_b2",  "dR_W1_b2",  "dR_W2_b1",
-  "pT_closest_topjet_to_top",  "mass_closest_topjet_to_top",  "nsub_closest_topjet_to_top",
-  "pT_closest_topjet_to_tprime",  "mass_closest_topjet_to_tprime",  "nsub_closest_topjet_to_tprime",
-  "pT_closest_wjet_to_w",  "mass_closest_wjet_to_w",  "nsub_closest_wjet_to_w",
-  "pT_closest_bjet_to_b",  "csv_closest_bjet_to_b",
+# for i in ["pTtop",  "pTtprime",  "pTb",  "pTw",  "pTtb",  "pTtw",  "pTzprime",
+#   "ptop",  "ptprime",  "pb",  "pw",  "ptb",  "ptw",  "pzprime",
+#   "mtop",  "mtprime",  "mb",  "mw",  "mtb",  "mtw",  "mzprime",
+#   "dRbW",  "dRtT",  "dRbt",  "dRtW",  "dR_tb_tW",  "dR_tb_W",  "dR_tb_b",  "dR_b_tW",  "dR_W_tW",
+#   "dR_W1_b1",  "dR_W2_b2",  "dR_W1_W2",  "dR_b1_b2",  "dR_W1_b2",  "dR_W2_b1",
+#   "pT_closest_topjet_to_top",  "mass_closest_topjet_to_top",  "nsub_closest_topjet_to_top",
+#   "pT_closest_topjet_to_tprime",  "mass_closest_topjet_to_tprime",  "nsub_closest_topjet_to_tprime",
+#   "pT_closest_wjet_to_w",  "mass_closest_wjet_to_w",  "nsub_closest_wjet_to_w",
+#   "pT_closest_bjet_to_b",  "csv_closest_bjet_to_b",
 
-  "pT_closest_wjet_to_tw",  "mass_closest_wjet_to_tw",  "nsub_closest_wjet_to_tw",
-  "pT_closest_bjet_to_tb",  "csv_closest_bjet_to_tb",
+#   "pT_closest_wjet_to_tw",  "mass_closest_wjet_to_tw",  "nsub_closest_wjet_to_tw",
+#   "pT_closest_bjet_to_tb",  "csv_closest_bjet_to_tb",
 
-  "pT_closest_wjet_to_w1",  "mass_closest_wjet_to_w1",  "nsub_closest_wjet_to_w1",
-  "pT_closest_bjet_to_b1",  "csv_closest_bjet_to_b1",
-  "pT_closest_wjet_to_w2",  "mass_closest_wjet_to_w2",  "nsub_closest_wjet_to_w2",
-  "pT_closest_bjet_to_b2",  "csv_closest_bjet_to_b2",
-  "matched_top_mass",
-  "matched_top_res_mass",
-  "matched_tprime_mass",
-  "matched_zprime_mass",
-  "matched_zprime_res_mass",
-  "matched_tprime1_mass",
-  "matched_tprime2_mass",
-  ]:
-  rebinna=1
-  minx=0
-  maxx=0
-  if 'top_mass' in i or 'mass_closest_wjet' in i or 'mass_closest_topjet' in i or 'top_res_mass' in i or 'pTzprime' in i:
-     minx=0
-     maxx=300
-  if 'pTtb' in i :
-     minx=0
-     maxx=1000
-  xtitle=''
-  if i=='dR_tb_W':
-    xtitle="#Delta R(b from t, W from T')"
-  if i=='dR_W_tW':
-    xtitle="#Delta R(W from t, W form T')"
-
-
-  if i=="mtprime":
-    xtitle="m_{T'} [GeV]"
-  if i=="mzprime":
-    xtitle="m_{Z'} [GeV]"
-  if i=="pTb":
-    xtitle="p_{T}(b from T') [GeV]"
-  if i=="pTtb":
-    xtitle="p_{T}(b from t) [GeV]"
-  if i=="pTtop":
-    xtitle="p_{T}(t) [GeV]"
-  if i=="pTtprime":
-    xtitle="p_{T}(T') [GeV]"
-  if i=="pTtw":
-    xtitle="p_{T}(W from t) [GeV]"
-  if i=="pTw":
-    xtitle="p_{T}(W from T') [GeV]"
-  if i=="pTzprime":
-    xtitle="p_{T}(Z') [GeV]"
-
-  if i=="dR_b_tW":
-    xtitle="#Delta R(b from T', W form t)"
-  if i=="dRbW":
-    xtitle="#Delta R(b from T', W form T')"
-  if i=="dR_tb_b":
-    xtitle="#Delta R(b from t, b form T')"
-  if i=="dR_tb_tW":
-    xtitle="#Delta R(b from t, W form t)"
-  if i=="dRtT":
-    xtitle="#Delta R(t,T')"
+#   "pT_closest_wjet_to_w1",  "mass_closest_wjet_to_w1",  "nsub_closest_wjet_to_w1",
+#   "pT_closest_bjet_to_b1",  "csv_closest_bjet_to_b1",
+#   "pT_closest_wjet_to_w2",  "mass_closest_wjet_to_w2",  "nsub_closest_wjet_to_w2",
+#   "pT_closest_bjet_to_b2",  "csv_closest_bjet_to_b2",
+#   "matched_top_mass",
+#   "matched_top_res_mass",
+#   "matched_tprime_mass",
+#   "matched_zprime_mass",
+#   "matched_zprime_res_mass",
+#   "matched_tprime1_mass",
+#   "matched_tprime2_mass",
+#   ]:
+#   rebinna=1
+#   minx=0
+#   maxx=0
+#   if 'top_mass' in i or 'mass_closest_wjet' in i or 'mass_closest_topjet' in i or 'top_res_mass' in i or 'pTzprime' in i:
+#      minx=0
+#      maxx=300
+#   if 'pTtb' in i :
+#      minx=0
+#      maxx=1000
+#   xtitle=''
+#   if i=='dR_tb_W':
+#     xtitle="#Delta R(b from t, W from T')"
+#   if i=='dR_W_tW':
+#     xtitle="#Delta R(W from t, W form T')"
 
 
+#   if i=="mtprime":
+#     xtitle="m_{T'} [GeV]"
+#   if i=="mzprime":
+#     xtitle="m_{Z'} [GeV]"
+#   if i=="pTb":
+#     xtitle="p_{T}(b from T') [GeV]"
+#   if i=="pTtb":
+#     xtitle="p_{T}(b from t) [GeV]"
+#   if i=="pTtop":
+#     xtitle="p_{T}(t) [GeV]"
+#   if i=="pTtprime":
+#     xtitle="p_{T}(T') [GeV]"
+#   if i=="pTtw":
+#     xtitle="p_{T}(W from t) [GeV]"
+#   if i=="pTw":
+#     xtitle="p_{T}(W from T') [GeV]"
+#   if i=="pTzprime":
+#     xtitle="p_{T}(Z') [GeV]"
+
+#   if i=="dR_b_tW":
+#     xtitle="#Delta R(b from T', W form t)"
+#   if i=="dRbW":
+#     xtitle="#Delta R(b from T', W form T')"
+#   if i=="dR_tb_b":
+#     xtitle="#Delta R(b from t, b form T')"
+#   if i=="dR_tb_tW":
+#     xtitle="#Delta R(b from t, W form t)"
+#   if i=="dRtT":
+#     xtitle="#Delta R(t,T')"
 
 
-  compare(name='GEN_'+i,#signalWB_names[i]+'dRbW',
-		file_list=signal_files_pre2,#[signal_files[i],signal_files_pre[i]],
-		name_list=['NoCuts/'+i]*len(signal_files_pre2),
-		legend_list=signalWB_legendnames,
-		normalize=True,drawoption='hE',
-		xtitle=xtitle,ytitle='',
-		minx=minx,maxx=maxx,
-		rebin=rebinna,
-		miny=0,maxy=0,
-		textsizefactor=1,logy=False)
+
+
+#   compare(name='GEN_'+i,#signalWB_names[i]+'dRbW',
+# 		file_list=signal_files_pre2,#[signal_files[i],signal_files_pre[i]],
+# 		name_list=['NoCuts/'+i]*len(signal_files_pre2),
+# 		legend_list=signalWB_legendnames,
+# 		normalize=True,drawoption='hE',
+# 		xtitle=xtitle,ytitle='',
+# 		minx=minx,maxx=maxx,
+# 		rebin=rebinna,
+# 		miny=0,maxy=0,
+# 		textsizefactor=1,logy=False)
 #   compare(name='GENTT_'+i,#signalWB_names[i]+'dRbW',
 # 		file_list=signalTT_files,#[signal_files[i],signal_files_pre[i]],
 # 		name_list=['NoCuts/'+i]*len(signal_files),
@@ -2754,7 +2754,7 @@ for names in [
 
   xtitle="m_{Z'} [GeV]"
   if 'tp' in names[0]:
-  	xtitle="m_{T'} [GeV]"
+  	xtitle="m_{T} [GeV]"
   elif 'ht' in names[0]:
   	xtitle="H_{T} [GeV]"
 
@@ -2782,8 +2782,8 @@ for names in [
         signal_legend=signalWB_legendnames_short,
         separate_legend=True,
         signal_zoom=signalzoom,
-        qcd_legend='QCD from sideband',
-        ttbar_legend='Top',
+        qcd_legend='QCD',
+        ttbar_legend='Top quark',
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
         dosys=True,
@@ -2911,7 +2911,7 @@ outfile.Close()
 outfile=TFile('outfile.root','READ')
 outfile2=TFile('outfile2.root','RECREATE')
 
-#assert(False)
+assert(False)
 
 dotheta=True
 if dotheta:

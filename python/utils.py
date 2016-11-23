@@ -395,7 +395,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   data_histo.SetMarkerStyle(20)
   if normalize:
       data_histo.Scale(1.0/(data_histo.Integral()+0.00000001))
-  legend.AddEntry(data_histo,data_legend,'lpe')
+  legend.AddEntry(data_histo,data_legend,'pe')
 
   ###mc stack
   stack=THStack(name+'_stack','')
@@ -447,8 +447,13 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
     stack.Add(ttbar_histo)
   stack.Add(qcd_histo)
   
+  sum_mc.SetLineColor(kBlack)
+  sum_mc.SetFillStyle(0)
+  err=TGraphAsymmErrors(sum_mc)
+  legend.AddEntry(err,'Total error','f')
+
   if legendtitle=='':
-    legend.AddEntry(0,"Z'#rightarrowT't, T'#rightarrowbW",'')
+    legend.AddEntry(0,"Z'#rightarrowTt, T#rightarrowbW",'')
   else:
     legend.AddEntry(0,legendtitle,'')
 
@@ -474,8 +479,6 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
     legend.AddEntry(signal_histos[i],signal_legend[i],'l')
 
   ###mc shape line
-  sum_mc.SetLineColor(kBlack)
-  sum_mc.SetFillStyle(0)
   ttbar_line=0
   if ttbar_file!=0:
     ttbar_line=ttbar_histo.Clone()
@@ -483,7 +486,6 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
     ttbar_line.SetFillStyle(0)
 
   ###mc errors
-  err=TGraphAsymmErrors(sum_mc)
   if dosys:
     #sys_diff=[]
     sys_diff_qcd=[]
@@ -706,7 +708,19 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   for i in signal_histos:
     i.Draw('samehist')
   if not blind:
-    data_histo.Draw('E0 P SAME')
+    # data_histo.Draw('E0 P SAME')
+    #data_histo2=data_histo.Clone()
+    #for imtt in range(1,ttbar_histo.GetNbinsX()+1):
+    #  if sum_mc.GetBinContent(imtt)<0.000001:
+    #    data_histo2.SetBinContent(imtt,-100)
+
+    data_histo2=data_histo.Clone()
+    data_histo2.SetMarkerStyle(1)
+    data_histo2.SetMarkerSize(1)
+    data_histo2.Sumw2(kFALSE)
+    data_histo2.SetBinErrorOption(kPoisson)
+    data_histo2.Draw('E0 X0 SAME')
+    data_histo.Draw('P SAME')
   if logy:
     top_pad.SetLogy()
   if not separate_legend:

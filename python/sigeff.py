@@ -53,8 +53,8 @@ signal_names=[
 'MC.ZpToTpT_TpToWB_MZp2500Nar_MTp1500Nar_LH']
 
 signal_legends=[
-"$Z'(1500\\GeV)\\rightarrow T't$, $T'(900\\GeV)\\rightarrow Ht$ & ",
 "$Z'(1500\\GeV)\\rightarrow T't$, $T'(700\\GeV)\\rightarrow Ht$ & ",
+"$Z'(1500\\GeV)\\rightarrow T't$, $T'(900\\GeV)\\rightarrow Ht$ & ",
 "$Z'(1500\\GeV)\\rightarrow T't$, $T'(1200\\GeV)\\rightarrow Ht$ & ",
 "$Z'(2000\\GeV)\\rightarrow T't$, $T'(900\\GeV)\\rightarrow Ht$ & ",
 "$Z'(2000\\GeV)\\rightarrow T't$, $T'(1200\\GeV)\\rightarrow Ht$ & ",

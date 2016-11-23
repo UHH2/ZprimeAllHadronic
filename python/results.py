@@ -110,48 +110,48 @@ signal_Tp_masses=[
 ]
 
 signalWB_legendnames=[
-#"m_{Z'}=1.5TeV, m_{T'}=0.7TeV, BR(bW)=1",
-"#splitline{Expected}{#splitline{m_{Z'} = 1.5 TeV}{m_{T'} = 0.7 TeV}}",
-"#splitline{Expected}{#splitline{m_{Z'} = 1.5 TeV}{m_{T'} = 0.9 TeV}}",
-"#splitline{Expected}{#splitline{m_{Z'} = 1.5 TeV}{m_{T'} = 1.2 TeV}}",
-"#splitline{Expected}{#splitline{m_{Z'} = 2.0 TeV}{m_{T'} = 0.9 TeV}}",
-"#splitline{Expected}{#splitline{m_{Z'} = 2.0 TeV}{m_{T'} = 1.2 TeV}}",
-#"#splitline{Expected}{#splitline{m_{Z'} = 2 TeV),}{{T'} = 1.2 TeVRH)}}",
-#"#splitline{Expected}{#splitline{m_{Z'} = 2 TeV),}{{T'} = 1.2 TeVWide)}}",
-"#splitline{Expected}{#splitline{m_{Z'} = 2.0 TeV}{m_{T'} = 1.5 TeV}}",
-#"#splitline{Expected}{#splitline{m_{Z'} = 2 TeV,W}{), m_{T'} = 1.2 TeV}}",
-"#splitline{Expected}{#splitline{m_{Z'} = 2.5 TeV}{m_{T'} = 1.2 TeV}}",
-"#splitline{Expected}{#splitline{m_{Z'} = 2.5 TeV}{m_{T'} = 1.5 TeV}}",
+#"m_{Z'}=1.5TeV, m_{T}=0.7TeV, BR(bW)=1",
+"#splitline{Expected}{#splitline{m_{Z'} = 1.5 TeV}{m_{T} = 0.7 TeV}}",
+"#splitline{Expected}{#splitline{m_{Z'} = 1.5 TeV}{m_{T} = 0.9 TeV}}",
+"#splitline{Expected}{#splitline{m_{Z'} = 1.5 TeV}{m_{T} = 1.2 TeV}}",
+"#splitline{Expected}{#splitline{m_{Z'} = 2.0 TeV}{m_{T} = 0.9 TeV}}",
+"#splitline{Expected}{#splitline{m_{Z'} = 2.0 TeV}{m_{T} = 1.2 TeV}}",
+#"#splitline{Expected}{#splitline{m_{Z'} = 2 TeV),}{{T} = 1.2 TeVRH)}}",
+#"#splitline{Expected}{#splitline{m_{Z'} = 2 TeV),}{{T} = 1.2 TeVWide)}}",
+"#splitline{Expected}{#splitline{m_{Z'} = 2.0 TeV}{m_{T} = 1.5 TeV}}",
+#"#splitline{Expected}{#splitline{m_{Z'} = 2 TeV,W}{), m_{T} = 1.2 TeV}}",
+"#splitline{Expected}{#splitline{m_{Z'} = 2.5 TeV}{m_{T} = 1.2 TeV}}",
+"#splitline{Expected}{#splitline{m_{Z'} = 2.5 TeV}{m_{T} = 1.5 TeV}}",
 ]
 
 signalWB_legendnames_obs=[
-#"m_{Z'}=1.5TeV, m_{T'}=0.7TeV, BR(bW)=1",
-"#splitline{Observed}{#splitline{m_{Z'} = 1.5 TeV}{m_{T'} = 0.7 TeV}}",
-"#splitline{Observed}{#splitline{m_{Z'} = 1.5 TeV}{m_{T'} = 0.9 TeV}}",
-"#splitline{Observed}{#splitline{m_{Z'} = 1.5 TeV}{m_{T'} = 1.2 TeV}}",
-"#splitline{Observed}{#splitline{m_{Z'} = 2.0 TeV}{m_{T'} = 0.9 TeV}}",
-"#splitline{Observed}{#splitline{m_{Z'} = 2.0 TeV}{m_{T'} = 1.2 TeV}}",
-#"#splitline{Observed}{#splitline{m_{Z'} = 2 TeV),}{{T'} = 1.2 TeVRH)}}",
-#"#splitline{Observed}{#splitline{m_{Z'} = 2 TeV),}{{T'} = 1.2 TeVWide)}}",
-"#splitline{Observed}{#splitline{m_{Z'} = 2.0 TeV}{m_{T'} = 1.5 TeV}}",
-#"#splitline{Observed}{#splitline{m_{Z'} = 2 TeV,W}{), m_{T'} = 1.2 TeV}}",
-"#splitline{Observed}{#splitline{m_{Z'} = 2.5 TeV}{m_{T'} = 1.2 TeV}}",
-"#splitline{Observed}{#splitline{m_{Z'} = 2.5 TeV}{m_{T'} = 1.5 TeV}}",
+#"m_{Z'}=1.5TeV, m_{T}=0.7TeV, BR(bW)=1",
+"#splitline{Observed}{#splitline{m_{Z'} = 1.5 TeV}{m_{T} = 0.7 TeV}}",
+"#splitline{Observed}{#splitline{m_{Z'} = 1.5 TeV}{m_{T} = 0.9 TeV}}",
+"#splitline{Observed}{#splitline{m_{Z'} = 1.5 TeV}{m_{T} = 1.2 TeV}}",
+"#splitline{Observed}{#splitline{m_{Z'} = 2.0 TeV}{m_{T} = 0.9 TeV}}",
+"#splitline{Observed}{#splitline{m_{Z'} = 2.0 TeV}{m_{T} = 1.2 TeV}}",
+#"#splitline{Observed}{#splitline{m_{Z'} = 2 TeV),}{{T} = 1.2 TeVRH)}}",
+#"#splitline{Observed}{#splitline{m_{Z'} = 2 TeV),}{{T} = 1.2 TeVWide)}}",
+"#splitline{Observed}{#splitline{m_{Z'} = 2.0 TeV}{m_{T} = 1.5 TeV}}",
+#"#splitline{Observed}{#splitline{m_{Z'} = 2 TeV,W}{), m_{T} = 1.2 TeV}}",
+"#splitline{Observed}{#splitline{m_{Z'} = 2.5 TeV}{m_{T} = 1.2 TeV}}",
+"#splitline{Observed}{#splitline{m_{Z'} = 2.5 TeV}{m_{T} = 1.5 TeV}}",
 ]
 
 signalWB_legendnames_obs2=[
-#"m_{Z'}=1.5TeV, m_{T'}=0.7TeV, BR(bW)=1",
-"m_{Z'}=1.5TeV, m_{T'}=0.7TeV",
-"m_{Z'}=1.5TeV, m_{T'}=0.9TeV",
-"m_{Z'}=1.5TeV, m_{T'}=1.2TeV",
-"m_{Z'}=2.0TeV, m_{T'}=0.9, 1.2TeV",
-"m_{Z'}=2.0TeV, m_{T'}=1.2TeV",
-#"m_{Z'}=2TeV),, {T'}=1.2TeVRH)",
-#"m_{Z'}=2TeV),, {T'}=1.2TeVWide)",
-"m_{Z'}=2.0TeV, m_{T'}=1.5TeV",
-#"m_{Z'}=2TeV,W, ), m_{T'}=1.2TeV",
-"m_{Z'}=2.5TeV, m_{T'}=1.2TeV",
-"m_{Z'}=2.5TeV, m_{T'}=1.5TeV",
+#"m_{Z'}=1.5TeV, m_{T}=0.7TeV, BR(bW)=1",
+"m_{Z'}=1.5TeV, m_{T}=0.7TeV",
+"m_{Z'}=1.5TeV, m_{T}=0.9TeV",
+"m_{Z'}=1.5TeV, m_{T}=1.2TeV",
+"m_{Z'}=2.0TeV, m_{T}=0.9, 1.2TeV",
+"m_{Z'}=2.0TeV, m_{T}=1.2TeV",
+#"m_{Z'}=2TeV),, {T}=1.2TeVRH)",
+#"m_{Z'}=2TeV),, {T}=1.2TeVWide)",
+"m_{Z'}=2.0TeV, m_{T}=1.5TeV",
+#"m_{Z'}=2TeV,W, ), m_{T}=1.2TeV",
+"m_{Z'}=2.5TeV, m_{T}=1.2TeV",
+"m_{Z'}=2.5TeV, m_{T}=1.5TeV",
 ]
 
 theory_dictionary={'2': 0.667, '2p5': 0.186, '1p5': 2.83}
@@ -243,13 +243,13 @@ if doresults:
 #plots=[]
 # for masspoint in range(len(signalWB_names)):
 # 	name=signal_Zp_masses[masspoint]+u+signal_Tp_masses[masspoint]
-# 	p=TGraph2D(name,";T' #rightarrow bW branching fraction;T' #rightarrow tH branching fraction;Cross section limit (pb)",len(values[masspoint][0]),array('d',values[masspoint][0]),array('d',values[masspoint][1]),array('d',values[masspoint][2]) )
+# 	p=TGraph2D(name,";T #rightarrow bW branching fraction;T #rightarrow tH branching fraction;Cross section limit (pb)",len(values[masspoint][0]),array('d',values[masspoint][0]),array('d',values[masspoint][1]),array('d',values[masspoint][2]) )
 # 	c=TCanvas(name+u+'c')#,'',600,600)
 # 	c.SetRightMargin(0.15)
 # 	p.SetMargin(0.1)
 	
-# 	# plots[-1].GetXaxis().SetTitle("T' #rightarrow bW branching fraction")
-# 	# plots[-1].GetYaxis().SetTitle("T' #rightarrow tH branching fraction")
+# 	# plots[-1].GetXaxis().SetTitle("T #rightarrow bW branching fraction")
+# 	# plots[-1].GetYaxis().SetTitle("T #rightarrow tH branching fraction")
 # 	#p.GetZaxis().SetRangeUser(0.1,5.5)
 # 	p.SetMinimum(0.2)
 # 	p.SetMaximum(5.5)
@@ -326,11 +326,11 @@ for tipo in values:
 			exclusion=TH2F(name+'excl','',11,-0.05,1.05,11,-0.05,1.05)
 			exclusion2=TH2F(name+'excl2','',11,-0.05,1.05,11,-0.05,1.05)
 			exclusion.SetContour(contLen,contArray)
-			exclusion2.GetXaxis().SetTitle("B(T' #rightarrow bW)")
+			exclusion2.GetXaxis().SetTitle("B(T #rightarrow bW)")
 			exclusion2.GetXaxis().SetRangeUser(-0.05,1.05)
 			exclusion2.GetYaxis().SetRangeUser(-0.05,1.05)
-			exclusion2.GetYaxis().SetTitle("B(T' #rightarrow tH)")
-			exclusion2.GetZaxis().SetTitle("Upper cross section limit (pb)")
+			exclusion2.GetYaxis().SetTitle("B(T #rightarrow tH)")
+			exclusion2.GetZaxis().SetTitle("Upper cross section limit [pb]")
 			#sizefactor=1.6
 			exclusion2.GetXaxis().SetTitleSize(sizefactor*exclusion2.GetXaxis().GetTitleSize())
 			exclusion2.GetYaxis().SetTitleSize(sizefactor*exclusion2.GetYaxis().GetTitleSize())
@@ -363,11 +363,11 @@ for tipo in values:
 		c.SetLeftMargin(margine)
 		c.SetTopMargin(0.10)
 		c.SetBottomMargin(margine)
-		p.GetXaxis().SetTitle("B(T' #rightarrow bW)")
+		p.GetXaxis().SetTitle("B(T #rightarrow bW)")
 		p.GetXaxis().SetRangeUser(0,1)
 		p.GetYaxis().SetRangeUser(0,1)
-		p.GetYaxis().SetTitle("B(T' #rightarrow tH)")
-		p.GetZaxis().SetTitle("Upper cross section limit (pb)")
+		p.GetYaxis().SetTitle("B(T #rightarrow tH)")
+		p.GetZaxis().SetTitle("Upper cross section limit [pb]")
 		
 		p.GetXaxis().SetTitleSize(sizefactor*p.GetXaxis().GetTitleSize())
 		p.GetYaxis().SetTitleSize(sizefactor*p.GetYaxis().GetTitleSize())
@@ -466,6 +466,7 @@ for tipo in values:
 			[7,1,0],
 			]
 			print 'total',conts.GetSize()
+			#linewidth=703
 			for i in range(conts.GetSize()):
 				cont=conts.At(i)
 				print i,cont.GetSize()
@@ -473,7 +474,7 @@ for tipo in values:
 					contour=cont.At(j)
 					contour.SetLineColor(2)
 					if [masspoint,i,j] in codes:
-						contour.SetLineWidth(1003)
+						contour.SetLineWidth(703)
 						contour.SetFillStyle(3005)
 						contour.SetFillColor(2)
 						contour.Draw('c')
@@ -482,7 +483,7 @@ for tipo in values:
 				xcont=array('d',[0,1])
 				ycont=array('d',[1,0])
 				allcont=TGraph(2,ycont,xcont)
-				allcont.SetLineWidth(1006)
+				allcont.SetLineWidth(706)
 				allcont.SetFillStyle(3005)
 				allcont.SetFillColor(2)
 				allcont.SetLineColor(2)
@@ -492,7 +493,7 @@ for tipo in values:
 				xcont=array('d',[0])
 				ycont=array('d',[0])
 				allcont=TGraph(1,ycont,xcont)
-				allcont.SetLineWidth(1006)
+				allcont.SetLineWidth(706)
 				allcont.SetFillStyle(3005)
 				allcont.SetFillColor(2)
 				allcont.SetLineColor(2)
@@ -568,10 +569,10 @@ for tipo in values:
 			null3.SetTopMargin(0.10)
 			null3.SetBottomMargin(margine)
 
-			# exclusion2.GetXaxis().SetTitle("T' #rightarrow bW branching fraction")
+			# exclusion2.GetXaxis().SetTitle("T #rightarrow bW branching fraction")
 			# exclusion2.GetXaxis().SetRangeUser(-0.05,1.05)
 			# exclusion2.GetYaxis().SetRangeUser(-0.05,1.05)
-			# exclusion2.GetYaxis().SetTitle("T' #rightarrow tH branching fraction")
+			# exclusion2.GetYaxis().SetTitle("T #rightarrow tH branching fraction")
 			# exclusion2.GetZaxis().SetTitle("Upper cross section limit (pb)")
 			# #sizefactor=1.6
 			# exclusion2.GetXaxis().SetTitleSize(sizefactor*exclusion2.GetXaxis().GetTitleSize())
@@ -643,10 +644,10 @@ bogus=TH1D('','',1,0,1.3)
 bogus.Draw()
 bogus.SetMinimum(0)
 bogus.SetMaximum(1)
-bogus.GetXaxis().SetTitle("B(T' #rightarrow bW)")
+bogus.GetXaxis().SetTitle("B(T #rightarrow bW)")
 bogus.GetXaxis().SetRangeUser(0,1.3)
 bogus.GetYaxis().SetRangeUser(0,1.3)
-bogus.GetYaxis().SetTitle("B(T' #rightarrow tH)")
+bogus.GetYaxis().SetTitle("B(T #rightarrow tH)")
 sizefactor=sizefactor*1
 bogus.GetXaxis().SetTitleSize(sizefactor*bogus.GetXaxis().GetTitleSize())
 bogus.GetYaxis().SetTitleSize(sizefactor*bogus.GetYaxis().GetTitleSize())
