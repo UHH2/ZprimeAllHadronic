@@ -257,8 +257,8 @@ if doresults:
 			obslim.Draw('lp')
 			theory_curve.Draw('lp')
 
-			legend=TLegend(0.45,0.55,0.9,0.9)
- 			legend.SetTextSize(0.045)
+			legend=TLegend(0.40,0.55,0.9,0.9)
+ 			legend.SetTextSize(0.040)
   			legend.SetBorderSize(0)
   			legend.SetTextFont(42)
   			legend.SetLineColor(1)
@@ -266,9 +266,9 @@ if doresults:
   			legend.SetLineWidth(1)
   			legend.SetFillColor(0)
   			legend.SetFillStyle(0)
-  			legend.SetHeader('B(bW,tH,tZ)=0.5,0.25,0.25')
+  			legend.SetHeader('B(T#rightarrowbW, tH, tZ) = 50%, 25%, 25%')
   			if triplet[0]==1.0:
-  				legend.SetHeader('B(bW)=1')
+  				legend.SetHeader('B(T#rightarrow bW) = 100%')
   			legend.AddEntry(obslim,'Observed','l')
   			legend.AddEntry(explim,'Expected','l')
   			legend.AddEntry(exp1sigma,'#pm 1 std. deviation','f')
