@@ -156,7 +156,7 @@ theory_curve=TGraph(len(theory_values[1]),x_theory,y_theory)
 zeros_theory=array('d',[0 for i in range(len(theory_values[1]))])
 theory_sigma=TGraphAsymmErrors(len(theory_values[1]),x_theory,y_theory,zeros_theory,zeros_theory,y_theory_down,y_theory_up)
 print theory_values
-theory_curve.SetLineWidth(3)
+theory_curve.SetLineWidth(5)
 theory_curve.SetLineColor(kRed)
 theory_curve.SetMarkerColor(kRed)
 #theory_sigma
@@ -268,7 +268,7 @@ if doresults:
   			legend.SetFillStyle(0)
   			legend.SetHeader('B(T#rightarrowbW, tH, tZ) = 50%, 25%, 25%')
   			if triplet[0]==1.0:
-  				legend.SetHeader('B(T#rightarrow bW) = 100%')
+  				legend.SetHeader('B(T#rightarrowbW) = 100%')
   			legend.AddEntry(obslim,'Observed','l')
   			legend.AddEntry(explim,'Expected','l')
   			legend.AddEntry(exp1sigma,'#pm 1 std. deviation','f')

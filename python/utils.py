@@ -460,6 +460,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   ###signal setting up
   signal_histos=[]
   colors=[30,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60]
+  styles=[1,7,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
   if signal_colors!=[]:
     colors=signal_colors
   for i in range(len(signal_files)):
@@ -468,7 +469,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
     else:
       signal_histos.append(signal_files[i].Get(histo_signal).Clone())
     signal_histos[i].SetLineWidth(3)
-    signal_histos[i].SetLineStyle(1)
+    signal_histos[i].SetLineStyle(styles[i])
     signal_histos[i].SetLineColor(colors[i])
     signal_histos[i].SetMarkerColor(colors[i])
     signal_histos[i].Rebin(rebin)
@@ -662,16 +663,17 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   #for i in range(pull.GetNbinsX()+2):
   for imtt in range(1,ttbar_histo.GetNbinsX()+1):
     #print 'eh',data_histo.GetBinErrorLow(imtt), data_histo.GetBinErrorUp(imtt)
-    if pull.GetBinError(imtt)!=0:
-      if dosys:
-        if pull.GetBinContent(imtt)>0:
-          pull.SetBinContent(imtt,pull.GetBinContent(imtt)/(math.sqrt(sys_tot[imtt-1][1]*sys_tot[imtt-1][1]+data_histo.GetBinErrorLow(imtt)*data_histo.GetBinErrorLow(imtt)) ) )
-        else:
-          pull.SetBinContent(imtt,pull.GetBinContent(imtt)/(math.sqrt(sys_tot[imtt-1][0]*sys_tot[imtt-1][0]+data_histo.GetBinErrorUp(imtt)*data_histo.GetBinErrorUp(imtt)) ) )
+    
+    if dosys:
+      if pull.GetBinContent(imtt)>0:
+        pull.SetBinContent(imtt,pull.GetBinContent(imtt)/(math.sqrt(sys_tot[imtt-1][1]*sys_tot[imtt-1][1]+data_histo.GetBinErrorLow(imtt)*data_histo.GetBinErrorLow(imtt)) ) )
       else:
-        pull.SetBinContent(imtt,pull.GetBinContent(imtt)/pull.GetBinError(imtt))
+        pull.SetBinContent(imtt,pull.GetBinContent(imtt)/(math.sqrt(sys_tot[imtt-1][0]*sys_tot[imtt-1][0]+data_histo.GetBinErrorUp(imtt)*data_histo.GetBinErrorUp(imtt)) ) )
     else:
-      pull.SetBinContent(imtt,0)
+      if pull.GetBinErrorUp(imtt)!=0:
+        pull.SetBinContent(imtt,pull.GetBinContent(imtt)/pull.GetBinError(imtt))
+      else:
+        pull.SetBinContent(imtt,0)
   pull.SetFillColor(kOrange+7)
 
   ###drawing top

@@ -477,7 +477,7 @@ for tipo in values:
 						contour.SetLineWidth(703)
 						contour.SetFillStyle(3005)
 						contour.SetFillColor(2)
-						contour.Draw('c')
+						#contour.Draw('c')
 						tutti.append(contour.Clone())
 			if masspoint in [3,4]:
 				xcont=array('d',[0,1])
@@ -487,7 +487,7 @@ for tipo in values:
 				allcont.SetFillStyle(3005)
 				allcont.SetFillColor(2)
 				allcont.SetLineColor(2)
-				allcont.Draw('c')
+				#allcont.Draw('c')
 				tutti.append(allcont.Clone())
 			if masspoint in [2]:
 				xcont=array('d',[0])
@@ -497,7 +497,7 @@ for tipo in values:
 				allcont.SetFillStyle(3005)
 				allcont.SetFillColor(2)
 				allcont.SetLineColor(2)
-				allcont.Draw('c')
+				#allcont.Draw('c')
 				tutti.append(allcont.Clone())
 
   						
@@ -626,7 +626,7 @@ for tipo in values:
 			tg.SetFillStyle(3005)
 			tg.SetFillColor(2)
   			legend.AddEntry(tg,"SSM Z' excl.",'lf')
-			legend.Draw()
+			#legend.Draw()
 		c.SaveAs('pdf/'+name+'.pdf')
 
 #hexcolor=["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"]
