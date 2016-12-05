@@ -3511,7 +3511,7 @@ if dotheta:
     model.fill_histogram_zerobins()\n\
     model.set_signal_processes('signal*')\n\
     #model.add_lognormal_uncertainty('ttbar_rate', math.log(1.15), 'ttbar')\n\
-    #model.add_lognormal_uncertainty('qcd_rate', math.log(1.15), 'qcd')\n\
+    #model.add_lognormal_uncertainty('qcd_rate', math.log(1000001.00), 'qcd')\n\
     for p in model.processes:\n\
         if p == 'qcd':\n\
           model.add_lognormal_uncertainty('qcd_rate', math.log(1.50), p)\n\
