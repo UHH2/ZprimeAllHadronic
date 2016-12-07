@@ -141,7 +141,7 @@ for i in theory_files:
 	for line in lines:
 		splitted=filter(None, line.split(' '))
 		#if float(splitted[0])>=1500 and float(splitted[0])<=2500:
-		pairs.append([float(splitted[0])/1000,float(splitted[2])])
+		pairs.append([float(splitted[0])/1000,0.7*float(splitted[2])])
 	theory_values.append(pairs)
 	the_file.close()
 

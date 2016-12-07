@@ -1,4 +1,4 @@
-from ROOT import TFile,TCanvas,gROOT,gStyle,TLegend,TGraphAsymmErrors,kGreen,kOrange,kSpring,TF1,kAzure
+from ROOT import TFile,TCanvas,gROOT,gStyle,TLegend,TGraphAsymmErrors,kGreen,kOrange,kSpring,TF1,kAzure,Double
 from os import system
 from sys import argv
 from os import mkdir
@@ -2675,8 +2675,12 @@ for names in [
   qcdbkg.Add(top_file.Get(names[0]).Clone(),-1.0)
   dratio=data_file.Get(names[1]).Clone()
   dratio.Add(top_file.Get(names[1]),-1.0)
-  ncr=qcdbkg.Integral(blow,bhigh)
-  qcdsf=dratio.Integral(blow,bhigh)/ncr
+  encr=Double(0)
+  edratio=Double(0)
+  ncr=qcdbkg.IntegralAndError(blow,bhigh,encr)
+  ndratio=dratio.IntegralAndError(blow,bhigh,edratio)
+  qcdsf=ndratio/ncr
+  eqcdsf=math.sqrt((encr/ncr)*(encr/ncr)+(edratio/ndratio)*(edratio/ndratio)+0.027*0.027)*qcdsf
   sgnbkg=[]
   for i in range(len(signal_files_short)):
     print names[2],signalWB_names_short[i]
@@ -2732,7 +2736,7 @@ for names in [
   # if names[2]=='parabola2':
   #   qcdsfbtag2=qcdsf
 
-  print names[2],qcdsf
+  print names[2],qcdsf,eqcdsf
 
 
   for imtt in range(1,qcdbkg.GetNbinsX()+1):
