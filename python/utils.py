@@ -19,7 +19,7 @@ def envelope(plots):
     output.append([min(values),max(values)])
   return output
 
-def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE',xtitle='',ytitle='',minx=0,maxx=0,rebin=1,miny=0,maxy=0,textsizefactor=1,logy=False):
+def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE',xtitle='',ytitle='',minx=0,maxx=0,rebin=1,miny=0,maxy=0,textsizefactor=1,logy=False,fit='',fitlow=0,fithigh=0):
   c=TCanvas(name,'',600,600)
   # c.SetLeftMargin(0.15)#
   # c.SetRightMargin(0.05)#
@@ -53,6 +53,7 @@ def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE'
   histo_list=[]
   # tfile_list=[]
   the_maxy=0
+  widths=[]
   for i in range(len(name_list)):
     # tfile_list.append(TFile(file_list[i],'READ'))
     histo_list.append(file_list[i].Get(name_list[i]).Clone())
@@ -66,11 +67,24 @@ def compare(name,file_list,name_list,legend_list,normalize=False,drawoption='hE'
     if i>6:
       histo_list[-1].SetLineColor(i+4)
     histo_list[-1].SetTitle('')
-    legend.AddEntry(histo_list[-1],legend_list[i],'l')
+    
     if rebin!=1:
       histo_list[-1].Rebin(rebin)
     if not histo_list[-1].ClassName()=='TGraphAsymmErrors':
       the_maxy=max(the_maxy,histo_list[-1].GetBinContent(histo_list[-1].GetMaximumBin())*1.05)
+    if fit!='':
+      if fitlow==0 and fithigh==0:
+        histo_list[-1].Fit(fit)
+      else:
+        histo_list[-1].Fit(fit,'','',fitlow[i],fithigh[i])
+      histo_list[-1].GetFunction("gaus").SetLineColor(i+1)
+      gaus=histo_list[-1].GetFunction("gaus")
+      print i,gaus.GetParameter(0),gaus.GetParameter(1),gaus.GetParameter(2)
+      widths.append(gaus.GetParameter(2))
+    if fit=='':
+      legend.AddEntry(histo_list[-1],legend_list[i],'l')
+    else:
+      legend.AddEntry(histo_list[-1],legend_list[i]+' FWHM='+str(int(2.354*widths[i])),'l')
   for i in range(len(name_list)):
     if i==0:
       if not histo_list[-1].ClassName()=='TGraphAsymmErrors':

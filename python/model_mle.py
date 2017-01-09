@@ -1,15 +1,28 @@
 def get_model():
-    model = build_model_from_rootfile('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/theta_66_1p0_0p0_0p0.root', include_mc_uncertainties = True)#mc uncertainties=true
+    model = build_model_from_rootfile('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/theta_66_1p0_0p0_0p0_inj2512_sr.root', include_mc_uncertainties = False,
+    histogram_filter=lambda x: ('_jer_' not in x)
+    and ('_toptag_' not in x)
+    and ('_btag_' not in x)
+    and ('_subjetbtag_' not in x)
+    and ('_mu_' not in x)
+    and ('_pdf_' not in x)
+    and ('_jec_' not in x)
+    and ('_wtag_' not in x)
+    and ('_bkgcorr_' not in x)
+    and ('_bkgfit_' not in x)
+    and ('_pu_' not in x) )#mc uncertainties=true
+
+    #mc uncertainties=true
     model.fill_histogram_zerobins()
     model.set_signal_processes('signal*')
-    model.add_lognormal_uncertainty('ttbar_rate', math.log(1.15), 'ttbar')
-    model.add_lognormal_uncertainty('singletop_rate', math.log(1.15), 'singletop')
+    # model.add_lognormal_uncertainty('ttbar_rate', math.log(1.15), 'ttbar')
+    # model.add_lognormal_uncertainty('singletop_rate', math.log(1.15), 'singletop')
     model.add_lognormal_uncertainty('qcd_rate', math.log(1.50), 'qcd')
     #model.add_lognormal_uncertainty('qcd_rate', math.log(1.15), 'qcd')
-    for p in model.processes:
-        if p == 'qcd': continue
-        model.add_lognormal_uncertainty('lumi', math.log(1.027), p)
-        model.add_lognormal_uncertainty('trigger', math.log(1.03), p)
+    # for p in model.processes:
+    #     if p == 'qcd': continue
+    #     model.add_lognormal_uncertainty('lumi', math.log(1.027), p)
+    #     model.add_lognormal_uncertainty('trigger', math.log(1.03), p)
         #if 'signal' in p:
         #    model.add_lognormal_uncertainty(p+'_rate', math.log(1.15), p)
     return model

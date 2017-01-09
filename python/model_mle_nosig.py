@@ -1,5 +1,5 @@
 def get_model_nosig():
-    model = build_model_from_rootfile('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/theta_66_1p0_0p0_0p0.root', 
+    model = build_model_from_rootfile('/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/theta/theta_66_1p0_0p0_0p0_inj2012_sr.root', 
     include_mc_uncertainties = False, histogram_filter=lambda x: ('signal' not in x) 
     and ('_jer_' not in x)
     and ('_toptag_' not in x)
@@ -13,7 +13,7 @@ def get_model_nosig():
     and ('_bkgfit_' not in x)
     and ('_pu_' not in x) )#mc uncertainties=true
     model.fill_histogram_zerobins()
-    model.add_lognormal_uncertainty('qcdnorm', math.log(1.10), 'qcd')
+    model.add_lognormal_uncertainty('qcdnorm', math.log(1.50), 'qcd')
     #model.add_lognormal_uncertainty('ttbarnorm', math.log(1.20), 'ttbar')
     #model.set_signal_processes('signal*')
     #model.add_lognormal_uncertainty('ttbar_rate', math.log(1.15), 'ttbar')
@@ -52,8 +52,8 @@ f.close()
 
 sigma=postfit['']['qcdnorm'][0][0]
 err=postfit['']['qcdnorm'][0][1]
-print 'sigma qcd',math.pow(1.10,sigma)
-print 'err qcd',math.pow(1.10,err)
+print 'sigma qcd',math.pow(1.50,sigma)
+print 'err qcd',math.pow(1.50,err)
 
 # sigma=postfit['']['ttbar_rate'][0][0]
 # err=postfit['']['ttbar_rate'][0][1]
