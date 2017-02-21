@@ -216,7 +216,7 @@ def make_fitplot(ratio,ratiomean,ratioup,ratiodown,btag):
   legend.SetLineWidth(1)
   legend.SetFillColor(0)
   legend.SetFillStyle(0)
-  legend.AddEntry(ratio,'QCD','le')
+  legend.AddEntry(ratio,'QCD multijets','le')
   legend.AddEntry(ratiomean,'Fit','l')
   legend.AddEntry(ratioup,'#pm 1 std. deviation','l')
   legend.SetTextSize(0.05)
@@ -332,8 +332,8 @@ us='_'
 def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[], histo=0, histo_qcd='',histo_signal='',histo_ttbar='',rebin=1,minx=0,maxx=0,miny=0,maxy=0,minratio=0,maxratio=0,logy=False,
                     xtitle='',ytitle='',textsizefactor=1,signal_legend=[],outfile=0,signal_colors=[],separate_legend=False,fixratio=False, signal_zoom=1, qcd_zoom=1, ttbar_zoom=1,normalize=False,
                     ttbar_legend='t#bar{t}',qcd_legend='QCD from MC', data_legend='Data',dosys=False,sysdict={},
-                    syspath='/nfs/dust/cms/user/usaiem/sys/top_added',bkgup=0,bkgdown=0,blind=False,
-                    systtbarpath='/nfs/dust/cms/user/usaiem/sys/uhh2.AnalysisModuleRunner.MC.TTbar',bkgfitup=0,bkgfitdown=0,drawratio=True,qcdnorm=False,docms=True,legendtitle=''):
+                    syspath='/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/data/sys/top_added',bkgup=0,bkgdown=0,blind=False,
+                    systtbarpath='/afs/desy.de/user/u/usaiem/xxl-af-cms/code/cmssw/CMSSW_7_6_3/src/UHH2/ZprimeAllHadronic/python/data/sys/uhh2.AnalysisModuleRunner.MC.TTbar',bkgfitup=0,bkgfitdown=0,drawratio=True,qcdnorm=False,docms=True,legendtitle=''):
   
   ###canvas setting up
   canvas=0
@@ -606,8 +606,8 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
       sys_diff_ttbar[imtt-1].append(0.03*ttbar_histo.GetBinContent(imtt))
       sys_diff_ttbar[imtt-1].append(-0.03*ttbar_histo.GetBinContent(imtt))
       #2.7% lumi
-      sys_diff_ttbar[imtt-1].append(0.027*ttbar_histo.GetBinContent(imtt))
-      sys_diff_ttbar[imtt-1].append(-0.027*ttbar_histo.GetBinContent(imtt))
+      sys_diff_ttbar[imtt-1].append(0.023*ttbar_histo.GetBinContent(imtt))
+      sys_diff_ttbar[imtt-1].append(-0.023*ttbar_histo.GetBinContent(imtt))
       #15% ttbar
       #sys_diff_ttbar[imtt-1].append(0.15*ttbar_histo.GetBinContent(imtt))
       #sys_diff_ttbar[imtt-1].append(-0.15*ttbar_histo.GetBinContent(imtt))

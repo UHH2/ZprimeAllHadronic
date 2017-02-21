@@ -1,50 +1,50 @@
 ratio_SRbtag_vs_antibcsvCRbtag_zprimemass_c
-1.27068031541 + mzp * ( -0.000188252028031 );
-sqrt( 0.0379661070487 + mzp * mzp * ( 8.82665212869e-09 ) +  2 * mzp * ( -1.76812706191e-05 ) );
-0.194848933917 9.39502641225e-05
-0.0379661070487 8.82665212869e-09 -1.76812706191e-05 -1.76812706191e-05 
+1.27068035024 + mzp * ( -0.000188252045381 );
+sqrt( 0.0379661019324 + mzp * mzp * ( 8.82665095633e-09 ) +  2 * mzp * ( -1.76812681674e-05 ) );
+0.194848920788 9.39502578833e-05
+0.0379661019324 8.82665095633e-09 -1.76812681674e-05 -1.76812681674e-05 
 
 ratio2_SRbtag_vs_antibcsvCRbtag_zprimemass_c
-2.32313235808 + mzp * ( -0.0012089203851 ) + mzp * mzp * ( 2.30655337018e-07 ); 
-sqrt( 0.532269629238 + mzp * mzp * ( 4.73725413458e-07 ) +  2 * mzp * ( -0.00049705700664 ) + 2 * mzp * mzp * ( 1.08331539344e-07 ) + 2 * mzp * mzp * mzp * ( -1.05059965354e-10 ) + mzp * mzp * mzp * mzp * ( 2.37419352069e-14 ) );
-0.729568111445 0.000688277134197 1.54084182209e-07
-0.532269629238 4.73725413458e-07 2.37419352069e-14 -0.00049705700664 -0.00049705700664 1.08331539344e-07 1.08331539344e-07 -1.05059965354e-10 -1.05059965354e-10
+2.32313691199 + mzp * ( -0.00120892471438 ) + mzp * mzp * ( 2.30656296542e-07 ); 
+sqrt( 0.532273112319 + mzp * mzp * ( 4.73728576834e-07 ) +  2 * mzp * ( -0.000497060325936 ) + 2 * mzp * mzp * ( 1.08332275786e-07 ) + 2 * mzp * mzp * mzp * ( -1.05060667232e-10 ) + mzp * mzp * mzp * mzp * ( 2.3742090943e-14 ) );
+0.729570498526 0.000688279432232 1.54084687568e-07
+0.532273112319 4.73728576834e-07 2.3742090943e-14 -0.000497060325936 -0.000497060325936 1.08332275786e-07 1.08332275786e-07 -1.05060667232e-10 -1.05060667232e-10
 
 CA15_ratio_SRbtag_vs_CA15_antibcsvCRbtag_zprimemass_c
-1.30773562166 + mzp * ( -0.000204175716166 );
-sqrt( 0.019817390707 + mzp * mzp * ( 5.93150380807e-09 ) +  2 * mzp * ( -1.03144316642e-05 ) );
-0.140774254418 7.70162567778e-05
-0.019817390707 5.93150380807e-09 -1.03144316642e-05 -1.03144316642e-05 
+1.30773549805 + mzp * ( -0.000204175654004 );
+sqrt( 0.0198173865115 + mzp * mzp * ( 5.93150248701e-09 ) +  2 * mzp * ( -1.03144293333e-05 ) );
+0.140774239517 7.70162482013e-05
+0.0198173865115 5.93150248701e-09 -1.03144293333e-05 -1.03144293333e-05 
 
 CA15_ratio2_SRbtag_vs_CA15_antibcsvCRbtag_zprimemass_c
-1.16136650717 + mzp * ( -4.00092857967e-05 ) + mzp * mzp * ( -4.16348684394e-08 ); 
-sqrt( 0.20417786131 + mzp * mzp * ( 2.3785071788e-07 ) +  2 * mzp * ( -0.000217091447032 ) + 2 * mzp * mzp * ( 5.24414446801e-08 ) + 2 * mzp * mzp * mzp * ( -5.88178476897e-11 ) + mzp * mzp * mzp * mzp * ( 1.49170016637e-14 ) );
-0.451860444507 0.00048769941345 1.22135177831e-07
-0.20417786131 2.3785071788e-07 1.49170016637e-14 -0.000217091447032 -0.000217091447032 5.24414446801e-08 5.24414446801e-08 -5.88178476897e-11 -5.88178476897e-11
+1.1613662247 + mzp * ( -4.00090452525e-05 ) + mzp * mzp * ( -4.16349138505e-08 ); 
+sqrt( 0.204168365264 + mzp * mzp * ( 2.37839231464e-07 ) +  2 * mzp * ( -0.000217081004862 ) + 2 * mzp * mzp * ( 5.24388496656e-08 ) + 2 * mzp * mzp * mzp * ( -5.88149923187e-11 ) + mzp * mzp * mzp * mzp * ( 1.49162916675e-14 ) );
+0.451849936665 0.000487687637186 1.22132271196e-07
+0.204168365264 2.37839231464e-07 1.49162916675e-14 -0.000217081004862 -0.000217081004862 5.24388496656e-08 5.24388496656e-08 -5.88149923187e-11 -5.88149923187e-11
 
 ratio_SRnobtag_vs_antibcsvCRnobtag_zprimemass_c
-1.31511055109 + mzp * ( -0.000180944645427 );
-sqrt( 0.0071710024346 + mzp * mzp * ( 1.68567026342e-09 ) +  2 * mzp * ( -3.3576491189e-06 ) );
-0.0846817715603 4.10569149281e-05
-0.0071710024346 1.68567026342e-09 -3.3576491189e-06 -3.3576491189e-06 
+1.31511046261 + mzp * ( -0.000180944595518 );
+sqrt( 0.00717099607731 + mzp * mzp * ( 1.68566870973e-09 ) +  2 * mzp * ( -3.35764597328e-06 ) );
+0.084681734024 4.1056896007e-05
+0.00717099607731 1.68566870973e-09 -3.35764597328e-06 -3.35764597328e-06 
 
 ratio2_SRnobtag_vs_antibcsvCRnobtag_zprimemass_c
-1.95859445485 + mzp * ( -0.000831431907586 ) + mzp * mzp * ( 1.53312771867e-07 ); 
-sqrt( 0.0851391029688 + mzp * mzp * ( 8.13595389593e-08 ) +  2 * mzp * ( -8.21740166421e-05 ) + 2 * mzp * mzp * ( 1.85760909688e-08 ) + 2 * mzp * mzp * mzp * ( -1.87781951502e-11 ) + mzp * mzp * mzp * mzp * ( 4.4258003513e-15 ) );
-0.291786056844 0.000285235935603 6.6526689015e-08
-0.0851391029688 8.13595389593e-08 4.4258003513e-15 -8.21740166421e-05 -8.21740166421e-05 1.85760909688e-08 1.85760909688e-08 -1.87781951502e-11 -1.87781951502e-11
+1.95859421289 + mzp * ( -0.000831431708467 ) + mzp * mzp * ( 1.53312737849e-07 ); 
+sqrt( 0.0851332518306 + mzp * mzp * ( 8.13538226258e-08 ) +  2 * mzp * ( -8.21682334154e-05 ) + 2 * mzp * mzp * ( 1.85747575215e-08 ) + 2 * mzp * mzp * mzp * ( -1.87768770785e-11 ) + mzp * mzp * mzp * mzp * ( 4.42549642152e-15 ) );
+0.291776030254 0.000285225915067 6.65244047063e-08
+0.0851332518306 8.13538226258e-08 4.42549642152e-15 -8.21682334154e-05 -8.21682334154e-05 1.85747575215e-08 1.85747575215e-08 -1.87768770785e-11 -1.87768770785e-11
 
 CA15_ratio_SRnobtag_vs_CA15_antibcsvCRnobtag_zprimemass_c
-1.32130072233 + mzp * ( -0.000198404914715 );
-sqrt( 0.00375936045942 + mzp * mzp * ( 1.04545407965e-09 ) +  2 * mzp * ( -1.89386710835e-06 ) );
-0.0613136237668 3.23334823311e-05
-0.00375936045942 1.04545407965e-09 -1.89386710835e-06 -1.89386710835e-06 
+1.32130077513 + mzp * ( -0.000198404933873 );
+sqrt( 0.00375935743191 + mzp * mzp * ( 1.04545312548e-09 ) +  2 * mzp * ( -1.89386540374e-06 ) );
+0.0613135990781 3.23334675759e-05
+0.00375935743191 1.04545312548e-09 -1.89386540374e-06 -1.89386540374e-06 
 
 CA15_ratio2_SRnobtag_vs_CA15_antibcsvCRnobtag_zprimemass_c
-1.85203876602 + mzp * ( -0.000776802891603 ) + mzp * mzp * ( 1.43786864803e-07 ); 
-sqrt( 0.035986102281 + mzp * mzp * ( 3.93199777785e-08 ) +  2 * mzp * ( -3.70145618957e-05 ) + 2 * mzp * mzp * ( 8.73083339147e-09 ) + 2 * mzp * mzp * mzp * ( -9.51485979864e-12 ) + mzp * mzp * mzp * mzp * ( 2.36534768987e-15 ) );
-0.18970003237 0.000198292656895 4.86348402884e-08
-0.035986102281 3.93199777785e-08 2.36534768987e-15 -3.70145618957e-05 -3.70145618957e-05 8.73083339147e-09 8.73083339147e-09 -9.51485979864e-12 -9.51485979864e-12
+1.85203865623 + mzp * ( -0.000776802731189 ) + mzp * mzp * ( 1.43786819025e-07 ); 
+sqrt( 0.0359877537007 + mzp * mzp * ( 3.93219309635e-08 ) +  2 * mzp * ( -3.70163579434e-05 ) + 2 * mzp * mzp * ( 8.73127872126e-09 ) + 2 * mzp * mzp * mzp * ( -9.51534404971e-12 ) + mzp * mzp * mzp * mzp * ( 2.36546773973e-15 ) );
+0.189704385033 0.00019829758184 4.86360744688e-08
+0.0359877537007 3.93219309635e-08 2.36546773973e-15 -3.70163579434e-05 -3.70163579434e-05 8.73127872126e-09 8.73127872126e-09 -9.51534404971e-12 -9.51534404971e-12
 
 
 float QCDWeight(float mzp, string mode, string syst)
@@ -56,19 +56,19 @@ float QCDWeight(float mzp, string mode, string syst)
  }
  if (mode=="1")
  {
-  weight = 1.31511055109 + mzp * ( -0.000180944645427 );
+  weight = 1.31511046261 + mzp * ( -0.000180944595518 );
  }
  if (mode=="2")
  {
-  weight = 1.27068031541 + mzp * ( -0.000188252028031 );
+  weight = 1.27068035024 + mzp * ( -0.000188252045381 );
  }
  if (mode=="1par")
  {
-  weight = 1.95859445485 + mzp * ( -0.000831431907586 ) + mzp * mzp * ( 1.53312771867e-07 );
+  weight = 1.95859421289 + mzp * ( -0.000831431708467 ) + mzp * mzp * ( 1.53312737849e-07 );
  }
  if (mode=="2par")
  {
-  weight = 2.32313235808 + mzp * ( -0.0012089203851 ) + mzp * mzp * ( 2.30655337018e-07 );
+  weight = 2.32313691199 + mzp * ( -0.00120892471438 ) + mzp * mzp * ( 2.30656296542e-07 );
  }
  if (syst=="nominal")
   {
@@ -89,12 +89,12 @@ float QCDWeight(float mzp, string mode, string syst)
       if (contains(mode,"1"))
       {
         //parabola up 1btag
-        return QCDWeight(mzp,mode,"nominal") + sqrt( 0.0851391029688 + mzp * mzp * ( 8.13595389593e-08 ) +  2 * mzp * ( -8.21740166421e-05 ) + 2 * mzp * mzp * ( 1.85760909688e-08 ) + 2 * mzp * mzp * mzp * ( -1.87781951502e-11 ) + mzp * mzp * mzp * mzp * ( 4.4258003513e-15 ) );
+        return QCDWeight(mzp,mode,"nominal") + sqrt( 0.0851332518306 + mzp * mzp * ( 8.13538226258e-08 ) +  2 * mzp * ( -8.21682334154e-05 ) + 2 * mzp * mzp * ( 1.85747575215e-08 ) + 2 * mzp * mzp * mzp * ( -1.87768770785e-11 ) + mzp * mzp * mzp * mzp * ( 4.42549642152e-15 ) );
       }
       else
       {
         //parabola up 2btag
-        return QCDWeight(mzp,mode,"nominal") + sqrt( 0.532269629238 + mzp * mzp * ( 4.73725413458e-07 ) +  2 * mzp * ( -0.00049705700664 ) + 2 * mzp * mzp * ( 1.08331539344e-07 ) + 2 * mzp * mzp * mzp * ( -1.05059965354e-10 ) + mzp * mzp * mzp * mzp * ( 2.37419352069e-14 ) );
+        return QCDWeight(mzp,mode,"nominal") + sqrt( 0.532273112319 + mzp * mzp * ( 4.73728576834e-07 ) +  2 * mzp * ( -0.000497060325936 ) + 2 * mzp * mzp * ( 1.08332275786e-07 ) + 2 * mzp * mzp * mzp * ( -1.05060667232e-10 ) + mzp * mzp * mzp * mzp * ( 2.3742090943e-14 ) );
       }
     }
     else
@@ -102,12 +102,12 @@ float QCDWeight(float mzp, string mode, string syst)
       if (contains(mode,"1"))
       {
         //retta up 1btag
-        return QCDWeight(mzp,mode,"nominal") + sqrt( 0.0071710024346 + mzp * mzp * ( 1.68567026342e-09 ) +  2 * mzp * ( -3.3576491189e-06 ) );
+        return QCDWeight(mzp,mode,"nominal") + sqrt( 0.00717099607731 + mzp * mzp * ( 1.68566870973e-09 ) +  2 * mzp * ( -3.35764597328e-06 ) );
       }
       else
       {
         //retta up 2btag
-        return QCDWeight(mzp,mode,"nominal") + sqrt( 0.0379661070487 + mzp * mzp * ( 8.82665212869e-09 ) +  2 * mzp * ( -1.76812706191e-05 ) );
+        return QCDWeight(mzp,mode,"nominal") + sqrt( 0.0379661019324 + mzp * mzp * ( 8.82665095633e-09 ) +  2 * mzp * ( -1.76812681674e-05 ) );
       }
     }
   }
@@ -118,12 +118,12 @@ float QCDWeight(float mzp, string mode, string syst)
       if (contains(mode,"1"))
       {
         //parabola down 1btag
-        return QCDWeight(mzp,mode,"nominal") - sqrt( 0.0851391029688 + mzp * mzp * ( 8.13595389593e-08 ) +  2 * mzp * ( -8.21740166421e-05 ) + 2 * mzp * mzp * ( 1.85760909688e-08 ) + 2 * mzp * mzp * mzp * ( -1.87781951502e-11 ) + mzp * mzp * mzp * mzp * ( 4.4258003513e-15 ) );
+        return QCDWeight(mzp,mode,"nominal") - sqrt( 0.0851332518306 + mzp * mzp * ( 8.13538226258e-08 ) +  2 * mzp * ( -8.21682334154e-05 ) + 2 * mzp * mzp * ( 1.85747575215e-08 ) + 2 * mzp * mzp * mzp * ( -1.87768770785e-11 ) + mzp * mzp * mzp * mzp * ( 4.42549642152e-15 ) );
       }
       else
       {
         //parabola down 2btag
-        return QCDWeight(mzp,mode,"nominal") - sqrt( 0.532269629238 + mzp * mzp * ( 4.73725413458e-07 ) +  2 * mzp * ( -0.00049705700664 ) + 2 * mzp * mzp * ( 1.08331539344e-07 ) + 2 * mzp * mzp * mzp * ( -1.05059965354e-10 ) + mzp * mzp * mzp * mzp * ( 2.37419352069e-14 ) );
+        return QCDWeight(mzp,mode,"nominal") - sqrt( 0.532273112319 + mzp * mzp * ( 4.73728576834e-07 ) +  2 * mzp * ( -0.000497060325936 ) + 2 * mzp * mzp * ( 1.08332275786e-07 ) + 2 * mzp * mzp * mzp * ( -1.05060667232e-10 ) + mzp * mzp * mzp * mzp * ( 2.3742090943e-14 ) );
       }
     }
     else
@@ -131,12 +131,12 @@ float QCDWeight(float mzp, string mode, string syst)
       if (contains(mode,"1"))
       {
         //retta down 1btag
-        return QCDWeight(mzp,mode,"nominal") - sqrt( 0.0071710024346 + mzp * mzp * ( 1.68567026342e-09 ) +  2 * mzp * ( -3.3576491189e-06 ) );
+        return QCDWeight(mzp,mode,"nominal") - sqrt( 0.00717099607731 + mzp * mzp * ( 1.68566870973e-09 ) +  2 * mzp * ( -3.35764597328e-06 ) );
       }
       else
       {
         //retta down 2btag
-        return QCDWeight(mzp,mode,"nominal") - sqrt( 0.0379661070487 + mzp * mzp * ( 8.82665212869e-09 ) +  2 * mzp * ( -1.76812706191e-05 ) );
+        return QCDWeight(mzp,mode,"nominal") - sqrt( 0.0379661019324 + mzp * mzp * ( 8.82665095633e-09 ) +  2 * mzp * ( -1.76812681674e-05 ) );
       }
     }
   }
@@ -147,19 +147,19 @@ float QCDWeightFat(float mzp, string mode, string syst)
  float weight = 1.0;
  if (mode=="1")
  {
-  weight = 1.32130072233 + mzp * ( -0.000198404914715 );
+  weight = 1.32130077513 + mzp * ( -0.000198404933873 );
  }
  if (mode=="2")
  {
-  weight = 1.30773562166 + mzp * ( -0.000204175716166 );
+  weight = 1.30773549805 + mzp * ( -0.000204175654004 );
  }
  if (mode=="1par")
  {
-  weight = 1.85203876602 + mzp * ( -0.000776802891603 ) + mzp * mzp * ( 1.43786864803e-07 );
+  weight = 1.85203865623 + mzp * ( -0.000776802731189 ) + mzp * mzp * ( 1.43786819025e-07 );
  }
  if (mode=="2par")
  {
-  weight = 1.16136650717 + mzp * ( -4.00092857967e-05 ) + mzp * mzp * ( -4.16348684394e-08 );
+  weight = 1.1613662247 + mzp * ( -4.00090452525e-05 ) + mzp * mzp * ( -4.16349138505e-08 );
  }
  if (syst=="nominal")
   {
@@ -182,12 +182,12 @@ float QCDWeightFat(float mzp, string mode, string syst)
       if (contains(mode,"1"))
       {
         //parabola up 1btag
-        return QCDWeightFat(mzp,mode,"nominal") + sqrt( 0.035986102281 + mzp * mzp * ( 3.93199777785e-08 ) +  2 * mzp * ( -3.70145618957e-05 ) + 2 * mzp * mzp * ( 8.73083339147e-09 ) + 2 * mzp * mzp * mzp * ( -9.51485979864e-12 ) + mzp * mzp * mzp * mzp * ( 2.36534768987e-15 ) );
+        return QCDWeightFat(mzp,mode,"nominal") + sqrt( 0.0359877537007 + mzp * mzp * ( 3.93219309635e-08 ) +  2 * mzp * ( -3.70163579434e-05 ) + 2 * mzp * mzp * ( 8.73127872126e-09 ) + 2 * mzp * mzp * mzp * ( -9.51534404971e-12 ) + mzp * mzp * mzp * mzp * ( 2.36546773973e-15 ) );
       }
       else
       {
         //parabola up 2btag
-        return QCDWeightFat(mzp,mode,"nominal") + sqrt( 0.20417786131 + mzp * mzp * ( 2.3785071788e-07 ) +  2 * mzp * ( -0.000217091447032 ) + 2 * mzp * mzp * ( 5.24414446801e-08 ) + 2 * mzp * mzp * mzp * ( -5.88178476897e-11 ) + mzp * mzp * mzp * mzp * ( 1.49170016637e-14 ) );
+        return QCDWeightFat(mzp,mode,"nominal") + sqrt( 0.204168365264 + mzp * mzp * ( 2.37839231464e-07 ) +  2 * mzp * ( -0.000217081004862 ) + 2 * mzp * mzp * ( 5.24388496656e-08 ) + 2 * mzp * mzp * mzp * ( -5.88149923187e-11 ) + mzp * mzp * mzp * mzp * ( 1.49162916675e-14 ) );
       }
     }
     else
@@ -195,12 +195,12 @@ float QCDWeightFat(float mzp, string mode, string syst)
       if (contains(mode,"1"))
       {
         //retta up 1btag
-        return QCDWeightFat(mzp,mode,"nominal") + sqrt( 0.00375936045942 + mzp * mzp * ( 1.04545407965e-09 ) +  2 * mzp * ( -1.89386710835e-06 ) );
+        return QCDWeightFat(mzp,mode,"nominal") + sqrt( 0.00375935743191 + mzp * mzp * ( 1.04545312548e-09 ) +  2 * mzp * ( -1.89386540374e-06 ) );
       }
       else
       {
         //retta up 2btag
-        return QCDWeightFat(mzp,mode,"nominal") + sqrt( 0.019817390707 + mzp * mzp * ( 5.93150380807e-09 ) +  2 * mzp * ( -1.03144316642e-05 ) );
+        return QCDWeightFat(mzp,mode,"nominal") + sqrt( 0.0198173865115 + mzp * mzp * ( 5.93150248701e-09 ) +  2 * mzp * ( -1.03144293333e-05 ) );
       }
     }
   }
@@ -211,12 +211,12 @@ float QCDWeightFat(float mzp, string mode, string syst)
       if (contains(mode,"1"))
       {
         //parabola down 1btag
-        return QCDWeightFat(mzp,mode,"nominal") - sqrt( 0.035986102281 + mzp * mzp * ( 3.93199777785e-08 ) +  2 * mzp * ( -3.70145618957e-05 ) + 2 * mzp * mzp * ( 8.73083339147e-09 ) + 2 * mzp * mzp * mzp * ( -9.51485979864e-12 ) + mzp * mzp * mzp * mzp * ( 2.36534768987e-15 ) );
+        return QCDWeightFat(mzp,mode,"nominal") - sqrt( 0.0359877537007 + mzp * mzp * ( 3.93219309635e-08 ) +  2 * mzp * ( -3.70163579434e-05 ) + 2 * mzp * mzp * ( 8.73127872126e-09 ) + 2 * mzp * mzp * mzp * ( -9.51534404971e-12 ) + mzp * mzp * mzp * mzp * ( 2.36546773973e-15 ) );
       }
       else
       {
         //parabola down 2btag
-        return QCDWeightFat(mzp,mode,"nominal") - sqrt( 0.20417786131 + mzp * mzp * ( 2.3785071788e-07 ) +  2 * mzp * ( -0.000217091447032 ) + 2 * mzp * mzp * ( 5.24414446801e-08 ) + 2 * mzp * mzp * mzp * ( -5.88178476897e-11 ) + mzp * mzp * mzp * mzp * ( 1.49170016637e-14 ) );
+        return QCDWeightFat(mzp,mode,"nominal") - sqrt( 0.204168365264 + mzp * mzp * ( 2.37839231464e-07 ) +  2 * mzp * ( -0.000217081004862 ) + 2 * mzp * mzp * ( 5.24388496656e-08 ) + 2 * mzp * mzp * mzp * ( -5.88149923187e-11 ) + mzp * mzp * mzp * mzp * ( 1.49162916675e-14 ) );
       }
     }
     else
@@ -224,12 +224,12 @@ float QCDWeightFat(float mzp, string mode, string syst)
       if (contains(mode,"1"))
       {
         //retta down 1btag
-        return QCDWeightFat(mzp,mode,"nominal") - sqrt( 0.00375936045942 + mzp * mzp * ( 1.04545407965e-09 ) +  2 * mzp * ( -1.89386710835e-06 ) );
+        return QCDWeightFat(mzp,mode,"nominal") - sqrt( 0.00375935743191 + mzp * mzp * ( 1.04545312548e-09 ) +  2 * mzp * ( -1.89386540374e-06 ) );
       }
       else
       {
         //retta down 2btag
-        return QCDWeightFat(mzp,mode,"nominal") - sqrt( 0.019817390707 + mzp * mzp * ( 5.93150380807e-09 ) +  2 * mzp * ( -1.03144316642e-05 ) );
+        return QCDWeightFat(mzp,mode,"nominal") - sqrt( 0.0198173865115 + mzp * mzp * ( 5.93150248701e-09 ) +  2 * mzp * ( -1.03144293333e-05 ) );
       }
     }
   }

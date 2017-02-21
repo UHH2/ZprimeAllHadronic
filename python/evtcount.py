@@ -23,7 +23,7 @@ systypes_ttbar=[
           ]
 
 systypes_rate=[
-		[0.027,'lumi'],[0.03,'trig']#,[0.15,'norm']
+		[0.023,'lumi'],[0.03,'trig']#,[0.15,'norm']
 		]
 
 systypes_rate2=[

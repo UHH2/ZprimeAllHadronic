@@ -351,7 +351,10 @@ if doresults:
 			else:
 				exp2sigma.SetMinimum(0.007)
 			exp2sigma.Draw('a3lp')
-			exp2sigma.GetXaxis().SetTitle("Z' mass [TeV]")
+			if triplet[0]==0.0:
+				exp2sigma.GetXaxis().SetTitle("#rho^{0}_{L} mass [TeV]")
+			else:
+				exp2sigma.GetXaxis().SetTitle("G* mass [TeV]")
 			exp2sigma.GetXaxis().SetRangeUser(1.4,2.6)
 			exp2sigma.GetYaxis().SetTitle("Upper cross section limit [pb]")
 
@@ -406,7 +409,7 @@ if doresults:
   				legend.AddEntry(theory_curve_1110,"G*#rightarrow Tt, tan #theta_{3} = 0.44, sin #phi_{tR} = 0.6, Y_{*} = 3",'l')
   			#legend.AddEntry(theory_curve_1410,"#rho_{0}#rightarrow Tt (arXiv:1410.2883)",'l')
   			if triplet[0]==0.0:
-  				legend.AddEntry(theory_curve_1410,"#rho^{0}_{L}#rightarrow Tt, y = c_{3} = 1, g_{#rho} = 3",'l')
+  				legend.AddEntry(theory_curve_1410,"#rho^{0}_{L}#rightarrow Tt, y_{L} = c_{2} = c_{3} = 1, g_{#rho_{L}} = 3",'l')
   			if triplet[0]==0.0:
   				#theory_curve_1110_33.SetLineColor(kGreen+3)
   				legend.AddEntry(theory_curve_1110_33,"#Gamma_{#rho^{0}_{L}}/m_{#rho^{0}_{L}} > 10 %",'l')
@@ -427,7 +430,7 @@ if doresults:
 			this_line_obs=filter(None, theta_obs_lines[masspoint+1].split(' '))
 			assert(int(this_line_exp[0])==counter and int(this_line_obs[0])==counter)
 			if triplet in [[1.0,0.0,0.0],[0.0,1.0,0.0],[0.0,0.0,1.0]]:
-				print signal_Zp_masses2[masspoint],'&',signal_Tp_masses2[masspoint],'&',\
+				print int(float(signal_Zp_masses2[masspoint])*1000),'&',int(float(signal_Tp_masses2[masspoint])*1000),'&',\
 			'%s' % float('%.2g' % float(this_line_obs[1])),'&',\
 			'%s' % float('%.2g' % float(this_line_exp[2])),'&',\
 			'%s' % float('%.2g' % float(this_line_exp[4])),'&',\
