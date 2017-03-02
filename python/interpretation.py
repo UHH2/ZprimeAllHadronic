@@ -396,9 +396,9 @@ if doresults:
   			legend.SetLineWidth(1)
   			legend.SetFillColor(0)
   			legend.SetFillStyle(0)
-  			legend.SetHeader('B(T#rightarrow bW, tH, tZ) = 50%, 25%, 25%')
+  			legend.SetHeader('#bf{#it{#Beta}}(T#rightarrow bW, tH, tZ) = 50%, 25%, 25%')
   			if triplet[0]==0.0:
-  				legend.SetHeader('B(T#rightarrow tH, tZ) = 50%, 50%')
+  				legend.SetHeader('#bf{#it{#Beta}}(T#rightarrow tH, tZ) = 50%, 50%')
   			legend.AddEntry(obslim,'Observed','l')
   			legend.AddEntry(explim,'Expected','l')
   			legend.AddEntry(exp1sigma,'#pm 1 std. deviation','f')

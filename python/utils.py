@@ -216,14 +216,14 @@ def make_fitplot(ratio,ratiomean,ratioup,ratiodown,btag):
   legend.SetLineWidth(1)
   legend.SetFillColor(0)
   legend.SetFillStyle(0)
-  legend.AddEntry(ratio,'QCD multijets','le')
+  legend.AddEntry(ratio,'QCD multijet','le')
   legend.AddEntry(ratiomean,'Fit','l')
   legend.AddEntry(ratioup,'#pm 1 std. deviation','l')
   legend.SetTextSize(0.05)
   legend.Draw()
 
   CMS_lumi.writeExtraText = True
-  CMS_lumi.CMS_lumi(c, 4, 11)
+  CMS_lumi.CMS_lumi(c, 0, 11)
   c.SaveAs('pdf/fitplot'+btag.replace(' ','')+'.pdf')
   CMS_lumi.writeExtraText = False
 
@@ -346,15 +346,15 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   bottom_pad=canvas.GetPad(2)
   top_pad.SetPad( 0.0, 0.30, 1.0, 1.0 )
   bottom_pad.SetPad( 0.0, 0.0, 1.0, 0.30 )
-  top_pad.SetLeftMargin(0.15)
-  top_pad.SetRightMargin(0.05)
+  top_pad.SetLeftMargin(0.17)
+  top_pad.SetRightMargin(0.07)
   if separate_legend:
-    top_pad.SetTopMargin(0.10)
+    top_pad.SetTopMargin(0.12)
   else:
     top_pad.SetTopMargin(0.25)
   top_pad.SetBottomMargin(0.0)
-  bottom_pad.SetLeftMargin(0.15)
-  bottom_pad.SetRightMargin(0.05)
+  bottom_pad.SetLeftMargin(0.17)
+  bottom_pad.SetRightMargin(0.07)
   bottom_pad.SetTopMargin(0.0)
   bottom_pad.SetBottomMargin(0.45)
   if not drawratio:
@@ -385,13 +385,13 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   legend=TLegend(0.47,0.43,0.9,0.9)
   legend.SetNColumns(2)
   legend.SetHeader('')
-  if 'parabola' in name and '2' in name:
-    legend.SetHeader('2 b-tag category')
-  elif 'parabola' in name and '1' in name:
-    legend.SetHeader('1 b-tag category')
+  # if 'parabola' in name and '2' in name:
+  #   legend.SetHeader('2 b-tag category')
+  # elif 'parabola' in name and '1' in name:
+  #   legend.SetHeader('1 b-tag category')
   if 'parabola' in name:
     legend.SetNColumns(1)
-    legend.SetTextSize(0.05)
+    legend.SetTextSize(0.047)
   legend.SetBorderSize(0)
   legend.SetTextFont(42)
   legend.SetLineColor(1)
@@ -465,11 +465,13 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   sum_mc.SetLineColor(kBlack)
   sum_mc.SetFillStyle(0)
   err=TGraphAsymmErrors(sum_mc)
-  legend.AddEntry(err,'Total error','f')
+  legend.AddEntry(err,'Total uncertainty','f')
 
   if legendtitle=='':
+    legend.AddEntry(0,"",'')
     legend.AddEntry(0,"Z'#rightarrowTt, T#rightarrowbW",'')
   else:
+    legend.AddEntry(0,"",'')
     legend.AddEntry(0,legendtitle,'')
 
   ###signal setting up
@@ -668,7 +670,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
 
 
   err.SetFillStyle(3145)
-  err.SetFillColor(kGray)
+  err.SetFillColor(kGray+1)
   
   ###pull distribution
   pull=data_histo.Clone()
@@ -743,6 +745,20 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   if not separate_legend:
     legend.Draw()
   legend.Draw()
+
+  latex2text=''
+  if 'parabola' in name and '2' in name:
+    latex2text='2 b-tag category'
+  elif 'parabola' in name and '1' in name:
+    latex2text='1 b-tag category'
+  latex2=TLatex(0.205,0.7,latex2text)
+  latex2.SetTextSize(0.05)
+  latex2.SetNDC(1)
+  latex2.SetTextFont(42)
+  latex2.Draw()
+
+  
+
   #latex.Draw()
 
 

@@ -2964,7 +2964,7 @@ for names in [
         signal_legend=signalWB_legendnames_short,
         separate_legend=True,
         signal_zoom=signalzoom,
-        qcd_legend='QCD multijets',
+        qcd_legend='QCD multijet',
         ttbar_legend='Top quark',
         fixratio=True,
         signal_colors=[kOrange+10,kAzure+1,kSpring-6],
