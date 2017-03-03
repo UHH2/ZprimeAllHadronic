@@ -206,9 +206,7 @@ def make_fitplot(ratio,ratiomean,ratioup,ratiodown,btag):
   ratiodown.Draw('SAME')
 
   legend=TLegend(0.5,0.65,0.9,0.9)
-  legend.SetHeader('2 b-tag category')
-  if '1' in btag:
-    legend.SetHeader('1 b-tag category')
+  legend.SetHeader('')
   legend.SetBorderSize(0)
   legend.SetTextFont(42)
   legend.SetLineColor(1)
@@ -216,11 +214,21 @@ def make_fitplot(ratio,ratiomean,ratioup,ratiodown,btag):
   legend.SetLineWidth(1)
   legend.SetFillColor(0)
   legend.SetFillStyle(0)
+  legend.AddEntry(0,"",'')
   legend.AddEntry(ratio,'QCD multijet','le')
   legend.AddEntry(ratiomean,'Fit','l')
   legend.AddEntry(ratioup,'#pm 1 std. deviation','l')
   legend.SetTextSize(0.05)
   legend.Draw()
+
+  texheader='2 b-tag category'
+  if '1' in btag:
+    texheader='1 b-tag category'
+  latex=TLatex(0.4,0.85,texheader)
+  latex.SetNDC(1)
+  latex.SetTextFont(42)
+  latex.SetTextSize(0.05)
+  latex.Draw()
 
   CMS_lumi.writeExtraText = True
   CMS_lumi.CMS_lumi(c, 0, 11)
@@ -477,7 +485,7 @@ def make_ratioplot(name, ttbar_file=0, qcd_file=0, data_file=0, signal_files=[],
   ###signal setting up
   signal_histos=[]
   colors=[30,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60]
-  styles=[1,7,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+  styles=[5,7,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
   if signal_colors!=[]:
     colors=signal_colors
   for i in range(len(signal_files)):
